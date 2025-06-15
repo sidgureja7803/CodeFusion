@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import "../styles/Footer.css";
-import footer from "../assets/images/footer.png";
+// Using CSS gradient background instead of batman image
 
 export const Footer = () => {
   // Animation variants
@@ -82,10 +82,10 @@ export const Footer = () => {
   ];
 
   const socialLinks = [
-    { name: "LinkedIn", href: "https://www.linkedin.com/in/kapilovsky/" },
-    { name: "Twitter", href: "https://x.com/kapilovsky" },
-    { name: "Github", href: "https://github.com/kapilovsky" },
-    { name: "Youtube", href: "https://www.youtube.com/@kapilovsky" },
+    { name: "LinkedIn", href: "https://www.linkedin.com/in/sidgureja" },
+    { name: "Twitter", href: "https://x.com/sidgureja" },
+    { name: "Github", href: "https://github.com/sidgureja7803" },
+    { name: "Instagram", href: "https://www.instagram.com/sidgureja" },
   ];
 
   const scrollToSection = (sectionId) => {
@@ -115,17 +115,17 @@ export const Footer = () => {
           ease: "anticipate",
         }}
       >
-        {/* Background Image */}
+        {/* Background Gradient */}
         <div className="footer">
-          <motion.img
+          <motion.div
             initial={{ scale: 1.1, opacity: 0.7 }}
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 1.2 }}
-            src={footer}
-            className="z-[1] absolute pointer-events-none bottom-1 sm:bottom-0 left-0 object-cover w-full h-full"
-            alt=""
-            loading="eager"
+            className="z-[1] absolute pointer-events-none bottom-1 sm:bottom-0 left-0 w-full h-full bg-gradient-to-t from-slate-900 via-purple-900/50 to-transparent"
+            style={{
+              backgroundImage: "linear-gradient(to top, #0f172a, #1e1b4b, #312e81, transparent)",
+            }}
           />
         </div>
 
@@ -333,7 +333,7 @@ export const Footer = () => {
             viewport={{ once: true }}
           >
             <p>
-              &copy; {new Date().getFullYear()} Arkham Labs. All rights
+              &copy; {new Date().getFullYear()} CodeFusion. All rights
               reserved.
             </p>
             <motion.p
@@ -351,20 +351,20 @@ export const Footer = () => {
                 repeatType: "reverse",
               }}
             >
-              Train in the Shadows. Strike in the Interview.
+              Code Together. Build Better. Deploy Faster.
             </motion.p>
           </motion.div>
         </motion.div>
 
-        {/* Large Arkham Text */}
+        {/* Large CodeFusion Text */}
         <motion.h1
-          className="sepulture z-[2] absolute bottom-0 sm:text-[420px] text-9xl pointer-events-none select-none text-[#767676] mix-blend-color-dodge tracking-tight"
+          className="sepulture z-[2] absolute bottom-0 sm:text-[280px] text-6xl pointer-events-none select-none text-[#767676] mix-blend-color-dodge tracking-tight"
           variants={logoVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          Arkham
+          CodeFusion
         </motion.h1>
       </motion.div>
     </motion.div>

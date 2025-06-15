@@ -3,7 +3,7 @@ import {
   getAIHelp,
   getCodeExplanation,
   generateAIProblem,
-} from "../controllers/groq.controller.js";
+} from "../controllers/ai.controller.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
 
 const aiAssistantRoutes = express.Router();

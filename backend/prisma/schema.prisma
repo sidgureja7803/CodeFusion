@@ -37,6 +37,10 @@ model User {
   lastLogin     DateTime?
   streakCount   Int       @default(0)
   maxStreakCount Int      @default(0)
+  
+  // Firebase integration fields
+  firebaseUid   String?   @unique
+  authProvider  String?   // 'google.com', 'github.com', etc.
 
   problems       Problem[]
   submissions    Submission[]

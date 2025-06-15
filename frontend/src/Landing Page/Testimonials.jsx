@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { Quote, Star } from "lucide-react";
 import gsap from "gsap";
-import bg from "../assets/images/arkham4.png";
+// Using CSS gradient background instead of batman image
 import "../styles/ThirdPage.css";
 
 export const Testimonials = () => {

@@ -12,6 +12,7 @@ import aiAssistantRoutes from "./routes/ai.routes.js";
 import liveblocksRoutes from "./routes/liveblocks.route.js";
 import discussionRoutes from "./routes/discussion.routes.js";
 import metricsRoutes from "./routes/metrics.route.js";
+import firebaseAuthRoutes from "./routes/firebase-auth.routes.js";
 
 dotenv.config();
 
@@ -47,6 +48,7 @@ app.use("/api/v1/ai", aiAssistantRoutes);
 app.use("/api/v1/liveblocks", liveblocksRoutes);
 app.use("/api/v1/discussions", discussionRoutes);
 app.use("/api/v1/metrics", metricsRoutes);
+app.use("/api/v1/firebase-auth", firebaseAuthRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

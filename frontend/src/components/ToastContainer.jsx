@@ -25,13 +25,13 @@ const ToastContainer = () => {
   const getTypeClasses = (type) => {
     switch (type) {
       case "success":
-        return "arkham-toast-success";
+        return "codefusion-toast-success";
       case "error":
-        return "arkham-toast-error";
+        return "codefusion-toast-error";
       case "warning":
-        return "arkham-toast-warning";
+        return "codefusion-toast-warning";
       default:
-        return "arkham-toast-info";
+        return "codefusion-toast-info";
     }
   };
 
@@ -45,7 +45,7 @@ const ToastContainer = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 100 }}
             transition={{ duration: 0.3 }}
-            className={`arkham-toast ${getTypeClasses(toast.type)}`}
+            className={`codefusion-toast ${getTypeClasses(toast.type)}`}
           >
             {/* Icon */}
             <span className="toast-icon">{getIcon(toast.type)}</span>

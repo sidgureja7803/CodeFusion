@@ -22,7 +22,7 @@ import {
   Download,
 } from "lucide-react";
 import "../styles/ProblemForm.css";
-import aiBat from "../assets/images/ai-bat.png";
+// Using CSS-based AI icon instead of batman image
 import aiorb from "../assets/images/ai-orb.webp";
 import aiorb2 from "../assets/images/ai-orb2.webp";
 

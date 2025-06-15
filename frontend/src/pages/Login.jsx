@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, Mail, Lock, Code2, ArrowRight } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
+import SocialLoginButtons from "../components/SocialLoginButtons";
 import { toast } from "react-hot-toast";
 import gsap from "gsap";
 
@@ -135,6 +136,11 @@ export const Login = () => {
             <p className="text-gray-400">
               Sign in to continue your coding journey with CodeFusion
             </p>
+          </div>
+
+          {/* Social Login Buttons */}
+          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
+            <SocialLoginButtons />
           </div>
 
           {/* Login Form */}

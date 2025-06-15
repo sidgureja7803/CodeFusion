@@ -14,7 +14,7 @@ import { useAIAssistantStore } from "../store/useAIAssistantStore";
 import ReactMarkdown from "react-markdown";
 import { motion, AnimatePresence } from "framer-motion";
 import "../styles/AIChatPanel.css";
-import aiorb from "../assets/images/ai-bat.png";
+// Using CSS-based AI icon instead of batman image
 
 const AIChatPanel = ({ problem, code, language }) => {
   const [prompt, setPrompt] = useState("");
@@ -187,7 +187,9 @@ const AIChatPanel = ({ problem, code, language }) => {
           <div className="ai-chat-messages">
             {history.length === 0 ? (
               <div className="empty-state">
-                <img src={aiorb} className="w-14 opacity-50" alt="" />
+                <div className="ai-icon w-14 h-14 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center opacity-50 mb-4">
+                  <Bot className="w-8 h-8 text-white" />
+                </div>
                 <p>Ask me anything about this problem or your code!</p>
               </div>
             ) : (

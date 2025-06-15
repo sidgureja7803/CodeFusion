@@ -266,7 +266,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/kapil/Arkham-Labs/backend/src/generated/prisma",
+      "value": "/Users/siddhantgureja/Desktop/CodeFusion/backend/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -275,12 +275,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x",
+        "value": "darwin-arm64",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/kapil/Arkham-Labs/backend/prisma/schema.prisma",
+    "sourceFilePath": "/Users/siddhantgureja/Desktop/CodeFusion/backend/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -294,11 +294,12 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://kapil:kapil@localhost:5433/db"
+        "value": null
       }
     }
   },

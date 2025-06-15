@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, Mail, Lock, User, Code2, ArrowRight, CheckCircle } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
+import SocialLoginButtons from "../components/SocialLoginButtons";
 import { toast } from "react-hot-toast";
 import gsap from "gsap";
 
@@ -202,6 +203,11 @@ export const SignUp = () => {
             <div className="text-center mb-8">
               <h2 className="text-2xl font-bold text-white mb-2">Create Account</h2>
               <p className="text-gray-400">Get started with your free account</p>
+            </div>
+
+            {/* Social Login Buttons */}
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 mb-6">
+              <SocialLoginButtons />
             </div>
 
             {/* Sign Up Form */}

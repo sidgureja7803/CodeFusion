@@ -1,221 +1,173 @@
-# CodeFusion
+# 🚀 CodeFusion
 
-<div align="center">
-  <img src="frontend/public/CodeFusion_Banner.png" alt="CodeFusion Banner" width="100%">
+**CodeFusion** is a modern collaborative coding platform that brings developers together to code in real-time, learn from each other, and build amazing projects with the power of AI assistance.
 
-  <p align="center">
-    <strong>Collaborative Coding Platform with Real-Time Editing and AI Assistance</strong>
-  </p>
+## ✨ Features
 
-  <p align="center">
-    💻 Solve. Collaborate. Evolve. ⚡
-  </p>
-
-  <p align="center">
-    <a href="https://codefusion.live">🌐 Live Demo</a>
-  </p>
-</div>
-
----
-
-## 🎯 Project Overview
-
-**CodeFusion** is a cutting-edge platform built for collaborative problem-solving, code sharing, and AI-powered assistance. From real-time code collaboration and custom problem creation to AI-guided solutions and test case management, CodeFusion is the ultimate playground for developers and learners.
-
-This project was developed during the Trae AI IDE: Zero Limits Hackathon and aims to streamline the problem-solving journey by fusing teamwork, learning, and technology.
-
----
-
-## ✨ Key Features
-
-### 🛠️ Core Features
-
-* 🚀 **Real-Time Code Collaboration** with Liveblocks
-* ✍️ **Custom Problem Creation** with difficulty, tags, and company mappings
-* ✅ **Code Submissions** using Judge0 API (multi-language support)
-* 🧪 **Test Case Management** for every question
-* 📊 **Submission History** with analytics
+### 🤝 Real-Time Collaboration
+- **Live Code Editing**: Code together with your team in real-time
+- **Shared Cursors**: See exactly where your teammates are working
+- **Instant Sync**: Changes appear instantly across all connected users
+- **Voice & Video Chat**: Communicate while you code
 
 ### 🤖 AI-Powered Assistant
+- **Intelligent Code Suggestions**: Get contextually relevant code completions
+- **Debugging Help**: AI-powered error detection and solutions
+- **Code Explanations**: Understand complex code with AI explanations
+- **Best Practices**: Learn coding best practices as you work
 
-* 💬 **AI Code Review & Debugging** via Novita AI (Llama 3 8b instruct)
-* 🤖 **Smart Hints & Explanations** contextual to your code
-* 🧠 **DSA Topic Guidance** based on user queries
+### 📁 Project Management
+- **Team Workspaces**: Organize your projects and collaborate with your team
+- **Version Control Integration**: Seamless Git integration
+- **Project Templates**: Quick start with pre-configured project templates
+- **Progress Tracking**: Monitor your coding progress and achievements
 
-### 👥 User Experience
+### 🎯 Learning & Growth
+- **Coding Challenges**: Practice with curated coding problems
+- **Skill Assessment**: Track your programming skills and improvement
+- **Community Learning**: Learn from other developers in the community
+- **Achievement System**: Earn badges and track your coding journey
 
-* 🔐 **JWT-Based Authentication** with secure refresh tokens
-* 🌈 **Monaco Editor** with syntax highlighting and theme switching
-* 📂 **Personal Dashboard** for tracking submissions and solving streaks
-* 📋 **Tag-Based Filters** to explore and solve targeted questions
-
----
-
-## 🔧 Tech Stack
+## 🛠️ Tech Stack
 
 ### Frontend
-
-* React + Vite
-* Tailwind CSS
-* Monaco Editor
-* Liveblocks (Real-time sync)
-* Zustand (State management)
-* React Hook Form + Zod
-* Framer Motion / GSAP (Animations)
+- **React 18** - Modern React with hooks and functional components
+- **Vite** - Lightning-fast build tool and development server
+- **Tailwind CSS** - Utility-first CSS framework for rapid UI development
+- **Framer Motion** - Smooth animations and transitions
+- **GSAP** - High-performance animations and effects
+- **Lucide React** - Beautiful, customizable icons
 
 ### Backend
+- **Node.js** - JavaScript runtime for server-side development
+- **Express.js** - Fast, unopinionated web framework
+- **Prisma** - Next-generation ORM for database management
+- **PostgreSQL** - Robust, scalable relational database
+- **JWT** - Secure authentication and authorization
+- **LLaMA API** - Advanced AI integration for code assistance
 
-* Node.js + Express
-* PostgreSQL + Prisma ORM
-* Judge0 API (Code Execution)
-* Novita AI (LLaMA 3.3 70B for assistance)
-* JWT Auth (with access and refresh tokens)
-
-### DevOps
-
-* Dockerized Services
-* Azure VM Hosting
-* NGINX Reverse Proxy
-* PM2 Process Manager
-
----
+### Real-Time Features
+- **WebSockets** - Real-time bidirectional communication
+- **Operational Transformation** - Conflict-free collaborative editing
+- **Live Cursors** - Real-time cursor sharing and presence
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-
-* Node.js 18+
-* PostgreSQL 14+
-* Docker (optional)
+- Node.js (v18 or higher)
+- npm or yarn
+- PostgreSQL database
+- LLaMA API key
 
 ### Installation
 
-```bash
-# Clone the repo
-$ git clone https://github.com/yourusername/codefusion.git
-$ cd codefusion
-```
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/sidgureja7803/codefusion.git
+   cd codefusion
+   ```
 
-### Backend Setup
+2. **Install dependencies**
+   ```bash
+   # Install frontend dependencies
+   cd frontend
+   npm install
 
-```bash
-cd backend
-npm install
-cp .env.sample .env
-# Set DB & API keys
-npx prisma migrate dev
-npx prisma generate
-npm run dev
-```
+   # Install backend dependencies
+   cd ../backend
+   npm install
+   ```
 
-### Frontend Setup
+3. **Set up environment variables**
+   
+   Create a `.env` file in the backend directory:
+   ```env
+   DATABASE_URL="postgresql://username:password@localhost:5432/codefusion"
+   JWT_SECRET="your-super-secret-jwt-key"
+   LLAMA_API_KEY="your-llama-api-key"
+   LLAMA_API_URL="https://api.llama-api.com"
+   PORT=5000
+   ```
 
-```bash
-cd frontend
-npm install
-npm run dev
-```
+   Create a `.env` file in the frontend directory:
+   ```env
+   VITE_API_URL="http://localhost:5000"
+   ```
 
-### Access Locally
+4. **Set up the database**
+   ```bash
+   cd backend
+   npx prisma migrate dev
+   npx prisma generate
+   ```
 
-* Frontend: [http://localhost:5173](http://localhost:5173)
-* Backend: [http://localhost:3000](http://localhost:3000)
+5. **Start the development servers**
+   
+   Backend:
+   ```bash
+   cd backend
+   npm run dev
+   ```
+   
+   Frontend (in a new terminal):
+   ```bash
+   cd frontend
+   npm run dev
+   ```
 
----
+6. **Open your browser**
+   Navigate to `http://localhost:5173` to see CodeFusion in action!
 
-## 📁 Folder Structure
+## 📖 Usage
 
-```
-codefusion/
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── store/
-│   │   ├── utils/
-│   └── public/
-├── backend/
-│   ├── src/
-│   │   ├── controllers/
-│   │   ├── routes/
-│   │   ├── prisma/
-│   │   ├── middleware/
-```
+### Creating Your First Project
+1. Sign up for a CodeFusion account
+2. Click "New Project" on your dashboard
+3. Choose a project template or start from scratch
+4. Invite team members to collaborate
+5. Start coding together in real-time!
 
----
+### Using AI Assistant
+1. Open any project in the code editor
+2. Type your code and get intelligent suggestions
+3. Ask questions in natural language for help
+4. Get explanations for complex code snippets
 
-## 📌 Environment Variables
+### Collaborative Features
+1. Share your project link with team members
+2. See live cursors and selections
+3. Use voice/video chat for better communication
+4. Track changes and manage versions with Git integration
 
-### Backend (.env)
+## 🤝 Contributing
 
-```env
-DATABASE_URL="postgresql://username:password@localhost:5432/codefusion"
-JWT_SECRET="supersecret"
-JWT_REFRESH_SECRET="refreshsecret"
-JUDGE0_API_URL="https://judge0-instance-url"
-NOVITA_API_KEY="your-novita-api-key"
-LIVEBLOCKS_SECRET_KEY="liveblocks-secret"
-```
+We welcome contributions from the community! Here's how you can help:
 
-### Frontend (.env)
+1. **Fork the repository**
+2. **Create a feature branch** (`git checkout -b feature/amazing-feature`)
+3. **Commit your changes** (`git commit -m 'Add some amazing feature'`)
+4. **Push to the branch** (`git push origin feature/amazing-feature`)
+5. **Open a Pull Request**
 
-```env
-VITE_API_URL=http://localhost:3000/api/v1
-```
+### Development Guidelines
+- Follow the existing code style and conventions
+- Write clear, descriptive commit messages
+- Add tests for new features
+- Update documentation as needed
+- Ensure all tests pass before submitting
 
----
+## 📝 License
 
-## 🧠 AI Model Usage Strategy
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-| Task              | Model                |
-| ----------------- | -------------------- |
-| Quick Hint        | Mistral / LLaMA 3.8B |
-| Code Review       | LLaMA 3.3 70B        |
-| Explanation       | LLaMA 3.3 70B        |
-| Speed-First Tasks | Dolphin / Mistral    |
+## 🙏 Acknowledgments
 
-Use Novita AI's API to switch models dynamically based on query type.
-
----
-
-## 🏆 Achievements
-
-* Built under 48 hours in a Hackathon
-* Fully production-ready architecture
-* Real-time collaboration engine
-* AI-enhanced learning and review
-* Seamless test case + tag system
-
----
-
-## 📈 Roadmap
-
-* [ ] GitHub Integration (import & submit from repo)
-* [ ] AI Voice Feedback (via LLM + speech API)
-* [ ] Custom Leaderboards & Tournaments
-* [ ] Mobile App Version
-* [ ] Browser Extension for Question Snippets
-
----
-
-## 🙌 Acknowledgments
-
-* **Judge0** for powering code execution
-* **Novita AI** for robust model access
-* **Liveblocks** for real-time sync support
-* **Hackathon Team & Mentors** for guidance
+- Thanks to all the amazing developers who contribute to open source
+- Inspired by the collaborative coding community
+- Built with love for developers, by developers
 
 ---
 
-## 📬 Contact
+**Happy Coding! 🎉**
 
-**Siddhant Gureja**
-[LinkedIn](https://linkedin.com/in/sidgureja) • [GitHub](https://github.com/sidgureja7803) • [Email](mailto:siddhantgureja39@gmai.com)
-
-Live Demo: [https://codefusion.live](https://codefusion.live)
-
----
-
-<div align="center">
-  <strong>Code. Collaborate. Conquer. — Welcome to CodeFusion ⚡</strong>
-</div>
+*CodeFusion - Where collaborative coding meets AI-powered development*
