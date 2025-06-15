@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.7.0
- * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
+ * Prisma Client JS version: 6.9.0
+ * Query Engine version: 81e4af48011447c3cc503a190e86995b66d2a28e
  */
 Prisma.prismaVersion = {
-  client: "6.7.0",
-  engine: "3cff47a7f5d65c3ea74883f1d736e41d68ce91ed"
+  client: "6.9.0",
+  engine: "81e4af48011447c3cc503a190e86995b66d2a28e"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -157,33 +157,13 @@ exports.Prisma.ProblemScalarFieldEnum = {
 
 exports.Prisma.SubmissionScalarFieldEnum = {
   id: 'id',
-  problemId: 'problemId',
-  userId: 'userId',
-  sourceCode: 'sourceCode',
+  code: 'code',
   language: 'language',
-  stdin: 'stdin',
-  stdout: 'stdout',
-  stderr: 'stderr',
-  compileOutput: 'compileOutput',
   status: 'status',
+  runtime: 'runtime',
   memory: 'memory',
-  time: 'time',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.TestCaseResultScalarFieldEnum = {
-  id: 'id',
-  submissionId: 'submissionId',
-  testCase: 'testCase',
-  passed: 'passed',
-  stdout: 'stdout',
-  expected: 'expected',
-  stderr: 'stderr',
-  compileOutput: 'compileOutput',
-  status: 'status',
-  memory: 'memory',
-  time: 'time',
+  userId: 'userId',
+  problemId: 'problemId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -192,50 +172,49 @@ exports.Prisma.ProblemSolvedScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   problemId: 'problemId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  solvedAt: 'solvedAt'
 };
 
 exports.Prisma.PlaylistScalarFieldEnum = {
   id: 'id',
-  name: 'name',
+  title: 'title',
   description: 'description',
+  userId: 'userId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  userId: 'userId'
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.ProblemPlaylistScalarFieldEnum = {
   id: 'id',
   problemId: 'problemId',
   playlistId: 'playlistId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  createdAt: 'createdAt'
 };
 
-exports.Prisma.RevisionScalarFieldEnum = {
+exports.Prisma.DiscussionScalarFieldEnum = {
   id: 'id',
+  title: 'title',
+  content: 'content',
   userId: 'userId',
   problemId: 'problemId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.DiscussionScalarFieldEnum = {
-  id: 'id',
-  content: 'content',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  problemId: 'problemId',
-  authorId: 'authorId',
-  parentId: 'parentId'
-};
-
 exports.Prisma.DiscussionLikeScalarFieldEnum = {
   id: 'id',
-  createdAt: 'createdAt',
+  userId: 'userId',
   discussionId: 'discussionId',
-  userId: 'userId'
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.RevisionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  problemId: 'problemId',
+  content: 'content',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -277,13 +256,12 @@ exports.Prisma.ModelName = {
   User: 'User',
   Problem: 'Problem',
   Submission: 'Submission',
-  TestCaseResult: 'TestCaseResult',
   ProblemSolved: 'ProblemSolved',
   Playlist: 'Playlist',
   ProblemPlaylist: 'ProblemPlaylist',
-  Revision: 'Revision',
   Discussion: 'Discussion',
-  DiscussionLike: 'DiscussionLike'
+  DiscussionLike: 'DiscussionLike',
+  Revision: 'Revision'
 };
 
 /**

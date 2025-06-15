@@ -83,74 +83,41 @@ model Problem {
 }
 
 model Submission {
-  id            String   @id @default(uuid())
-  problemId     String
-  userId        String
-  sourceCode    Json
-  language      String
-  stdin         String?
-  stdout        String?
-  stderr        String?
-  compileOutput String?
-  status        String
-  memory        String?
-  time          String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  //Relations
-  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  testCases TestCaseResult[]
-}
-
-model TestCaseResult {
-  id            String  @id @default(uuid())
-  submissionId  String
-  testCase      Int
-  passed        Boolean
-  stdout        String?
-  expected      String?
-  stderr        String?
-  compileOutput String?
-  status        String
-  memory        String?
-  time          String?
-
+  id        String   @id @default(uuid())
+  code      String
+  language  String
+  status    String
+  runtime   Float?
+  memory    Float?
+  userId    String
+  problemId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  submission Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
-
-  @@index([submissionId])
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
 }
 
 model ProblemSolved {
   id        String   @id @default(uuid())
   userId    String
   problemId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  solvedAt  DateTime @default(now())
 
-  //Relations
-  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
   user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, problemId])
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
 }
 
 model Playlist {
-  id          String            @id @default(uuid())
-  name        String
-  description String?
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
+  id          String   @id @default(uuid())
+  title       String
+  description String
   userId      String
-  problems    ProblemPlaylist[]
-  user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  @@unique([name, userId]) // Unique playlist name for each user
+  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problemsPlaylist ProblemPlaylist[]
 }
 
 model ProblemPlaylist {
@@ -158,63 +125,44 @@ model ProblemPlaylist {
   problemId  String
   playlistId String
   createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
 
-  playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
   problem  Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+}
 
-  @@unique([problemId, playlistId]) // Unique problem in each playlist
+model Discussion {
+  id        String   @id @default(uuid())
+  title     String
+  content   String
+  userId    String
+  problemId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  likes DiscussionLike[]
+}
+
+model DiscussionLike {
+  id           String   @id @default(uuid())
+  userId       String
+  discussionId String
+  createdAt    DateTime @default(now())
+
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  discussion Discussion @relation(fields: [discussionId], references: [id], onDelete: Cascade)
 }
 
 model Revision {
   id        String   @id @default(uuid())
   userId    String
   problemId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  //Relations
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, problemId])
-  @@index([userId])
-}
-
-model Discussion {
-  id        String   @id @default(cuid())
   content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Relations
-  problemId String
-  problem   Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
-
-  authorId String
-  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
-
-  // Optional: Parent discussion for replies
-  parentId String?
-  parent   Discussion?  @relation("DiscussionReplies", fields: [parentId], references: [id])
-  replies  Discussion[] @relation("DiscussionReplies")
-
-  // Optional: Likes/votes
-  likes DiscussionLike[]
-
-  @@map("discussions")
-}
-
-model DiscussionLike {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-
-  discussionId String
-  discussion   Discussion @relation(fields: [discussionId], references: [id], onDelete: Cascade)
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([discussionId, userId])
-  @@map("discussion_likes")
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
 }

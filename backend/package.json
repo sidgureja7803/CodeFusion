@@ -14,7 +14,7 @@
   "description": "",
   "dependencies": {
     "@liveblocks/node": "^2.24.3",
-    "@prisma/client": "^6.7.0",
+    "@prisma/client": "^6.9.0",
     "axios": "^1.9.0",
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
@@ -24,12 +24,11 @@
     "firebase": "^11.9.1",
     "firebase-admin": "^13.4.0",
     "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.17.0",
+    "mongoose": "^8.15.2",
     "nodemon": "^3.1.10",
     "openai": "^4.104.0",
     "postgres": "^3.4.7",
-    "prisma": "^6.7.0"
-  },
-  "devDependencies": {
-    "prisma": "^6.7.0"
+    "prisma": "^6.9.0"
   }
 }

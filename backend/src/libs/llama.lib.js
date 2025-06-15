@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const baseURL = "https://api.novita.ai/v3/openai";
+const baseURL = "https://api.novita.ai/v1";
 const apiKey = process.env.NOVITA_API_KEY;
 const model = "meta-llama/llama-3-8b-instruct";
 

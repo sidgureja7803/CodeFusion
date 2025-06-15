@@ -25,6 +25,16 @@ export const connectDatabase = async () => {
   } catch (error) {
     console.error("❌ Database connection failed:");
     console.error(error.message);
+    
+    // Additional error handling for common PostgreSQL connection issues
+    if (error.message.includes('ECONNREFUSED')) {
+      console.error("💡 Tip: Make sure your PostgreSQL server is running");
+    } else if (error.message.includes('password authentication failed')) {
+      console.error("💡 Tip: Check your PostgreSQL username and password");
+    } else if (error.message.includes('database does not exist')) {
+      console.error("💡 Tip: Create the database first using 'createdb' or pgAdmin");
+    }
+    
     return false;
   }
 };
