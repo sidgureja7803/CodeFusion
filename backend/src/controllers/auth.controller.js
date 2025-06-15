@@ -6,60 +6,83 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const register = async (req, res) => {
-  const { name, email, password } = req.body;
-  console.log("Registering user:", { name, email, password });
+  console.log("=== REGISTRATION ENDPOINT HIT ===");
+  console.log("Request body:", req.body);
   
   try {
-    // Validate input
+    const { name, email, password } = req.body;
+    
+    // Basic validation
     if (!name || !email || !password) {
-      console.log("Missing required fields:", { name: !!name, email: !!email, password: !!password });
+      console.log("❌ Missing required fields");
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    // Check if user already exists
-    console.log("Checking if user exists with email:", email);
-    const existingUser = await db.user.findUnique({
-      where: { email },
-    });
+    console.log("✅ All fields provided");
+    console.log("📧 Email:", email);
+    console.log("👤 Name:", name);
 
+    // Test database connection
+    console.log("🔍 Testing database connection...");
+    const testQuery = await db.user.count();
+    console.log("✅ Database query successful. User count:", testQuery);
+
+    // Check if user exists
+    console.log("🔍 Checking if user exists...");
+    const existingUser = await db.user.findUnique({
+      where: { email: email.toLowerCase() },
+    });
+    
     if (existingUser) {
-      console.log("User already exists:", existingUser.email);
-      return res.status(400).json({ message: "User already exists" });
+      console.log("❌ User already exists");
+      return res.status(400).json({ message: "User already exists with this email" });
     }
+    
+    console.log("✅ Email is available");
 
     // Hash password
-    console.log("Hashing password...");
+    console.log("🔐 Hashing password...");
     const hashedPassword = await bcrypt.hash(password, 10);
-    console.log("Password hashed successfully");
+    console.log("✅ Password hashed");
 
-    // Create user
-    console.log("Creating user with data:", { name, email, role: Role.USER });
+    // Create user (simplified)
+    console.log("👤 Creating user...");
+    const userData = {
+      name: name.trim(),
+      email: email.toLowerCase().trim(),
+      password: hashedPassword,
+      role: "USER" // Use string instead of enum for now
+    };
+    console.log("User data to create:", { ...userData, password: "[HIDDEN]" });
+
     const newUser = await db.user.create({
-      data: {
-        name,
-        email,
-        password: hashedPassword,
-        role: Role.USER,
-      },
+      data: userData,
     });
-    console.log("User created successfully:", newUser.id);
+    
+    console.log("✅ User created with ID:", newUser.id);
 
-    // Generate JWT token
-    console.log("Generating JWT token...");
+    // Generate token
+    console.log("🔑 Generating JWT...");
+    if (!process.env.JWT_SECRET) {
+      throw new Error("JWT_SECRET is not defined");
+    }
+    
     const token = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
-    console.log("JWT token generated successfully");
+    console.log("✅ JWT generated");
 
+    // Set cookie
     res.cookie("jwt", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV !== "development",
+      secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
-    console.log("Registration successful for user:", newUser.email);
-    res.status(201).json({
+    console.log("🎉 Registration successful!");
+    
+    return res.status(201).json({
       success: true,
       message: "User created successfully",
       user: {
@@ -70,21 +93,21 @@ export const register = async (req, res) => {
         image: newUser.image,
       },
     });
+
   } catch (error) {
-    console.error("Detailed error creating user:");
-    console.error("Error name:", error.name);
-    console.error("Error message:", error.message);
-    console.error("Error code:", error.code);
-    console.error("Full error:", error);
+    console.log("💥 ERROR IN REGISTRATION:");
+    console.log("Error type:", error.constructor.name);
+    console.log("Error message:", error.message);
+    console.log("Error code:", error.code);
+    console.log("Error stack:", error.stack);
     
-    // Check for specific Prisma errors
     if (error.code === 'P2002') {
       return res.status(400).json({ message: "Email already exists" });
     }
     
-    res.status(500).json({ 
-      message: "Internal server error",
-      error: process.env.NODE_ENV === "development" ? error.message : undefined
+    return res.status(500).json({ 
+      message: "Registration failed",
+      error: process.env.NODE_ENV === "development" ? error.message : "Internal server error"
     });
   }
 };
