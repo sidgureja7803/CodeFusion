@@ -83,7 +83,7 @@ const ParallaxStickers = memo(() => {
       </div>
       <div className="text-xs font-mono text-blue-300">
         <div className="text-purple-400">const</div>
-        <div className="text-blue-300">collaborate = () => {"{"}</div>
+        <div className="text-blue-300">collaborate = () =&gt; {"{"}</div>
         <div className="text-green-400 ml-4">return "magic";</div>
         <div className="text-blue-300">{"}"}</div>
       </div>

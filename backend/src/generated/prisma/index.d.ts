@@ -2005,6 +2005,8 @@ export namespace Prisma {
     lastLogin: Date | null
     streakCount: number | null
     maxStreakCount: number | null
+    firebaseUid: string | null
+    authProvider: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -2019,6 +2021,8 @@ export namespace Prisma {
     lastLogin: Date | null
     streakCount: number | null
     maxStreakCount: number | null
+    firebaseUid: string | null
+    authProvider: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -2033,6 +2037,8 @@ export namespace Prisma {
     lastLogin: number
     streakCount: number
     maxStreakCount: number
+    firebaseUid: number
+    authProvider: number
     _all: number
   }
 
@@ -2059,6 +2065,8 @@ export namespace Prisma {
     lastLogin?: true
     streakCount?: true
     maxStreakCount?: true
+    firebaseUid?: true
+    authProvider?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -2073,6 +2081,8 @@ export namespace Prisma {
     lastLogin?: true
     streakCount?: true
     maxStreakCount?: true
+    firebaseUid?: true
+    authProvider?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -2087,6 +2097,8 @@ export namespace Prisma {
     lastLogin?: true
     streakCount?: true
     maxStreakCount?: true
+    firebaseUid?: true
+    authProvider?: true
     _all?: true
   }
 
@@ -2188,6 +2200,8 @@ export namespace Prisma {
     lastLogin: Date | null
     streakCount: number
     maxStreakCount: number
+    firebaseUid: string | null
+    authProvider: string | null
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -2221,6 +2235,8 @@ export namespace Prisma {
     lastLogin?: boolean
     streakCount?: boolean
     maxStreakCount?: boolean
+    firebaseUid?: boolean
+    authProvider?: boolean
     problems?: boolean | User$problemsArgs<ExtArgs>
     submissions?: boolean | User$submissionsArgs<ExtArgs>
     solvedProblems?: boolean | User$solvedProblemsArgs<ExtArgs>
@@ -2243,6 +2259,8 @@ export namespace Prisma {
     lastLogin?: boolean
     streakCount?: boolean
     maxStreakCount?: boolean
+    firebaseUid?: boolean
+    authProvider?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2257,6 +2275,8 @@ export namespace Prisma {
     lastLogin?: boolean
     streakCount?: boolean
     maxStreakCount?: boolean
+    firebaseUid?: boolean
+    authProvider?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -2271,9 +2291,11 @@ export namespace Prisma {
     lastLogin?: boolean
     streakCount?: boolean
     maxStreakCount?: boolean
+    firebaseUid?: boolean
+    authProvider?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "image" | "role" | "password" | "createdAt" | "updatedAt" | "lastLogin" | "streakCount" | "maxStreakCount", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "image" | "role" | "password" | "createdAt" | "updatedAt" | "lastLogin" | "streakCount" | "maxStreakCount" | "firebaseUid" | "authProvider", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     problems?: boolean | User$problemsArgs<ExtArgs>
     submissions?: boolean | User$submissionsArgs<ExtArgs>
@@ -2310,6 +2332,8 @@ export namespace Prisma {
       lastLogin: Date | null
       streakCount: number
       maxStreakCount: number
+      firebaseUid: string | null
+      authProvider: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2751,6 +2775,8 @@ export namespace Prisma {
     readonly lastLogin: FieldRef<"User", 'DateTime'>
     readonly streakCount: FieldRef<"User", 'Int'>
     readonly maxStreakCount: FieldRef<"User", 'Int'>
+    readonly firebaseUid: FieldRef<"User", 'String'>
+    readonly authProvider: FieldRef<"User", 'String'>
   }
     
 
@@ -13603,7 +13629,9 @@ export namespace Prisma {
     updatedAt: 'updatedAt',
     lastLogin: 'lastLogin',
     streakCount: 'streakCount',
-    maxStreakCount: 'maxStreakCount'
+    maxStreakCount: 'maxStreakCount',
+    firebaseUid: 'firebaseUid',
+    authProvider: 'authProvider'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -13906,6 +13934,8 @@ export namespace Prisma {
     lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
     streakCount?: IntFilter<"User"> | number
     maxStreakCount?: IntFilter<"User"> | number
+    firebaseUid?: StringNullableFilter<"User"> | string | null
+    authProvider?: StringNullableFilter<"User"> | string | null
     problems?: ProblemListRelationFilter
     submissions?: SubmissionListRelationFilter
     solvedProblems?: ProblemSolvedListRelationFilter
@@ -13927,6 +13957,8 @@ export namespace Prisma {
     lastLogin?: SortOrderInput | SortOrder
     streakCount?: SortOrder
     maxStreakCount?: SortOrder
+    firebaseUid?: SortOrderInput | SortOrder
+    authProvider?: SortOrderInput | SortOrder
     problems?: ProblemOrderByRelationAggregateInput
     submissions?: SubmissionOrderByRelationAggregateInput
     solvedProblems?: ProblemSolvedOrderByRelationAggregateInput
@@ -13939,6 +13971,7 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
+    firebaseUid?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
@@ -13951,6 +13984,7 @@ export namespace Prisma {
     lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
     streakCount?: IntFilter<"User"> | number
     maxStreakCount?: IntFilter<"User"> | number
+    authProvider?: StringNullableFilter<"User"> | string | null
     problems?: ProblemListRelationFilter
     submissions?: SubmissionListRelationFilter
     solvedProblems?: ProblemSolvedListRelationFilter
@@ -13958,7 +13992,7 @@ export namespace Prisma {
     discussions?: DiscussionListRelationFilter
     discussionLikes?: DiscussionLikeListRelationFilter
     Revision?: RevisionListRelationFilter
-  }, "id" | "email">
+  }, "id" | "email" | "firebaseUid">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -13972,6 +14006,8 @@ export namespace Prisma {
     lastLogin?: SortOrderInput | SortOrder
     streakCount?: SortOrder
     maxStreakCount?: SortOrder
+    firebaseUid?: SortOrderInput | SortOrder
+    authProvider?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -13994,6 +14030,8 @@ export namespace Prisma {
     lastLogin?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     streakCount?: IntWithAggregatesFilter<"User"> | number
     maxStreakCount?: IntWithAggregatesFilter<"User"> | number
+    firebaseUid?: StringNullableWithAggregatesFilter<"User"> | string | null
+    authProvider?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type ProblemWhereInput = {
@@ -14708,6 +14746,8 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    firebaseUid?: string | null
+    authProvider?: string | null
     problems?: ProblemCreateNestedManyWithoutUserInput
     submissions?: SubmissionCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
@@ -14729,6 +14769,8 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    firebaseUid?: string | null
+    authProvider?: string | null
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
@@ -14750,6 +14792,8 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
@@ -14771,6 +14815,8 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
@@ -14792,6 +14838,8 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    firebaseUid?: string | null
+    authProvider?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -14806,6 +14854,8 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -14820,6 +14870,8 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProblemCreateInput = {
@@ -15713,6 +15765,8 @@ export namespace Prisma {
     lastLogin?: SortOrder
     streakCount?: SortOrder
     maxStreakCount?: SortOrder
+    firebaseUid?: SortOrder
+    authProvider?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -15732,6 +15786,8 @@ export namespace Prisma {
     lastLogin?: SortOrder
     streakCount?: SortOrder
     maxStreakCount?: SortOrder
+    firebaseUid?: SortOrder
+    authProvider?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -15746,6 +15802,8 @@ export namespace Prisma {
     lastLogin?: SortOrder
     streakCount?: SortOrder
     maxStreakCount?: SortOrder
+    firebaseUid?: SortOrder
+    authProvider?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -17941,6 +17999,8 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    firebaseUid?: string | null
+    authProvider?: string | null
     submissions?: SubmissionCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
     Playlists?: PlaylistCreateNestedManyWithoutUserInput
@@ -17961,6 +18021,8 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    firebaseUid?: string | null
+    authProvider?: string | null
     submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
     Playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
@@ -18145,6 +18207,8 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     submissions?: SubmissionUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
     Playlists?: PlaylistUpdateManyWithoutUserNestedInput
@@ -18165,6 +18229,8 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
     Playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
@@ -18327,6 +18393,8 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    firebaseUid?: string | null
+    authProvider?: string | null
     problems?: ProblemCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
     Playlists?: PlaylistCreateNestedManyWithoutUserInput
@@ -18347,6 +18415,8 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    firebaseUid?: string | null
+    authProvider?: string | null
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
     Playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
@@ -18480,6 +18550,8 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
     Playlists?: PlaylistUpdateManyWithoutUserNestedInput
@@ -18500,6 +18572,8 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
     Playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
@@ -18690,6 +18764,8 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    firebaseUid?: string | null
+    authProvider?: string | null
     problems?: ProblemCreateNestedManyWithoutUserInput
     submissions?: SubmissionCreateNestedManyWithoutUserInput
     Playlists?: PlaylistCreateNestedManyWithoutUserInput
@@ -18710,6 +18786,8 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    firebaseUid?: string | null
+    authProvider?: string | null
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     Playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
@@ -18803,6 +18881,8 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUpdateManyWithoutUserNestedInput
     Playlists?: PlaylistUpdateManyWithoutUserNestedInput
@@ -18823,6 +18903,8 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     Playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
@@ -18867,6 +18949,8 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    firebaseUid?: string | null
+    authProvider?: string | null
     problems?: ProblemCreateNestedManyWithoutUserInput
     submissions?: SubmissionCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
@@ -18887,6 +18971,8 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    firebaseUid?: string | null
+    authProvider?: string | null
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
@@ -18939,6 +19025,8 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
@@ -18959,6 +19047,8 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
@@ -19139,6 +19229,8 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    firebaseUid?: string | null
+    authProvider?: string | null
     problems?: ProblemCreateNestedManyWithoutUserInput
     submissions?: SubmissionCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
@@ -19159,6 +19251,8 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    firebaseUid?: string | null
+    authProvider?: string | null
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
@@ -19246,6 +19340,8 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
@@ -19266,6 +19362,8 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
@@ -19394,6 +19492,8 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    firebaseUid?: string | null
+    authProvider?: string | null
     problems?: ProblemCreateNestedManyWithoutUserInput
     submissions?: SubmissionCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
@@ -19414,6 +19514,8 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    firebaseUid?: string | null
+    authProvider?: string | null
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
@@ -19588,6 +19690,8 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
@@ -19608,6 +19712,8 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
@@ -19720,6 +19826,8 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    firebaseUid?: string | null
+    authProvider?: string | null
     problems?: ProblemCreateNestedManyWithoutUserInput
     submissions?: SubmissionCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
@@ -19740,6 +19848,8 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    firebaseUid?: string | null
+    authProvider?: string | null
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
@@ -19809,6 +19919,8 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
@@ -19829,6 +19941,8 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Eye, EyeOff, Mail, Lock, User, Code2, ArrowRight, CheckCircle } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, User, Code2, ArrowRight, CheckCircle, AlertCircle, Check, X } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 import SocialLoginButtons from "../components/SocialLoginButtons";
 import { toast } from "react-hot-toast";
@@ -9,6 +9,7 @@ import gsap from "gsap";
 
 export const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -16,9 +17,14 @@ export const SignUp = () => {
     confirmPassword: "",
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState({
+    score: 0,
+    feedback: [],
+    isValid: false
+  });
   const pageRef = useRef(null);
   const navigate = useNavigate();
-  const { signup } = useAuthStore();
+  const { signUp } = useAuthStore();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -64,37 +70,98 @@ export const SignUp = () => {
     return () => ctx.revert();
   }, []);
 
+  // Password strength validation
+  const validatePassword = (password) => {
+    const checks = [
+      { test: password.length >= 8, message: "At least 8 characters" },
+      { test: /[A-Z]/.test(password), message: "One uppercase letter" },
+      { test: /[a-z]/.test(password), message: "One lowercase letter" },
+      { test: /\d/.test(password), message: "One number" },
+      { test: /[!@#$%^&*(),.?":{}|<>]/.test(password), message: "One special character" },
+    ];
+
+    const passedChecks = checks.filter(check => check.test);
+    const score = passedChecks.length;
+    const isValid = score >= 4; // At least 4 out of 5 criteria
+
+    return {
+      score,
+      feedback: checks,
+      isValid,
+      strength: score <= 2 ? 'weak' : score <= 3 ? 'medium' : score <= 4 ? 'good' : 'strong'
+    };
+  };
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+
+    // Validate password strength in real-time
+    if (name === 'password') {
+      setPasswordStrength(validatePassword(value));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (formData.password !== formData.confirmPassword) {
-      toast.error("Passwords don't match!");
+    // Validation checks
+    if (!formData.name.trim()) {
+      toast.error("Please enter your full name!");
       return;
     }
 
-    if (formData.password.length < 6) {
-      toast.error("Password must be at least 6 characters long!");
+    if (!formData.email.trim()) {
+      toast.error("Please enter your email!");
+      return;
+    }
+
+    if (!passwordStrength.isValid) {
+      toast.error("Please create a stronger password!");
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Passwords don't match!");
       return;
     }
 
     setIsLoading(true);
 
     try {
-      await signup({
-        name: formData.name,
-        email: formData.email,
+      await signUp({
+        name: formData.name.trim(),
+        email: formData.email.trim(),
         password: formData.password,
       });
       toast.success("Welcome to CodeFusion! Let's start coding together!");
       navigate("/dashboard");
     } catch (error) {
-      toast.error(error.message || "Sign up failed. Please try again.");
+      console.error("Signup error:", error);
+      const errorMessage = error.response?.data?.message || error.message || "Sign up failed. Please try again.";
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const getStrengthColor = (strength) => {
+    switch (strength) {
+      case 'weak': return 'text-red-400';
+      case 'medium': return 'text-yellow-400';
+      case 'good': return 'text-blue-400';
+      case 'strong': return 'text-green-400';
+      default: return 'text-gray-400';
+    }
+  };
+
+  const getStrengthBgColor = (strength) => {
+    switch (strength) {
+      case 'weak': return 'bg-red-500';
+      case 'medium': return 'bg-yellow-500';
+      case 'good': return 'bg-blue-500';
+      case 'strong': return 'bg-green-500';
+      default: return 'bg-gray-500';
     }
   };
 
@@ -264,7 +331,7 @@ export const SignUp = () => {
                     value={formData.password}
                     onChange={handleChange}
                     className="w-full pl-10 pr-12 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300"
-                    placeholder="Create a password"
+                    placeholder="Create a strong password"
                     required
                     whileFocus={{ scale: 1.02 }}
                   />
@@ -276,6 +343,38 @@ export const SignUp = () => {
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
                 </div>
+                
+                {/* Password Strength Indicator */}
+                {formData.password && (
+                  <div className="mt-3 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <div className="flex-1 bg-gray-700 rounded-full h-2">
+                        <div 
+                          className={`h-2 rounded-full transition-all duration-300 ${getStrengthBgColor(passwordStrength.strength)}`}
+                          style={{ width: `${(passwordStrength.score / 5) * 100}%` }}
+                        ></div>
+                      </div>
+                      <span className={`text-xs font-medium ${getStrengthColor(passwordStrength.strength)}`}>
+                        {passwordStrength.strength.charAt(0).toUpperCase() + passwordStrength.strength.slice(1)}
+                      </span>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 gap-1">
+                      {passwordStrength.feedback.map((check, index) => (
+                        <div key={index} className="flex items-center gap-2 text-xs">
+                          {check.test ? (
+                            <Check className="w-3 h-3 text-green-400" />
+                          ) : (
+                            <X className="w-3 h-3 text-gray-500" />
+                          )}
+                          <span className={check.test ? 'text-green-400' : 'text-gray-500'}>
+                            {check.message}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Confirm Password Field */}
@@ -284,25 +383,38 @@ export const SignUp = () => {
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <motion.input
-                    type="password"
+                    type={showConfirmPassword ? "text" : "password"}
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300"
+                    className="w-full pl-10 pr-12 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300"
                     placeholder="Confirm your password"
                     required
                     whileFocus={{ scale: 1.02 }}
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300 transition-colors duration-200"
+                  >
+                    {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </button>
                 </div>
+                {formData.confirmPassword && formData.password !== formData.confirmPassword && (
+                  <div className="flex items-center gap-2 text-xs text-red-400 mt-1">
+                    <AlertCircle className="w-3 h-3" />
+                    <span>Passwords don't match</span>
+                  </div>
+                )}
               </div>
 
               {/* Submit Button */}
               <motion.button
                 type="submit"
-                disabled={isLoading}
+                disabled={isLoading || !passwordStrength.isValid || formData.password !== formData.confirmPassword}
                 className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: isLoading ? 1 : 1.02 }}
+                whileTap={{ scale: isLoading ? 1 : 0.98 }}
               >
                 {isLoading ? (
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />

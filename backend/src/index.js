@@ -13,6 +13,7 @@ import liveblocksRoutes from "./routes/liveblocks.route.js";
 import discussionRoutes from "./routes/discussion.routes.js";
 import metricsRoutes from "./routes/metrics.route.js";
 import firebaseAuthRoutes from "./routes/firebase-auth.routes.js";
+import { connectDatabase, disconnectDatabase } from "./libs/db.js";
 
 dotenv.config();
 
@@ -50,6 +51,46 @@ app.use("/api/v1/discussions", discussionRoutes);
 app.use("/api/v1/metrics", metricsRoutes);
 app.use("/api/v1/firebase-auth", firebaseAuthRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Start server with database connection
+const startServer = async () => {
+  try {
+    // Connect to database first
+    console.log("🚀 Starting CodeFusion Backend...");
+    const dbConnected = await connectDatabase();
+    
+    if (!dbConnected) {
+      console.error("❌ Failed to connect to database. Exiting...");
+      process.exit(1);
+    }
+    
+    // Start the server
+    const server = app.listen(PORT, () => {
+      console.log(`🌟 CodeFusion Server is running on port ${PORT}`);
+      console.log(`🔗 Frontend URL: ${process.env.FRONTEND_URL || "http://localhost:5173"}`);
+      console.log(`🤖 AI Provider: Novita AI (LLaMA 3-8B)`);
+      console.log("✅ All systems ready!");
+    });
+
+    // Graceful shutdown
+    const gracefulShutdown = async (signal) => {
+      console.log(`\n🛑 Received ${signal}. Starting graceful shutdown...`);
+      
+      server.close(async () => {
+        console.log("🔌 HTTP server closed.");
+        await disconnectDatabase();
+        console.log("👋 CodeFusion Backend shut down successfully!");
+        process.exit(0);
+      });
+    };
+
+    process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+    process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+    
+  } catch (error) {
+    console.error("❌ Failed to start server:", error.message);
+    process.exit(1);
+  }
+};
+
+// Start the server
+startServer();

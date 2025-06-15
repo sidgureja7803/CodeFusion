@@ -31,7 +31,7 @@ export const useAuthStore = create((set) => ({
       set({ authUser: response.data.user });
       Toast.success(
         "Account created successfully!",
-        "Welcome to Arkham Labs!",
+        "Welcome to CodeFusion!",
         4000
       );
     } catch (error) {

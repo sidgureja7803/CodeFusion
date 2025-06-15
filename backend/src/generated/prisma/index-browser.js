@@ -131,7 +131,9 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt',
   lastLogin: 'lastLogin',
   streakCount: 'streakCount',
-  maxStreakCount: 'maxStreakCount'
+  maxStreakCount: 'maxStreakCount',
+  firebaseUid: 'firebaseUid',
+  authProvider: 'authProvider'
 };
 
 exports.Prisma.ProblemScalarFieldEnum = {

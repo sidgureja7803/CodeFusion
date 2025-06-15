@@ -8,19 +8,32 @@ dotenv.config();
 export const register = async (req, res) => {
   const { name, email, password } = req.body;
   console.log("Registering user:", { name, email, password });
+  
   try {
+    // Validate input
+    if (!name || !email || !password) {
+      console.log("Missing required fields:", { name: !!name, email: !!email, password: !!password });
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
     // Check if user already exists
+    console.log("Checking if user exists with email:", email);
     const existingUser = await db.user.findUnique({
       where: { email },
     });
 
     if (existingUser) {
+      console.log("User already exists:", existingUser.email);
       return res.status(400).json({ message: "User already exists" });
     }
 
     // Hash password
+    console.log("Hashing password...");
     const hashedPassword = await bcrypt.hash(password, 10);
+    console.log("Password hashed successfully");
 
+    // Create user
+    console.log("Creating user with data:", { name, email, role: Role.USER });
     const newUser = await db.user.create({
       data: {
         name,
@@ -29,11 +42,14 @@ export const register = async (req, res) => {
         role: Role.USER,
       },
     });
+    console.log("User created successfully:", newUser.id);
 
     // Generate JWT token
+    console.log("Generating JWT token...");
     const token = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
+    console.log("JWT token generated successfully");
 
     res.cookie("jwt", token, {
       httpOnly: true,
@@ -42,6 +58,7 @@ export const register = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
+    console.log("Registration successful for user:", newUser.email);
     res.status(201).json({
       success: true,
       message: "User created successfully",
@@ -54,8 +71,21 @@ export const register = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Error creating user:", error);
-    res.status(500).json({ message: "Internal server error" });
+    console.error("Detailed error creating user:");
+    console.error("Error name:", error.name);
+    console.error("Error message:", error.message);
+    console.error("Error code:", error.code);
+    console.error("Full error:", error);
+    
+    // Check for specific Prisma errors
+    if (error.code === 'P2002') {
+      return res.status(400).json({ message: "Email already exists" });
+    }
+    
+    res.status(500).json({ 
+      message: "Internal server error",
+      error: process.env.NODE_ENV === "development" ? error.message : undefined
+    });
   }
 };
 
