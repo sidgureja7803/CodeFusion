@@ -1,7 +1,7 @@
 # CodeFusion
 
 <div align="center">
-  <img src="frontend/public/ArkhamBanner.png" alt="CodeFusion Banner" width="100%">
+  <img src="frontend/public/CodeFusion_Banner.png" alt="CodeFusion Banner" width="100%">
 
   <p align="center">
     <strong>Collaborative Coding Platform with Real-Time Editing and AI Assistance</strong>
@@ -210,7 +210,7 @@ Use Novita AI's API to switch models dynamically based on query type.
 ## 📬 Contact
 
 **Siddhant Gureja**
-[LinkedIn](https://linkedin.com/in/siddhantgureja) • [GitHub](https://github.com/sidgureja7803) • [Email](mailto:siddhantgureja39@gmai.com)
+[LinkedIn](https://linkedin.com/in/sidgureja) • [GitHub](https://github.com/sidgureja7803) • [Email](mailto:siddhantgureja39@gmai.com)
 
 Live Demo: [https://codefusion.live](https://codefusion.live)
 
