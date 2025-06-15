@@ -200,14 +200,14 @@ export const CTA = () => {
             animate={isInView ? "visible" : "hidden"}
           >
             <motion.h2
-              className="sm:text-6xl text-4xl neue-med text-white mb-4"
+              className="sm:text-6xl text-4xl font-bold text-white mb-4"
               variants={itemVariants}
             >
               Ready to <span className="italic">Embrace</span> the Night?
             </motion.h2>
 
             <motion.p
-              className="sm:text-xl text-lg neue-med text-[#ffffff]/70 mb-8"
+              className="sm:text-xl text-lg text-[#ffffff]/70 mb-8"
               variants={itemVariants}
             >
               Where collaborative coding meets AI-powered innovation.{" "}
@@ -242,7 +242,7 @@ export const CTA = () => {
             </motion.div>
 
             <motion.p
-              className="neue-reg text-sm text-[#f1f1f1]/60 "
+              className="text-sm text-[#f1f1f1]/60 "
               variants={itemVariants}
             >
               No credit card required. Cancel anytime.

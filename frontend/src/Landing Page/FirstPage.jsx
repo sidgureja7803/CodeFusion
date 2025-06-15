@@ -178,7 +178,7 @@ export const FirstPage = () => {
           </motion.div>
 
           <motion.p
-            className="text-sm text-blue-200 mb-6 tracking-wide neue-reg opacity-80"
+            className="text-sm text-blue-200 mb-6 tracking-wide opacity-80"
             variants={trustTextVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
