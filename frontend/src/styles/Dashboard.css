@@ -11,7 +11,7 @@
   bottom: 0;
   background: radial-gradient(
     circle at top left,
-    rgba(240, 9, 1, 0.35),
+    rgba(59, 130, 246, 0.35),
     transparent 50%
   );
   pointer-events: none;
@@ -21,7 +21,7 @@
 .navbar {
   background-color: var(--navbar-bg);
   border-radius: 8px;
-  box-shadow: inset 0rem 0rem 2em rgba(255, 0, 0, 0.1);
+  box-shadow: inset 0rem 0rem 2em rgba(59, 130, 246, 0.1);
   backdrop-filter: blur(5px);
   filter: brightness(1) contrast(1.2);
   height: auto;
@@ -43,8 +43,8 @@
   height: 50px;
   background: radial-gradient(
     circle,
-    rgba(215, 8, 1, 0.4) 0%,
-    rgba(255, 0, 0, 0) 80%
+    rgba(59, 130, 246, 0.4) 0%,
+    rgba(59, 130, 246, 0) 80%
   );
   pointer-events: none;
   z-index: -1;
@@ -65,7 +65,7 @@
 .dash-card {
   background-color: var(--navbar-bg);
   border-radius: 8px;
-  box-shadow: inset 0rem 0rem 1em rgba(215, 8, 1, 0.2);
+  box-shadow: inset 0rem 0rem 1em rgba(59, 130, 246, 0.2);
   padding: 0.5em;
   backdrop-filter: blur(5px);
   filter: brightness(1) contrast(1.2);
@@ -79,26 +79,26 @@
 }
 
 .add-btn {
-  box-shadow: inset 0 0px 12px #d7080199;
+  box-shadow: inset 0 0px 12px #3b82f699;
   transition: all 0.3s ease;
   background: linear-gradient(
     0deg,
     rgba(255, 255, 255, 0.1),
-    rgba(215, 8, 1, 0.1)
+    rgba(59, 130, 246, 0.1)
   );
   font-weight: 500;
 }
 
 .pfp {
-  box-shadow: inset 0 0px 12px rgba(215, 8, 1, 0.6);
+  box-shadow: inset 0 0px 12px rgba(59, 130, 246, 0.6);
   transition: all 0.3s ease;
   background: linear-gradient(
     0deg,
     rgba(255, 255, 255, 0.1),
-    rgba(215, 8, 1, 0.1)
+    rgba(59, 130, 246, 0.1)
   );
   color: var(--pfp-text);
-  border: 1px solid rgb(205, 0, 0);
+  border: 1px solid #3B82F6;
 }
 
 .pfp::after {
@@ -116,12 +116,12 @@
 }
 
 .pfp:hover {
-  box-shadow: inset 0 0px 20px rgba(215, 8, 1, 0.8);
+  box-shadow: inset 0 0px 20px rgba(59, 130, 246, 0.8);
   transform: translateY(-1px);
 }
 
 .add-btn:hover {
-  box-shadow: inset 0 -4px 12px rgba(215, 8, 1, 0.6);
+  box-shadow: inset 0 -4px 12px rgba(59, 130, 246, 0.6);
   transform: translateY(-1px);
 }
 
@@ -129,8 +129,8 @@
   color: var(--color-text-secondary);
   border: 1px solid rgba(56, 56, 56, 0);
   border-radius: 4px;
-  box-shadow: inset 0rem 0rem 1.2em rgba(215, 8, 1, 0.4);
-  font-family: neue-reg;
+  box-shadow: inset 0rem 0rem 1.2em rgba(59, 130, 246, 0.4);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   transition: all 0.3s ease;
   font-size: 0.9em;
   background-color: var(--navbar-bg);
@@ -141,18 +141,18 @@
 }
 
 .filter-input:hover {
-  box-shadow: inset 0rem 0rem 1.8em rgba(215, 8, 1, 0.7);
+  box-shadow: inset 0rem 0rem 1.8em rgba(59, 130, 246, 0.7);
 }
 
 .filter-input:focus {
   outline: none;
-  border: 1px solid rgb(205, 0, 0);
-  box-shadow: inset 0rem 0rem 1.8em rgba(215, 8, 1, 0.7);
+  border: 1px solid #3B82F6;
+  box-shadow: inset 0rem 0rem 1.8em rgba(59, 130, 246, 0.7);
 }
 
 .table-card {
   background-color: var(--navbar-bg);
-  border: 1px solid rgb(205, 0, 0);
+  border: 1px solid #3B82F6;
   border-radius: 8px;
   padding: 0em 0.5em;
   backdrop-filter: blur(5px);
@@ -160,7 +160,7 @@
 }
 
 td {
-  font-family: neue-reg;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   font-size: 0.85em;
 }
 
@@ -208,9 +208,9 @@ td {
   display: flex;
   flex-direction: column;
   box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
-  border-right: 2px solid rgba(215, 8, 1, 0.5);
-  border-top: 2px solid rgba(215, 8, 1, 0.5);
-  border-bottom: 2px solid rgba(215, 8, 1, 0.5);
+  border-right: 2px solid rgba(59, 130, 246, 0.5);
+  border-top: 2px solid rgba(59, 130, 246, 0.5);
+  border-bottom: 2px solid rgba(59, 130, 246, 0.5);
 }
 
 .sidebar::before {
@@ -247,15 +247,17 @@ td {
   display: flex;
   align-items: center;
   padding: 0.3em 0.5em;
-  font-family: arame;
-  color: var(--color-text-primary);
-  border-radius: 2px;
-  transition: all 0.2s ease;
-  cursor: pointer;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  color: var(--color-text-secondary);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  position: relative;
+  text-decoration: none;
+  background-color: transparent;
 }
 
 .sidebar-item:hover {
-  background-color: rgba(215, 8, 1, 0.2);
+  background-color: rgba(59, 130, 246, 0.2);
 }
 
 .sidebar-icon {
@@ -287,8 +289,8 @@ td {
 }
 
 .sidebar-logout:hover {
-  background-color: rgba(215, 8, 1, 0.2);
-  color: #ff6666;
+  background-color: rgba(59, 130, 246, 0.2);
+  color: #60A5FA;
 }
 
 /* Add these styles to your Dashboard.css file */

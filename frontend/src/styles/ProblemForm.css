@@ -7,7 +7,7 @@
 
 .prob-form-card {
   background-color: var(--navbar-bg);
-  border: 1px solid rgb(205, 0, 0);
+  border: 1px solid #3B82F6;
   border-radius: 8px;
   padding: 1.5rem;
   backdrop-filter: blur(5px);
@@ -21,11 +21,11 @@
   align-items: center;
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
-  border-bottom: 2px solid rgba(215, 8, 1, 0.5);
+  border-bottom: 2px solid rgba(59, 130, 246, 0.5);
 }
 
 .prob-form-title {
-  font-family: neue-med, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   color: var(--color-text-primary);
   display: flex;
   align-items: center;
@@ -49,7 +49,7 @@
 }
 
 .prob-section-title {
-  font-family: neue-med;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   color: var(--color-text-primary);
   font-size: 1.2rem;
   margin-bottom: 1rem;
@@ -62,7 +62,7 @@
   display: block;
   margin-bottom: 0.5rem;
   color: var(--color-text-primary);
-  font-family: neue-reg, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   font-size: 0.95em;
 }
 
@@ -73,8 +73,8 @@
   border: 1px solid var(--prob-input-border);
   border-radius: 4px;
   padding: 0.75rem 1rem;
-  font-family: neue-reg, sans-serif;
-  box-shadow: inset 0 0 1.2em rgba(215, 8, 1, 0.4);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  box-shadow: inset 0 0 1.2em rgba(59, 130, 246, 0.4);
   transition: all 0.3s ease;
 }
 
@@ -84,8 +84,8 @@
 
 .prob-input:focus {
   outline: none;
-  border: 1px solid rgb(205, 0, 0);
-  box-shadow: inset 0 0 1.8em rgba(215, 8, 1, 0.7);
+  border: 1px solid #3B82F6;
+  box-shadow: inset 0 0 1.8em rgba(59, 130, 246, 0.7);
 }
 
 .prob-select {
@@ -120,7 +120,7 @@
   color: var(--color-text-primary);
   border: 1px solid rgba(56, 56, 56, 0.8);
   border-radius: 4px;
-  font-family: neue-med, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -130,14 +130,14 @@
 }
 
 .prob-btn-primary {
-  background-color: rgba(205, 0, 0, 0.1);
-  border: 1px solid rgba(215, 8, 1, 0.5);
-  box-shadow: inset 0 0 10px rgba(215, 8, 1, 0.3);
+  background-color: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.5);
+  box-shadow: inset 0 0 10px rgba(59, 130, 246, 0.3);
 }
 
 .prob-btn-primary:hover {
-  background-color: rgba(205, 0, 0, 0.2);
-  box-shadow: inset 0 0 15px rgba(215, 8, 1, 0.5);
+  background-color: rgba(59, 130, 246, 0.2);
+  box-shadow: inset 0 0 15px rgba(59, 130, 246, 0.5);
 }
 
 .prob-btn-danger {
@@ -200,7 +200,7 @@
 .prob-badge {
   display: inline-block;
   padding: 0.25rem 0.75rem;
-  background-color: rgba(215, 8, 1, 0.2);
+  background-color: rgba(59, 130, 246, 0.2);
   color: var(--color-text-primary);
   border-radius: 99px;
   font-size: 0.85rem;
@@ -227,7 +227,7 @@
   color: var(--color-text-primary);
   border: 1px solid rgba(56, 56, 56, 0.9);
   border-radius: 4px;
-  font-family: neue-med, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   cursor: pointer;
   transition: all 0.5s ease-in-out;
 }
@@ -237,8 +237,8 @@
 }
 
 .ai-btn:hover .ai-logo {
-  filter: brightness(2) drop-shadow(0 0 10px rgba(215, 8, 1, 0.5))
-    drop-shadow(0px 0px 3px rgba(210, 0, 0, 0.3))
+  filter: brightness(2) drop-shadow(0 0 10px rgba(59, 130, 246, 0.5))
+    drop-shadow(0px 0px 3px rgba(59, 130, 246, 0.3))
     drop-shadow(-5px 0px 3px rgba(46, 0, 210, 0.733));
 }
 
@@ -283,7 +283,7 @@
   color: var(--color-text-primary);
   border: 1px solid rgba(56, 56, 56, 0.8);
   border-radius: 4px;
-  font-family: neue-med, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   cursor: pointer;
   transition: all 0.3s ease;
 }

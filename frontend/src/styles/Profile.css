@@ -4,6 +4,7 @@
   padding: 1em 2em;
   position: relative;
   color: var(--color-text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 }
 
 .profile-container::after {
@@ -15,7 +16,7 @@
   bottom: 0;
   background: radial-gradient(
     circle at top left,
-    rgba(38, 0, 188, 0.1),
+    rgba(59, 130, 246, 0.1),
     transparent 30%
   );
   pointer-events: none;
@@ -31,12 +32,12 @@
 .profile-card {
   background-color: var(--navbar-bg);
   border-radius: 12px;
-  /* box-shadow: inset 0rem 0rem 1em rgba(215, 8, 1, 0.2); */
+  /* box-shadow: inset 0rem 0rem 1em rgba(59, 130, 246, 0.2); */
   padding: 1.5em;
   backdrop-filter: blur(5px);
   position: relative;
   overflow: hidden;
-  border: 1px solid rgb(205, 0, 0);
+  border: 1px solid #3B82F6;
   transition: all 0.3s ease;
   z-index: 1;
   width: 100%;
@@ -44,8 +45,8 @@
 }
 
 .profile-card:hover {
-  box-shadow: inset 0rem 0rem 1.5em rgba(215, 8, 1, 0.6);
-  border: 1px solid rgb(205, 0, 0);
+  box-shadow: inset 0rem 0rem 1.5em rgba(59, 130, 246, 0.6);
+  border: 1px solid #3B82F6;
 }
 
 .profile-divider {
@@ -53,9 +54,9 @@
   width: 100%;
   background: linear-gradient(
     90deg,
-    rgb(50, 0, 205),
-    rgba(205, 0, 0),
-    rgb(50, 0, 205)
+    #2563EB,
+    #3B82F6,
+    #2563EB
   );
   margin: 1.5rem 0;
 }
@@ -63,7 +64,7 @@
 .profile-stats {
   background-color: var(--bg-03);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: inset 0rem 0rem 1em rgba(215, 8, 1, 0.1);
+  box-shadow: inset 0rem 0rem 1em rgba(59, 130, 246, 0.1);
   border-radius: 8px;
   transition: all 0.3s ease;
   position: relative;
@@ -79,7 +80,7 @@
   width: 40px;
   transform: rotate(45deg);
   height: 400px;
-  background: radial-gradient(circle, rgba(215, 1, 1, 0.9) 0%, transparent 90%);
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.9) 0%, transparent 90%);
   opacity: 0;
   filter: blur(40px);
   transition: opacity 0.3s ease;
@@ -87,7 +88,7 @@
 
 .profile-stats:hover {
   background-color: var(--bg-02);
-  border-color: rgba(215, 8, 1, 0.3);
+  border-color: rgba(59, 130, 246, 0.3);
 }
 
 .profile-stats:hover::after {
@@ -105,25 +106,25 @@
 
 .profile-btn-outline {
   background-color: transparent;
-  border: 1px solid rgba(215, 8, 1, 0.6);
+  border: 1px solid rgba(59, 130, 246, 0.6);
   /* color: var(--bg-09); */
 }
 
 .profile-btn-outline:hover {
-  background-color: rgba(215, 8, 1, 0.1);
-  border-color: rgba(215, 8, 1, 0.8);
+  background-color: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.8);
 }
 
 .profile-btn-primary {
-  background-color: rgba(215, 8, 1, 0.7);
-  border: 1px solid rgba(215, 8, 1);
+  background-color: rgba(59, 130, 246, 0.7);
+  border: 1px solid #3B82F6;
   color: var(--color-text-primary);
 }
 
 .profile-btn-primary:hover {
-  background-color: rgba(215, 8, 1, 0.9);
+  background-color: rgba(59, 130, 246, 0.9);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(215, 8, 1, 0.4);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
 }
 
 .profile-component-section {
@@ -139,18 +140,18 @@
 .profile-component-card {
   background-color: var(--bg-65);
   border-radius: 12px;
-  /* box-shadow: inset 0rem 0rem 1em rgba(215, 8, 1, 0.2); */
+  /* box-shadow: inset 0rem 0rem 1em rgba(59, 130, 246, 0.2); */
   backdrop-filter: blur(5px);
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(205, 0, 0, 0.95);
+  border: 1px solid rgba(59, 130, 246, 0.95);
   transition: all 0.3s ease;
   z-index: 1;
 }
 
 .profile-component-card:hover {
-  box-shadow: inset 0rem 0rem 1.5em rgba(215, 8, 1, 0.3);
-  /* border: 1px solid rgba(205, 0, 255, 0.95); */
+  box-shadow: inset 0rem 0rem 1.5em rgba(59, 130, 246, 0.3);
+  /* border: 1px solid rgba(59, 130, 246, 0.95); */
 }
 
 .profile-component-header {
@@ -171,7 +172,7 @@
   left: 0;
   width: 60px;
   height: 2px;
-  background: linear-gradient(90deg, rgba(215, 8, 1, 0.8), transparent);
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.8), transparent);
 }
 
 /* Badge styles */
@@ -290,25 +291,25 @@
 }
 
 .react-calendar-heatmap .color-scale-1 {
-  fill: rgba(220, 38, 38, 0.25);
+  fill: rgba(96, 165, 250, 0.25);
   rx: 2;
   ry: 2;
 }
 
 .react-calendar-heatmap .color-scale-2 {
-  fill: rgba(220, 38, 38, 0.5);
+  fill: rgba(96, 165, 250, 0.5);
   rx: 2;
   ry: 2;
 }
 
 .react-calendar-heatmap .color-scale-3 {
-  fill: rgba(220, 38, 38, 0.75);
+  fill: rgba(59, 130, 246, 0.75);
   rx: 2;
   ry: 2;
 }
 
 .react-calendar-heatmap .color-scale-4 {
-  fill: rgba(220, 38, 38, 1);
+  fill: rgba(59, 130, 246, 1);
   rx: 2;
   ry: 2;
 }
@@ -318,7 +319,7 @@
   font-size: 8px;
   font-weight: 400;
   fill: rgba(255, 255, 255, 0.7);
-  font-family: neue-reg;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 }
 
 /* Cell hover effect */
@@ -359,19 +360,19 @@
 }
 
 .color-scale-1.legend-square {
-  background-color: rgba(220, 38, 38, 0.25);
+  background-color: rgba(96, 165, 250, 0.25);
 }
 
 .color-scale-2.legend-square {
-  background-color: rgba(220, 38, 38, 0.5);
+  background-color: rgba(96, 165, 250, 0.5);
 }
 
 .color-scale-3.legend-square {
-  background-color: rgba(220, 38, 38, 0.75);
+  background-color: rgba(59, 130, 246, 0.75);
 }
 
 .color-scale-4.legend-square {
-  background-color: rgba(220, 38, 38, 1);
+  background-color: rgba(59, 130, 246, 1);
 }
 
 /* Responsive styles */

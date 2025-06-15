@@ -128,12 +128,12 @@ const RevisionProblems = () => {
         <div className="my-4">
           <Link
             to="/dashboard"
-            className="dark:text-white/80 dark:hover:text-white text-black/80 hover:text-black transition-all duration-300 ease-in-out flex items-center gap-2 mb-4 neue-reg"
+            className="dark:text-white/80 dark:hover:text-white text-black/80 hover:text-black transition-all duration-300 ease-in-out flex items-center gap-2 mb-4"
           >
             <ArrowLeft size={18} />
             <span>Back to Dashboard</span>
           </Link>
-          <h1 className="dark:text-white text-black text-4xl neue-med text-center">
+          <h1 className="dark:text-white text-black text-4xl text-center">
             Saved Problems for Revision
           </h1>
         </div>
@@ -158,7 +158,7 @@ const RevisionProblems = () => {
                   companyTags: "",
                 })
               }
-              className="px-3 py-1 text-sm bg-transparent hover:bg-gray-700/20 dark:text-white/80 dark:hover:text-white text-black/80 hover:text-black rounded border border-red-700 transition-all duration-200 flex items-center gap-2 neue-reg"
+              className="px-3 py-1 text-sm bg-transparent hover:bg-gray-700/20 dark:text-white/80 dark:hover:text-white text-black/80 hover:text-black rounded border border-blue-700 transition-all duration-200 flex items-center gap-2"
             >
               Clear Filters
             </button>
