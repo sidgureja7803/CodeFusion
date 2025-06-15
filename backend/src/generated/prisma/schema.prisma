@@ -10,8 +10,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL") // Optional, only needed for migrations
 }
 
 enum Role {
@@ -37,10 +38,6 @@ model User {
   lastLogin      DateTime?
   streakCount    Int       @default(0)
   maxStreakCount Int       @default(0)
-
-  // Firebase integration fields
-  firebaseUid  String? @unique
-  authProvider String? // 'google.com', 'github.com', etc.
 
   problems        Problem[]
   submissions     Submission[]
@@ -83,41 +80,74 @@ model Problem {
 }
 
 model Submission {
-  id        String   @id @default(uuid())
-  code      String
-  language  String
-  status    String
-  runtime   Float?
-  memory    Float?
-  userId    String
-  problemId String
+  id            String   @id @default(uuid())
+  problemId     String
+  userId        String
+  sourceCode    Json
+  language      String
+  stdin         String?
+  stdout        String?
+  stderr        String?
+  compileOutput String?
+  status        String
+  memory        String?
+  time          String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  //Relations
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  testCases TestCaseResult[]
+}
+
+model TestCaseResult {
+  id            String  @id @default(uuid())
+  submissionId  String
+  testCase      Int
+  passed        Boolean
+  stdout        String?
+  expected      String?
+  stderr        String?
+  compileOutput String?
+  status        String
+  memory        String?
+  time          String?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  submission Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+
+  @@index([submissionId])
 }
 
 model ProblemSolved {
   id        String   @id @default(uuid())
   userId    String
   problemId String
-  solvedAt  DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  //Relations
   problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, problemId])
 }
 
 model Playlist {
-  id          String   @id @default(uuid())
-  title       String
-  description String
+  id          String            @id @default(uuid())
+  name        String
+  description String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
   userId      String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  problems    ProblemPlaylist[]
+  user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
-  problemsPlaylist ProblemPlaylist[]
+  @@unique([name, userId]) // Unique playlist name for each user
 }
 
 model ProblemPlaylist {
@@ -125,44 +155,63 @@ model ProblemPlaylist {
   problemId  String
   playlistId String
   createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-  problem  Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
   playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
-}
+  problem  Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
 
-model Discussion {
-  id        String   @id @default(uuid())
-  title     String
-  content   String
-  userId    String
-  problemId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
-
-  likes DiscussionLike[]
-}
-
-model DiscussionLike {
-  id           String   @id @default(uuid())
-  userId       String
-  discussionId String
-  createdAt    DateTime @default(now())
-
-  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  discussion Discussion @relation(fields: [discussionId], references: [id], onDelete: Cascade)
+  @@unique([problemId, playlistId]) // Unique problem in each playlist
 }
 
 model Revision {
   id        String   @id @default(uuid())
   userId    String
   problemId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  //Relations
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, problemId])
+  @@index([userId])
+}
+
+model Discussion {
+  id        String   @id @default(cuid())
   content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  // Relations
+  problemId String
+  problem   Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  // Optional: Parent discussion for replies
+  parentId String?
+  parent   Discussion?  @relation("DiscussionReplies", fields: [parentId], references: [id])
+  replies  Discussion[] @relation("DiscussionReplies")
+
+  // Optional: Likes/votes
+  likes DiscussionLike[]
+
+  @@map("discussions")
+}
+
+model DiscussionLike {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  discussionId String
+  discussion   Discussion @relation(fields: [discussionId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([discussionId, userId])
+  @@map("discussion_likes")
 }
