@@ -4,6 +4,12 @@ import {
   submitBatch,
   pollBatchResults,
 } from "../libs/judge0.lib.js";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const createProblem = async (req, res) => {
   //get all the data from the request body
@@ -98,15 +104,18 @@ export const createProblem = async (req, res) => {
 
 export const getAllProblems = async (req, res) => {
   try {
+    // First try to fetch from database
     const problems = await db.problem.findMany(
       {
-        include: {
-          solvedBy: {
-            where: {
-              userId: req.loggedInUser ? req.loggedInUser.id : null,
+        ...(req.loggedInUser && {
+          include: {
+            solvedBy: {
+              where: {
+                userId: req.loggedInUser.id,
+              },
             },
           },
-        },
+        }),
       },
       {
         orderBy: {
@@ -114,15 +123,41 @@ export const getAllProblems = async (req, res) => {
         },
       }
     );
-    if (problems.length === 0) {
-      return res.status(404).json({ message: "No problems found" });
+
+    // If database has problems, return them
+    if (problems.length > 0) {
+      return res.status(200).json({
+        success: true,
+        message: "Problems fetched successfully",
+        problems,
+      });
     }
 
-    return res.status(200).json({
-      success: true,
-      message: "Problems fetched successfully",
-      problems,
-    });
+    // If no problems in database, fallback to JSON data
+    console.log("No problems found in database, falling back to JSON data");
+    
+    const problemsFilePath = path.join(__dirname, "../data/problems.json");
+    
+    if (fs.existsSync(problemsFilePath)) {
+      const jsonData = fs.readFileSync(problemsFilePath, "utf8");
+      const jsonProblems = JSON.parse(jsonData);
+      
+      // Add empty solvedBy array for each problem to match expected format
+      const formattedProblems = jsonProblems.map(problem => ({
+        ...problem,
+        solvedBy: req.loggedInUser ? [] : []
+      }));
+
+      return res.status(200).json({
+        success: true,
+        message: "Problems fetched successfully from JSON data",
+        problems: formattedProblems,
+      });
+    }
+
+    // If no JSON file either, return empty
+    return res.status(404).json({ message: "No problems found" });
+
   } catch (error) {
     console.error("Error fetching problems:", error);
     return res.status(500).json({ error: "Error While Fetching Problems" });
@@ -132,19 +167,46 @@ export const getAllProblems = async (req, res) => {
 export const getProblemById = async (req, res) => {
   try {
     const { id } = req.params;
+    
+    // First try to fetch from database
     const problem = await db.problem.findUnique({
       where: {
         id,
       },
     });
-    if (!problem) {
-      return res.status(404).json({ message: "Problem not found" });
+    
+    // If found in database, return it
+    if (problem) {
+      return res.status(200).json({
+        success: true,
+        message: "Problem fetched successfully",
+        problem,
+      });
     }
-    return res.status(200).json({
-      success: true,
-      message: "Problem fetched successfully",
-      problem,
-    });
+
+    // If not found in database, try JSON data
+    console.log(`Problem ${id} not found in database, checking JSON data`);
+    
+    const problemsFilePath = path.join(__dirname, "../data/problems.json");
+    
+    if (fs.existsSync(problemsFilePath)) {
+      const jsonData = fs.readFileSync(problemsFilePath, "utf8");
+      const jsonProblems = JSON.parse(jsonData);
+      
+      const jsonProblem = jsonProblems.find(p => p.id === id);
+      
+      if (jsonProblem) {
+        return res.status(200).json({
+          success: true,
+          message: "Problem fetched successfully from JSON data",
+          problem: jsonProblem,
+        });
+      }
+    }
+
+    // If not found in either place
+    return res.status(404).json({ message: "Problem not found" });
+    
   } catch (error) {
     console.error("Error fetching problem:", error);
     return res

@@ -1,0 +1,2624 @@
+[
+  {
+    "id": "problem-001",
+    "title": "Add Two Numbers",
+    "description": "Given 2 numbers add them up",
+    "difficulty": "EASY",
+    "tags": [
+      "maths",
+      "numbers"
+    ],
+    "companyTags": [],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Add Two Numbers"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Add Two Numbers"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Add Two Numbers"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-002",
+    "title": "Two Sum",
+    "description": "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.",
+    "difficulty": "EASY",
+    "tags": [
+      "array",
+      "hash-table"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Google"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Two Sum"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Two Sum"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Two Sum"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-003",
+    "title": "Maximum Subarray",
+    "description": "Given an integer array nums, find the contiguous subarray with the largest sum, and return its sum.",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "array",
+      "divide-and-conquer",
+      "dynamic-programming"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Microsoft",
+      "Bloomberg"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Maximum Subarray"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Maximum Subarray"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Maximum Subarray"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-004",
+    "title": "Best Time to Buy and Sell Stock",
+    "description": "You are given an array prices where prices[i] is the price of a given stock on the ith day. Find the maximum profit.",
+    "difficulty": "EASY",
+    "tags": [
+      "array",
+      "dynamic-programming"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Google",
+      "Facebook"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Best Time to Buy and Sell Stock"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Best Time to Buy and Sell Stock"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Best Time to Buy and Sell Stock"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-005",
+    "title": "Contains Duplicate",
+    "description": "Given an integer array nums, return true if any value appears at least twice in the array.",
+    "difficulty": "EASY",
+    "tags": [
+      "array",
+      "hash-table",
+      "sorting"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Apple"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Contains Duplicate"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Contains Duplicate"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Contains Duplicate"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-006",
+    "title": "Valid Parentheses",
+    "description": "Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.",
+    "difficulty": "EASY",
+    "tags": [
+      "string",
+      "stack"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Microsoft",
+      "Google"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Valid Parentheses"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Valid Parentheses"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Valid Parentheses"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-007",
+    "title": "Merge Two Sorted Lists",
+    "description": "Merge two sorted linked lists and return it as a sorted list.",
+    "difficulty": "EASY",
+    "tags": [
+      "linked-list",
+      "recursion"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Microsoft",
+      "Apple"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Merge Two Sorted Lists"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Merge Two Sorted Lists"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Merge Two Sorted Lists"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-008",
+    "title": "Binary Search",
+    "description": "Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums.",
+    "difficulty": "EASY",
+    "tags": [
+      "array",
+      "binary-search"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Google",
+      "Facebook"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Binary Search"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Binary Search"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Binary Search"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-009",
+    "title": "Reverse String",
+    "description": "Write a function that reverses a string. The input string is given as an array of characters s.",
+    "difficulty": "EASY",
+    "tags": [
+      "string",
+      "two-pointers"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Google"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Reverse String"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Reverse String"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Reverse String"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-010",
+    "title": "Climbing Stairs",
+    "description": "You are climbing a staircase. It takes n steps to reach the top. Each time you can either climb 1 or 2 steps.",
+    "difficulty": "EASY",
+    "tags": [
+      "math",
+      "dynamic-programming",
+      "memoization"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Google",
+      "Adobe"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Climbing Stairs"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Climbing Stairs"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Climbing Stairs"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-011",
+    "title": "Linked List Cycle",
+    "description": "Given head, the head of a linked list, determine if the linked list has a cycle in it.",
+    "difficulty": "EASY",
+    "tags": [
+      "hash-table",
+      "linked-list",
+      "two-pointers"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Microsoft",
+      "Yahoo"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Linked List Cycle"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Linked List Cycle"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Linked List Cycle"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-012",
+    "title": "Remove Duplicates from Sorted Array",
+    "description": "Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place.",
+    "difficulty": "EASY",
+    "tags": [
+      "array",
+      "two-pointers"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Microsoft",
+      "Google"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Remove Duplicates from Sorted Array"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Remove Duplicates from Sorted Array"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Remove Duplicates from Sorted Array"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-013",
+    "title": "Plus One",
+    "description": "You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer.",
+    "difficulty": "EASY",
+    "tags": [
+      "array",
+      "math"
+    ],
+    "companyTags": [
+      "Google",
+      "Amazon"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Plus One"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Plus One"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Plus One"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-014",
+    "title": "Single Number",
+    "description": "Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.",
+    "difficulty": "EASY",
+    "tags": [
+      "array",
+      "bit-manipulation"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Google",
+      "Airbnb"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Single Number"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Single Number"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Single Number"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-015",
+    "title": "Happy Number",
+    "description": "Write an algorithm to determine if a number n is happy.",
+    "difficulty": "EASY",
+    "tags": [
+      "hash-table",
+      "math",
+      "two-pointers"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Google",
+      "Uber"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Happy Number"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Happy Number"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Happy Number"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-016",
+    "title": "3Sum",
+    "description": "Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "array",
+      "two-pointers",
+      "sorting"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Microsoft",
+      "Facebook"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for 3Sum"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for 3Sum"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for 3Sum"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-017",
+    "title": "Longest Substring Without Repeating Characters",
+    "description": "Given a string s, find the length of the longest substring without repeating characters.",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "hash-table",
+      "string",
+      "sliding-window"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Microsoft",
+      "Google"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Longest Substring Without Repeating Characters"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Longest Substring Without Repeating Characters"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Longest Substring Without Repeating Characters"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-018",
+    "title": "Container With Most Water",
+    "description": "You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "array",
+      "two-pointers",
+      "greedy"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Facebook",
+      "Google"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Container With Most Water"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Container With Most Water"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Container With Most Water"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-019",
+    "title": "Group Anagrams",
+    "description": "Given an array of strings strs, group the anagrams together. You can return the answer in any order.",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "array",
+      "hash-table",
+      "string",
+      "sorting"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Facebook",
+      "Uber"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Group Anagrams"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Group Anagrams"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Group Anagrams"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-020",
+    "title": "Valid Sudoku",
+    "description": "Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be validated according to the following rules.",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "array",
+      "hash-table",
+      "matrix"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Apple",
+      "Snapchat"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Valid Sudoku"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Valid Sudoku"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Valid Sudoku"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-021",
+    "title": "Product of Array Except Self",
+    "description": "Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "array",
+      "prefix-sum"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Facebook",
+      "Microsoft"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Product of Array Except Self"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Product of Array Except Self"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Product of Array Except Self"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-022",
+    "title": "Top K Frequent Elements",
+    "description": "Given an integer array nums and an integer k, return the k most frequent elements.",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "array",
+      "hash-table",
+      "divide-and-conquer",
+      "sorting",
+      "heap"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Facebook",
+      "Google"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Top K Frequent Elements"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Top K Frequent Elements"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Top K Frequent Elements"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-023",
+    "title": "Daily Temperatures",
+    "description": "Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature.",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "array",
+      "stack",
+      "monotonic-stack"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Google",
+      "Facebook"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Daily Temperatures"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Daily Temperatures"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Daily Temperatures"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-024",
+    "title": "Search in Rotated Sorted Array",
+    "description": "There is an integer array nums sorted in ascending order (with distinct values). Given the array nums after the possible rotation and an integer target, return the index of target if it is in nums, or -1 if it is not in nums.",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "array",
+      "binary-search"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Microsoft",
+      "Facebook"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Search in Rotated Sorted Array"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Search in Rotated Sorted Array"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Search in Rotated Sorted Array"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-025",
+    "title": "Find Minimum in Rotated Sorted Array",
+    "description": "Suppose an array of length n sorted in ascending order is rotated between 1 and n times. Given the sorted rotated array nums of unique elements, return the minimum element of this array.",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "array",
+      "binary-search"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Google",
+      "Microsoft"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Find Minimum in Rotated Sorted Array"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Find Minimum in Rotated Sorted Array"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Find Minimum in Rotated Sorted Array"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-026",
+    "title": "Longest Palindromic Substring",
+    "description": "Given a string s, return the longest palindromic substring in s.",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "string",
+      "dynamic-programming"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Microsoft",
+      "Facebook"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Longest Palindromic Substring"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Longest Palindromic Substring"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Longest Palindromic Substring"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-027",
+    "title": "Palindromic Substrings",
+    "description": "Given a string s, return the number of palindromic substrings in it.",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "string",
+      "dynamic-programming"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Facebook",
+      "Microsoft"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Palindromic Substrings"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Palindromic Substrings"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Palindromic Substrings"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-028",
+    "title": "House Robber",
+    "description": "You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed.",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "array",
+      "dynamic-programming"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Google",
+      "LinkedIn"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for House Robber"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for House Robber"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for House Robber"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-029",
+    "title": "Coin Change",
+    "description": "You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "array",
+      "dynamic-programming",
+      "breadth-first-search"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Google",
+      "Uber"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Coin Change"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Coin Change"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Coin Change"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-030",
+    "title": "Longest Increasing Subsequence",
+    "description": "Given an integer array nums, return the length of the longest strictly increasing subsequence.",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "array",
+      "binary-search",
+      "dynamic-programming"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Microsoft",
+      "Facebook"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Longest Increasing Subsequence"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Longest Increasing Subsequence"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Longest Increasing Subsequence"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-031",
+    "title": "Merge Intervals",
+    "description": "Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals.",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "array",
+      "sorting"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Facebook",
+      "Google"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Merge Intervals"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Merge Intervals"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Merge Intervals"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-032",
+    "title": "Insert Interval",
+    "description": "You are given an array of non-overlapping intervals intervals where intervals[i] = [starti, endi] represent the start and the end of the ith interval.",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "array"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Facebook",
+      "Google"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Insert Interval"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Insert Interval"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Insert Interval"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-033",
+    "title": "Word Break",
+    "description": "Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of one or more dictionary words.",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "hash-table",
+      "string",
+      "dynamic-programming",
+      "trie"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Google",
+      "Facebook"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Word Break"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Word Break"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Word Break"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-034",
+    "title": "Combination Sum",
+    "description": "Given an array of distinct integers candidates and a target integer target, return a list of all unique combinations of candidates where the chosen numbers sum to target.",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "array",
+      "backtracking"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Uber",
+      "Snapchat"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Combination Sum"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Combination Sum"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Combination Sum"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-035",
+    "title": "Permutations",
+    "description": "Given an array nums of distinct integers, return all the possible permutations.",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "array",
+      "backtracking"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Microsoft",
+      "LinkedIn"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Permutations"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Permutations"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Permutations"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-036",
+    "title": "Subsets",
+    "description": "Given an integer array nums of unique elements, return all possible subsets (the power set).",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "array",
+      "backtracking",
+      "bit-manipulation"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Facebook",
+      "Google"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Subsets"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Subsets"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Subsets"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-037",
+    "title": "Word Search",
+    "description": "Given an m x n grid of characters board and a string word, return true if word exists in the grid.",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "array",
+      "backtracking",
+      "matrix"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Microsoft",
+      "Facebook"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Word Search"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Word Search"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Word Search"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-038",
+    "title": "Number of Islands",
+    "description": "Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands.",
+    "difficulty": "MEDIUM",
+    "tags": [
+      "array",
+      "depth-first-search",
+      "breadth-first-search",
+      "union-find",
+      "matrix"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Google",
+      "Facebook"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Number of Islands"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Number of Islands"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Number of Islands"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-039",
+    "title": "Alien Dictionary",
+    "description": "There is a new alien language that uses the English alphabet. However, the order among the letters is unknown to you.",
+    "difficulty": "HARD",
+    "tags": [
+      "array",
+      "string",
+      "depth-first-search",
+      "breadth-first-search",
+      "graph",
+      "topological-sort"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Google",
+      "Facebook"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Alien Dictionary"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Alien Dictionary"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Alien Dictionary"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  },
+  {
+    "id": "problem-040",
+    "title": "Trapping Rain Water",
+    "description": "Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.",
+    "difficulty": "HARD",
+    "tags": [
+      "array",
+      "two-pointers",
+      "dynamic-programming",
+      "stack",
+      "monotonic-stack"
+    ],
+    "companyTags": [
+      "Amazon",
+      "Google",
+      "Facebook"
+    ],
+    "userId": "system",
+    "examples": {
+      "JAVA": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Trapping Rain Water"
+      },
+      "PYTHON": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Trapping Rain Water"
+      },
+      "JAVASCRIPT": {
+        "input": "5",
+        "output": "5",
+        "explanation": "Example for Trapping Rain Water"
+      }
+    },
+    "constraints": "1 <= n <= 1000",
+    "hints": [
+      "Think about the optimal approach"
+    ],
+    "editorial": "Detailed solution explanation available",
+    "testcases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10",
+        "output": "10"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "codeSnippets": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static int solve(int n) {\n        // Write your code here\n        return n;\n    }\n\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(solve(n));\n    }\n}",
+      "PYTHON": "def solve(n):\n    # Write your code here\n    return n\n\nn = int(input())\nprint(solve(n))",
+      "JAVASCRIPT": "const fs = require('fs');\n\nfunction solve(n) {\n    // Write your code here\n    return n;\n}\n\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(solve(n));"
+    },
+    "referenceSolutions": {
+      "JAVA": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = sc.nextInt();\n        System.out.println(n);\n    }\n}",
+      "PYTHON": "n = int(input())\nprint(n)",
+      "JAVASCRIPT": "const fs = require('fs');\nconst input = fs.readFileSync(0, 'utf-8').trim();\nconst n = parseInt(input);\nconsole.log(n);"
+    },
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z",
+    "solvedBy": []
+  }
+]
