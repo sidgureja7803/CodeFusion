@@ -1,0 +1,63 @@
+.modal-card {
+  background-color: var(--modal-bg);
+  border-radius: 8px;
+  box-shadow: inset 0rem 0rem 1em rgba(215, 8, 1, 0.2);
+  backdrop-filter: blur(5px);
+  filter: brightness(1) contrast(1.2);
+  height: full;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease,
+    background-color 0.3s ease;
+  z-index: 10;
+}
+
+.modal-input {
+  background-color: var(--navbar-bg);
+  color: var(--color-text-primary);
+  padding: 0.5em;
+  font-size: 18px;
+  font-family: "neue-med";
+  font-weight: bold;
+  /* box-shadow: inset 0 0 1.2em rgba(215, 8, 1, 0.2); */
+  /* border-bottom: 1px solid rgb(205, 0, 0); */
+}
+
+.modal-input::placeholder {
+  color: var(--placeholder-text);
+  font-weight: bold;
+}
+
+.modal-input:focus {
+  outline: none;
+}
+
+.modal-text-area {
+  background-color: var(--navbar-bg);
+  color: var(--color-text-primary);
+  padding: 0.5em;
+  font-size: 14px;
+  font-family: neue-reg;
+  /* box-shadow: inset 0 0 1.2em rgba(215, 8, 1, 0.2); */
+  /* border-bottom: 1px solid rgb(205, 0, 0); */
+}
+
+.modal-text-area:focus {
+  outline: none;
+}
+
+.box-shadow::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(213, 0, 0, 0.4),
+    rgba(255, 255, 255, 0.05)
+  );
+  opacity: 0.5;
+  pointer-events: none;
+}

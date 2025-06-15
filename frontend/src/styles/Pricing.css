@@ -1,0 +1,49 @@
+.pricing-card {
+  height: 105%;
+}
+
+.pricing-card:nth-child(2)::after {
+  opacity: 0;
+}
+
+.pricing-card:nth-child(2):hover::after {
+  opacity: 0;
+  filter: blur(10px);
+  transform: rotate(90deg) translateX(-50px);
+}
+
+.badge {
+  position: absolute;
+  width: 220px;
+  text-align: center;
+  top: 0px;
+  padding: 2px 0px;
+  font-size: 0.9em;
+  color: #e4e4e4b1;
+  background: linear-gradient(
+    90deg,
+    rgba(242, 255, 0, 0.15),
+    rgba(255, 222, 0, 0.25)
+  );
+  border: 2px solid rgba(141, 141, 141, 0.26);
+  border-left: 3px solid rgba(141, 141, 141, 0.16);
+  border-right: 3px solid rgba(141, 141, 141, 0.16);
+  box-shadow: inset 5px -5px 8px rgba(251, 255, 30, 0.6),
+    0 0 12px rgba(251, 255, 30, 0.3);
+  backdrop-filter: blur(14px);
+  transition: all 0.3s ease;
+}
+
+.card:nth-child(2):hover .badge {
+  box-shadow: inset 7px -7px 12px rgba(251, 255, 30, 0.6),
+    0 0 18px rgba(251, 255, 11, 0.44);
+}
+
+@media (max-width: 768px) {
+  .pricing-card {
+    height: 100%;
+  }
+  .badge {
+    width: 150px;
+  }
+}

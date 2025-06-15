@@ -1,0 +1,161 @@
+.signup-form-container {
+  position: relative;
+  width: 450px;
+  max-width: 90%;
+  padding: 0em 2.5em 1.5em 2.5em;
+  background-color: rgba(13, 13, 13, 0.75);
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(7, 7, 7, 0.7);
+  border: none;
+  overflow: hidden;
+}
+
+.signup-form-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 3px;
+  border-radius: 12px;
+  background: linear-gradient(
+    170deg,
+    rgba(255, 255, 255, 0.6),
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.7),
+    rgba(54, 36, 255, 0.7),
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.3)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: exclude;
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Move your existing ::before content to a new ::after element */
+.signup-form-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url(../assets/images/lines.png) center/170px repeat;
+  opacity: 0.08;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+/* Rename your existing ::after to another class */
+.signup-form-container .blue-glow {
+  content: "";
+  position: absolute;
+  top: -120px;
+  left: 110px;
+  width: 200px;
+  border-radius: 200px;
+  height: 150px;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(54, 36, 255, 0.7) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  transform: rotate(60deg);
+  filter: blur(30px);
+  z-index: -1;
+}
+
+.signup-spotlight {
+  background: linear-gradient(45deg, #fcffdbba 0%, rgba(54, 36, 255) 40%);
+}
+
+.signup-spotlight-3 {
+  background: linear-gradient(-45deg, #fcffdb43 0%, rgb(77, 61, 255) 30%);
+  position: absolute;
+  width: 1200px;
+  height: 90px;
+  top: 0px;
+  left: -300px;
+  transform: perspective(1000px) rotateX(0deg) rotateY(60deg) rotateZ(0deg);
+  filter: blur(20px);
+  pointer-events: none;
+}
+
+.signup-form-input:focus {
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5),
+    inset 0 0 20px rgba(54, 36, 255, 0.7);
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.signup-button {
+  width: 100%;
+  padding: 0.8rem;
+  /* background: radial-gradient(
+      circle at 50% 50%,
+      rgba(145, 145, 145, 0.4),
+      rgba(48, 48, 48, 0.2)
+    ); */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  margin-top: 10px;
+  font-family: "neue-med", sans-serif;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 16px rgba(255, 255, 255, 0.6),
+    inset 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.signup-button::before {
+  content: "";
+  position: absolute;
+  left: -150%;
+  top: 0;
+  width: 120%;
+  height: 120%;
+  background: linear-gradient(
+    -45deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transition: all 0.7s ease;
+  z-index: 1;
+}
+
+.signup-button:hover::before {
+  left: 150%;
+}
+
+.signup-button:hover {
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5),
+    inset 0 0 25px rgba(54, 36, 255, 0.7);
+}
+
+.signup-form-group {
+  margin-bottom: 0.8em;
+  position: relative;
+}
+
+@media (max-width: 600px) {
+  .signup-form-container {
+    width: 90%;
+    padding: 0em 1.5em 1.5em 1.5em;
+  }
+
+  .signup-spotlight-3 {
+    display: none;
+  }
+
+  .signup-form-container .blue-glow {
+    left: 60px;
+  }
+}

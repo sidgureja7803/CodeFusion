@@ -1,0 +1,179 @@
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Default (dark) theme colors */
+  --color-bg-primary: #0f0f0f;
+  --color-bg-secondary: #1a1a1a;
+  --color-bg-tertiary: #2d2d2d;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #e0e0e0;
+  --color-accent: #dc2626;
+  --color-accent-hover: #ef4444;
+  --color-card-bg: rgba(26, 26, 26, 0.8);
+  --color-card-border: rgba(56, 56, 56, 0.5);
+  --color-success: #10b981;
+  --color-error: #ef4444;
+  --color-warning: #f59e0b;
+  --color-info: #3b82f6;
+  --color-glow: rgba(220, 38, 38, 0.2);
+}
+
+/* Light theme overrides */
+[data-theme="light"] {
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f3f4f6;
+  --color-bg-tertiary: #e5e7eb;
+  --color-bg-quaternary: #f9fafb;
+  --color-text-primary: #000000;
+  --color-text-secondary: #4b5563;
+  --placeholder-text: rgba(0, 0, 0, 0.5);
+  --color-accent: #dc2626;
+  --color-accent-hover: #b91c1c;
+  --color-card-bg: rgba(255, 255, 255, 0.9);
+  --color-card-border: rgba(229, 231, 235, 1);
+  --color-glow: rgba(220, 38, 38, 0.1);
+  --navbar-bg: rgba(255, 255, 255, 0.35);
+  --pfp-gradient: rgba(255, 255, 255, 0.8);
+  --pfp-text: #ff4c4c;
+  --modal-bg: #f4f4f4;
+  --sidebar-bg: rgba(255, 255, 255, 0.6);
+  --prob-input-placeholder: rgba(0, 0, 0, 0.8);
+  --prob-input-border: rgba(0, 0, 0, 0.5);
+  --tab-color: rgba(0, 0, 0, 0.7);
+  --bg-01: rgba(0, 0, 0, 0.2);
+  --bg-02: rgba(255, 255, 255, 0.2);
+  --bg-03: rgba(255, 255, 255, 0.3);
+  --bg-09: rgba(255, 255, 255, 0.9);
+  --bg-65: rgba(255, 255, 255, 0.65);
+
+  --gradient-1: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #f6f3f3 40%,
+    #fff5f5 80%,
+    #ffdcdc 100%
+  );
+
+  color-scheme: light;
+}
+
+/* Dark theme - using your current styling */
+[data-theme="dark"] {
+  --color-bg-primary: #0f0f0f;
+  --color-bg-secondary: #1a1a1a;
+  --color-bg-tertiary: #2d2d2d;
+  --color-bg-quaternary: #291818;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #e0e0e0;
+  --placeholder-text: rgba(255, 255, 255, 0.5);
+  --color-accent: #dc2626;
+  --color-accent-hover: #ef4444;
+  --color-card-bg: rgba(26, 26, 26, 0.8);
+  --color-card-border: rgba(56, 56, 56, 0.5);
+  --color-glow: rgba(220, 38, 38, 0.2);
+  --navbar-bg: rgba(0, 0, 0, 0.35);
+  --pfp-gradient: rgba(0, 0, 0, 0.8);
+  --pfp-text: #ff8e8e;
+  --modal-bg: #0e0e0e;
+  --sidebar-bg: rgba(0, 0, 0, 0.6);
+  --prob-input-placeholder: rgba(255, 255, 255, 0.5);
+  --prob-input-border: rgba(56, 56, 56, 0);
+  --tab-color: rgba(255, 255, 255, 0.7);
+  --bg-01: rgba(255, 255, 255, 0.1);
+  --bg-02: rgba(0, 0, 0, 0.2);
+  --bg-03: rgba(0, 0, 0, 0.3);
+  --bg-09: rgba(0, 0, 0, 0.9);
+  --bg-65: rgba(0, 0, 0, 0.65);
+
+  --gradient-1: linear-gradient(
+    180deg,
+    #000000 0%,
+    #150a0a 40%,
+    #1d1010 80%,
+    #291818 100%
+  );
+
+  color-scheme: dark;
+}
+
+@font-face {
+  font-family: sepulture;
+  src: url(./assets/fonts/Sepulture.ttf);
+}
+@font-face {
+  font-family: Neue-Med;
+  src: url(./assets/fonts/NeueMontreal-Medium.otf);
+}
+
+@font-face {
+  font-family: Neue-Reg;
+  src: url(./assets/fonts/NeueMontreal-Regular.otf);
+}
+
+@font-face {
+  font-family: Libre Baskerville;
+  src: url(./assets/fonts/LibreBaskerville-Italic.ttf);
+}
+
+@font-face {
+  font-family: Nulshock;
+  src: url(./assets/fonts/nulshock.otf);
+}
+
+@font-face {
+  font-family: emberly;
+  src: url(./assets/fonts/Emberly.ttf);
+}
+
+.neue-med {
+  font-family: Neue-Med;
+}
+
+.arame {
+  font-family: Arame;
+}
+
+.neue-reg {
+  font-family: Neue-Reg;
+}
+
+.sepulture {
+  font-family: sepulture;
+}
+
+.nulshock {
+  font-family: Nulshock;
+}
+
+.italic {
+  font-family: Libre Baskerville;
+}
+
+::selection {
+  background-color: #f9f9f9;
+  color: #101010;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: #1b1b1b;
+}
+
+::-webkit-scrollbar-track {
+  background: #1b1b1b;
+}
+
+::-webkit-scrollbar-button {
+  background: #860000;
+  height: 16px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ae0000;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #860000;
+}

@@ -1,0 +1,393 @@
+.profile-container {
+  background: var(--gradient-1);
+  min-height: 100vh;
+  padding: 1em 2em;
+  position: relative;
+  color: var(--color-text-primary);
+}
+
+.profile-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at top left,
+    rgba(38, 0, 188, 0.1),
+    transparent 30%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.profile-header {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 2rem;
+}
+
+.profile-card {
+  background-color: var(--navbar-bg);
+  border-radius: 12px;
+  /* box-shadow: inset 0rem 0rem 1em rgba(215, 8, 1, 0.2); */
+  padding: 1.5em;
+  backdrop-filter: blur(5px);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgb(205, 0, 0);
+  transition: all 0.3s ease;
+  z-index: 1;
+  width: 100%;
+  max-width: 350px;
+}
+
+.profile-card:hover {
+  box-shadow: inset 0rem 0rem 1.5em rgba(215, 8, 1, 0.6);
+  border: 1px solid rgb(205, 0, 0);
+}
+
+.profile-divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    rgb(50, 0, 205),
+    rgba(205, 0, 0),
+    rgb(50, 0, 205)
+  );
+  margin: 1.5rem 0;
+}
+
+.profile-stats {
+  background-color: var(--bg-03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0rem 0rem 1em rgba(215, 8, 1, 0.1);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  color: var(--color-text-primary);
+}
+
+.profile-stats::after {
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: 20%;
+  width: 40px;
+  transform: rotate(45deg);
+  height: 400px;
+  background: radial-gradient(circle, rgba(215, 1, 1, 0.9) 0%, transparent 90%);
+  opacity: 0;
+  filter: blur(40px);
+  transition: opacity 0.3s ease;
+}
+
+.profile-stats:hover {
+  background-color: var(--bg-02);
+  border-color: rgba(215, 8, 1, 0.3);
+}
+
+.profile-stats:hover::after {
+  opacity: 1;
+}
+
+.profile-btn {
+  padding: 0.5em;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  font-size: 0.8em;
+  color: var(--color-text-primary);
+}
+
+.profile-btn-outline {
+  background-color: transparent;
+  border: 1px solid rgba(215, 8, 1, 0.6);
+  /* color: var(--bg-09); */
+}
+
+.profile-btn-outline:hover {
+  background-color: rgba(215, 8, 1, 0.1);
+  border-color: rgba(215, 8, 1, 0.8);
+}
+
+.profile-btn-primary {
+  background-color: rgba(215, 8, 1, 0.7);
+  border: 1px solid rgba(215, 8, 1);
+  color: var(--color-text-primary);
+}
+
+.profile-btn-primary:hover {
+  background-color: rgba(215, 8, 1, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(215, 8, 1, 0.4);
+}
+
+.profile-component-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  position: relative;
+  z-index: 1;
+}
+
+/* Component Cards */
+.profile-component-card {
+  background-color: var(--bg-65);
+  border-radius: 12px;
+  /* box-shadow: inset 0rem 0rem 1em rgba(215, 8, 1, 0.2); */
+  backdrop-filter: blur(5px);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(205, 0, 0, 0.95);
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.profile-component-card:hover {
+  box-shadow: inset 0rem 0rem 1.5em rgba(215, 8, 1, 0.3);
+  /* border: 1px solid rgba(205, 0, 255, 0.95); */
+}
+
+.profile-component-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--color-text-primary);
+  position: relative;
+}
+
+.profile-component-header::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(215, 8, 1, 0.8), transparent);
+}
+
+/* Badge styles */
+.profile-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.badge-success {
+  background-color: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #10b981;
+}
+
+.badge-warning {
+  background-color: rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #f59e0b;
+}
+
+.badge-error {
+  background-color: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #ef4444;
+}
+
+.badge-outline {
+  background-color: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  color: #6366f1;
+}
+
+.profile-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.profile-table th {
+  background-color: var(--bg-03);
+  color: var(--color-text-primary);
+  font-weight: 500;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+}
+
+.profile-table td {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.profile-table tr:hover td {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.profile-table-card {
+  background-color: var(--bg-02);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Pill styles similar to UserStats */
+.profile-pill {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+  border: 1px solid;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.pill-primary {
+  background-color: rgba(99, 102, 241, 0.2);
+  border-color: rgba(99, 102, 241, 0.4);
+  color: #818cf8;
+}
+
+.pill-success {
+  background-color: rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #34d399;
+}
+
+.pill-warning {
+  background-color: rgba(245, 158, 11, 0.2);
+  border-color: rgba(245, 158, 11, 0.4);
+  color: #fbbf24;
+}
+
+.pill-danger {
+  background-color: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #f87171;
+}
+
+/* Heatmap container styles */
+.submission-heatmap {
+  padding: 10px;
+  /* overflow: hidden; */
+}
+
+.react-calendar-heatmap .color-empty {
+  fill: #181818 !important;
+  rx: 2;
+  ry: 2;
+  stroke: rgba(255, 255, 255, 0.05);
+}
+
+.react-calendar-heatmap .color-scale-1 {
+  fill: rgba(220, 38, 38, 0.25);
+  rx: 2;
+  ry: 2;
+}
+
+.react-calendar-heatmap .color-scale-2 {
+  fill: rgba(220, 38, 38, 0.5);
+  rx: 2;
+  ry: 2;
+}
+
+.react-calendar-heatmap .color-scale-3 {
+  fill: rgba(220, 38, 38, 0.75);
+  rx: 2;
+  ry: 2;
+}
+
+.react-calendar-heatmap .color-scale-4 {
+  fill: rgba(220, 38, 38, 1);
+  rx: 2;
+  ry: 2;
+}
+
+/* Text styles for better readability */
+.react-calendar-heatmap text {
+  font-size: 8px;
+  font-weight: 400;
+  fill: rgba(255, 255, 255, 0.7);
+  font-family: neue-reg;
+}
+
+/* Cell hover effect */
+.react-calendar-heatmap rect:hover {
+  stroke: rgba(255, 255, 255, 0.7);
+  stroke-width: 1px;
+  /* cursor: pointer; */
+}
+
+/* Cell styling */
+.react-calendar-heatmap rect {
+  rx: 2px; /* Rounded corners */
+  ry: 2px;
+  height: 9px;
+  width: 9px;
+  transition: all 0.2s ease;
+  fill: rgba(22, 27, 34, 0.6);
+}
+
+/* Legend styles */
+.heatmap-legend {
+  margin-top: 8px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.legend-square {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.color-empty.legend-square {
+  background-color: rgba(22, 27, 34, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.color-scale-1.legend-square {
+  background-color: rgba(220, 38, 38, 0.25);
+}
+
+.color-scale-2.legend-square {
+  background-color: rgba(220, 38, 38, 0.5);
+}
+
+.color-scale-3.legend-square {
+  background-color: rgba(220, 38, 38, 0.75);
+}
+
+.color-scale-4.legend-square {
+  background-color: rgba(220, 38, 38, 1);
+}
+
+/* Responsive styles */
+.react-calendar-heatmap {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  padding: 10px;
+}
+
+.submission-tooltip {
+  background-color: #2a2a2a !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  padding: 8px 12px !important;
+  border-radius: 6px !important;
+  font-size: 14px !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3) !important;
+  z-index: 1000 !important;
+}

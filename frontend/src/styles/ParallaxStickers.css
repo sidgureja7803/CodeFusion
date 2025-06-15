@@ -1,0 +1,48 @@
+.stickers-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.parallax-sticker {
+  position: absolute;
+  transition: all 0.1s ease-out;
+  will-change: transform;
+  filter: grayscale(100) brightness(0.9) contrast(1.2);
+}
+
+.sticker-1 {
+  top: 5vw;
+  right: 40vw;
+  scale: 0.5;
+  rotate: -20deg;
+  filter: blur(20px);
+}
+
+.sticker-2 {
+  top: -20vw;
+  left: 40vw;
+  scale: 0.3;
+  rotate: 20deg;
+  filter: blur(12px);
+}
+
+.sticker-3 {
+  top: -20vw;
+  left: -44vw;
+  scale: 0.24;
+  rotate: 0deg;
+  filter: blur(8px);
+}
+
+/* Add more sticker positions as needed */
+
+@media (max-width: 768px) {
+  .stickers-container {
+    display: none;
+  }
+}
