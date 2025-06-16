@@ -1,39 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { ChevronDown, HelpCircle } from "lucide-react";
-import gsap from "gsap";
 
 export const FAQs = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Animated background gradient
-      gsap.to(".faqs-bg", {
-        backgroundPosition: "200% 200%",
-        duration: 22,
-        repeat: -1,
-        yoyo: true,
-        ease: "none"
-      });
-
-      // Floating help icons animation
-      gsap.to(".floating-help", {
-        y: -12,
-        rotation: 5,
-        duration: 5,
-        repeat: -1,
-        yoyo: true,
-        ease: "power1.inOut",
-        stagger: 1
-      });
-
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   const handleToggle = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
@@ -70,103 +42,56 @@ export const FAQs = () => {
     }
   ];
 
-  // Framer Motion variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      },
-    },
-  };
-
   return (
-    <div id="faqs" className="min-h-[95vh] p-4 relative overflow-hidden" ref={sectionRef}>
-      {/* Animated Background */}
-      <div className="faqs-bg absolute inset-0 bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-900"
-           style={{
-             backgroundSize: "400% 400%",
-             backgroundImage: "linear-gradient(-45deg, #0f172a, #064e3b, #312e81, #1e293b, #0f172a)"
-           }}>
-        
-        {/* Floating help icons */}
-        <div className="floating-help absolute top-32 left-16 w-8 h-8 text-emerald-400/30">
-          <HelpCircle className="w-full h-full" />
-        </div>
-        <div className="floating-help absolute top-48 right-24 w-6 h-6 text-blue-400/30">
-          <HelpCircle className="w-full h-full" />
-        </div>
-        <div className="floating-help absolute bottom-32 left-32 w-10 h-10 text-cyan-400/30">
-          <HelpCircle className="w-full h-full" />
-        </div>
-        <div className="floating-help absolute bottom-48 right-16 w-7 h-7 text-green-400/30">
-          <HelpCircle className="w-full h-full" />
-        </div>
-        
-        {/* Geometric shapes */}
-        <div className="absolute top-24 right-12 w-32 h-32 bg-emerald-500/10 rounded-full blur-xl"></div>
-        <div className="absolute bottom-24 left-12 w-40 h-40 bg-blue-500/10 rounded-full blur-2xl"></div>
-        
+    <div id="faqs" className="min-h-screen p-4 relative overflow-hidden" ref={sectionRef}>
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-900">
         {/* Grid pattern */}
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjUwIiBoZWlnaHQ9IjUwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDUwIDAgTCAwIDAgMCA1MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMDQpIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-25"></div>
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjUwIiBoZWlnaHQ9IjUwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDUwIDAgTCAwIDAgMCA1MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMDUpIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-35"></div>
       </div>
 
       {/* Content Layer */}
-      <div className="relative z-10 h-full w-full flex flex-col items-center py-16">
-        <motion.h1
-          initial={{ y: -20, opacity: 0 }}
-          animate={isInView ? { y: 0, opacity: 1 } : { y: -20, opacity: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="sm:text-5xl text-4xl text-center mb-4 bg-gradient-to-r from-white to-emerald-200 bg-clip-text text-transparent font-bold"
+      <div className="relative z-10 h-full w-full flex flex-col items-center py-20">
+        <motion.div
+          initial={{ y: -30, opacity: 0 }}
+          animate={isInView ? { y: 0, opacity: 1 } : { y: -30, opacity: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center mb-16"
         >
-          Frequently Asked Questions
-        </motion.h1>
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-emerald-200 to-cyan-300 bg-clip-text text-transparent">
+            Frequently Asked Questions
+          </h1>
 
-        <motion.p
-          initial={{ y: -15, opacity: 0 }}
-          animate={isInView ? { y: 0, opacity: 1 } : { y: -15, opacity: 0 }}
-          transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          className="sm:text-lg text-base text-center text-gray-300 max-w-2xl mb-12 mt-4 px-4"
-        >
-          Everything you need to know about CodeFusion and collaborative coding.
-        </motion.p>
+          <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            Everything you need to know about CodeFusion and collaborative coding.
+          </p>
+        </motion.div>
 
         {/* FAQ Accordions */}
-        <motion.div
-          className="w-full max-w-4xl px-4 mx-auto"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
+        <div className="w-full max-w-4xl px-4 mx-auto">
           {faqItems.map((item, index) => (
             <motion.div
               key={index}
-              variants={itemVariants}
-              className="mb-4"
+              className="mb-6"
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
             >
               <motion.div
-                className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 transition-all duration-300"
+                className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl overflow-hidden hover:border-white/30 transition-all duration-500"
                 whileHover={{ scale: 1.01 }}
+                style={{
+                  background: "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)",
+                  backdropFilter: "blur(20px)",
+                  boxShadow: "0 8px 32px rgba(0,0,0,0.1)"
+                }}
               >
                 <motion.button
-                  className="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none group"
+                  className="w-full px-8 py-6 text-left flex justify-between items-center focus:outline-none group"
                   onClick={() => handleToggle(index)}
                   whileTap={{ scale: 0.99 }}
                 >
-                  <span className="text-white font-semibold text-lg group-hover:text-emerald-200 transition-colors duration-300">
+                  <span className="text-white font-bold text-xl group-hover:text-emerald-200 transition-colors duration-300">
                     {item.question}
                   </span>
                   <motion.div
@@ -174,7 +99,7 @@ export const FAQs = () => {
                     transition={{ duration: 0.3 }}
                     className="text-emerald-400 group-hover:text-emerald-300 transition-colors duration-300"
                   >
-                    <ChevronDown className="w-5 h-5" />
+                    <ChevronDown className="w-6 h-6" />
                   </motion.div>
                 </motion.button>
 
@@ -187,13 +112,13 @@ export const FAQs = () => {
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 pb-5 border-t border-white/10">
+                      <div className="px-8 pb-6 border-t border-white/10">
                         <motion.p
                           initial={{ y: -10, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
                           exit={{ y: -10, opacity: 0 }}
                           transition={{ duration: 0.2, delay: 0.1 }}
-                          className="text-gray-300 leading-relaxed pt-4"
+                          className="text-gray-300 leading-relaxed pt-6 text-lg"
                         >
                           {item.answer}
                         </motion.p>
@@ -204,20 +129,22 @@ export const FAQs = () => {
               </motion.div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Bottom CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 1 }}
-          className="mt-16 text-center"
+          initial={{ y: 50, opacity: 0 }}
+          animate={isInView ? { y: 0, opacity: 1 } : { y: 50, opacity: 0 }}
+          transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+          className="mt-20 text-center"
         >
-          <p className="text-gray-300 mb-6">Still have questions?</p>
+          <p className="text-xl text-gray-300 mb-8">
+            Still have questions? We're here to help!
+          </p>
           <motion.button
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(16, 185, 129, 0.3)" }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-3 bg-gradient-to-r from-emerald-600 to-blue-600 text-white rounded-full font-semibold hover:shadow-lg transition-all duration-300"
+            className="px-12 py-4 bg-gradient-to-r from-emerald-600 to-cyan-600 text-white font-semibold rounded-2xl text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
           >
             Contact Support
           </motion.button>

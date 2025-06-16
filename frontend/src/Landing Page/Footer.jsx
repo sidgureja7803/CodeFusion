@@ -1,78 +1,9 @@
-import React from "react";
-import { motion } from "framer-motion";
-import "../styles/Footer.css";
-// Using CSS gradient background instead of batman image
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
 export const Footer = () => {
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 12,
-      },
-    },
-  };
-
-  const logoVariants = {
-    hidden: { opacity: 0, scale: 1.1, y: 20 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: {
-        duration: 1.5,
-        ease: "easeOut",
-      },
-    },
-  };
-
-  const glowVariants = {
-    initial: { opacity: 0, filter: "blur(20px)" },
-    animate: {
-      opacity: [0.2, 0.5, 0.2],
-      filter: "blur(15px)",
-      transition: {
-        duration: 5,
-        repeat: Infinity,
-        repeatType: "reverse",
-      },
-    },
-  };
-
-  const inputVariants = {
-    rest: { scale: 1 },
-    focus: {
-      scale: 1.02,
-      borderColor: "rgba(255,255,255,0.5)",
-      transition: { duration: 0.3 },
-    },
-  };
-
-  const buttonVariants = {
-    rest: { scale: 1 },
-    hover: {
-      scale: 1.05,
-      backgroundColor: "rgba(255,255,255,0.25)",
-      transition: { duration: 0.3 },
-    },
-    tap: { scale: 0.98 },
-  };
+  const footerRef = useRef(null);
+  const isInView = useInView(footerRef, { once: true, amount: 0.2 });
 
   const navLinks = [
     { name: "Features", id: "features" },
@@ -99,274 +30,171 @@ export const Footer = () => {
   };
 
   return (
-    <motion.div
-      id="footer"
-      className="min-h-[80vh] w-full flex flex-col justify-end items-center relative px-4"
-    >
-      <motion.div
-        className="relative bg-[#0d0d0d] w-full min-h-[80vh] flex flex-col justify-start items-center rounded-t-4xl overflow-hidden pb-24"
-        initial={{ y: 100, opacity: 1 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{
-          type: "tween",
-          duration: 1.5,
-          delay: 0.2,
-          ease: "anticipate",
-        }}
-      >
-        {/* Background Gradient */}
-        <div className="footer">
-          <motion.div
-            initial={{ scale: 1.1, opacity: 0.7 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 1.2 }}
-            className="z-[1] absolute pointer-events-none bottom-1 sm:bottom-0 left-0 w-full h-full bg-gradient-to-t from-slate-900 via-purple-900/50 to-transparent"
-            style={{
-              backgroundImage: "linear-gradient(to top, #0f172a, #1e1b4b, #312e81, transparent)",
-            }}
-          />
-        </div>
+    <div id="footer" className="min-h-screen p-4 relative overflow-hidden" ref={footerRef}>
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+        {/* Grid pattern */}
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDYwIDAgTCAwIDAgMCA2MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMDUpIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30"></div>
+      </div>
 
-        {/* Pattern Overlay with Animation */}
-        <motion.div
-          className="pattern-overlay"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 0.12 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 1.5, delay: 0.3 }}
-        />
-
-        {/* Animated Glow Effect */}
-        <motion.div
-          variants={glowVariants}
-          initial="initial"
-          animate="animate"
-          className="absolute top-[-500px] left-[30%] w-[800px] h-[700px] bg-gradient-radial from-[rgba(255,255,255,0.9)] to-transparent rounded-full z-[1] pointer-events-none"
-        />
-
+      {/* Content Layer */}
+      <div className="relative z-10 h-full w-full flex flex-col items-center py-20">
         {/* Main Footer Content */}
-        <motion.div
-          className="z-[2] relative w-full max-w-full px-4 flex flex-col items-center footer"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
+        <div className="w-full max-w-6xl px-4 mx-auto">
+          {/* Logo and Main CTA */}
           <motion.div
-            className="footer-grid max-w-5xl"
-            variants={containerVariants}
+            initial={{ y: -30, opacity: 0 }}
+            animate={isInView ? { y: 0, opacity: 1 } : { y: -30, opacity: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-center mb-16"
           >
-            <motion.div className="footer-column" variants={itemVariants}>
-              <motion.h3
-                className="footer-heading"
-                initial={{ x: -20, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                viewport={{ once: true }}
+            <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 bg-gradient-to-r from-white via-blue-200 to-purple-300 bg-clip-text text-transparent">
+              CodeFusion
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8">
+              Code Together. Build Better. Deploy Faster.
+            </p>
+
+            {/* Newsletter Signup */}
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={isInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-md mx-auto"
+            >
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 px-6 py-3 rounded-2xl bg-white/10 backdrop-blur-lg border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-white/40 transition-all duration-300"
+              />
+              <motion.button
+                whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(99, 102, 241, 0.3)" }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
               >
-                Explore
-              </motion.h3>
-              <ul className="footer-links">
+                Join
+              </motion.button>
+            </motion.div>
+          </motion.div>
+
+          {/* Footer Links Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-16">
+            {/* Navigation Links */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-center md:text-left"
+            >
+              <h3 className="text-2xl font-bold text-white mb-6">Explore</h3>
+              <ul className="space-y-4">
                 {navLinks.map((link) => (
-                  <motion.li
-                    key={link.id}
-                    variants={itemVariants}
-                    custom={link.id}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                  >
-                    <motion.a
-                      whileHover={{ x: 5, color: "#ffffff" }}
-                      transition={{ type: "tween", duration: 0.2, delay: 0.1 }}
+                  <li key={link.id}>
+                    <motion.button
                       onClick={() => scrollToSection(link.id)}
-                      className="cursor-pointer"
+                      className="text-gray-400 hover:text-white transition-colors duration-300 text-lg"
+                      whileHover={{ x: 5 }}
+                      transition={{ type: "spring", stiffness: 300 }}
                     >
                       {link.name}
-                    </motion.a>
-                  </motion.li>
+                    </motion.button>
+                  </li>
                 ))}
               </ul>
             </motion.div>
 
-            <motion.div className="footer-column" variants={itemVariants}>
-              <motion.h3
-                className="footer-heading"
-                initial={{ x: -20, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
-                transition={{ type: "spring", stiffness: 300, delay: 0.1 }}
-                viewport={{ once: true }}
-              >
-                Company
-              </motion.h3>
-              <ul className="footer-links">
-                {["About Us", "Careers", "Contact", "Privacy Policy"].map(
-                  (item, i) => (
-                    <motion.li
-                      key={item}
-                      variants={itemVariants}
-                      custom={i}
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true }}
+            {/* Company Links */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-center md:text-left"
+            >
+              <h3 className="text-2xl font-bold text-white mb-6">Company</h3>
+              <ul className="space-y-4">
+                {["About Us", "Careers", "Contact", "Privacy Policy"].map((item) => (
+                  <li key={item}>
+                    <motion.a
+                      href={`#${item.toLowerCase().replace(/\s/g, "-")}`}
+                      className="text-gray-400 hover:text-white transition-colors duration-300 text-lg"
+                      whileHover={{ x: 5 }}
+                      transition={{ type: "spring", stiffness: 300 }}
                     >
-                      <motion.a
-                        href={`#${item.toLowerCase().replace(/\s/g, "-")}`}
-                        whileHover={{ x: 5, color: "#ffffff" }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
-                        {item}
-                      </motion.a>
-                    </motion.li>
-                  )
-                )}
+                      {item}
+                    </motion.a>
+                  </li>
+                ))}
               </ul>
             </motion.div>
 
-            <motion.div className="footer-column" variants={itemVariants}>
-              <motion.h3
-                className="footer-heading"
-                initial={{ x: -20, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
-                transition={{ type: "spring", stiffness: 300, delay: 0.2 }}
-                viewport={{ once: true }}
-              >
-                Socials
-              </motion.h3>
-              <ul className="footer-links">
+            {/* Social Links */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="text-center md:text-left"
+            >
+              <h3 className="text-2xl font-bold text-white mb-6">Connect</h3>
+              <ul className="space-y-4">
                 {socialLinks.map((item) => (
-                  <motion.li
-                    key={item.name}
-                    variants={itemVariants}
-                    custom={item.name}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                  >
+                  <li key={item.name}>
                     <motion.a
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="cursor-pointer"
-                      whileHover={{ x: 5, color: "#ffffff" }}
+                      className="text-gray-400 hover:text-white transition-colors duration-300 text-lg"
+                      whileHover={{ x: 5 }}
                       transition={{ type: "spring", stiffness: 300 }}
                     >
                       {item.name}
                     </motion.a>
-                  </motion.li>
+                  </li>
                 ))}
               </ul>
             </motion.div>
 
+            {/* Contact Info */}
             <motion.div
-              className="footer-column newsletter"
-              variants={itemVariants}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="text-center md:text-left"
             >
-              <motion.h3
-                className="footer-heading"
-                initial={{ x: -20, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
-                transition={{ type: "spring", stiffness: 100, delay: 0.3 }}
-                viewport={{ once: true }}
-              >
-                Join the League
-              </motion.h3>
-              <motion.p
-                className="footer-text"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                viewport={{ once: true }}
-              >
-                Get early access and training tips delivered to your inbox
-              </motion.p>
-              <motion.div
-                className="email-signup"
-                initial={{ y: 10, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                transition={{ type: "spring", stiffness: 70, delay: 0.5 }}
-                viewport={{ once: true }}
-              >
-                <motion.input
-                  type="email"
-                  placeholder="Your email"
-                  className="footer-input"
-                  variants={inputVariants}
-                  initial="rest"
-                  whileFocus="focus"
-                />
-                <motion.button
-                  className="footer-button"
-                  variants={buttonVariants}
-                  initial="rest"
-                  whileHover="hover"
-                  whileTap="tap"
-                >
-                  <motion.span
-                    animate={{
-                      rotate: [0, 10, -10, 10, 0],
-                      scale: [1, 1.2, 1],
-                      opacity: [1, 0.8, 1],
-                    }}
-                    transition={{
-                      duration: 2.5,
-                      repeat: Infinity,
-                      repeatDelay: 3,
-                    }}
-                  >
-                    ✦
-                  </motion.span>{" "}
-                  Join
-                </motion.button>
-              </motion.div>
+              <h3 className="text-2xl font-bold text-white mb-6">Support</h3>
+              <ul className="space-y-4">
+                <li>
+                  <span className="text-gray-400 text-lg">Email</span>
+                  <p className="text-white">support@codefusion.dev</p>
+                </li>
+                <li>
+                  <span className="text-gray-400 text-lg">Discord</span>
+                  <p className="text-white">Join our community</p>
+                </li>
+                <li>
+                  <span className="text-gray-400 text-lg">Docs</span>
+                  <p className="text-white">Read our guides</p>
+                </li>
+              </ul>
             </motion.div>
-          </motion.div>
+          </div>
 
-          {/* Copyright Section */}
+          {/* Bottom Copyright */}
           <motion.div
-            className="copyright sm:mt-[9.5em] sm:mb-2"
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            viewport={{ once: true }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="border-t border-white/10 pt-8 text-center"
           >
-            <p>
-              &copy; {new Date().getFullYear()} CodeFusion. All rights
-              reserved.
+            <p className="text-gray-400 text-lg">
+              &copy; {new Date().getFullYear()} CodeFusion. All rights reserved.
             </p>
-            <motion.p
-              className="credit"
-              animate={{
-                textShadow: [
-                  "0 0 0px rgba(255,255,255,0)",
-                  "0 0 8px rgba(255,255,255,0.3)",
-                  "0 0 0px rgba(255,255,255,0)",
-                ],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                repeatType: "reverse",
-              }}
-            >
-              Code Together. Build Better. Deploy Faster.
-            </motion.p>
+            <p className="text-gray-500 mt-2">
+              Made with ❤️ for developers worldwide
+            </p>
           </motion.div>
-        </motion.div>
-
-        {/* Large CodeFusion Text */}
-        <motion.h1
-          className="sepulture z-[2] absolute bottom-0 sm:text-[280px] text-6xl pointer-events-none select-none text-[#767676] mix-blend-color-dodge tracking-tight"
-          variants={logoVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          CodeFusion
-        </motion.h1>
-      </motion.div>
-    </motion.div>
+        </div>
+      </div>
+    </div>
   );
 };
