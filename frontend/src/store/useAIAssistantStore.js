@@ -11,14 +11,26 @@ export const useAIAssistantStore = create((set) => ({
   // Get help from AI
   getAIHelp: async (prompt, problemId, code, language) => {
     try {
+      console.log("🤖 AI Assistant: Starting request...");
+      console.log("Prompt:", prompt);
+      console.log("Problem ID:", problemId);
+      console.log("Language:", language);
+      console.log("Code length:", code?.length || 0);
+      
       set({ isLoading: true });
 
-      const response = await axiosInstance.post("/ai/help", {
+      const requestData = {
         prompt,
         problemId,
         code,
         language,
-      });
+      };
+
+      console.log("Request data:", requestData);
+
+      const response = await axiosInstance.post("/ai/help", requestData);
+
+      console.log("🤖 AI Assistant: Response received:", response.data);
 
       const newMessage = {
         role: "assistant",
@@ -39,10 +51,30 @@ export const useAIAssistantStore = create((set) => ({
         ],
       }));
 
+      Toast.success("AI response received!");
       return response.data.response;
     } catch (error) {
-      console.error("Error getting AI help:", error);
-      Toast.error("Failed to get AI assistance");
+      console.error("🤖 AI Assistant Error:", error);
+      console.error("Error details:", {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status,
+        statusText: error.response?.statusText,
+      });
+      
+      let errorMessage = "Failed to get AI assistance";
+      
+      if (error.response?.status === 401) {
+        errorMessage = "Please log in to use AI Assistant";
+      } else if (error.response?.status === 429) {
+        errorMessage = "Too many requests. Please try again later.";
+      } else if (error.response?.status === 500) {
+        errorMessage = "AI service is temporarily unavailable";
+      } else if (error.response?.data?.message) {
+        errorMessage = error.response.data.message;
+      }
+      
+      Toast.error(errorMessage);
       return null;
     } finally {
       set({ isLoading: false });
@@ -52,6 +84,7 @@ export const useAIAssistantStore = create((set) => ({
   // Get code explanation
   getCodeExplanation: async (code, language) => {
     try {
+      console.log("🤖 Code Explanation: Starting request...");
       set({ isLoading: true });
 
       const response = await axiosInstance.post("/ai/explain", {
@@ -59,11 +92,20 @@ export const useAIAssistantStore = create((set) => ({
         language,
       });
 
+      console.log("🤖 Code Explanation: Response received:", response.data);
+
       set({ explanation: response.data.explanation });
+      Toast.success("Code explanation received!");
       return response.data.explanation;
     } catch (error) {
-      console.error("Error getting code explanation:", error);
-      Toast.error("Failed to explain code");
+      console.error("🤖 Code Explanation Error:", error);
+      
+      let errorMessage = "Failed to explain code";
+      if (error.response?.data?.message) {
+        errorMessage = error.response.data.message;
+      }
+      
+      Toast.error(errorMessage);
       return null;
     } finally {
       set({ isLoading: false });
@@ -72,6 +114,7 @@ export const useAIAssistantStore = create((set) => ({
 
   // Clear AI response and history
   clearChat: () => {
+    console.log("🤖 AI Assistant: Clearing chat history");
     set({
       aiResponse: null,
       history: [],

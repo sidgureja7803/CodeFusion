@@ -16,30 +16,63 @@ export const useExecutionStore = create((set, get) => ({
     saveSubmission = false
   ) => {
     try {
+      console.log("⚡ Code Execution: Starting request...");
+      console.log("Language ID:", languageId);
+      console.log("Problem ID:", problemId);
+      console.log("Save submission:", saveSubmission);
+      console.log("Test cases count:", stdin?.length || 0);
+      console.log("Code length:", source_code?.length || 0);
+
       set({
         isExecuting: saveSubmission ? false : true,
         isSubmitting: saveSubmission ? true : false,
       });
 
-      const res = await axiosInstance.post("/execution", {
+      const requestData = {
         source_code,
         languageId,
         stdin,
         expectedOutput,
         problemId,
         saveSubmission,
-      });
-      console.log("Execution response:", res.data);
+      };
+
+      console.log("Request data:", requestData);
+
+      const res = await axiosInstance.post("/execution", requestData);
+      
+      console.log("⚡ Code Execution: Response received:", res.data);
 
       set({ submission: res.data.submission });
 
-      Toast.success(res.data.message);
+      const message = res.data.message || (saveSubmission ? "Solution submitted successfully!" : "Code executed successfully!");
+      Toast.success(message);
+      
       return res.data; // Return the response data
     } catch (error) {
-      console.log("Error executing code", error);
-      Toast.error(
-        saveSubmission ? "Error submitting solution" : "Error executing code"
-      );
+      console.error("⚡ Code Execution Error:", error);
+      console.error("Error details:", {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status,
+        statusText: error.response?.statusText,
+      });
+
+      let errorMessage = saveSubmission ? "Error submitting solution" : "Error executing code";
+      
+      if (error.response?.status === 401) {
+        errorMessage = "Please log in to execute code";
+      } else if (error.response?.status === 429) {
+        errorMessage = "Too many requests. Please try again later.";
+      } else if (error.response?.status === 500) {
+        errorMessage = "Code execution service is temporarily unavailable";
+      } else if (error.response?.data?.error) {
+        errorMessage = error.response.data.error;
+      } else if (error.response?.data?.message) {
+        errorMessage = error.response.data.message;
+      }
+
+      Toast.error(errorMessage);
       throw error; // Rethrow so the Promise rejects
     } finally {
       set({ isExecuting: false, isSubmitting: false });

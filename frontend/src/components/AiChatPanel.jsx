@@ -13,6 +13,7 @@ import {
 import { useAIAssistantStore } from "../store/useAIAssistantStore";
 import ReactMarkdown from "react-markdown";
 import { motion, AnimatePresence } from "framer-motion";
+import aiorb from "../assets/images/ai-orb2.webp";
 import "../styles/AIChatPanel.css";
 // Using CSS-based AI icon instead of batman image
 
@@ -213,6 +214,23 @@ const AIChatPanel = ({ problem, code, language }) => {
                 ))}
               </AnimatePresence>
             )}
+            
+            {/* Typing indicator */}
+            {isLoading && (
+              <motion.div
+                className="chat-message assistant"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+              >
+                <div className="typing-indicator">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </motion.div>
+            )}
+            
             <div ref={messagesEndRef} />
           </div>
 

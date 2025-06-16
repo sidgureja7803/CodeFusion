@@ -41,6 +41,7 @@ import { useAuthStore } from "../store/useAuthStore.js";
 import { formatSubmissionStatus } from "../libs/utils";
 import { useThemeStore } from "../store/useThemeStore.js";
 import Discussion from "../components/Discussion";
+import DebugAIPanel from "../components/DebugAIPanel.jsx";
 
 export const ProblemPage = () => {
   const { id } = useParams();
@@ -453,23 +454,18 @@ export const ProblemPage = () => {
 
   return (
     <div className="min-h-screen problem-page-container">
+      <DebugAIPanel />
       <nav className="problem-page-navbar bg-[#e4e4e4] px-4">
         <div className="flex-1 gap-2">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
               <Link
-                to={"/dashboard"}
-                className="flex items-center gap-2 text-primary mb-2"
+                to="/"
+                className="btn btn-ghost normal-case text-xl text-black"
               >
-                <div className="logo w-[50px] h-auto z-50 hover:brightness-200 hover:contrast-150 transition-all duration-400 ease-in-out">
-                  <img src={logo} alt="logo" />
-                </div>
-                <ChevronRight className="w-4 h-4" />
+                <img src={logo} className="w-8" alt="CodeFusion" />
+                CodeFusion
               </Link>
-              <h1 className="text-xl neue-med">{problem?.title}</h1>
-            </div>
-            <div className="-mt-4">
-              <Switch />
             </div>
           </div>
           <div className="flex flex-col">
@@ -498,7 +494,11 @@ export const ProblemPage = () => {
                   className={`ai-btn relative ${
                     showAiChat ? "active-ai-btn" : ""
                   }`}
-                  onClick={() => setShowAiChat(!showAiChat)}
+                  onClick={() => {
+                    console.log("AI button clicked, current state:", showAiChat);
+                    setShowAiChat(!showAiChat);
+                    console.log("New state will be:", !showAiChat);
+                  }}
                 >
                   <img
                     src={aiorb}
