@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Eye, EyeOff, Mail, Lock, User, Code2, ArrowRight, CheckCircle, AlertCircle, Check, X } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, User, Code2, ArrowRight, CheckCircle, AlertCircle, Check, X, Github } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 import SocialLoginButtons from "../components/SocialLoginButtons";
 import { toast } from "react-hot-toast";
@@ -165,192 +165,147 @@ export const SignUp = () => {
     }
   };
 
-  const benefits = [
-    "Real-time collaborative coding",
-    "AI-powered code assistance",
-    "Unlimited projects",
-    "Community support",
-    "Version control integration"
-  ];
-
   return (
-    <div className="min-h-screen relative overflow-hidden" ref={pageRef}>
-      {/* Animated Background */}
-      <div className="signup-bg absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900"
-           style={{
-             backgroundSize: "400% 400%",
-             backgroundImage: "linear-gradient(-45deg, #0f172a, #581c87, #312e81, #1e293b, #0f172a)"
-           }}>
-        
-        {/* Floating code elements */}
-        <div className="floating-code absolute top-16 left-12 text-purple-400/20 text-3xl font-mono">
-          {"</>"}
-        </div>
-        <div className="floating-code absolute top-28 right-16 text-blue-400/20 text-2xl font-mono">
-          {"{}"}
-        </div>
-        <div className="floating-code absolute bottom-28 left-16 text-cyan-400/20 text-xl font-mono">
-          {"()"}
-        </div>
-        <div className="floating-code absolute bottom-40 right-20 text-pink-400/20 text-2xl font-mono">
-          {"[]"}
-        </div>
-        <div className="floating-code absolute top-1/2 left-8 text-green-400/20 text-lg font-mono">
-          {"=>"}
-        </div>
-        
-        {/* Geometric shapes */}
-        <div className="absolute top-20 right-8 w-40 h-40 bg-purple-500/10 rounded-full blur-2xl"></div>
-        <div className="absolute bottom-20 left-8 w-48 h-48 bg-blue-500/10 rounded-full blur-2xl"></div>
-        <div className="absolute top-1/3 right-1/4 w-32 h-32 bg-pink-500/5 rounded-full blur-xl"></div>
-        
-        {/* Grid pattern */}
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDYwIDAgTCAwIDAgMCA2MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMDMpIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-20"></div>
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900" ref={pageRef}>
+      {/* Background Pattern */}
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDYwIDAgTCAwIDAgMCA2MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDEwMCwgMTAwLCAxMDAsIDAuMDUpIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30"></div>
+      
+      {/* Floating Elements */}
+      <div className="floating-code absolute top-20 left-16 text-purple-400/10 dark:text-purple-400/20 text-2xl font-mono">
+        {"</>"}
+      </div>
+      <div className="floating-code absolute top-32 right-20 text-blue-400/10 dark:text-blue-400/20 text-xl font-mono">
+        {"{}"}
+      </div>
+      <div className="floating-code absolute bottom-32 left-20 text-emerald-400/10 dark:text-emerald-400/20 text-lg font-mono">
+        {"()"}
+      </div>
+      <div className="floating-code absolute bottom-48 right-32 text-pink-400/10 dark:text-pink-400/20 text-2xl font-mono">
+        {"[]"}
       </div>
 
       {/* Content */}
       <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-8">
-        <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          
-          {/* Left Side - Benefits */}
-          <motion.div
-            className="text-center lg:text-left"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
+        <motion.div
+          className="signup-form w-full max-w-md"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          {/* Logo and Header */}
+          <div className="text-center mb-8">
             <motion.div
-              className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl mb-8"
-              whileHover={{ scale: 1.05, rotate: 5 }}
+              className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl mb-4"
+              whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <Code2 className="w-10 h-10 text-white" />
+              <Code2 className="w-6 h-6 text-white" />
             </motion.div>
             
-            <h1 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent mb-6">
-              Join CodeFusion
+            <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-2">
+              Create Account
             </h1>
-            <p className="text-xl text-gray-300 mb-8 max-w-lg">
-              Start your collaborative coding journey today. Code together, learn faster, and build amazing projects.
+            <p className="text-slate-600 dark:text-slate-400 text-sm">
+              Get started with your free account
             </p>
+          </div>
 
-            {/* Benefits List */}
-            <div className="space-y-4 mb-8">
-              {benefits.map((benefit, index) => (
-                <motion.div
-                  key={index}
-                  className="flex items-center gap-3 text-gray-300"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                >
-                  <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
-                  <span>{benefit}</span>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div
-              className="text-gray-400 text-sm"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.2, duration: 0.6 }}
-            >
-              Join 10,000+ developers already coding together
-            </motion.div>
-          </motion.div>
-
-          {/* Right Side - Sign Up Form */}
-          <motion.div
-            className="signup-form w-full max-w-md mx-auto"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-          >
-            {/* Form Header */}
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-white mb-2">Create Account</h2>
-              <p className="text-gray-400">Get started with your free account</p>
-            </div>
-
+          {/* Main Form Container */}
+          <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-lg rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-6">
             {/* Social Login Buttons */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 mb-6">
-              <SocialLoginButtons />
+            <div className="space-y-3 mb-6">
+              <button className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors font-medium text-slate-700 dark:text-slate-200">
+                <svg className="w-5 h-5" viewBox="0 0 24 24">
+                  <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                  <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                  <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                  <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                </svg>
+                Continue with Google
+              </button>
+              
+              <button className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-slate-900 dark:bg-slate-700 text-white rounded-lg hover:bg-slate-800 dark:hover:bg-slate-600 transition-colors font-medium">
+                <Github className="w-5 h-5" />
+                Continue with GitHub
+              </button>
+            </div>
+
+            {/* Divider */}
+            <div className="relative mb-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-slate-200 dark:border-slate-600"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-3 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-medium">or</span>
+              </div>
             </div>
 
             {/* Sign Up Form */}
-            <motion.form
-              onSubmit={handleSubmit}
-              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 space-y-6"
-              whileHover={{ borderColor: "rgba(255, 255, 255, 0.2)" }}
-              transition={{ duration: 0.3 }}
-            >
+            <form onSubmit={handleSubmit} className="space-y-4">
               {/* Name Field */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-300">Full Name</label>
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Full Name</label>
                 <div className="relative">
-                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                  <motion.input
+                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300"
+                    className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-800 dark:text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
                     placeholder="Enter your full name"
                     required
-                    whileFocus={{ scale: 1.02 }}
                   />
                 </div>
               </div>
 
               {/* Email Field */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-300">Email</label>
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Email</label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                  <motion.input
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300"
+                    className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-800 dark:text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
                     placeholder="Enter your email"
                     required
-                    whileFocus={{ scale: 1.02 }}
                   />
                 </div>
               </div>
 
               {/* Password Field */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-300">Password</label>
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Password</label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                  <motion.input
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <input
                     type={showPassword ? "text" : "password"}
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
-                    className="w-full pl-10 pr-12 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300"
+                    className="w-full pl-10 pr-12 py-2.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-800 dark:text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
                     placeholder="Create a strong password"
                     required
-                    whileFocus={{ scale: 1.02 }}
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300 transition-colors duration-200"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
                   >
-                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
                 
                 {/* Password Strength Indicator */}
                 {formData.password && (
-                  <div className="mt-3 space-y-2">
+                  <div className="mt-2 space-y-2">
                     <div className="flex items-center gap-2">
-                      <div className="flex-1 bg-gray-700 rounded-full h-2">
+                      <div className="flex-1 bg-slate-200 dark:bg-slate-600 rounded-full h-1.5">
                         <div 
-                          className={`h-2 rounded-full transition-all duration-300 ${getStrengthBgColor(passwordStrength.strength)}`}
+                          className={`h-1.5 rounded-full transition-all duration-300 ${getStrengthBgColor(passwordStrength.strength)}`}
                           style={{ width: `${(passwordStrength.score / 5) * 100}%` }}
                         ></div>
                       </div>
@@ -360,14 +315,14 @@ export const SignUp = () => {
                     </div>
                     
                     <div className="grid grid-cols-1 gap-1">
-                      {passwordStrength.feedback.map((check, index) => (
+                      {passwordStrength.feedback.slice(0, 3).map((check, index) => (
                         <div key={index} className="flex items-center gap-2 text-xs">
                           {check.test ? (
-                            <Check className="w-3 h-3 text-green-400" />
+                            <Check className="w-3 h-3 text-green-500" />
                           ) : (
-                            <X className="w-3 h-3 text-gray-500" />
+                            <X className="w-3 h-3 text-slate-400" />
                           )}
-                          <span className={check.test ? 'text-green-400' : 'text-gray-500'}>
+                          <span className={check.test ? 'text-green-600 dark:text-green-400' : 'text-slate-500 dark:text-slate-400'}>
                             {check.message}
                           </span>
                         </div>
@@ -378,30 +333,29 @@ export const SignUp = () => {
               </div>
 
               {/* Confirm Password Field */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-300">Confirm Password</label>
+              <div className="space-y-1">
+                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Confirm Password</label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                  <motion.input
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <input
                     type={showConfirmPassword ? "text" : "password"}
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    className="w-full pl-10 pr-12 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300"
+                    className="w-full pl-10 pr-12 py-2.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-800 dark:text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
                     placeholder="Confirm your password"
                     required
-                    whileFocus={{ scale: 1.02 }}
                   />
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300 transition-colors duration-200"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
                   >
-                    {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
                 {formData.confirmPassword && formData.password !== formData.confirmPassword && (
-                  <div className="flex items-center gap-2 text-xs text-red-400 mt-1">
+                  <div className="flex items-center gap-2 text-xs text-red-500 mt-1">
                     <AlertCircle className="w-3 h-3" />
                     <span>Passwords don't match</span>
                   </div>
@@ -409,50 +363,48 @@ export const SignUp = () => {
               </div>
 
               {/* Submit Button */}
-              <motion.button
+              <button
                 type="submit"
                 disabled={isLoading || !passwordStrength.isValid || formData.password !== formData.confirmPassword}
-                className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2"
-                whileHover={{ scale: isLoading ? 1 : 1.02 }}
-                whileTap={{ scale: isLoading ? 1 : 0.98 }}
+                className="w-full py-2.5 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
               >
                 {isLoading ? (
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 ) : (
                   <>
                     Create Account
                     <ArrowRight className="w-4 h-4" />
                   </>
                 )}
-              </motion.button>
+              </button>
 
               {/* Terms */}
-              <p className="text-xs text-gray-400 text-center">
+              <p className="text-xs text-slate-500 dark:text-slate-400 text-center">
                 By creating an account, you agree to our{" "}
-                <Link to="/terms" className="text-purple-400 hover:text-purple-300">
+                <Link to="/terms" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300">
                   Terms of Service
                 </Link>{" "}
                 and{" "}
-                <Link to="/privacy" className="text-purple-400 hover:text-purple-300">
+                <Link to="/privacy" className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300">
                   Privacy Policy
                 </Link>
               </p>
-            </motion.form>
+            </form>
+          </div>
 
-            {/* Sign In Link */}
-            <div className="text-center mt-6">
-              <p className="text-gray-400">
-                Already have an account?{" "}
-                <Link
-                  to="/login"
-                  className="text-purple-400 hover:text-purple-300 font-semibold transition-colors duration-200"
-                >
-                  Sign in
-                </Link>
-              </p>
-            </div>
-          </motion.div>
-        </div>
+          {/* Sign In Link */}
+          <div className="text-center mt-6">
+            <p className="text-slate-600 dark:text-slate-400 text-sm">
+              Already have an account?{" "}
+              <Link
+                to="/login"
+                className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-semibold transition-colors"
+              >
+                Sign in
+              </Link>
+            </p>
+          </div>
+        </motion.div>
       </div>
     </div>
   );

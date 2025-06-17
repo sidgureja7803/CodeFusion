@@ -26,6 +26,13 @@ enum Difficulty {
   HARD
 }
 
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+  PREFER_NOT_TO_SAY
+}
+
 model User {
   id             String    @id @default(uuid())
   name           String?
@@ -42,6 +49,13 @@ model User {
   // Firebase authentication fields
   firebaseUid  String? @unique
   authProvider String?
+
+  // Profile information
+  gender          Gender?
+  dateOfBirth     DateTime?
+  bio             String?
+  githubProfile   String?
+  linkedinProfile String?
 
   problems        Problem[]
   submissions     Submission[]

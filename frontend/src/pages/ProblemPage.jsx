@@ -18,6 +18,7 @@ import {
   Bot,
   UserPlus,
   Copy,
+  ArrowLeft,
 } from "lucide-react";
 import logo from "../assets/images/logo2.png";
 import aiorb from "../assets/images/ai-orb2.webp";
@@ -236,19 +237,19 @@ export const ProblemPage = () => {
     switch (activeTab) {
       case "description":
         return (
-          <div className="prose max-w-none">
-            <p className="text-lg">{problem?.description}</p>
+          <div className="prose max-w-none text-slate-700 dark:text-slate-300">
+            <div className="text-lg leading-relaxed font-inter">{problem?.description}</div>
 
             {problem?.examples && (
               <>
                 {problem?.companyTags && problem.companyTags.length > 0 && (
-                  <div className="mt-2">
-                    <h3 className="text-lg font-medium mb-2">Companies:</h3>
+                  <div className="mt-6">
+                    <h3 className="text-lg font-semibold mb-3 text-slate-800 dark:text-slate-200 font-inter">Companies:</h3>
                     <div className="flex flex-wrap gap-2">
                       {problem.companyTags.map((company, idx) => (
                         <span
                           key={idx}
-                          className="dark:bg-indigo-900/50 bg-indigo-100/50 dark:text-indigo-300 text-indigo-500 px-3 py-1 rounded-full text-sm border border-indigo-800"
+                          className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 text-blue-600 dark:text-blue-400 px-3 py-1.5 rounded-lg text-sm border border-blue-200 dark:border-blue-800 font-medium"
                         >
                           {company}
                         </span>
@@ -256,35 +257,35 @@ export const ProblemPage = () => {
                     </div>
                   </div>
                 )}
-                <h3 className="text-xl font-bold mb-4">Examples:</h3>
+                <h3 className="text-xl font-bold mb-6 text-slate-800 dark:text-slate-200 font-inter">Examples:</h3>
                 {Object.entries(problem?.examples).map(
                   ([lang, example], idx) => (
                     <div
                       key={lang}
-                      className="bg-base-200 p-3 px-6 rounded-xl mb-6 font-mono "
+                      className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 p-6 rounded-xl mb-6 border border-slate-200 dark:border-slate-700 shadow-sm"
                     >
-                      <div className="mb-2">
-                        <div className="text-indigo-300 mb-2 text-sm font-semibold">
+                      <div className="mb-4">
+                        <div className="text-emerald-600 dark:text-emerald-400 mb-2 text-sm font-semibold uppercase tracking-wide">
                           Input:
                         </div>
-                        <span className="dark:bg-black/90 bg-white/90 px-4 py-1 rounded-lg font-semibold dark:text-white text-black text-sm">
+                        <div className="bg-slate-800 dark:bg-slate-900 text-green-400 px-4 py-3 rounded-lg font-mono text-sm border border-slate-700">
                           {example.input}
-                        </span>
+                        </div>
                       </div>
-                      <div className="mb-2">
-                        <div className="text-indigo-300 mb-2 text-base font-semibold">
+                      <div className="mb-4">
+                        <div className="text-blue-600 dark:text-blue-400 mb-2 text-sm font-semibold uppercase tracking-wide">
                           Output:
                         </div>
-                        <span className="dark:bg-black/90 bg-white/90 px-4 py-1 rounded-lg font-semibold dark:text-white text-black">
+                        <div className="bg-slate-800 dark:bg-slate-900 text-blue-400 px-4 py-3 rounded-lg font-mono text-sm border border-slate-700">
                           {example.output}
-                        </span>
+                        </div>
                       </div>
                       {example.explanation && (
                         <div>
-                          <div className="text-emerald-300 mb-2 text-base font-semibold">
+                          <div className="text-purple-600 dark:text-purple-400 mb-2 text-sm font-semibold uppercase tracking-wide">
                             Explanation:
                           </div>
-                          <p className="text-md font-sem">
+                          <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed font-inter">
                             {example.explanation}
                           </p>
                         </div>
@@ -297,11 +298,11 @@ export const ProblemPage = () => {
 
             {problem?.constraints && (
               <>
-                <h3 className="text-xl font-bold mb-4">Constraints:</h3>
-                <div className="bg-base-200 p-3 px-6 rounded-xl mb-6">
-                  <span className="py-1 rounded-lg font-semibold dark:text-white text-black">
+                <h3 className="text-xl font-bold mb-4 text-slate-800 dark:text-slate-200 font-inter">Constraints:</h3>
+                <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 p-4 rounded-xl mb-6 border border-amber-200 dark:border-amber-800">
+                  <div className="text-slate-700 dark:text-slate-300 font-mono text-sm">
                     {problem?.constraints}
-                  </span>
+                  </div>
                 </div>
               </>
             )}
@@ -320,13 +321,13 @@ export const ProblemPage = () => {
         return (
           <div className="">
             {problem?.hints ? (
-              <div className="bg-base-200 p-3 rounded-xl">
-                <span className="py-1 rounded-lg font-semibold text-black dark:text-white">
+              <div className="bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20 p-4 rounded-xl border border-violet-200 dark:border-violet-800">
+                <div className="text-slate-700 dark:text-slate-300 font-inter leading-relaxed">
                   {problem.hints}
-                </span>
+                </div>
               </div>
             ) : (
-              <div className="text-center ">No hints available</div>
+              <div className="text-center py-8 text-slate-500 dark:text-slate-400 font-inter">No hints available</div>
             )}
           </div>
         );
@@ -453,46 +454,66 @@ export const ProblemPage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen problem-page-container">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 font-inter">
       <DebugAIPanel />
-      <nav className="problem-page-navbar bg-[#e4e4e4] px-4">
+      <nav className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-700 px-6 py-4 sticky top-0 z-50">
         <div className="flex-1 gap-2">
           <div className="flex justify-between items-center">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => navigate(-1)}
+                className="flex items-center gap-2 px-3 py-2 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-colors font-medium"
+                title="Go back"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span className="hidden sm:inline">Back</span>
+              </button>
               <Link
                 to="/"
-                className="btn btn-ghost normal-case text-xl text-black"
+                className="flex items-center gap-2 text-slate-800 dark:text-slate-200 hover:text-purple-600 dark:hover:text-purple-400 transition-colors font-semibold"
               >
-                <img src={logo} className="w-8" alt="CodeFusion" />
-                CodeFusion
+                <img src={logo} className="w-8 h-8" alt="CodeFusion" />
+                <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  CodeFusion
+                </span>
               </Link>
             </div>
           </div>
-          <div className="flex flex-col">
-            <div className="flex justify-between">
-              <div className="flex items-center gap-2 text-sm">
-                <Clock className="w-4 h-4" />
-                <span>
-                  Updated{" "}
-                  {new Date(problem?.createdAt).toLocaleString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </span>
-                <span className="text-base-content/30">•</span>
-                <Users className="w-4 h-4" />
-                <span>{submissionCount} Submissions</span>
-                <span className="text-base-content/30">•</span>
-                <ThumbsUp className="w-4 h-4" />
-                {submissions && submissions.length > 0
-                  ? `${successRate}% Success Rate`
-                  : "No attempts yet"}
+          <div className="flex flex-col mt-3">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center gap-4 text-sm text-slate-600 dark:text-slate-400">
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4" />
+                  <span>
+                    Updated{" "}
+                    {new Date(problem?.createdAt).toLocaleString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </span>
+                </div>
+                <span className="text-slate-300 dark:text-slate-600">•</span>
+                <div className="flex items-center gap-2">
+                  <Users className="w-4 h-4" />
+                  <span>{submissionCount} Submissions</span>
+                </div>
+                <span className="text-slate-300 dark:text-slate-600">•</span>
+                <div className="flex items-center gap-2">
+                  <ThumbsUp className="w-4 h-4" />
+                  <span>
+                    {submissions && submissions.length > 0
+                      ? `${successRate}% Success Rate`
+                      : "No attempts yet"}
+                  </span>
+                </div>
               </div>
-              <div className="flex gap-4 items-center">
+              <div className="flex gap-3 items-center">
                 <button
-                  className={`ai-btn relative ${
-                    showAiChat ? "active-ai-btn" : ""
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                    showAiChat 
+                      ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg" 
+                      : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500 hover:text-white"
                   }`}
                   onClick={() => {
                     console.log("AI button clicked, current state:", showAiChat);
@@ -502,33 +523,35 @@ export const ProblemPage = () => {
                 >
                   <img
                     src={aiorb}
-                    className="w-10 absolute left-0 brightness-125 ai-logo"
+                    className="w-5 h-5 brightness-125"
                     alt=""
                   />
-                  <span className="ml-8">AI Assistant</span>
+                  <span>AI Assistant</span>
                 </button>
 
                 {/* Collaboration toggle button */}
                 <button
-                  className={`ai-btn gap-2 ${
-                    isCollaborative ? "text-primary active-ai-btn" : ""
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                    isCollaborative
+                      ? "bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg"
+                      : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-gradient-to-r hover:from-blue-500 hover:to-cyan-500 hover:text-white"
                   }`}
                   onClick={toggleCollaborativeMode}
                 >
                   <UserPlus className="w-4 h-4" />
                   {isCollaborative
-                    ? "Collaborating [Experimental]"
-                    : "Collaborate [Experimental]"}
+                    ? "Collaborating"
+                    : "Collaborate"}
                 </button>
                 {/* Save to Revision Button */}
                 <button
                   onClick={handleRevisionToggle}
                   disabled={isRevisionLoading}
-                  className={`btn btn-ghost btn-circle ${
+                  className={`p-2 rounded-lg transition-all duration-300 ${
                     isMarkedForRevision
-                      ? "text-primary"
-                      : "text-base-content/70"
-                  } hover:text-primary transition-colors`}
+                      ? "bg-gradient-to-r from-emerald-500 to-green-500 text-white shadow-lg"
+                      : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-gradient-to-r hover:from-emerald-500 hover:to-green-500 hover:text-white"
+                  }`}
                   title={
                     isMarkedForRevision
                       ? "Remove from revision"
@@ -545,7 +568,7 @@ export const ProblemPage = () => {
                 </button>
 
                 <select
-                  className="select select-bordered select-primary w-40"
+                  className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-300 font-medium focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   value={selectedLanguage}
                   onChange={handleLanguageChange}
                 >
@@ -570,14 +593,16 @@ export const ProblemPage = () => {
       {isExecuting ? <Loader /> : <div></div>}
       {isSubmitting ? <Loader /> : <div></div>}
 
-      <div className="mx-auto p-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-          <div className="bg-base-100 shadow-xl">
-            <div className="card-body p-0">
-              <div className="tabs tabs-bordered">
+      <div className="max-w-7xl mx-auto p-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-lg rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700">
+            <div className="p-0">
+              <div className="flex border-b border-slate-200 dark:border-slate-700">
                 <button
-                  className={`tab gap-2 ${
-                    activeTab === "description" ? "tab-active" : ""
+                  className={`flex items-center gap-2 px-6 py-4 font-medium transition-all duration-300 ${
+                    activeTab === "description" 
+                      ? "text-purple-600 dark:text-purple-400 border-b-2 border-purple-600 dark:border-purple-400 bg-purple-50 dark:bg-purple-900/20" 
+                      : "text-slate-600 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400"
                   }`}
                   onClick={() => setActiveTab("description")}
                 >
@@ -585,8 +610,10 @@ export const ProblemPage = () => {
                   Description
                 </button>
                 <button
-                  className={`tab gap-2 ${
-                    activeTab === "submissions" ? "tab-active" : ""
+                  className={`flex items-center gap-2 px-6 py-4 font-medium transition-all duration-300 ${
+                    activeTab === "submissions" 
+                      ? "text-purple-600 dark:text-purple-400 border-b-2 border-purple-600 dark:border-purple-400 bg-purple-50 dark:bg-purple-900/20" 
+                      : "text-slate-600 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400"
                   }`}
                   onClick={() => setActiveTab("submissions")}
                 >
@@ -594,8 +621,10 @@ export const ProblemPage = () => {
                   Submissions
                 </button>
                 <button
-                  className={`tab gap-2 ${
-                    activeTab === "discussion" ? "tab-active" : ""
+                  className={`flex items-center gap-2 px-6 py-4 font-medium transition-all duration-300 ${
+                    activeTab === "discussion" 
+                      ? "text-purple-600 dark:text-purple-400 border-b-2 border-purple-600 dark:border-purple-400 bg-purple-50 dark:bg-purple-900/20" 
+                      : "text-slate-600 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400"
                   }`}
                   onClick={() => setActiveTab("discussion")}
                 >
@@ -603,8 +632,10 @@ export const ProblemPage = () => {
                   Discussion
                 </button>
                 <button
-                  className={`tab gap-2 ${
-                    activeTab === "hints" ? "tab-active" : ""
+                  className={`flex items-center gap-2 px-6 py-4 font-medium transition-all duration-300 ${
+                    activeTab === "hints" 
+                      ? "text-purple-600 dark:text-purple-400 border-b-2 border-purple-600 dark:border-purple-400 bg-purple-50 dark:bg-purple-900/20" 
+                      : "text-slate-600 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400"
                   }`}
                   onClick={() => setActiveTab("hints")}
                 >
@@ -613,30 +644,28 @@ export const ProblemPage = () => {
                 </button>
               </div>
 
-              <div className="p-4">{renderTabContent()}</div>
+              <div className="p-6 max-h-[600px] overflow-y-auto">{renderTabContent()}</div>
             </div>
           </div>
 
-          <div className="bg-base-100 shadow-xl">
-            <div className="card-body">
-              <div className="tabs tabs-bordered">
-                <button className="tab tab-active gap-2">
-                  <Terminal className="w-4 h-4" />
-                  Code Editor
-                </button>
+          <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-lg rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700">
+            <div className="p-6">
+              <div className="flex items-center gap-2 mb-4 pb-4 border-b border-slate-200 dark:border-slate-700">
+                <Terminal className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                <span className="font-semibold text-slate-800 dark:text-slate-200">Code Editor</span>
               </div>
 
               {/* Show notification when user's previous code is loaded */}
               {userSolvedCode && (
-                <div className="bg-emerald-300/10 border border-emerald-500/20 py-1 px-2 rounded-md flex items-center justify-between my-2">
+                <div className="bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 border border-emerald-200 dark:border-emerald-800 p-3 rounded-lg flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
-                    <span className="text-success text-sm">✓</span>
-                    <span className="text-sm text-success font-medium">
+                    <span className="text-emerald-600 dark:text-emerald-400 text-sm">✓</span>
+                    <span className="text-sm text-emerald-700 dark:text-emerald-300 font-medium">
                       Your previous solution loaded
                     </span>
                   </div>
                   <button
-                    className="btn btn-xs btn-ghost text-success hover:bg-success/20"
+                    className="px-3 py-1 text-xs bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 rounded-md hover:bg-emerald-200 dark:hover:bg-emerald-900/60 transition-colors"
                     onClick={resetToTemplate}
                     title="Reset to template code"
                   >
@@ -647,15 +676,15 @@ export const ProblemPage = () => {
 
               {/* Collaboration banner */}
               {isCollaborative && (
-                <div className="bg-primary/10 border border-primary/20 p-3 rounded-md flex items-center justify-between mb-3">
+                <div className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 border border-blue-200 dark:border-blue-800 p-3 rounded-lg flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
-                    <UserPlus className="w-4 h-4 text-primary" />
-                    <span className="text-sm text-primary font-medium">
+                    <UserPlus className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                    <span className="text-sm text-blue-700 dark:text-blue-300 font-medium">
                       Collaborative Mode Active
                     </span>
                   </div>
                   <button
-                    className="btn btn-xs btn-ghost text-primary hover:bg-primary/20"
+                    className="flex items-center gap-1 px-3 py-1 text-xs bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-md hover:bg-blue-200 dark:hover:bg-blue-900/60 transition-colors"
                     onClick={copyCollaborationLink}
                     title="Copy collaboration link"
                   >
@@ -665,7 +694,7 @@ export const ProblemPage = () => {
                 </div>
               )}
 
-              <div className="h-[450px] w-full flex flex-col">
+              <div className="h-[450px] w-full flex flex-col rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
                 {isCollaborative ? (
                   <RoomProvider
                     id={sessionId}
@@ -689,12 +718,6 @@ export const ProblemPage = () => {
                   </RoomProvider>
                 ) : (
                   <div className="flex flex-col h-full">
-                    {/* Toolbar for non-collaborative editor
-                    {nonCollabEditorRef && (
-                      <Toolbar editor={nonCollabEditorRef} />
-                    )} */}
-
-                    {/* Editor */}
                     <div className="flex-1">
                       <Editor
                         height="100%"
@@ -705,10 +728,12 @@ export const ProblemPage = () => {
                         onMount={handleNonCollabEditorMount}
                         options={{
                           minimap: { enabled: false },
-                          fontSize: 16,
+                          fontSize: 14,
                           lineNumbers: "on",
                           automaticLayout: true,
                           scrollBeyondLastLine: false,
+                          fontFamily: "JetBrains Mono, Monaco, 'Courier New', monospace",
+                          fontLigatures: true,
                         }}
                       />
                     </div>
@@ -716,92 +741,92 @@ export const ProblemPage = () => {
                 )}
               </div>
 
-              <div className="p-2 border-t border-base-300 bg-base-200 mt-2">
-                <div className="flex justify-between items-center">
-                  <button
-                    className="btn btn-primary gap-2"
-                    onClick={handleRunCode}
-                    disabled={isExecuting || isSubmitting}
-                  >
-                    <Play className="w-4 h-4" />
-                    {isExecuting ? "Running..." : "Run Code"}
-                  </button>
-                  <button
-                    className="btn btn-success gap-2"
-                    onClick={handleSubmitSolution}
-                    disabled={isExecuting || isSubmitting}
-                  >
-                    <Code2 className="w-4 h-4" />
-                    {isSubmitting ? "Submitting..." : "Submit Solution"}
-                  </button>
-                </div>
+              <div className="mt-4 flex justify-between items-center gap-4">
+                <button
+                  className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                  onClick={handleRunCode}
+                  disabled={isExecuting || isSubmitting}
+                >
+                  <Play className="w-4 h-4" />
+                  {isExecuting ? "Running..." : "Run Code"}
+                </button>
+                <button
+                  className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                  onClick={handleSubmitSolution}
+                  disabled={isExecuting || isSubmitting}
+                >
+                  <Code2 className="w-4 h-4" />
+                  {isSubmitting ? "Submitting..." : "Submit Solution"}
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="shadow-xl mt-6">
-        <div className="card-body">
-          {submission ? (
-            <Submission submission={submission} />
-          ) : (
-            <>
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-bold flex items-center gap-2">
-                  <Terminal className="w-5 h-5" />
-                  Test Cases
-                </h3>
-                <div className=" badge-primary">
-                  {problem?.testcases?.length || 0} cases
+      <div className="max-w-7xl mx-auto px-6 pb-6">
+        <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-lg rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700">
+          <div className="p-6">
+            {submission ? (
+              <Submission submission={submission} />
+            ) : (
+              <>
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-xl font-bold flex items-center gap-2 text-slate-800 dark:text-slate-200">
+                    <Terminal className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                    Test Cases
+                  </h3>
+                  <div className="px-3 py-1 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm font-medium">
+                    {problem?.testcases?.length || 0} cases
+                  </div>
                 </div>
-              </div>
 
-              {problem?.testcases && problem.testcases.length > 0 ? (
-                <div className="space-y-4 pb-4">
-                  {problem.testcases.map((testcase, index) => (
-                    <div key={index} className=" bg-base-200">
-                      <div className="card-body p-4">
-                        <div className="flex items-center gap-2 mb-3 py-2">
-                          <div className="badge-secondary">
-                            Test Case {index + 1}
-                          </div>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                          <div>
-                            <h4 className="text-sm font-medium mb-2">Input:</h4>
-                            <div className="bg-base-300 p-3 rounded-lg font-mono text-sm overflow-x-auto">
-                              {testcase?.input || "No input"}
+                {problem?.testcases && problem.testcases.length > 0 ? (
+                  <div className="space-y-4">
+                    {problem.testcases.map((testcase, index) => (
+                      <div key={index} className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-800 rounded-xl border border-slate-200 dark:border-slate-600">
+                        <div className="p-5">
+                          <div className="flex items-center gap-2 mb-4">
+                            <div className="px-3 py-1 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-lg text-sm font-medium">
+                              Test Case {index + 1}
                             </div>
                           </div>
 
-                          <div>
-                            <h4 className="text-sm font-medium mb-2">
-                              Expected Output:
-                            </h4>
-                            <div className="bg-base-300 p-3 rounded-lg font-mono text-sm overflow-x-auto">
-                              {testcase?.output || "No output"}
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                              <h4 className="text-sm font-semibold mb-2 text-emerald-600 dark:text-emerald-400 uppercase tracking-wide">Input:</h4>
+                              <div className="bg-slate-800 dark:bg-slate-900 text-green-400 p-3 rounded-lg font-mono text-sm overflow-x-auto border border-slate-700">
+                                {testcase?.input || "No input"}
+                              </div>
+                            </div>
+
+                            <div>
+                              <h4 className="text-sm font-semibold mb-2 text-blue-600 dark:text-blue-400 uppercase tracking-wide">
+                                Expected Output:
+                              </h4>
+                              <div className="bg-slate-800 dark:bg-slate-900 text-blue-400 p-3 rounded-lg font-mono text-sm overflow-x-auto border border-slate-700">
+                                {testcase?.output || "No output"}
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-12">
-                  <Terminal className="w-16 h-16 mx-auto mb-4 opacity-50" />
-                  <h4 className="text-lg font-medium mb-2">
-                    No Test Cases Available
-                  </h4>
-                  <p className="text-sm">
-                    Test cases will appear here when the problem is loaded.
-                  </p>
-                </div>
-              )}
-            </>
-          )}
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-12">
+                    <Terminal className="w-16 h-16 mx-auto mb-4 text-slate-400 dark:text-slate-500" />
+                    <h4 className="text-lg font-medium mb-2 text-slate-600 dark:text-slate-400">
+                      No Test Cases Available
+                    </h4>
+                    <p className="text-sm text-slate-500 dark:text-slate-500">
+                      Test cases will appear here when the problem is loaded.
+                    </p>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
         </div>
       </div>
 

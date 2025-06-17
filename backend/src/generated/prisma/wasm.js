@@ -133,7 +133,12 @@ exports.Prisma.UserScalarFieldEnum = {
   streakCount: 'streakCount',
   maxStreakCount: 'maxStreakCount',
   firebaseUid: 'firebaseUid',
-  authProvider: 'authProvider'
+  authProvider: 'authProvider',
+  gender: 'gender',
+  dateOfBirth: 'dateOfBirth',
+  bio: 'bio',
+  githubProfile: 'githubProfile',
+  linkedinProfile: 'linkedinProfile'
 };
 
 exports.Prisma.ProblemScalarFieldEnum = {
@@ -265,6 +270,13 @@ exports.Prisma.JsonNullValueFilter = {
 exports.Role = exports.$Enums.Role = {
   ADMIN: 'ADMIN',
   USER: 'USER'
+};
+
+exports.Gender = exports.$Enums.Gender = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE',
+  OTHER: 'OTHER',
+  PREFER_NOT_TO_SAY: 'PREFER_NOT_TO_SAY'
 };
 
 exports.Difficulty = exports.$Enums.Difficulty = {

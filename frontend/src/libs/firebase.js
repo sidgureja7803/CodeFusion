@@ -19,66 +19,83 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
-// Debug Firebase configuration
-console.log('🔥 Firebase Configuration Debug:');
-console.log('Firebase Config:', {
-  apiKey: firebaseConfig.apiKey ? `${firebaseConfig.apiKey.substring(0, 10)}...` : 'MISSING',
-  authDomain: firebaseConfig.authDomain || 'MISSING',
-  projectId: firebaseConfig.projectId || 'MISSING',
-  storageBucket: firebaseConfig.storageBucket || 'MISSING',
-  messagingSenderId: firebaseConfig.messagingSenderId || 'MISSING',
-  appId: firebaseConfig.appId ? `${firebaseConfig.appId.substring(0, 20)}...` : 'MISSING',
-  measurementId: firebaseConfig.measurementId || 'MISSING'
-});
+// Debug Firebase configuration (only in development)
+if (import.meta.env.MODE === 'development') {
+  console.log('🔥 Firebase Configuration Debug:');
+  console.log('Firebase Config:', {
+    apiKey: firebaseConfig.apiKey ? `${firebaseConfig.apiKey.substring(0, 10)}...` : 'MISSING',
+    authDomain: firebaseConfig.authDomain || 'MISSING',
+    projectId: firebaseConfig.projectId || 'MISSING',
+    storageBucket: firebaseConfig.storageBucket || 'MISSING',
+    messagingSenderId: firebaseConfig.messagingSenderId || 'MISSING',
+    appId: firebaseConfig.appId ? `${firebaseConfig.appId.substring(0, 20)}...` : 'MISSING',
+    measurementId: firebaseConfig.measurementId || 'MISSING'
+  });
+}
 
 // Check for missing configuration
 const missingConfig = Object.entries(firebaseConfig).filter(([key, value]) => !value);
 if (missingConfig.length > 0) {
   console.error('❌ Missing Firebase configuration:', missingConfig.map(([key]) => key));
-  throw new Error(`Missing Firebase configuration: ${missingConfig.map(([key]) => key).join(', ')}`);
-}
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-
-// Only connect to emulator in development
-if (import.meta.env.MODE === 'development' && !auth._delegate._config.emulator) {
-  try {
-    connectAuthEmulator(auth, 'http://localhost:9099');
-    console.log('🔧 Connected to Firebase Auth Emulator');
-  } catch (error) {
-    console.log('⚠️ Firebase Auth Emulator not available, using production');
+  // Don't throw error in production, just log it
+  if (import.meta.env.MODE === 'development') {
+    console.warn(`⚠️ Missing Firebase configuration: ${missingConfig.map(([key]) => key).join(', ')}`);
   }
 }
 
-// Configure providers
-const googleProvider = new GoogleAuthProvider();
-googleProvider.addScope('email');
-googleProvider.addScope('profile');
-googleProvider.setCustomParameters({
-  prompt: 'select_account'
-});
+// Initialize Firebase only if we have the basic config
+let app = null;
+let auth = null;
 
-const githubProvider = new GithubAuthProvider();
-githubProvider.addScope('user:email');
-githubProvider.setCustomParameters({
-  allow_signup: 'true'
-});
+try {
+  if (firebaseConfig.apiKey && firebaseConfig.authDomain && firebaseConfig.projectId) {
+    app = initializeApp(firebaseConfig);
+    auth = getAuth(app);
+    
+    if (import.meta.env.MODE === 'development') {
+      console.log('✅ Firebase initialized successfully');
+    }
+  } else {
+    console.warn('⚠️ Firebase not initialized due to missing configuration');
+  }
+} catch (error) {
+  console.error('❌ Firebase initialization error:', error);
+  console.warn('⚠️ Continuing without Firebase authentication');
+}
+
+// Configure providers only if auth is available
+let googleProvider = null;
+let githubProvider = null;
+
+if (auth) {
+  googleProvider = new GoogleAuthProvider();
+  googleProvider.addScope('email');
+  googleProvider.addScope('profile');
+  googleProvider.setCustomParameters({
+    prompt: 'select_account'
+  });
+
+  githubProvider = new GithubAuthProvider();
+  githubProvider.addScope('user:email');
+  githubProvider.setCustomParameters({
+    allow_signup: 'true'
+  });
+}
 
 // Sign in with Google
 export const signInWithGoogle = async () => {
+  if (!auth || !googleProvider) {
+    throw new Error('Firebase authentication is not properly configured');
+  }
+
   try {
     console.log('🔍 Starting Google sign-in...');
-    console.log('🔧 Auth domain:', import.meta.env.VITE_FIREBASE_AUTH_DOMAIN);
-    console.log('🔧 Project ID:', import.meta.env.VITE_FIREBASE_PROJECT_ID);
     
     const result = await signInWithPopup(auth, googleProvider);
     const user = result.user;
     const idToken = await user.getIdToken();
     
     console.log('✅ Google sign-in successful:', user.email);
-    console.log('🎫 ID Token received');
     
     return {
       user,
@@ -87,9 +104,6 @@ export const signInWithGoogle = async () => {
     };
   } catch (error) {
     console.error('❌ Google sign-in error:', error);
-    console.error('❌ Error code:', error.code);
-    console.error('❌ Error message:', error.message);
-    console.error('❌ Error details:', error.customData);
     
     // More specific error handling
     if (error.code === 'auth/popup-blocked') {
@@ -114,17 +128,18 @@ export const signInWithGoogle = async () => {
 
 // Sign in with GitHub
 export const signInWithGithub = async () => {
+  if (!auth || !githubProvider) {
+    throw new Error('Firebase authentication is not properly configured');
+  }
+
   try {
     console.log('🔍 Starting GitHub sign-in...');
-    console.log('🔧 Auth domain:', import.meta.env.VITE_FIREBASE_AUTH_DOMAIN);
-    console.log('🔧 Project ID:', import.meta.env.VITE_FIREBASE_PROJECT_ID);
     
     const result = await signInWithPopup(auth, githubProvider);
     const user = result.user;
     const idToken = await user.getIdToken();
     
     console.log('✅ GitHub sign-in successful:', user.email);
-    console.log('🎫 ID Token received');
     
     return {
       user,
@@ -133,9 +148,6 @@ export const signInWithGithub = async () => {
     };
   } catch (error) {
     console.error('❌ GitHub sign-in error:', error);
-    console.error('❌ Error code:', error.code);
-    console.error('❌ Error message:', error.message);
-    console.error('❌ Error details:', error.customData);
     
     // More specific error handling
     if (error.code === 'auth/popup-blocked') {
@@ -162,6 +174,11 @@ export const signInWithGithub = async () => {
 
 // Sign out
 export const signOut = async () => {
+  if (!auth) {
+    console.warn('⚠️ Firebase auth not available for sign-out');
+    return;
+  }
+
   try {
     await firebaseSignOut(auth);
     console.log('✅ Successfully signed out');
@@ -173,6 +190,11 @@ export const signOut = async () => {
 
 // Get current user ID token
 export const getCurrentUserToken = async () => {
+  if (!auth) {
+    console.warn('⚠️ Firebase auth not available for token');
+    return null;
+  }
+
   try {
     const user = auth.currentUser;
     if (user) {
@@ -185,4 +207,6 @@ export const getCurrentUserToken = async () => {
   }
 };
 
+// Export auth safely
+export { auth };
 export default app; 

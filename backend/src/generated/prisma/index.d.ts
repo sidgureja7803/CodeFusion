@@ -84,6 +84,16 @@ export const Difficulty: {
 
 export type Difficulty = (typeof Difficulty)[keyof typeof Difficulty]
 
+
+export const Gender: {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE',
+  OTHER: 'OTHER',
+  PREFER_NOT_TO_SAY: 'PREFER_NOT_TO_SAY'
+};
+
+export type Gender = (typeof Gender)[keyof typeof Gender]
+
 }
 
 export type Role = $Enums.Role
@@ -93,6 +103,10 @@ export const Role: typeof $Enums.Role
 export type Difficulty = $Enums.Difficulty
 
 export const Difficulty: typeof $Enums.Difficulty
+
+export type Gender = $Enums.Gender
+
+export const Gender: typeof $Enums.Gender
 
 /**
  * ##  Prisma Client ʲˢ
@@ -2007,6 +2021,11 @@ export namespace Prisma {
     maxStreakCount: number | null
     firebaseUid: string | null
     authProvider: string | null
+    gender: $Enums.Gender | null
+    dateOfBirth: Date | null
+    bio: string | null
+    githubProfile: string | null
+    linkedinProfile: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -2023,6 +2042,11 @@ export namespace Prisma {
     maxStreakCount: number | null
     firebaseUid: string | null
     authProvider: string | null
+    gender: $Enums.Gender | null
+    dateOfBirth: Date | null
+    bio: string | null
+    githubProfile: string | null
+    linkedinProfile: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -2039,6 +2063,11 @@ export namespace Prisma {
     maxStreakCount: number
     firebaseUid: number
     authProvider: number
+    gender: number
+    dateOfBirth: number
+    bio: number
+    githubProfile: number
+    linkedinProfile: number
     _all: number
   }
 
@@ -2067,6 +2096,11 @@ export namespace Prisma {
     maxStreakCount?: true
     firebaseUid?: true
     authProvider?: true
+    gender?: true
+    dateOfBirth?: true
+    bio?: true
+    githubProfile?: true
+    linkedinProfile?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -2083,6 +2117,11 @@ export namespace Prisma {
     maxStreakCount?: true
     firebaseUid?: true
     authProvider?: true
+    gender?: true
+    dateOfBirth?: true
+    bio?: true
+    githubProfile?: true
+    linkedinProfile?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -2099,6 +2138,11 @@ export namespace Prisma {
     maxStreakCount?: true
     firebaseUid?: true
     authProvider?: true
+    gender?: true
+    dateOfBirth?: true
+    bio?: true
+    githubProfile?: true
+    linkedinProfile?: true
     _all?: true
   }
 
@@ -2202,6 +2246,11 @@ export namespace Prisma {
     maxStreakCount: number
     firebaseUid: string | null
     authProvider: string | null
+    gender: $Enums.Gender | null
+    dateOfBirth: Date | null
+    bio: string | null
+    githubProfile: string | null
+    linkedinProfile: string | null
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -2237,6 +2286,11 @@ export namespace Prisma {
     maxStreakCount?: boolean
     firebaseUid?: boolean
     authProvider?: boolean
+    gender?: boolean
+    dateOfBirth?: boolean
+    bio?: boolean
+    githubProfile?: boolean
+    linkedinProfile?: boolean
     problems?: boolean | User$problemsArgs<ExtArgs>
     submissions?: boolean | User$submissionsArgs<ExtArgs>
     solvedProblems?: boolean | User$solvedProblemsArgs<ExtArgs>
@@ -2261,6 +2315,11 @@ export namespace Prisma {
     maxStreakCount?: boolean
     firebaseUid?: boolean
     authProvider?: boolean
+    gender?: boolean
+    dateOfBirth?: boolean
+    bio?: boolean
+    githubProfile?: boolean
+    linkedinProfile?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2277,6 +2336,11 @@ export namespace Prisma {
     maxStreakCount?: boolean
     firebaseUid?: boolean
     authProvider?: boolean
+    gender?: boolean
+    dateOfBirth?: boolean
+    bio?: boolean
+    githubProfile?: boolean
+    linkedinProfile?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -2293,9 +2357,14 @@ export namespace Prisma {
     maxStreakCount?: boolean
     firebaseUid?: boolean
     authProvider?: boolean
+    gender?: boolean
+    dateOfBirth?: boolean
+    bio?: boolean
+    githubProfile?: boolean
+    linkedinProfile?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "image" | "role" | "password" | "createdAt" | "updatedAt" | "lastLogin" | "streakCount" | "maxStreakCount" | "firebaseUid" | "authProvider", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "image" | "role" | "password" | "createdAt" | "updatedAt" | "lastLogin" | "streakCount" | "maxStreakCount" | "firebaseUid" | "authProvider" | "gender" | "dateOfBirth" | "bio" | "githubProfile" | "linkedinProfile", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     problems?: boolean | User$problemsArgs<ExtArgs>
     submissions?: boolean | User$submissionsArgs<ExtArgs>
@@ -2334,6 +2403,11 @@ export namespace Prisma {
       maxStreakCount: number
       firebaseUid: string | null
       authProvider: string | null
+      gender: $Enums.Gender | null
+      dateOfBirth: Date | null
+      bio: string | null
+      githubProfile: string | null
+      linkedinProfile: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2777,6 +2851,11 @@ export namespace Prisma {
     readonly maxStreakCount: FieldRef<"User", 'Int'>
     readonly firebaseUid: FieldRef<"User", 'String'>
     readonly authProvider: FieldRef<"User", 'String'>
+    readonly gender: FieldRef<"User", 'Gender'>
+    readonly dateOfBirth: FieldRef<"User", 'DateTime'>
+    readonly bio: FieldRef<"User", 'String'>
+    readonly githubProfile: FieldRef<"User", 'String'>
+    readonly linkedinProfile: FieldRef<"User", 'String'>
   }
     
 
@@ -13631,7 +13710,12 @@ export namespace Prisma {
     streakCount: 'streakCount',
     maxStreakCount: 'maxStreakCount',
     firebaseUid: 'firebaseUid',
-    authProvider: 'authProvider'
+    authProvider: 'authProvider',
+    gender: 'gender',
+    dateOfBirth: 'dateOfBirth',
+    bio: 'bio',
+    githubProfile: 'githubProfile',
+    linkedinProfile: 'linkedinProfile'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -13868,6 +13952,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Gender'
+   */
+  export type EnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender'>
+    
+
+
+  /**
+   * Reference to a field of type 'Gender[]'
+   */
+  export type ListEnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Difficulty'
    */
   export type EnumDifficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Difficulty'>
@@ -13936,6 +14034,11 @@ export namespace Prisma {
     maxStreakCount?: IntFilter<"User"> | number
     firebaseUid?: StringNullableFilter<"User"> | string | null
     authProvider?: StringNullableFilter<"User"> | string | null
+    gender?: EnumGenderNullableFilter<"User"> | $Enums.Gender | null
+    dateOfBirth?: DateTimeNullableFilter<"User"> | Date | string | null
+    bio?: StringNullableFilter<"User"> | string | null
+    githubProfile?: StringNullableFilter<"User"> | string | null
+    linkedinProfile?: StringNullableFilter<"User"> | string | null
     problems?: ProblemListRelationFilter
     submissions?: SubmissionListRelationFilter
     solvedProblems?: ProblemSolvedListRelationFilter
@@ -13959,6 +14062,11 @@ export namespace Prisma {
     maxStreakCount?: SortOrder
     firebaseUid?: SortOrderInput | SortOrder
     authProvider?: SortOrderInput | SortOrder
+    gender?: SortOrderInput | SortOrder
+    dateOfBirth?: SortOrderInput | SortOrder
+    bio?: SortOrderInput | SortOrder
+    githubProfile?: SortOrderInput | SortOrder
+    linkedinProfile?: SortOrderInput | SortOrder
     problems?: ProblemOrderByRelationAggregateInput
     submissions?: SubmissionOrderByRelationAggregateInput
     solvedProblems?: ProblemSolvedOrderByRelationAggregateInput
@@ -13985,6 +14093,11 @@ export namespace Prisma {
     streakCount?: IntFilter<"User"> | number
     maxStreakCount?: IntFilter<"User"> | number
     authProvider?: StringNullableFilter<"User"> | string | null
+    gender?: EnumGenderNullableFilter<"User"> | $Enums.Gender | null
+    dateOfBirth?: DateTimeNullableFilter<"User"> | Date | string | null
+    bio?: StringNullableFilter<"User"> | string | null
+    githubProfile?: StringNullableFilter<"User"> | string | null
+    linkedinProfile?: StringNullableFilter<"User"> | string | null
     problems?: ProblemListRelationFilter
     submissions?: SubmissionListRelationFilter
     solvedProblems?: ProblemSolvedListRelationFilter
@@ -14008,6 +14121,11 @@ export namespace Prisma {
     maxStreakCount?: SortOrder
     firebaseUid?: SortOrderInput | SortOrder
     authProvider?: SortOrderInput | SortOrder
+    gender?: SortOrderInput | SortOrder
+    dateOfBirth?: SortOrderInput | SortOrder
+    bio?: SortOrderInput | SortOrder
+    githubProfile?: SortOrderInput | SortOrder
+    linkedinProfile?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -14032,6 +14150,11 @@ export namespace Prisma {
     maxStreakCount?: IntWithAggregatesFilter<"User"> | number
     firebaseUid?: StringNullableWithAggregatesFilter<"User"> | string | null
     authProvider?: StringNullableWithAggregatesFilter<"User"> | string | null
+    gender?: EnumGenderNullableWithAggregatesFilter<"User"> | $Enums.Gender | null
+    dateOfBirth?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    bio?: StringNullableWithAggregatesFilter<"User"> | string | null
+    githubProfile?: StringNullableWithAggregatesFilter<"User"> | string | null
+    linkedinProfile?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type ProblemWhereInput = {
@@ -14748,6 +14871,11 @@ export namespace Prisma {
     maxStreakCount?: number
     firebaseUid?: string | null
     authProvider?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    bio?: string | null
+    githubProfile?: string | null
+    linkedinProfile?: string | null
     problems?: ProblemCreateNestedManyWithoutUserInput
     submissions?: SubmissionCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
@@ -14771,6 +14899,11 @@ export namespace Prisma {
     maxStreakCount?: number
     firebaseUid?: string | null
     authProvider?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    bio?: string | null
+    githubProfile?: string | null
+    linkedinProfile?: string | null
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
@@ -14794,6 +14927,11 @@ export namespace Prisma {
     maxStreakCount?: IntFieldUpdateOperationsInput | number
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
@@ -14817,6 +14955,11 @@ export namespace Prisma {
     maxStreakCount?: IntFieldUpdateOperationsInput | number
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
@@ -14840,6 +14983,11 @@ export namespace Prisma {
     maxStreakCount?: number
     firebaseUid?: string | null
     authProvider?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    bio?: string | null
+    githubProfile?: string | null
+    linkedinProfile?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -14856,6 +15004,11 @@ export namespace Prisma {
     maxStreakCount?: IntFieldUpdateOperationsInput | number
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -14872,6 +15025,11 @@ export namespace Prisma {
     maxStreakCount?: IntFieldUpdateOperationsInput | number
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProblemCreateInput = {
@@ -15678,6 +15836,13 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type EnumGenderNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumGenderNullableFilter<$PrismaModel> | $Enums.Gender | null
+  }
+
   export type ProblemListRelationFilter = {
     every?: ProblemWhereInput
     some?: ProblemWhereInput
@@ -15767,6 +15932,11 @@ export namespace Prisma {
     maxStreakCount?: SortOrder
     firebaseUid?: SortOrder
     authProvider?: SortOrder
+    gender?: SortOrder
+    dateOfBirth?: SortOrder
+    bio?: SortOrder
+    githubProfile?: SortOrder
+    linkedinProfile?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -15788,6 +15958,11 @@ export namespace Prisma {
     maxStreakCount?: SortOrder
     firebaseUid?: SortOrder
     authProvider?: SortOrder
+    gender?: SortOrder
+    dateOfBirth?: SortOrder
+    bio?: SortOrder
+    githubProfile?: SortOrder
+    linkedinProfile?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -15804,6 +15979,11 @@ export namespace Prisma {
     maxStreakCount?: SortOrder
     firebaseUid?: SortOrder
     authProvider?: SortOrder
+    gender?: SortOrder
+    dateOfBirth?: SortOrder
+    bio?: SortOrder
+    githubProfile?: SortOrder
+    linkedinProfile?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -15899,6 +16079,16 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type EnumGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumGenderNullableWithAggregatesFilter<$PrismaModel> | $Enums.Gender | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumGenderNullableFilter<$PrismaModel>
+    _max?: NestedEnumGenderNullableFilter<$PrismaModel>
   }
 
   export type EnumDifficultyFilter<$PrismaModel = never> = {
@@ -16487,6 +16677,10 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type NullableEnumGenderFieldUpdateOperationsInput = {
+    set?: $Enums.Gender | null
   }
 
   export type ProblemUpdateManyWithoutUserNestedInput = {
@@ -17383,6 +17577,13 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedEnumGenderNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumGenderNullableFilter<$PrismaModel> | $Enums.Gender | null
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -17491,6 +17692,16 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedEnumGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumGenderNullableWithAggregatesFilter<$PrismaModel> | $Enums.Gender | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumGenderNullableFilter<$PrismaModel>
+    _max?: NestedEnumGenderNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumDifficultyFilter<$PrismaModel = never> = {
@@ -18001,6 +18212,11 @@ export namespace Prisma {
     maxStreakCount?: number
     firebaseUid?: string | null
     authProvider?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    bio?: string | null
+    githubProfile?: string | null
+    linkedinProfile?: string | null
     submissions?: SubmissionCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
     Playlists?: PlaylistCreateNestedManyWithoutUserInput
@@ -18023,6 +18239,11 @@ export namespace Prisma {
     maxStreakCount?: number
     firebaseUid?: string | null
     authProvider?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    bio?: string | null
+    githubProfile?: string | null
+    linkedinProfile?: string | null
     submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
     Playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
@@ -18209,6 +18430,11 @@ export namespace Prisma {
     maxStreakCount?: IntFieldUpdateOperationsInput | number
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
     submissions?: SubmissionUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
     Playlists?: PlaylistUpdateManyWithoutUserNestedInput
@@ -18231,6 +18457,11 @@ export namespace Prisma {
     maxStreakCount?: IntFieldUpdateOperationsInput | number
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
     submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
     Playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
@@ -18395,6 +18626,11 @@ export namespace Prisma {
     maxStreakCount?: number
     firebaseUid?: string | null
     authProvider?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    bio?: string | null
+    githubProfile?: string | null
+    linkedinProfile?: string | null
     problems?: ProblemCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
     Playlists?: PlaylistCreateNestedManyWithoutUserInput
@@ -18417,6 +18653,11 @@ export namespace Prisma {
     maxStreakCount?: number
     firebaseUid?: string | null
     authProvider?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    bio?: string | null
+    githubProfile?: string | null
+    linkedinProfile?: string | null
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
     Playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
@@ -18552,6 +18793,11 @@ export namespace Prisma {
     maxStreakCount?: IntFieldUpdateOperationsInput | number
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
     Playlists?: PlaylistUpdateManyWithoutUserNestedInput
@@ -18574,6 +18820,11 @@ export namespace Prisma {
     maxStreakCount?: IntFieldUpdateOperationsInput | number
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
     Playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
@@ -18766,6 +19017,11 @@ export namespace Prisma {
     maxStreakCount?: number
     firebaseUid?: string | null
     authProvider?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    bio?: string | null
+    githubProfile?: string | null
+    linkedinProfile?: string | null
     problems?: ProblemCreateNestedManyWithoutUserInput
     submissions?: SubmissionCreateNestedManyWithoutUserInput
     Playlists?: PlaylistCreateNestedManyWithoutUserInput
@@ -18788,6 +19044,11 @@ export namespace Prisma {
     maxStreakCount?: number
     firebaseUid?: string | null
     authProvider?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    bio?: string | null
+    githubProfile?: string | null
+    linkedinProfile?: string | null
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     Playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
@@ -18883,6 +19144,11 @@ export namespace Prisma {
     maxStreakCount?: IntFieldUpdateOperationsInput | number
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUpdateManyWithoutUserNestedInput
     Playlists?: PlaylistUpdateManyWithoutUserNestedInput
@@ -18905,6 +19171,11 @@ export namespace Prisma {
     maxStreakCount?: IntFieldUpdateOperationsInput | number
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     Playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
@@ -18951,6 +19222,11 @@ export namespace Prisma {
     maxStreakCount?: number
     firebaseUid?: string | null
     authProvider?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    bio?: string | null
+    githubProfile?: string | null
+    linkedinProfile?: string | null
     problems?: ProblemCreateNestedManyWithoutUserInput
     submissions?: SubmissionCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
@@ -18973,6 +19249,11 @@ export namespace Prisma {
     maxStreakCount?: number
     firebaseUid?: string | null
     authProvider?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    bio?: string | null
+    githubProfile?: string | null
+    linkedinProfile?: string | null
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
@@ -19027,6 +19308,11 @@ export namespace Prisma {
     maxStreakCount?: IntFieldUpdateOperationsInput | number
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
@@ -19049,6 +19335,11 @@ export namespace Prisma {
     maxStreakCount?: IntFieldUpdateOperationsInput | number
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
@@ -19231,6 +19522,11 @@ export namespace Prisma {
     maxStreakCount?: number
     firebaseUid?: string | null
     authProvider?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    bio?: string | null
+    githubProfile?: string | null
+    linkedinProfile?: string | null
     problems?: ProblemCreateNestedManyWithoutUserInput
     submissions?: SubmissionCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
@@ -19253,6 +19549,11 @@ export namespace Prisma {
     maxStreakCount?: number
     firebaseUid?: string | null
     authProvider?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    bio?: string | null
+    githubProfile?: string | null
+    linkedinProfile?: string | null
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
@@ -19342,6 +19643,11 @@ export namespace Prisma {
     maxStreakCount?: IntFieldUpdateOperationsInput | number
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
@@ -19364,6 +19670,11 @@ export namespace Prisma {
     maxStreakCount?: IntFieldUpdateOperationsInput | number
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
@@ -19494,6 +19805,11 @@ export namespace Prisma {
     maxStreakCount?: number
     firebaseUid?: string | null
     authProvider?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    bio?: string | null
+    githubProfile?: string | null
+    linkedinProfile?: string | null
     problems?: ProblemCreateNestedManyWithoutUserInput
     submissions?: SubmissionCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
@@ -19516,6 +19832,11 @@ export namespace Prisma {
     maxStreakCount?: number
     firebaseUid?: string | null
     authProvider?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    bio?: string | null
+    githubProfile?: string | null
+    linkedinProfile?: string | null
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
@@ -19692,6 +20013,11 @@ export namespace Prisma {
     maxStreakCount?: IntFieldUpdateOperationsInput | number
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
@@ -19714,6 +20040,11 @@ export namespace Prisma {
     maxStreakCount?: IntFieldUpdateOperationsInput | number
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
@@ -19828,6 +20159,11 @@ export namespace Prisma {
     maxStreakCount?: number
     firebaseUid?: string | null
     authProvider?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    bio?: string | null
+    githubProfile?: string | null
+    linkedinProfile?: string | null
     problems?: ProblemCreateNestedManyWithoutUserInput
     submissions?: SubmissionCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
@@ -19850,6 +20186,11 @@ export namespace Prisma {
     maxStreakCount?: number
     firebaseUid?: string | null
     authProvider?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    bio?: string | null
+    githubProfile?: string | null
+    linkedinProfile?: string | null
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
@@ -19921,6 +20262,11 @@ export namespace Prisma {
     maxStreakCount?: IntFieldUpdateOperationsInput | number
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
@@ -19943,6 +20289,11 @@ export namespace Prisma {
     maxStreakCount?: IntFieldUpdateOperationsInput | number
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput

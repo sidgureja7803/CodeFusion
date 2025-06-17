@@ -4,6 +4,12 @@ import {
   submitBatch,
 } from "../libs/judge0.lib.js";
 import { db } from "../libs/db.js";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Helper function to check if code is just the default template
 const isDefaultTemplate = (sourceCode, problemCodeSnippets, languageId) => {
@@ -47,6 +53,46 @@ const isDefaultTemplate = (sourceCode, problemCodeSnippets, languageId) => {
   return false;
 };
 
+// Helper function to get problem from database or JSON
+const getProblemById = async (problemId) => {
+  try {
+    // First try to fetch from database
+    const problem = await db.problem.findUnique({
+      where: { id: problemId },
+      select: { codeSnippets: true, title: true, testcases: true }
+    });
+
+    if (problem) {
+      return problem;
+    }
+
+    // If not found in database, try JSON data
+    console.log(`Problem ${problemId} not found in database, checking JSON data`);
+    
+    const problemsFilePath = path.join(__dirname, "../data/problems.json");
+    
+    if (fs.existsSync(problemsFilePath)) {
+      const jsonData = fs.readFileSync(problemsFilePath, "utf8");
+      const jsonProblems = JSON.parse(jsonData);
+      
+      const jsonProblem = jsonProblems.find(p => p.id === problemId);
+      
+      if (jsonProblem) {
+        return {
+          codeSnippets: jsonProblem.codeSnippets,
+          title: jsonProblem.title,
+          testcases: jsonProblem.testcases
+        };
+      }
+    }
+
+    return null;
+  } catch (error) {
+    console.error("Error fetching problem:", error);
+    return null;
+  }
+};
+
 export const executeCode = async (req, res) => {
   try {
     const {
@@ -74,10 +120,7 @@ export const executeCode = async (req, res) => {
     }
 
     // Get problem details to check against template
-    const problem = await db.problem.findUnique({
-      where: { id: problemId },
-      select: { codeSnippets: true, title: true }
-    });
+    const problem = await getProblemById(problemId);
 
     if (!problem) {
       return res.status(404).json({

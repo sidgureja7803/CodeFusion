@@ -20,6 +20,13 @@ export const authMiddleware = async (req, res, next) => {
           image: true,
           streakCount: true,
           maxStreakCount: true,
+          gender: true,
+          dateOfBirth: true,
+          bio: true,
+          githubProfile: true,
+          linkedinProfile: true,
+          createdAt: true,
+          updatedAt: true,
         },
       });
 

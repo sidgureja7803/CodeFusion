@@ -236,3 +236,147 @@ export const me = async (req, res) => {
     res.status(500).json({ message: "Error getting user" });
   }
 };
+
+export const updateProfile = async (req, res) => {
+  try {
+    const userId = req.loggedInUser.id;
+    const {
+      name,
+      gender,
+      dateOfBirth,
+      bio,
+      githubProfile,
+      linkedinProfile
+    } = req.body;
+
+    console.log("Updating profile for user:", userId);
+    console.log("Profile data:", req.body);
+
+    // Validate optional fields
+    const updateData = {};
+    
+    if (name !== undefined) {
+      if (typeof name !== 'string' || name.trim().length === 0) {
+        return res.status(400).json({ 
+          success: false, 
+          message: "Name must be a non-empty string" 
+        });
+      }
+      updateData.name = name.trim();
+    }
+
+    if (gender !== undefined) {
+      const validGenders = ['MALE', 'FEMALE', 'OTHER', 'PREFER_NOT_TO_SAY'];
+      if (gender && !validGenders.includes(gender)) {
+        return res.status(400).json({ 
+          success: false, 
+          message: "Invalid gender value" 
+        });
+      }
+      updateData.gender = gender || null;
+    }
+
+    if (dateOfBirth !== undefined) {
+      if (dateOfBirth) {
+        const dobDate = new Date(dateOfBirth);
+        if (isNaN(dobDate.getTime())) {
+          return res.status(400).json({ 
+            success: false, 
+            message: "Invalid date of birth format" 
+          });
+        }
+        // Check if date is not in the future
+        if (dobDate > new Date()) {
+          return res.status(400).json({ 
+            success: false, 
+            message: "Date of birth cannot be in the future" 
+          });
+        }
+        updateData.dateOfBirth = dobDate;
+      } else {
+        updateData.dateOfBirth = null;
+      }
+    }
+
+    if (bio !== undefined) {
+      if (bio && typeof bio !== 'string') {
+        return res.status(400).json({ 
+          success: false, 
+          message: "Bio must be a string" 
+        });
+      }
+      if (bio && bio.length > 500) {
+        return res.status(400).json({ 
+          success: false, 
+          message: "Bio must be 500 characters or less" 
+        });
+      }
+      updateData.bio = bio ? bio.trim() : null;
+    }
+
+    if (githubProfile !== undefined) {
+      if (githubProfile) {
+        // Basic GitHub URL validation
+        const githubRegex = /^https:\/\/github\.com\/[a-zA-Z0-9._-]+\/?$/;
+        if (!githubRegex.test(githubProfile)) {
+          return res.status(400).json({ 
+            success: false, 
+            message: "Invalid GitHub profile URL format" 
+          });
+        }
+      }
+      updateData.githubProfile = githubProfile || null;
+    }
+
+    if (linkedinProfile !== undefined) {
+      if (linkedinProfile) {
+        // Basic LinkedIn URL validation
+        const linkedinRegex = /^https:\/\/(www\.)?linkedin\.com\/in\/[a-zA-Z0-9._-]+\/?$/;
+        if (!linkedinRegex.test(linkedinProfile)) {
+          return res.status(400).json({ 
+            success: false, 
+            message: "Invalid LinkedIn profile URL format" 
+          });
+        }
+      }
+      updateData.linkedinProfile = linkedinProfile || null;
+    }
+
+    // Update user profile
+    const updatedUser = await db.user.update({
+      where: { id: userId },
+      data: updateData,
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        image: true,
+        gender: true,
+        dateOfBirth: true,
+        bio: true,
+        githubProfile: true,
+        linkedinProfile: true,
+        streakCount: true,
+        maxStreakCount: true,
+        createdAt: true,
+        updatedAt: true
+      }
+    });
+
+    console.log("Profile updated successfully:", updatedUser.id);
+
+    res.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+      user: updatedUser
+    });
+
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    res.status(500).json({ 
+      success: false, 
+      message: "Error updating profile" 
+    });
+  }
+};
