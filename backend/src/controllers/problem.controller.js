@@ -355,33 +355,65 @@ export const deleteProblem = async (req, res) => {
 
 export const getAllProblemsSolvedByUser = async (req, res) => {
   try {
-    const problems = await db.problem.findMany({
+    // Check if user is authenticated
+    if (!req.loggedInUser) {
+      return res.status(401).json({ 
+        success: false,
+        message: "Unauthorized - Please login to view solved problems" 
+      });
+    }
+
+    // Get solved problems from database
+    const solvedProblems = await db.problemSolved.findMany({
       where: {
-        solvedBy: {
-          some: {
-            userId: req.loggedInUser.id,
+        userId: req.loggedInUser.id,
+      },
+      include: {
+        problem: {
+          select: {
+            id: true,
+            title: true,
+            difficulty: true,
+            tags: true,
+            companyTags: true,
           },
         },
       },
-      include: {
-        solvedBy: {
-          where: {
-            userId: req.loggedInUser.id,
-          },
-        },
+      orderBy: {
+        createdAt: 'desc', // Most recently solved first
       },
     });
 
+    // Format the response data
+    const formattedProblems = solvedProblems.map((solved) => ({
+      id: solved.problem.id,
+      problemId: solved.problem.id,
+      title: solved.problem.title,
+      difficulty: solved.problem.difficulty,
+      tags: solved.problem.tags,
+      companyTags: solved.problem.companyTags,
+      solvedAt: solved.createdAt,
+      solvedBy: [{
+        userId: solved.userId,
+        createdAt: solved.createdAt,
+      }],
+    }));
+
+    console.log(`📊 Found ${formattedProblems.length} solved problems for user ${req.loggedInUser.id}`);
+
     res.status(200).json({
       success: true,
-      message: "Problems fetched successfully",
-      data: problems.map((problem) => ({
-        ...problem,
-        solvedBy: problem.solvedBy[0],
-      })),
+      message: "Solved problems fetched successfully",
+      problems: formattedProblems,
+      data: formattedProblems, // For backward compatibility
+      count: formattedProblems.length,
     });
   } catch (error) {
     console.error("Error fetching problems solved by user:", error);
-    res.status(500).json({ error: "Error while fetching problems" });
+    res.status(500).json({ 
+      success: false,
+      error: "Error while fetching solved problems",
+      message: "Failed to fetch solved problems"
+    });
   }
 };
