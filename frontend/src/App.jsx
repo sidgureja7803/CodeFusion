@@ -24,6 +24,7 @@ import { ProblemPage } from "./pages/ProblemPage";
 import { Loader } from "./components/Loader";
 import RevisionProblems from "./pages/RevisionProblems";
 import { useThemeStore } from "./store/useThemeStore";
+import FirebaseDebugPanel from "./components/FirebaseDebugPanel";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -199,6 +200,7 @@ function App() {
         <AppRoutes />
       </BrowserRouter>
       <Analytics />
+      {import.meta.env.MODE === 'development' && <FirebaseDebugPanel />}
     </>
   );
 }
