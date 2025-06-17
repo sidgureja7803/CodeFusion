@@ -14,6 +14,7 @@ import discussionRoutes from "./routes/discussion.routes.js";
 import metricsRoutes from "./routes/metrics.route.js";
 import firebaseAuthRoutes from "./routes/firebase-auth.routes.js";
 import { connectDatabase, disconnectDatabase } from "./libs/db.js";
+import { setUserContext } from "./middleware/rls.middleware.js";
 
 dotenv.config();
 
@@ -41,6 +42,9 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
+
+// Add RLS middleware to set user context for database operations
+app.use(setUserContext);
 
 const PORT = process.env.PORT;
 

@@ -5,6 +5,48 @@ import {
 } from "../libs/judge0.lib.js";
 import { db } from "../libs/db.js";
 
+// Helper function to check if code is just the default template
+const isDefaultTemplate = (sourceCode, problemCodeSnippets, languageId) => {
+  // Get language name from ID mapping
+  const languageMap = {
+    71: 'PYTHON',
+    62: 'JAVA', 
+    63: 'JAVASCRIPT',
+    54: 'CPP',
+    50: 'C'
+  };
+  
+  const languageName = languageMap[languageId];
+  if (!languageName || !problemCodeSnippets || !problemCodeSnippets[languageName]) {
+    return false;
+  }
+  
+  const template = problemCodeSnippets[languageName];
+  const userCode = sourceCode.trim();
+  const templateCode = template.trim();
+  
+  // Check if user code is exactly the same as template
+  if (userCode === templateCode) {
+    return true;
+  }
+  
+  // Check if user only added comments or whitespace
+  const userCodeClean = userCode.replace(/\/\/.*|\/\*[\s\S]*?\*\/|#.*|\s+/g, '');
+  const templateCodeClean = templateCode.replace(/\/\/.*|\/\*[\s\S]*?\*\/|#.*|\s+/g, '');
+  
+  if (userCodeClean === templateCodeClean) {
+    return true;
+  }
+  
+  // Check for minimal changes (less than 20 characters difference)
+  const diff = Math.abs(userCode.length - templateCode.length);
+  if (diff < 20 && userCode.includes('// Write your code here')) {
+    return true;
+  }
+  
+  return false;
+};
+
 export const executeCode = async (req, res) => {
   try {
     const {
@@ -28,6 +70,25 @@ export const executeCode = async (req, res) => {
     if (!languageId) {
       return res.status(400).json({
         error: "Language selection is required.",
+      });
+    }
+
+    // Get problem details to check against template
+    const problem = await db.problem.findUnique({
+      where: { id: problemId },
+      select: { codeSnippets: true, title: true }
+    });
+
+    if (!problem) {
+      return res.status(404).json({
+        error: "Problem not found.",
+      });
+    }
+
+    // Check if user is submitting default template code
+    if (isDefaultTemplate(source_code, problem.codeSnippets, languageId)) {
+      return res.status(400).json({
+        error: "Please write your own solution. The default template code cannot be submitted.",
       });
     }
 

@@ -4,7 +4,8 @@ import {
   GoogleAuthProvider, 
   GithubAuthProvider,
   signInWithPopup,
-  signOut as firebaseSignOut
+  signOut as firebaseSignOut,
+  connectAuthEmulator
 } from 'firebase/auth';
 
 // Firebase configuration
@@ -20,34 +21,50 @@ const firebaseConfig = {
 
 // Debug Firebase configuration
 console.log('🔥 Firebase Configuration Debug:');
-console.log('✅ API Key:', firebaseConfig.apiKey ? 'Set' : '❌ Missing');
-console.log('✅ Auth Domain:', firebaseConfig.authDomain ? 'Set' : '❌ Missing');
-console.log('✅ Project ID:', firebaseConfig.projectId ? 'Set' : '❌ Missing');
-console.log('✅ App ID:', firebaseConfig.appId ? 'Set' : '❌ Missing');
-console.log('🌍 Current Domain:', window.location.hostname);
+console.log('Firebase Config:', {
+  apiKey: firebaseConfig.apiKey ? `${firebaseConfig.apiKey.substring(0, 10)}...` : 'MISSING',
+  authDomain: firebaseConfig.authDomain || 'MISSING',
+  projectId: firebaseConfig.projectId || 'MISSING',
+  storageBucket: firebaseConfig.storageBucket || 'MISSING',
+  messagingSenderId: firebaseConfig.messagingSenderId || 'MISSING',
+  appId: firebaseConfig.appId ? `${firebaseConfig.appId.substring(0, 20)}...` : 'MISSING',
+  measurementId: firebaseConfig.measurementId || 'MISSING'
+});
 
-// Validate configuration
-const requiredFields = ['apiKey', 'authDomain', 'projectId', 'appId'];
-const missingFields = requiredFields.filter(field => !firebaseConfig[field]);
-
-if (missingFields.length > 0) {
-  console.error('❌ Missing Firebase configuration fields:', missingFields);
-  throw new Error(`Firebase configuration incomplete. Missing: ${missingFields.join(', ')}`);
+// Check for missing configuration
+const missingConfig = Object.entries(firebaseConfig).filter(([key, value]) => !value);
+if (missingConfig.length > 0) {
+  console.error('❌ Missing Firebase configuration:', missingConfig.map(([key]) => key));
+  throw new Error(`Missing Firebase configuration: ${missingConfig.map(([key]) => key).join(', ')}`);
 }
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-// Initialize Firebase Auth
 export const auth = getAuth(app);
+
+// Only connect to emulator in development
+if (import.meta.env.MODE === 'development' && !auth._delegate._config.emulator) {
+  try {
+    connectAuthEmulator(auth, 'http://localhost:9099');
+    console.log('🔧 Connected to Firebase Auth Emulator');
+  } catch (error) {
+    console.log('⚠️ Firebase Auth Emulator not available, using production');
+  }
+}
 
 // Configure providers
 const googleProvider = new GoogleAuthProvider();
 googleProvider.addScope('email');
 googleProvider.addScope('profile');
+googleProvider.setCustomParameters({
+  prompt: 'select_account'
+});
 
 const githubProvider = new GithubAuthProvider();
 githubProvider.addScope('user:email');
+githubProvider.setCustomParameters({
+  allow_signup: 'true'
+});
 
 // Sign in with Google
 export const signInWithGoogle = async () => {
@@ -72,6 +89,7 @@ export const signInWithGoogle = async () => {
     console.error('❌ Google sign-in error:', error);
     console.error('❌ Error code:', error.code);
     console.error('❌ Error message:', error.message);
+    console.error('❌ Error details:', error.customData);
     
     // More specific error handling
     if (error.code === 'auth/popup-blocked') {
@@ -82,6 +100,12 @@ export const signInWithGoogle = async () => {
       throw new Error('Domain not authorized. Please contact support.');
     } else if (error.code === 'auth/configuration-not-found') {
       throw new Error('Firebase configuration error. Please contact support.');
+    } else if (error.code === 'auth/network-request-failed') {
+      throw new Error('Network error. Please check your internet connection and try again.');
+    } else if (error.code === 'auth/operation-not-allowed') {
+      throw new Error('Google sign-in is not enabled. Please contact support.');
+    } else if (error.code === 'auth/invalid-api-key') {
+      throw new Error('Invalid Firebase configuration. Please contact support.');
     }
     
     throw error;
@@ -111,6 +135,7 @@ export const signInWithGithub = async () => {
     console.error('❌ GitHub sign-in error:', error);
     console.error('❌ Error code:', error.code);
     console.error('❌ Error message:', error.message);
+    console.error('❌ Error details:', error.customData);
     
     // More specific error handling
     if (error.code === 'auth/popup-blocked') {
@@ -123,6 +148,12 @@ export const signInWithGithub = async () => {
       throw new Error('Firebase configuration error. Please contact support.');
     } else if (error.code === 'auth/account-exists-with-different-credential') {
       throw new Error('An account already exists with this email using a different sign-in method.');
+    } else if (error.code === 'auth/network-request-failed') {
+      throw new Error('Network error. Please check your internet connection and try again.');
+    } else if (error.code === 'auth/operation-not-allowed') {
+      throw new Error('GitHub sign-in is not enabled. Please contact support.');
+    } else if (error.code === 'auth/invalid-api-key') {
+      throw new Error('Invalid Firebase configuration. Please contact support.');
     }
     
     throw error;
@@ -133,8 +164,9 @@ export const signInWithGithub = async () => {
 export const signOut = async () => {
   try {
     await firebaseSignOut(auth);
+    console.log('✅ Successfully signed out');
   } catch (error) {
-    console.error('Sign-out error:', error);
+    console.error('❌ Sign-out error:', error);
     throw error;
   }
 };

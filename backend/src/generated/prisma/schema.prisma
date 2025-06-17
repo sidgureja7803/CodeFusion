@@ -39,6 +39,10 @@ model User {
   streakCount    Int       @default(0)
   maxStreakCount Int       @default(0)
 
+  // Firebase authentication fields
+  firebaseUid  String? @unique
+  authProvider String?
+
   problems        Problem[]
   submissions     Submission[]
   solvedProblems  ProblemSolved[]
