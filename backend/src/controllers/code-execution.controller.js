@@ -18,6 +18,19 @@ export const executeCode = async (req, res) => {
 
     const userId = req.loggedInUser.id;
 
+    // Validate required fields
+    if (!source_code || source_code.trim() === "") {
+      return res.status(400).json({
+        error: "Source code is required. Please write some code before executing.",
+      });
+    }
+
+    if (!languageId) {
+      return res.status(400).json({
+        error: "Language selection is required.",
+      });
+    }
+
     //Validate test cases
     if (
       !Array.isArray(stdin) ||

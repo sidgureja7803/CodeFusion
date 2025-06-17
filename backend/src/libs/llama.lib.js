@@ -3,9 +3,9 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const baseURL = "https://api.novita.ai/v1";
+const baseURL = "https://api.novita.ai/v3/openai";
 const apiKey = process.env.NOVITA_API_KEY;
-const model = "meta-llama/llama-3-8b-instruct";
+const model = "meta-llama/llama-3.1-8b-instruct";
 
 const openai = new OpenAI({
   baseURL: baseURL,
@@ -20,6 +20,11 @@ const openai = new OpenAI({
  */
 export const generateAIResponse = async (prompt, context) => {
   try {
+    // Check if API key is available
+    if (!apiKey) {
+      throw new Error("NOVITA_API_KEY is not configured");
+    }
+
     const { problem, userCode, language } = context;
 
     // Create a well-structured system prompt
@@ -47,6 +52,7 @@ ${
 }
 `;
 
+    console.log("Making API call to Novita AI...");
     const completion = await openai.chat.completions.create({
       messages: [
         { role: "system", content: systemPrompt },
@@ -54,16 +60,27 @@ ${
       ],
       model: model,
       stream: false,
-      response_format: { type: "text" },
       temperature: 0.5, // Balanced between creativity and accuracy
       max_tokens: 1024, // Reasonable response length
       top_p: 0.9,
     });
 
+    console.log("API call successful");
     return completion.choices[0].message.content;
   } catch (error) {
-    console.error("Error generating AI response:", error);
-    throw new Error("Failed to generate AI response");
+    console.error("Error generating AI response:", error.message);
+    console.error("Full error:", error);
+    
+    // More specific error messages
+    if (error.message.includes('401')) {
+      throw new Error("Invalid API key - please check your NOVITA_API_KEY");
+    } else if (error.message.includes('429')) {
+      throw new Error("API rate limit exceeded - please try again later");
+    } else if (error.message.includes('503') || error.message.includes('502')) {
+      throw new Error("AI service is temporarily unavailable");
+    } else {
+      throw new Error(`Failed to generate AI response: ${error.message}`);
+    }
   }
 };
 
@@ -75,6 +92,12 @@ ${
  */
 export const explainCode = async (code, language) => {
   try {
+    // Check if API key is available
+    if (!apiKey) {
+      throw new Error("NOVITA_API_KEY is not configured");
+    }
+
+    console.log("Making API call to Novita AI for code explanation...");
     const completion = await openai.chat.completions.create({
       messages: [
         {
@@ -89,15 +112,24 @@ export const explainCode = async (code, language) => {
       ],
       model: model,
       stream: false,
-      response_format: { type: "text" },
       temperature: 0.3, // More factual for explanations
       max_tokens: 1024,
     });
 
+    console.log("Code explanation API call successful");
     return completion.choices[0].message.content;
   } catch (error) {
-    console.error("Error explaining code:", error);
-    throw new Error("Failed to generate code explanation");
+    console.error("Error explaining code:", error.message);
+    console.error("Full error:", error);
+    
+    // More specific error messages
+    if (error.message.includes('401')) {
+      throw new Error("Invalid API key - please check your NOVITA_API_KEY");
+    } else if (error.message.includes('429')) {
+      throw new Error("API rate limit exceeded - please try again later");
+    } else {
+      throw new Error(`Failed to generate code explanation: ${error.message}`);
+    }
   }
 };
 
