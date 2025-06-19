@@ -6,8 +6,6 @@ import {
   User, 
   Shield, 
   Edit, 
-  Save, 
-  X, 
   Calendar,
   Github,
   Linkedin,
@@ -16,97 +14,19 @@ import {
   ExternalLink
 } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
-import { axiosInstance } from "../libs/axios";
-import { useToastStore } from "../store/useToastStore";
 import ProfileSubmission from "../components/ProfileSubmission";
 import ProblemSolvedByUser from "../components/ProblemSolvedByUser";
+import EditProfileModal from "../components/EditProfileModal";
 import { Navbar } from "../components/Navbar";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import "../styles/Profile.css";
 import UserStats from "../components/UserStats";
 import SubmissionHeatmap from "../components/SubmissionHeatmap";
 import Sidebar from "../components/Sidebar";
 
 const Profile = () => {
-  const { authUser, checkAuth } = useAuthStore();
-  const { success: showSuccess, error: showError } = useToastStore();
-  const [isEditing, setIsEditing] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [profileData, setProfileData] = useState({
-    name: "",
-    gender: "",
-    dateOfBirth: "",
-    bio: "",
-    githubProfile: "",
-    linkedinProfile: ""
-  });
-
-  // Initialize profile data when authUser changes
-  useEffect(() => {
-    if (authUser) {
-      setProfileData({
-        name: authUser.name || "",
-        gender: authUser.gender || "",
-        dateOfBirth: authUser.dateOfBirth ? authUser.dateOfBirth.split('T')[0] : "",
-        bio: authUser.bio || "",
-        githubProfile: authUser.githubProfile || "",
-        linkedinProfile: authUser.linkedinProfile || ""
-      });
-    }
-  }, [authUser]);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setProfileData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSaveProfile = async () => {
-    try {
-      setIsLoading(true);
-      
-      const updateData = { ...profileData };
-      
-      // Remove empty strings and replace with null
-      Object.keys(updateData).forEach(key => {
-        if (updateData[key] === "") {
-          updateData[key] = null;
-        }
-      });
-
-      const response = await axiosInstance.put("/auth/profile", updateData);
-      
-      if (response.data.success) {
-        showSuccess("Profile updated successfully!");
-        setIsEditing(false);
-        // Refresh auth user data
-        await checkAuth();
-      }
-    } catch (error) {
-      console.error("Error updating profile:", error);
-      const errorMessage = error.response?.data?.message || "Failed to update profile";
-      showError(errorMessage);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleCancelEdit = () => {
-    // Reset to original data
-    if (authUser) {
-      setProfileData({
-        name: authUser.name || "",
-        gender: authUser.gender || "",
-        dateOfBirth: authUser.dateOfBirth ? authUser.dateOfBirth.split('T')[0] : "",
-        bio: authUser.bio || "",
-        githubProfile: authUser.githubProfile || "",
-        linkedinProfile: authUser.linkedinProfile || ""
-      });
-    }
-    setIsEditing(false);
-  };
+  const { authUser } = useAuthStore();
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   // Calculate age from date of birth
   const calculateAge = (dob) => {
@@ -147,12 +67,6 @@ const Profile = () => {
     },
   };
 
-  const slideVariants = {
-    hidden: { x: -20, opacity: 0 },
-    visible: { x: 0, opacity: 1 },
-    exit: { x: 20, opacity: 0 }
-  };
-
   if (!authUser) {
     return (
       <div className="profile-container">
@@ -189,52 +103,16 @@ const Profile = () => {
             </h1>
           </div>
           
-          {/* Edit/Save buttons */}
+          {/* Edit button */}
           <div className="flex items-center gap-2">
-            <AnimatePresence mode="wait">
-              {!isEditing ? (
-                <motion.button
-                  key="edit"
-                  variants={slideVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  onClick={() => setIsEditing(true)}
-                  className="profile-btn profile-btn-primary flex items-center gap-2 px-4 py-2"
-                >
-                  <Edit size={16} /> Edit Profile
-                </motion.button>
-              ) : (
-                <motion.div 
-                  key="save-cancel"
-                  variants={slideVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  className="flex items-center gap-2"
-                >
-                  <button
-                    onClick={handleCancelEdit}
-                    className="profile-btn profile-btn-outline flex items-center gap-2 px-4 py-2"
-                    disabled={isLoading}
-                  >
-                    <X size={16} /> Cancel
-                  </button>
-                  <button
-                    onClick={handleSaveProfile}
-                    className="profile-btn profile-btn-primary flex items-center gap-2 px-4 py-2"
-                    disabled={isLoading}
-                  >
-                    {isLoading ? (
-                      <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
-                    ) : (
-                      <Save size={16} />
-                    )}
-                    {isLoading ? "Saving..." : "Save Changes"}
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            <motion.button
+              onClick={() => setIsEditModalOpen(true)}
+              className="profile-btn profile-btn-primary flex items-center gap-2 px-4 py-2"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Edit size={16} /> Edit Profile
+            </motion.button>
           </div>
         </div>
       </motion.div>
@@ -261,20 +139,9 @@ const Profile = () => {
 
             {/* Name and Role */}
             <div className="text-center">
-              {isEditing ? (
-                <input
-                  type="text"
-                  name="name"
-                  value={profileData.name}
-                  onChange={handleInputChange}
-                  className="text-2xl font-bold bg-transparent border-b-2 border-blue-400 text-center focus:outline-none focus:border-blue-500 mb-2 neue-med"
-                  placeholder="Enter your name"
-                />
-              ) : (
-                <h2 className="text-2xl font-bold neue-med bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent">
-                  {authUser.name || "Anonymous User"}
-                </h2>
-              )}
+              <h2 className="text-2xl font-bold neue-med bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent">
+                {authUser.name || "Anonymous User"}
+              </h2>
               <div className="flex items-center justify-center gap-2 mt-2">
                 <Shield className="w-4 h-4 text-blue-400" />
                 <span className="neue-reg text-sm text-slate-400 uppercase tracking-wider">
@@ -305,24 +172,9 @@ const Profile = () => {
                 <UserCheck className="w-4 h-4 text-purple-400" />
                 <span className="neue-reg text-sm text-slate-400">Gender</span>
               </div>
-              {isEditing ? (
-                <select
-                  name="gender"
-                  value={profileData.gender}
-                  onChange={handleInputChange}
-                  className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 text-slate-200"
-                >
-                  <option value="">Select Gender</option>
-                  <option value="MALE">Male</option>
-                  <option value="FEMALE">Female</option>
-                  <option value="OTHER">Other</option>
-                  <option value="PREFER_NOT_TO_SAY">Prefer not to say</option>
-                </select>
-              ) : (
-                <div className="neue-med text-sm text-slate-200">
-                  {authUser.gender ? authUser.gender.replace('_', ' ').toLowerCase().replace(/\b\w/g, l => l.toUpperCase()) : "Not specified"}
-                </div>
-              )}
+              <div className="neue-med text-sm text-slate-200">
+                {authUser.gender ? authUser.gender.replace('_', ' ').toLowerCase().replace(/\b\w/g, l => l.toUpperCase()) : "Not specified"}
+              </div>
             </motion.div>
 
             {/* Date of Birth */}
@@ -331,30 +183,20 @@ const Profile = () => {
                 <Calendar className="w-4 h-4 text-green-400" />
                 <span className="neue-reg text-sm text-slate-400">Date of Birth</span>
               </div>
-              {isEditing ? (
-                <input
-                  type="date"
-                  name="dateOfBirth"
-                  value={profileData.dateOfBirth}
-                  onChange={handleInputChange}
-                  className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 text-slate-200"
-                />
-              ) : (
-                <div className="neue-med text-sm text-slate-200">
-                  {authUser.dateOfBirth ? (
-                    <div>
-                      {new Date(authUser.dateOfBirth).toLocaleDateString()}
-                      {calculateAge(authUser.dateOfBirth) && (
-                        <span className="text-slate-400 ml-2">
-                          (Age: {calculateAge(authUser.dateOfBirth)})
-                        </span>
-                      )}
-                    </div>
-                  ) : (
-                    "Not specified"
-                  )}
-                </div>
-              )}
+              <div className="neue-med text-sm text-slate-200">
+                {authUser.dateOfBirth ? (
+                  <div>
+                    {new Date(authUser.dateOfBirth).toLocaleDateString()}
+                    {calculateAge(authUser.dateOfBirth) && (
+                      <span className="text-slate-400 ml-2">
+                        (Age: {calculateAge(authUser.dateOfBirth)})
+                      </span>
+                    )}
+                  </div>
+                ) : (
+                  "Not specified"
+                )}
+              </div>
             </motion.div>
 
             {/* Bio */}
@@ -363,21 +205,9 @@ const Profile = () => {
                 <FileText className="w-4 h-4 text-yellow-400" />
                 <span className="neue-reg text-sm text-slate-400">Bio</span>
               </div>
-              {isEditing ? (
-                <textarea
-                  name="bio"
-                  value={profileData.bio}
-                  onChange={handleInputChange}
-                  rows={3}
-                  maxLength={500}
-                  className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 text-slate-200 resize-none"
-                  placeholder="Tell us about yourself..."
-                />
-              ) : (
-                <div className="neue-med text-sm text-slate-200">
-                  {authUser.bio || "No bio added yet"}
-                </div>
-              )}
+              <div className="neue-med text-sm text-slate-200">
+                {authUser.bio || "No bio added yet"}
+              </div>
             </motion.div>
 
             {/* GitHub Profile */}
@@ -386,32 +216,21 @@ const Profile = () => {
                 <Github className="w-4 h-4 text-gray-400" />
                 <span className="neue-reg text-sm text-slate-400">GitHub Profile</span>
               </div>
-              {isEditing ? (
-                <input
-                  type="url"
-                  name="githubProfile"
-                  value={profileData.githubProfile}
-                  onChange={handleInputChange}
-                  className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 text-slate-200"
-                  placeholder="https://github.com/username"
-                />
-              ) : (
-                <div className="neue-med text-sm text-slate-200">
-                  {authUser.githubProfile ? (
-                    <a
-                      href={authUser.githubProfile}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors"
-                    >
-                      {authUser.githubProfile.replace('https://github.com/', '@')}
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  ) : (
-                    "Not specified"
-                  )}
-                </div>
-              )}
+              <div className="neue-med text-sm text-slate-200">
+                {authUser.githubProfile ? (
+                  <a
+                    href={authUser.githubProfile}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors"
+                  >
+                    {authUser.githubProfile.replace('https://github.com/', '@')}
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                ) : (
+                  "Not specified"
+                )}
+              </div>
             </motion.div>
 
             {/* LinkedIn Profile */}
@@ -420,32 +239,21 @@ const Profile = () => {
                 <Linkedin className="w-4 h-4 text-blue-500" />
                 <span className="neue-reg text-sm text-slate-400">LinkedIn Profile</span>
               </div>
-              {isEditing ? (
-                <input
-                  type="url"
-                  name="linkedinProfile"
-                  value={profileData.linkedinProfile}
-                  onChange={handleInputChange}
-                  className="w-full bg-slate-700/50 border border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-blue-500 text-slate-200"
-                  placeholder="https://linkedin.com/in/username"
-                />
-              ) : (
-                <div className="neue-med text-sm text-slate-200">
-                  {authUser.linkedinProfile ? (
-                    <a
-                      href={authUser.linkedinProfile}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors"
-                    >
-                      View LinkedIn Profile
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  ) : (
-                    "Not specified"
-                  )}
-                </div>
-              )}
+              <div className="neue-med text-sm text-slate-200">
+                {authUser.linkedinProfile ? (
+                  <a
+                    href={authUser.linkedinProfile}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors"
+                  >
+                    View LinkedIn Profile
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                ) : (
+                  "Not specified"
+                )}
+              </div>
             </motion.div>
 
             {/* User ID */}
@@ -480,6 +288,12 @@ const Profile = () => {
           </motion.div>
         </motion.div>
       </motion.div>
+
+      {/* Edit Profile Modal */}
+      <EditProfileModal 
+        isOpen={isEditModalOpen} 
+        onClose={() => setIsEditModalOpen(false)} 
+      />
     </div>
   );
 };

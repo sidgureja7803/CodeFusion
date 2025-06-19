@@ -8,9 +8,25 @@ export const useAuthStore = create((set) => ({
   isCheckingAuth: false,
   isSigningUp: false,
 
+  // Wake up backend (for Render deployment)
+  wakeUpBackend: async () => {
+    try {
+      console.log("🚀 Waking up backend...");
+      const response = await axiosInstance.get("/wake-up", { timeout: 10000 });
+      console.log("✅ Backend is awake:", response.data.message);
+      return true;
+    } catch (error) {
+      console.error("⚠️ Failed to wake up backend:", error.message);
+      return false;
+    }
+  },
+
   checkAuth: async () => {
     set({ isCheckingAuth: true });
     try {
+      // Try to wake up backend first
+      await useAuthStore.getState().wakeUpBackend();
+      
       const response = await axiosInstance.get("/auth/me");
       set({ authUser: response.data.user });
       return true;
@@ -26,6 +42,9 @@ export const useAuthStore = create((set) => ({
   signUp: async (data) => {
     set({ isSigningUp: true });
     try {
+      // Wake up backend before signup
+      await useAuthStore.getState().wakeUpBackend();
+      
       const response = await axiosInstance.post("/auth/register", data);
       console.log("Sign up response:", response.data);
       set({ authUser: response.data.user });
@@ -51,6 +70,9 @@ export const useAuthStore = create((set) => ({
   login: async (data) => {
     set({ isLoggingIn: true });
     try {
+      // Wake up backend before login
+      await useAuthStore.getState().wakeUpBackend();
+      
       const response = await axiosInstance.post("/auth/login", data);
       console.log("Login response:", response.data);
 

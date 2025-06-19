@@ -52,6 +52,16 @@ app.get("/", (req, res) => {
   res.send("Can y'all crack the code ? 🃏");
 });
 
+// Wake-up endpoint for Render deployment
+app.get("/api/v1/wake-up", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Backend is awake!",
+    timestamp: new Date().toISOString(),
+    status: "active"
+  });
+});
+
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/problems", problemRoutes);
 app.use("/api/v1/execution", executionRoutes);

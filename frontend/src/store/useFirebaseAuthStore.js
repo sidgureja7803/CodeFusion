@@ -7,10 +7,26 @@ export const useFirebaseAuthStore = create((set, get) => ({
   isLoading: false,
   error: null,
 
+  // Wake up backend (for Render deployment)
+  wakeUpBackend: async () => {
+    try {
+      console.log("🚀 Waking up backend...");
+      const response = await axiosInstance.get("/wake-up", { timeout: 10000 });
+      console.log("✅ Backend is awake:", response.data.message);
+      return true;
+    } catch (error) {
+      console.error("⚠️ Failed to wake up backend:", error.message);
+      return false;
+    }
+  },
+
   // Google Sign In
   signInWithGoogle: async () => {
     try {
       set({ isLoading: true, error: null });
+
+      // Wake up backend first
+      await get().wakeUpBackend();
 
       const { idToken, provider } = await signInWithGoogle();
 
@@ -40,6 +56,9 @@ export const useFirebaseAuthStore = create((set, get) => ({
   signInWithGithub: async () => {
     try {
       set({ isLoading: true, error: null });
+
+      // Wake up backend first
+      await get().wakeUpBackend();
 
       const { idToken, provider } = await signInWithGithub();
 
