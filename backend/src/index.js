@@ -20,7 +20,11 @@ dotenv.config();
 
 const app = express();
 
-const allowedOrigins = [process.env.FRONTEND_URL, "http://localhost:5173"];
+// Convert comma-separated domains from .env to an array
+const allowedOrigins = [
+  ...(process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(',') : []),
+  "http://localhost:5173"
+];
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -34,6 +38,7 @@ const corsOptions = {
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
+
 
 
 // Apply CORS middleware before other middleware
