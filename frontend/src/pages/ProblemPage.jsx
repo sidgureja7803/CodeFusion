@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useParams, Link, useLocation } from "react-router-dom";
+import { useParams, Link, useLocation, useNavigate } from "react-router-dom";
 import Editor from "@monaco-editor/react";
 import {
   Play,
@@ -47,6 +47,7 @@ import DebugAIPanel from "../components/DebugAIPanel.jsx";
 export const ProblemPage = () => {
   const { id } = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
   const { getProblemById, problem, isProblemLoading } = useProblemStore();
   const [code, setCode] = useState("");
   const [activeTab, setActiveTab] = useState("description");
@@ -456,33 +457,53 @@ export const ProblemPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 font-inter">
       <DebugAIPanel />
-      <nav className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-700 px-6 py-4 sticky top-0 z-50">
-        <div className="flex-1 gap-2">
+      <nav className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-b border-slate-200 dark:border-slate-700 px-6 py-4 sticky top-0 z-50 shadow-sm">
+        <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
               <button
-                onClick={() => navigate(-1)}
-                className="flex items-center gap-2 px-3 py-2 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-colors font-medium"
-                title="Go back"
+                onClick={() => navigate("/dashboard")}
+                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-700 text-slate-700 dark:text-slate-300 hover:from-slate-200 hover:to-slate-300 dark:hover:from-slate-700 dark:hover:to-slate-600 rounded-xl transition-all duration-300 font-medium shadow-sm hover:shadow-md"
+                title="Go to Dashboard"
               >
                 <ArrowLeft className="w-4 h-4" />
-                <span className="hidden sm:inline">Back</span>
+                <span className="hidden sm:inline">Dashboard</span>
               </button>
               <Link
-                to="/"
-                className="flex items-center gap-2 text-slate-800 dark:text-slate-200 hover:text-purple-600 dark:hover:text-purple-400 transition-colors font-semibold"
+                to="/dashboard"
+                className="flex items-center gap-3 text-slate-800 dark:text-slate-200 hover:text-purple-600 dark:hover:text-purple-400 transition-colors font-semibold"
               >
-                <img src={logo} className="w-8 h-8" alt="CodeFusion" />
-                <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                <img src={logo} className="w-10 h-10" alt="CodeFusion" />
+                <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
                   CodeFusion
                 </span>
               </Link>
             </div>
+            
+            {/* Problem title and difficulty */}
+            {problem && (
+              <div className="hidden md:flex items-center gap-4">
+                <h1 className="text-xl font-bold text-slate-800 dark:text-slate-200">
+                  {problem.title}
+                </h1>
+                <span
+                  className={`px-3 py-1 rounded-full text-sm font-medium ${
+                    problem.difficulty === "EASY"
+                      ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                      : problem.difficulty === "MEDIUM"
+                      ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
+                      : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+                  }`}
+                >
+                  {problem.difficulty}
+                </span>
+              </div>
+            )}
           </div>
           <div className="flex flex-col mt-3">
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-4 text-sm text-slate-600 dark:text-slate-400">
-                <div className="flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600 dark:text-slate-400">
+                <div className="flex items-center gap-2 px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
                   <Clock className="w-4 h-4" />
                   <span>
                     Updated{" "}
@@ -493,13 +514,11 @@ export const ProblemPage = () => {
                     })}
                   </span>
                 </div>
-                <span className="text-slate-300 dark:text-slate-600">•</span>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
                   <Users className="w-4 h-4" />
                   <span>{submissionCount} Submissions</span>
                 </div>
-                <span className="text-slate-300 dark:text-slate-600">•</span>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
                   <ThumbsUp className="w-4 h-4" />
                   <span>
                     {submissions && submissions.length > 0
@@ -508,7 +527,7 @@ export const ProblemPage = () => {
                   </span>
                 </div>
               </div>
-              <div className="flex gap-3 items-center">
+              <div className="flex flex-wrap gap-3 items-center">
                 <button
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
                     showAiChat 
@@ -566,9 +585,79 @@ export const ProblemPage = () => {
                     <Bookmark className="w-5 h-5" />
                   )}
                 </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
 
+      {isExecuting ? <Loader /> : <div></div>}
+      {isSubmitting ? <Loader /> : <div></div>}
+
+      <div className="max-w-7xl mx-auto p-6">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+          <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+            <div className="border-b border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900">
+              <div className="flex overflow-x-auto">
+                <button
+                  className={`flex items-center gap-2 px-6 py-4 font-medium transition-all duration-300 whitespace-nowrap border-b-2 ${
+                    activeTab === "description" 
+                      ? "text-purple-600 dark:text-purple-400 border-purple-600 dark:border-purple-400 bg-white dark:bg-slate-800 shadow-sm" 
+                      : "text-slate-600 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 border-transparent hover:bg-white/50 dark:hover:bg-slate-800/50"
+                  }`}
+                  onClick={() => setActiveTab("description")}
+                >
+                  <FileText className="w-4 h-4" />
+                  <span className="hidden sm:inline">Description</span>
+                </button>
+                <button
+                  className={`flex items-center gap-2 px-6 py-4 font-medium transition-all duration-300 whitespace-nowrap border-b-2 ${
+                    activeTab === "submissions" 
+                      ? "text-purple-600 dark:text-purple-400 border-purple-600 dark:border-purple-400 bg-white dark:bg-slate-800 shadow-sm" 
+                      : "text-slate-600 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 border-transparent hover:bg-white/50 dark:hover:bg-slate-800/50"
+                  }`}
+                  onClick={() => setActiveTab("submissions")}
+                >
+                  <Code2 className="w-4 h-4" />
+                  <span className="hidden sm:inline">Submissions</span>
+                </button>
+                <button
+                  className={`flex items-center gap-2 px-6 py-4 font-medium transition-all duration-300 whitespace-nowrap border-b-2 ${
+                    activeTab === "discussion" 
+                      ? "text-purple-600 dark:text-purple-400 border-purple-600 dark:border-purple-400 bg-white dark:bg-slate-800 shadow-sm" 
+                      : "text-slate-600 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 border-transparent hover:bg-white/50 dark:hover:bg-slate-800/50"
+                  }`}
+                  onClick={() => setActiveTab("discussion")}
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  <span className="hidden sm:inline">Discussion</span>
+                </button>
+                <button
+                  className={`flex items-center gap-2 px-6 py-4 font-medium transition-all duration-300 whitespace-nowrap border-b-2 ${
+                    activeTab === "hints" 
+                      ? "text-purple-600 dark:text-purple-400 border-purple-600 dark:border-purple-400 bg-white dark:bg-slate-800 shadow-sm" 
+                      : "text-slate-600 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 border-transparent hover:bg-white/50 dark:hover:bg-slate-800/50"
+                  }`}
+                  onClick={() => setActiveTab("hints")}
+                >
+                  <Lightbulb className="w-4 h-4" />
+                  <span className="hidden sm:inline">Hints</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="p-6 max-h-[70vh] overflow-y-auto custom-scrollbar">{renderTabContent()}</div>
+          </div>
+
+          <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
+                <div className="flex items-center gap-3">
+                  <Terminal className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                  <span className="text-xl font-bold text-slate-800 dark:text-slate-200">Code Editor</span>
+                </div>
                 <select
-                  className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-300 font-medium focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="px-4 py-2 bg-gradient-to-r from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-800 border border-slate-300 dark:border-slate-600 rounded-xl text-slate-700 dark:text-slate-300 font-medium focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent shadow-sm"
                   value={selectedLanguage}
                   onChange={handleLanguageChange}
                 >
@@ -584,75 +673,6 @@ export const ProblemPage = () => {
                     </option>
                   ))}
                 </select>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {isExecuting ? <Loader /> : <div></div>}
-      {isSubmitting ? <Loader /> : <div></div>}
-
-      <div className="max-w-7xl mx-auto p-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-lg rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700">
-            <div className="p-0">
-              <div className="flex border-b border-slate-200 dark:border-slate-700">
-                <button
-                  className={`flex items-center gap-2 px-6 py-4 font-medium transition-all duration-300 ${
-                    activeTab === "description" 
-                      ? "text-purple-600 dark:text-purple-400 border-b-2 border-purple-600 dark:border-purple-400 bg-purple-50 dark:bg-purple-900/20" 
-                      : "text-slate-600 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400"
-                  }`}
-                  onClick={() => setActiveTab("description")}
-                >
-                  <FileText className="w-4 h-4" />
-                  Description
-                </button>
-                <button
-                  className={`flex items-center gap-2 px-6 py-4 font-medium transition-all duration-300 ${
-                    activeTab === "submissions" 
-                      ? "text-purple-600 dark:text-purple-400 border-b-2 border-purple-600 dark:border-purple-400 bg-purple-50 dark:bg-purple-900/20" 
-                      : "text-slate-600 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400"
-                  }`}
-                  onClick={() => setActiveTab("submissions")}
-                >
-                  <Code2 className="w-4 h-4" />
-                  Submissions
-                </button>
-                <button
-                  className={`flex items-center gap-2 px-6 py-4 font-medium transition-all duration-300 ${
-                    activeTab === "discussion" 
-                      ? "text-purple-600 dark:text-purple-400 border-b-2 border-purple-600 dark:border-purple-400 bg-purple-50 dark:bg-purple-900/20" 
-                      : "text-slate-600 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400"
-                  }`}
-                  onClick={() => setActiveTab("discussion")}
-                >
-                  <MessageSquare className="w-4 h-4" />
-                  Discussion
-                </button>
-                <button
-                  className={`flex items-center gap-2 px-6 py-4 font-medium transition-all duration-300 ${
-                    activeTab === "hints" 
-                      ? "text-purple-600 dark:text-purple-400 border-b-2 border-purple-600 dark:border-purple-400 bg-purple-50 dark:bg-purple-900/20" 
-                      : "text-slate-600 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400"
-                  }`}
-                  onClick={() => setActiveTab("hints")}
-                >
-                  <Lightbulb className="w-4 h-4" />
-                  Hints
-                </button>
-              </div>
-
-              <div className="p-6 max-h-[600px] overflow-y-auto">{renderTabContent()}</div>
-            </div>
-          </div>
-
-          <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-lg rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700">
-            <div className="p-6">
-              <div className="flex items-center gap-2 mb-4 pb-4 border-b border-slate-200 dark:border-slate-700">
-                <Terminal className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-                <span className="font-semibold text-slate-800 dark:text-slate-200">Code Editor</span>
               </div>
 
               {/* Show notification when user's previous code is loaded */}
@@ -694,7 +714,7 @@ export const ProblemPage = () => {
                 </div>
               )}
 
-              <div className="h-[450px] w-full flex flex-col rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
+              <div className="h-[500px] w-full flex flex-col rounded-xl overflow-hidden border border-slate-300 dark:border-slate-600 shadow-lg">
                 {isCollaborative ? (
                   <RoomProvider
                     id={sessionId}
@@ -741,21 +761,21 @@ export const ProblemPage = () => {
                 )}
               </div>
 
-              <div className="mt-4 flex justify-between items-center gap-4">
+              <div className="mt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <button
-                  className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:from-blue-600 hover:via-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                   onClick={handleRunCode}
                   disabled={isExecuting || isSubmitting}
                 >
-                  <Play className="w-4 h-4" />
+                  <Play className="w-5 h-5" />
                   {isExecuting ? "Running..." : "Run Code"}
                 </button>
                 <button
-                  className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-700 hover:from-emerald-600 hover:via-emerald-700 hover:to-emerald-800 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                   onClick={handleSubmitSolution}
                   disabled={isExecuting || isSubmitting}
                 >
-                  <Code2 className="w-4 h-4" />
+                  <Code2 className="w-5 h-5" />
                   {isSubmitting ? "Submitting..." : "Submit Solution"}
                 </button>
               </div>
@@ -765,7 +785,7 @@ export const ProblemPage = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 pb-6">
-        <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-lg rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700">
+        <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700">
           <div className="p-6">
             {submission ? (
               <Submission submission={submission} />
