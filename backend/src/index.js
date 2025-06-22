@@ -22,16 +22,23 @@ const app = express();
 
 // Convert comma-separated domains from .env to an array
 const allowedOrigins = [
-  ...(process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(',') : []),
+  ...(process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(',').map(url => url.trim()) : []),
   "http://localhost:5173"
 ];
 
+// Log allowed origins for debugging
+console.log("🔗 Allowed CORS Origins:", allowedOrigins);
+
 const corsOptions = {
   origin: function (origin, callback) {
+    console.log(`🌐 CORS Request from origin: ${origin}`);
     if (!origin || allowedOrigins.includes(origin)) {
+      console.log(`✅ CORS allowed for origin: ${origin}`);
       callback(null, true);
     } else {
-      callback(new Error("Not allowed by CORS"));
+      console.log(`❌ CORS blocked for origin: ${origin}`);
+      console.log(`📋 Allowed origins: ${allowedOrigins.join(', ')}`);
+      callback(new Error(`Not allowed by CORS. Origin: ${origin} is not in allowed list: ${allowedOrigins.join(', ')}`));
     }
   },
   credentials: true,
