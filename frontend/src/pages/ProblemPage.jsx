@@ -340,21 +340,75 @@ export const ProblemPage = () => {
   const handleRunCode = (e) => {
     e.preventDefault();
     try {
+      console.log("🚀 Starting code execution...");
+      console.log("Problem:", problem);
+      console.log("Selected language:", selectedLanguage);
+      console.log("Code:", code);
+      console.log("Problem ID:", id);
+      console.log("Auth user:", authUser);
+      
+      if (!authUser) {
+        Toast.error("Please log in to execute code");
+        return;
+      }
+      
+      if (!problem?.testcases || problem.testcases.length === 0) {
+        Toast.error("No test cases available for this problem");
+        return;
+      }
+      
       const language_id = getLanguageId(selectedLanguage);
-      const stdin = problem?.testcases.map((testcase) => testcase.input);
+      const stdin = problem.testcases.map((testcase) => testcase.input);
       const expected_outputs = problem.testcases.map((tc) => tc.output);
+      
+      console.log("Language ID:", language_id);
+      console.log("Test inputs:", stdin);
+      console.log("Expected outputs:", expected_outputs);
+      
+      if (!language_id) {
+        Toast.error("Invalid language selection");
+        return;
+      }
+      
       executeCode(code, language_id, stdin, expected_outputs, id, false);
     } catch (error) {
-      console.log("Error executing code", error);
+      console.error("Error executing code", error);
+      Toast.error("Failed to execute code: " + error.message);
     }
   };
 
   const handleSubmitSolution = (e) => {
     e.preventDefault();
     try {
+      console.log("📤 Starting solution submission...");
+      console.log("Problem:", problem);
+      console.log("Selected language:", selectedLanguage);
+      console.log("Code:", code);
+      console.log("Problem ID:", id);
+      console.log("Auth user:", authUser);
+      
+      if (!authUser) {
+        Toast.error("Please log in to submit solution");
+        return;
+      }
+      
+      if (!problem?.testcases || problem.testcases.length === 0) {
+        Toast.error("No test cases available for this problem");
+        return;
+      }
+      
       const language_id = getLanguageId(selectedLanguage);
-      const stdin = problem?.testcases.map((testcase) => testcase.input);
+      const stdin = problem.testcases.map((testcase) => testcase.input);
       const expected_outputs = problem.testcases.map((tc) => tc.output);
+      
+      console.log("Language ID:", language_id);
+      console.log("Test inputs:", stdin);
+      console.log("Expected outputs:", expected_outputs);
+      
+      if (!language_id) {
+        Toast.error("Invalid language selection");
+        return;
+      }
 
       // Execute code and then refresh submissions data
       executeCode(code, language_id, stdin, expected_outputs, id, true).then(
@@ -370,7 +424,8 @@ export const ProblemPage = () => {
         }
       );
     } catch (error) {
-      console.log("Error submitting solution", error);
+      console.error("Error submitting solution", error);
+      Toast.error("Failed to submit solution: " + error.message);
     }
   };
 
@@ -462,7 +517,10 @@ export const ProblemPage = () => {
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
               <button
-                onClick={() => navigate("/dashboard")}
+                onClick={() => {
+                  console.log("Back button clicked, navigating to dashboard");
+                  navigate("/dashboard", { replace: true });
+                }}
                 className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-700 text-slate-700 dark:text-slate-300 hover:from-slate-200 hover:to-slate-300 dark:hover:from-slate-700 dark:hover:to-slate-600 rounded-xl transition-all duration-300 font-medium shadow-sm hover:shadow-md"
                 title="Go to Dashboard"
               >
