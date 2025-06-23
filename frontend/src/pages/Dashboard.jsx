@@ -122,7 +122,13 @@ export const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 font-inter" ref={sectionRef}>
+    <div className="min-h-screen bg-gradient-to-br from-violet-100 via-purple-50 to-fuchsia-100 dark:from-slate-900 dark:via-purple-900 dark:to-indigo-900 font-inter relative overflow-hidden" ref={sectionRef}>
+      {/* Enhanced background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-br from-indigo-500/15 to-purple-500/15 rounded-full blur-3xl animate-pulse"></div>
+      </div>
       {/* Sidebar */}
       <Sidebar />
 
@@ -134,18 +140,20 @@ export const Dashboard = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mt-8 bg-white/70 dark:bg-slate-800/70 backdrop-blur-lg rounded-3xl shadow-xl border border-slate-200 dark:border-slate-700 p-8 relative overflow-hidden"
+          className="mt-8 bg-gradient-to-br from-white/90 to-purple-50/80 dark:from-slate-800/90 dark:to-purple-900/80 backdrop-blur-2xl rounded-3xl shadow-2xl border border-purple-300/50 dark:border-purple-600/50 p-8 relative overflow-hidden"
         >
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-5 dark:opacity-10">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 transform rotate-12 scale-150"></div>
+          {/* Enhanced Background Pattern */}
+          <div className="absolute inset-0 opacity-10 dark:opacity-15">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 transform rotate-12 scale-150"></div>
           </div>
+          <div className="absolute top-4 right-4 w-32 h-32 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-2xl"></div>
+          <div className="absolute bottom-4 left-4 w-24 h-24 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 rounded-full blur-2xl"></div>
           
           {/* Content */}
           <div className="relative z-10 flex items-start gap-6">
-            {/* Avatar */}
+            {/* Enhanced Avatar */}
             <div className="relative">
-              <div className="w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+              <div className="w-28 h-28 bg-gradient-to-br from-purple-600 via-pink-600 to-blue-600 rounded-3xl flex items-center justify-center text-white text-3xl font-bold shadow-2xl border-2 border-white/20 transform hover:scale-105 transition-transform duration-300">
                 {authUser?.name
                   ? authUser.name
                       .split(" ")
@@ -154,7 +162,8 @@ export const Dashboard = () => {
                       .toUpperCase()
                   : "NA"}
               </div>
-              <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white dark:border-slate-800"></div>
+              <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full border-3 border-white dark:border-slate-800 shadow-lg animate-pulse"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-3xl blur-xl"></div>
             </div>
 
             {/* User Info */}
@@ -174,52 +183,70 @@ export const Dashboard = () => {
                 {authUser?.email}
               </p>
 
-              {/* Quick Actions */}
-              <div className="flex flex-wrap gap-3">
+              {/* Enhanced Quick Actions */}
+              <div className="flex flex-wrap gap-4">
                 <button
                   onClick={() => setIsCreatePlaylistModalOpen(true)}
-                  className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                  className="group flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-purple-600 via-purple-700 to-pink-600 hover:from-purple-700 hover:via-purple-800 hover:to-pink-700 text-white font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:scale-105 border border-purple-400/30"
                 >
-                  <span className="text-sm">📝</span>
+                  <span className="text-lg group-hover:animate-bounce">📝</span>
                   <span>Create Playlist</span>
-                  <kbd className="ml-2 px-2 py-1 bg-white/20 rounded text-xs">C</kbd>
+                  <kbd className="ml-2 px-2 py-1 bg-white/25 rounded-md text-xs font-mono border border-white/20">C</kbd>
                 </button>
                 
                 <button
                   onClick={() => navigate("/revision-problems")}
-                  className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                  className="group flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-600 via-blue-700 to-cyan-600 hover:from-blue-700 hover:via-blue-800 hover:to-cyan-700 text-white font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:scale-105 border border-blue-400/30"
                 >
-                  <span className="text-sm">🔖</span>
+                  <span className="text-lg group-hover:animate-bounce">🔖</span>
                   <span>Revision</span>
                 </button>
                 
                 <button
                   onClick={() => navigate("/playlists")}
-                  className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-white font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                  className="group flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-emerald-600 via-emerald-700 to-green-600 hover:from-emerald-700 hover:via-emerald-800 hover:to-green-700 text-white font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:scale-105 border border-emerald-400/30"
                 >
-                  <span className="text-sm">📚</span>
+                  <span className="text-lg group-hover:animate-bounce">📚</span>
                   <span>My Playlists</span>
                 </button>
               </div>
             </div>
 
-            {/* Stats Cards */}
-            <div className="hidden lg:flex flex-col gap-3">
-              <div className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 p-4 rounded-xl border border-blue-200 dark:border-blue-800">
-                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+            {/* Enhanced Stats Cards */}
+            <div className="hidden lg:flex flex-col gap-4">
+              <div className="bg-gradient-to-br from-blue-100 to-cyan-100 dark:from-blue-800/40 dark:to-cyan-800/40 p-6 rounded-2xl border border-blue-300/50 dark:border-blue-600/50 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div className="text-3xl font-bold text-blue-700 dark:text-blue-300 mb-1">
                   {problems.length}
                 </div>
-                <div className="text-sm text-blue-600/70 dark:text-blue-400/70">
+                <div className="text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wide">
                   Total Problems
+                </div>
+                <div className="w-full bg-blue-200/50 dark:bg-blue-700/30 rounded-full h-1.5 mt-2">
+                  <div className="bg-gradient-to-r from-blue-500 to-cyan-500 h-1.5 rounded-full" style={{width: '100%'}}></div>
                 </div>
               </div>
               
-              <div className="bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 p-4 rounded-xl border border-emerald-200 dark:border-emerald-800">
-                <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
+              <div className="bg-gradient-to-br from-emerald-100 to-green-100 dark:from-emerald-800/40 dark:to-green-800/40 p-6 rounded-2xl border border-emerald-300/50 dark:border-emerald-600/50 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div className="text-3xl font-bold text-emerald-700 dark:text-emerald-300 mb-1">
                   {problems.filter(p => p.difficulty === 'EASY').length}
                 </div>
-                <div className="text-sm text-emerald-600/70 dark:text-emerald-400/70">
+                <div className="text-sm font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wide">
                   Easy Problems
+                </div>
+                <div className="w-full bg-emerald-200/50 dark:bg-emerald-700/30 rounded-full h-1.5 mt-2">
+                  <div className="bg-gradient-to-r from-emerald-500 to-green-500 h-1.5 rounded-full" style={{width: `${(problems.filter(p => p.difficulty === 'EASY').length / problems.length) * 100}%`}}></div>
+                </div>
+              </div>
+              
+              <div className="bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-800/40 dark:to-pink-800/40 p-6 rounded-2xl border border-purple-300/50 dark:border-purple-600/50 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div className="text-3xl font-bold text-purple-700 dark:text-purple-300 mb-1">
+                  {problems.filter(p => p.difficulty === 'MEDIUM').length}
+                </div>
+                <div className="text-sm font-semibold text-purple-600 dark:text-purple-400 uppercase tracking-wide">
+                  Medium Problems
+                </div>
+                <div className="w-full bg-purple-200/50 dark:bg-purple-700/30 rounded-full h-1.5 mt-2">
+                  <div className="bg-gradient-to-r from-purple-500 to-pink-500 h-1.5 rounded-full" style={{width: `${(problems.filter(p => p.difficulty === 'MEDIUM').length / problems.length) * 100}%`}}></div>
                 </div>
               </div>
             </div>
@@ -234,55 +261,63 @@ export const Dashboard = () => {
           className="mt-8"
         >
           {problems.length === 0 ? (
-            <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-lg rounded-3xl shadow-xl border border-slate-200 dark:border-slate-700 p-12 text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center text-white text-2xl mx-auto mb-6">
-                📝
+            <div className="bg-gradient-to-br from-white/90 to-purple-50/80 dark:from-slate-800/90 dark:to-purple-900/80 backdrop-blur-2xl rounded-3xl shadow-2xl border border-purple-300/50 dark:border-purple-600/50 p-12 text-center relative overflow-hidden">
+              {/* Background decorations */}
+              <div className="absolute top-4 right-4 w-24 h-24 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-2xl"></div>
+              <div className="absolute bottom-4 left-4 w-20 h-20 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 rounded-full blur-2xl"></div>
+              
+              <div className="relative z-10">
+                <div className="w-20 h-20 bg-gradient-to-br from-purple-600 via-pink-600 to-blue-600 rounded-3xl flex items-center justify-center text-white text-3xl mx-auto mb-6 shadow-2xl border-2 border-white/20">
+                  📝
+                </div>
+                <h3 className="text-3xl font-bold bg-gradient-to-r from-purple-700 to-pink-700 dark:from-purple-300 dark:to-pink-300 bg-clip-text text-transparent mb-4">
+                  No Problems Found
+                </h3>
+                <p className="text-slate-600 dark:text-slate-400 mb-8 text-lg">
+                  It looks like there are no coding problems available at the moment.
+                </p>
+                <button
+                  onClick={() => window.location.reload()}
+                  className="px-8 py-4 bg-gradient-to-r from-purple-600 via-purple-700 to-pink-600 hover:from-purple-700 hover:via-purple-800 hover:to-pink-700 text-white font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:scale-105 border border-purple-400/30"
+                >
+                  Refresh Page
+                </button>
               </div>
-              <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-3">
-                No Problems Found
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 mb-6">
-                It looks like there are no coding problems available at the moment.
-              </p>
-              <button
-                onClick={() => window.location.reload()}
-                className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-              >
-                Refresh Page
-              </button>
             </div>
           ) : (
             <div className="space-y-6">
-              {/* Section Header */}
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-2xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
-                    Coding Problems
-                  </h2>
-                  <p className="text-slate-600 dark:text-slate-400 mt-1">
-                    Solve problems, practice algorithms, and level up your coding skills
-                  </p>
-                </div>
-                
-                {/* Quick Stats */}
-                <div className="hidden md:flex items-center gap-4">
-                  <div className="text-center">
-                    <div className="text-lg font-bold text-emerald-600 dark:text-emerald-400">
-                      {problems.filter(p => p.difficulty === 'EASY').length}
-                    </div>
-                    <div className="text-xs text-slate-500 dark:text-slate-400">Easy</div>
+              {/* Enhanced Section Header */}
+              <div className="bg-gradient-to-r from-white/80 to-purple-50/60 dark:from-slate-800/80 dark:to-purple-900/60 backdrop-blur-xl rounded-2xl p-6 border border-purple-200/50 dark:border-purple-700/50 shadow-lg">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-700 via-pink-600 to-blue-600 dark:from-purple-300 dark:via-pink-300 dark:to-blue-300 bg-clip-text text-transparent mb-2">
+                      🚀 Coding Problems
+                    </h2>
+                    <p className="text-slate-600 dark:text-slate-400 text-lg font-medium">
+                      Solve problems, practice algorithms, and level up your coding skills
+                    </p>
                   </div>
-                  <div className="text-center">
-                    <div className="text-lg font-bold text-amber-600 dark:text-amber-400">
-                      {problems.filter(p => p.difficulty === 'MEDIUM').length}
+                  
+                  {/* Enhanced Quick Stats */}
+                  <div className="hidden md:flex items-center gap-6">
+                    <div className="text-center p-3 bg-gradient-to-r from-emerald-100 to-green-100 dark:from-emerald-800/30 dark:to-green-800/30 rounded-xl border border-emerald-300/50 dark:border-emerald-600/50">
+                      <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
+                        {problems.filter(p => p.difficulty === 'EASY').length}
+                      </div>
+                      <div className="text-xs font-semibold text-emerald-600/80 dark:text-emerald-400/80 uppercase tracking-wide">Easy</div>
                     </div>
-                    <div className="text-xs text-slate-500 dark:text-slate-400">Medium</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-lg font-bold text-red-600 dark:text-red-400">
-                      {problems.filter(p => p.difficulty === 'HARD').length}
+                    <div className="text-center p-3 bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-800/30 dark:to-orange-800/30 rounded-xl border border-amber-300/50 dark:border-amber-600/50">
+                      <div className="text-2xl font-bold text-amber-600 dark:text-amber-400">
+                        {problems.filter(p => p.difficulty === 'MEDIUM').length}
+                      </div>
+                      <div className="text-xs font-semibold text-amber-600/80 dark:text-amber-400/80 uppercase tracking-wide">Medium</div>
                     </div>
-                    <div className="text-xs text-slate-500 dark:text-slate-400">Hard</div>
+                    <div className="text-center p-3 bg-gradient-to-r from-red-100 to-pink-100 dark:from-red-800/30 dark:to-pink-800/30 rounded-xl border border-red-300/50 dark:border-red-600/50">
+                      <div className="text-2xl font-bold text-red-600 dark:text-red-400">
+                        {problems.filter(p => p.difficulty === 'HARD').length}
+                      </div>
+                      <div className="text-xs font-semibold text-red-600/80 dark:text-red-400/80 uppercase tracking-wide">Hard</div>
+                    </div>
                   </div>
                 </div>
               </div>
