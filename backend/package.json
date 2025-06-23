@@ -5,7 +5,10 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "populate-leetcode": "node src/scripts/populate_leetcode_problems.js",
+    "populate-leetcode-force": "node src/scripts/populate_leetcode_problems.js --force",
+    "clear-leetcode": "node src/scripts/populate_leetcode_problems.js --clear"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +22,7 @@
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "csv-parser": "^3.2.0",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "firebase": "^11.9.1",

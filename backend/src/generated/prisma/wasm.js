@@ -143,9 +143,25 @@ exports.Prisma.UserScalarFieldEnum = {
 
 exports.Prisma.ProblemScalarFieldEnum = {
   id: 'id',
+  leetcodeId: 'leetcodeId',
   title: 'title',
   description: 'description',
   difficulty: 'difficulty',
+  isPremium: 'isPremium',
+  solutionLink: 'solutionLink',
+  acceptanceRate: 'acceptanceRate',
+  frequency: 'frequency',
+  url: 'url',
+  discussCount: 'discussCount',
+  accepted: 'accepted',
+  submissions: 'submissions',
+  companies: 'companies',
+  relatedTopics: 'relatedTopics',
+  likes: 'likes',
+  dislikes: 'dislikes',
+  rating: 'rating',
+  askedByFaang: 'askedByFaang',
+  similarQuestions: 'similarQuestions',
   tags: 'tags',
   companyTags: 'companyTags',
   userId: 'userId',
@@ -246,6 +262,11 @@ exports.Prisma.DiscussionLikeScalarFieldEnum = {
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.JsonNullValueInput = {

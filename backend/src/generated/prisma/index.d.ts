@@ -3436,15 +3436,55 @@ export namespace Prisma {
 
   export type AggregateProblem = {
     _count: ProblemCountAggregateOutputType | null
+    _avg: ProblemAvgAggregateOutputType | null
+    _sum: ProblemSumAggregateOutputType | null
     _min: ProblemMinAggregateOutputType | null
     _max: ProblemMaxAggregateOutputType | null
   }
 
+  export type ProblemAvgAggregateOutputType = {
+    leetcodeId: number | null
+    acceptanceRate: number | null
+    frequency: number | null
+    discussCount: number | null
+    accepted: number | null
+    submissions: number | null
+    likes: number | null
+    dislikes: number | null
+    rating: number | null
+  }
+
+  export type ProblemSumAggregateOutputType = {
+    leetcodeId: number | null
+    acceptanceRate: number | null
+    frequency: number | null
+    discussCount: number | null
+    accepted: number | null
+    submissions: number | null
+    likes: number | null
+    dislikes: number | null
+    rating: number | null
+  }
+
   export type ProblemMinAggregateOutputType = {
     id: string | null
+    leetcodeId: number | null
     title: string | null
     description: string | null
     difficulty: $Enums.Difficulty | null
+    isPremium: boolean | null
+    solutionLink: string | null
+    acceptanceRate: number | null
+    frequency: number | null
+    url: string | null
+    discussCount: number | null
+    accepted: number | null
+    submissions: number | null
+    likes: number | null
+    dislikes: number | null
+    rating: number | null
+    askedByFaang: boolean | null
+    similarQuestions: string | null
     userId: string | null
     constraints: string | null
     hints: string | null
@@ -3455,9 +3495,23 @@ export namespace Prisma {
 
   export type ProblemMaxAggregateOutputType = {
     id: string | null
+    leetcodeId: number | null
     title: string | null
     description: string | null
     difficulty: $Enums.Difficulty | null
+    isPremium: boolean | null
+    solutionLink: string | null
+    acceptanceRate: number | null
+    frequency: number | null
+    url: string | null
+    discussCount: number | null
+    accepted: number | null
+    submissions: number | null
+    likes: number | null
+    dislikes: number | null
+    rating: number | null
+    askedByFaang: boolean | null
+    similarQuestions: string | null
     userId: string | null
     constraints: string | null
     hints: string | null
@@ -3468,9 +3522,25 @@ export namespace Prisma {
 
   export type ProblemCountAggregateOutputType = {
     id: number
+    leetcodeId: number
     title: number
     description: number
     difficulty: number
+    isPremium: number
+    solutionLink: number
+    acceptanceRate: number
+    frequency: number
+    url: number
+    discussCount: number
+    accepted: number
+    submissions: number
+    companies: number
+    relatedTopics: number
+    likes: number
+    dislikes: number
+    rating: number
+    askedByFaang: number
+    similarQuestions: number
     tags: number
     companyTags: number
     userId: number
@@ -3487,11 +3557,49 @@ export namespace Prisma {
   }
 
 
+  export type ProblemAvgAggregateInputType = {
+    leetcodeId?: true
+    acceptanceRate?: true
+    frequency?: true
+    discussCount?: true
+    accepted?: true
+    submissions?: true
+    likes?: true
+    dislikes?: true
+    rating?: true
+  }
+
+  export type ProblemSumAggregateInputType = {
+    leetcodeId?: true
+    acceptanceRate?: true
+    frequency?: true
+    discussCount?: true
+    accepted?: true
+    submissions?: true
+    likes?: true
+    dislikes?: true
+    rating?: true
+  }
+
   export type ProblemMinAggregateInputType = {
     id?: true
+    leetcodeId?: true
     title?: true
     description?: true
     difficulty?: true
+    isPremium?: true
+    solutionLink?: true
+    acceptanceRate?: true
+    frequency?: true
+    url?: true
+    discussCount?: true
+    accepted?: true
+    submissions?: true
+    likes?: true
+    dislikes?: true
+    rating?: true
+    askedByFaang?: true
+    similarQuestions?: true
     userId?: true
     constraints?: true
     hints?: true
@@ -3502,9 +3610,23 @@ export namespace Prisma {
 
   export type ProblemMaxAggregateInputType = {
     id?: true
+    leetcodeId?: true
     title?: true
     description?: true
     difficulty?: true
+    isPremium?: true
+    solutionLink?: true
+    acceptanceRate?: true
+    frequency?: true
+    url?: true
+    discussCount?: true
+    accepted?: true
+    submissions?: true
+    likes?: true
+    dislikes?: true
+    rating?: true
+    askedByFaang?: true
+    similarQuestions?: true
     userId?: true
     constraints?: true
     hints?: true
@@ -3515,9 +3637,25 @@ export namespace Prisma {
 
   export type ProblemCountAggregateInputType = {
     id?: true
+    leetcodeId?: true
     title?: true
     description?: true
     difficulty?: true
+    isPremium?: true
+    solutionLink?: true
+    acceptanceRate?: true
+    frequency?: true
+    url?: true
+    discussCount?: true
+    accepted?: true
+    submissions?: true
+    companies?: true
+    relatedTopics?: true
+    likes?: true
+    dislikes?: true
+    rating?: true
+    askedByFaang?: true
+    similarQuestions?: true
     tags?: true
     companyTags?: true
     userId?: true
@@ -3571,6 +3709,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: ProblemAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ProblemSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ProblemMinAggregateInputType
@@ -3601,28 +3751,48 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ProblemCountAggregateInputType | true
+    _avg?: ProblemAvgAggregateInputType
+    _sum?: ProblemSumAggregateInputType
     _min?: ProblemMinAggregateInputType
     _max?: ProblemMaxAggregateInputType
   }
 
   export type ProblemGroupByOutputType = {
     id: string
+    leetcodeId: number | null
     title: string
     description: string
     difficulty: $Enums.Difficulty
+    isPremium: boolean
+    solutionLink: string | null
+    acceptanceRate: number | null
+    frequency: number | null
+    url: string | null
+    discussCount: number | null
+    accepted: number | null
+    submissions: number | null
+    companies: string[]
+    relatedTopics: string[]
+    likes: number | null
+    dislikes: number | null
+    rating: number | null
+    askedByFaang: boolean
+    similarQuestions: string | null
     tags: string[]
     companyTags: string[]
-    userId: string
-    examples: JsonValue
-    constraints: string
+    userId: string | null
+    examples: JsonValue | null
+    constraints: string | null
     hints: string | null
     editorial: string | null
-    testcases: JsonValue
-    codeSnippets: JsonValue
-    referenceSolutions: JsonValue
+    testcases: JsonValue | null
+    codeSnippets: JsonValue | null
+    referenceSolutions: JsonValue | null
     createdAt: Date
     updatedAt: Date
     _count: ProblemCountAggregateOutputType | null
+    _avg: ProblemAvgAggregateOutputType | null
+    _sum: ProblemSumAggregateOutputType | null
     _min: ProblemMinAggregateOutputType | null
     _max: ProblemMaxAggregateOutputType | null
   }
@@ -3643,9 +3813,25 @@ export namespace Prisma {
 
   export type ProblemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    leetcodeId?: boolean
     title?: boolean
     description?: boolean
     difficulty?: boolean
+    isPremium?: boolean
+    solutionLink?: boolean
+    acceptanceRate?: boolean
+    frequency?: boolean
+    url?: boolean
+    discussCount?: boolean
+    accepted?: boolean
+    submissions?: boolean
+    companies?: boolean
+    relatedTopics?: boolean
+    likes?: boolean
+    dislikes?: boolean
+    rating?: boolean
+    askedByFaang?: boolean
+    similarQuestions?: boolean
     tags?: boolean
     companyTags?: boolean
     userId?: boolean
@@ -3658,7 +3844,7 @@ export namespace Prisma {
     referenceSolutions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Problem$userArgs<ExtArgs>
     submission?: boolean | Problem$submissionArgs<ExtArgs>
     solvedBy?: boolean | Problem$solvedByArgs<ExtArgs>
     problemsPlaylist?: boolean | Problem$problemsPlaylistArgs<ExtArgs>
@@ -3669,9 +3855,25 @@ export namespace Prisma {
 
   export type ProblemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    leetcodeId?: boolean
     title?: boolean
     description?: boolean
     difficulty?: boolean
+    isPremium?: boolean
+    solutionLink?: boolean
+    acceptanceRate?: boolean
+    frequency?: boolean
+    url?: boolean
+    discussCount?: boolean
+    accepted?: boolean
+    submissions?: boolean
+    companies?: boolean
+    relatedTopics?: boolean
+    likes?: boolean
+    dislikes?: boolean
+    rating?: boolean
+    askedByFaang?: boolean
+    similarQuestions?: boolean
     tags?: boolean
     companyTags?: boolean
     userId?: boolean
@@ -3684,14 +3886,30 @@ export namespace Prisma {
     referenceSolutions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Problem$userArgs<ExtArgs>
   }, ExtArgs["result"]["problem"]>
 
   export type ProblemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    leetcodeId?: boolean
     title?: boolean
     description?: boolean
     difficulty?: boolean
+    isPremium?: boolean
+    solutionLink?: boolean
+    acceptanceRate?: boolean
+    frequency?: boolean
+    url?: boolean
+    discussCount?: boolean
+    accepted?: boolean
+    submissions?: boolean
+    companies?: boolean
+    relatedTopics?: boolean
+    likes?: boolean
+    dislikes?: boolean
+    rating?: boolean
+    askedByFaang?: boolean
+    similarQuestions?: boolean
     tags?: boolean
     companyTags?: boolean
     userId?: boolean
@@ -3704,14 +3922,30 @@ export namespace Prisma {
     referenceSolutions?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Problem$userArgs<ExtArgs>
   }, ExtArgs["result"]["problem"]>
 
   export type ProblemSelectScalar = {
     id?: boolean
+    leetcodeId?: boolean
     title?: boolean
     description?: boolean
     difficulty?: boolean
+    isPremium?: boolean
+    solutionLink?: boolean
+    acceptanceRate?: boolean
+    frequency?: boolean
+    url?: boolean
+    discussCount?: boolean
+    accepted?: boolean
+    submissions?: boolean
+    companies?: boolean
+    relatedTopics?: boolean
+    likes?: boolean
+    dislikes?: boolean
+    rating?: boolean
+    askedByFaang?: boolean
+    similarQuestions?: boolean
     tags?: boolean
     companyTags?: boolean
     userId?: boolean
@@ -3726,9 +3960,9 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type ProblemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "difficulty" | "tags" | "companyTags" | "userId" | "examples" | "constraints" | "hints" | "editorial" | "testcases" | "codeSnippets" | "referenceSolutions" | "createdAt" | "updatedAt", ExtArgs["result"]["problem"]>
+  export type ProblemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "leetcodeId" | "title" | "description" | "difficulty" | "isPremium" | "solutionLink" | "acceptanceRate" | "frequency" | "url" | "discussCount" | "accepted" | "submissions" | "companies" | "relatedTopics" | "likes" | "dislikes" | "rating" | "askedByFaang" | "similarQuestions" | "tags" | "companyTags" | "userId" | "examples" | "constraints" | "hints" | "editorial" | "testcases" | "codeSnippets" | "referenceSolutions" | "createdAt" | "updatedAt", ExtArgs["result"]["problem"]>
   export type ProblemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Problem$userArgs<ExtArgs>
     submission?: boolean | Problem$submissionArgs<ExtArgs>
     solvedBy?: boolean | Problem$solvedByArgs<ExtArgs>
     problemsPlaylist?: boolean | Problem$problemsPlaylistArgs<ExtArgs>
@@ -3737,16 +3971,16 @@ export namespace Prisma {
     _count?: boolean | ProblemCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProblemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Problem$userArgs<ExtArgs>
   }
   export type ProblemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Problem$userArgs<ExtArgs>
   }
 
   export type $ProblemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Problem"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs> | null
       submission: Prisma.$SubmissionPayload<ExtArgs>[]
       solvedBy: Prisma.$ProblemSolvedPayload<ExtArgs>[]
       problemsPlaylist: Prisma.$ProblemPlaylistPayload<ExtArgs>[]
@@ -3755,19 +3989,35 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      leetcodeId: number | null
       title: string
       description: string
       difficulty: $Enums.Difficulty
+      isPremium: boolean
+      solutionLink: string | null
+      acceptanceRate: number | null
+      frequency: number | null
+      url: string | null
+      discussCount: number | null
+      accepted: number | null
+      submissions: number | null
+      companies: string[]
+      relatedTopics: string[]
+      likes: number | null
+      dislikes: number | null
+      rating: number | null
+      askedByFaang: boolean
+      similarQuestions: string | null
       tags: string[]
       companyTags: string[]
-      userId: string
-      examples: Prisma.JsonValue
-      constraints: string
+      userId: string | null
+      examples: Prisma.JsonValue | null
+      constraints: string | null
       hints: string | null
       editorial: string | null
-      testcases: Prisma.JsonValue
-      codeSnippets: Prisma.JsonValue
-      referenceSolutions: Prisma.JsonValue
+      testcases: Prisma.JsonValue | null
+      codeSnippets: Prisma.JsonValue | null
+      referenceSolutions: Prisma.JsonValue | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["problem"]>
@@ -4164,7 +4414,7 @@ export namespace Prisma {
    */
   export interface Prisma__ProblemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends Problem$userArgs<ExtArgs> = {}>(args?: Subset<T, Problem$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     submission<T extends Problem$submissionArgs<ExtArgs> = {}>(args?: Subset<T, Problem$submissionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     solvedBy<T extends Problem$solvedByArgs<ExtArgs> = {}>(args?: Subset<T, Problem$solvedByArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProblemSolvedPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     problemsPlaylist<T extends Problem$problemsPlaylistArgs<ExtArgs> = {}>(args?: Subset<T, Problem$problemsPlaylistArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProblemPlaylistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -4200,9 +4450,25 @@ export namespace Prisma {
    */
   interface ProblemFieldRefs {
     readonly id: FieldRef<"Problem", 'String'>
+    readonly leetcodeId: FieldRef<"Problem", 'Int'>
     readonly title: FieldRef<"Problem", 'String'>
     readonly description: FieldRef<"Problem", 'String'>
     readonly difficulty: FieldRef<"Problem", 'Difficulty'>
+    readonly isPremium: FieldRef<"Problem", 'Boolean'>
+    readonly solutionLink: FieldRef<"Problem", 'String'>
+    readonly acceptanceRate: FieldRef<"Problem", 'Float'>
+    readonly frequency: FieldRef<"Problem", 'Float'>
+    readonly url: FieldRef<"Problem", 'String'>
+    readonly discussCount: FieldRef<"Problem", 'Int'>
+    readonly accepted: FieldRef<"Problem", 'Int'>
+    readonly submissions: FieldRef<"Problem", 'Int'>
+    readonly companies: FieldRef<"Problem", 'String[]'>
+    readonly relatedTopics: FieldRef<"Problem", 'String[]'>
+    readonly likes: FieldRef<"Problem", 'Int'>
+    readonly dislikes: FieldRef<"Problem", 'Int'>
+    readonly rating: FieldRef<"Problem", 'Float'>
+    readonly askedByFaang: FieldRef<"Problem", 'Boolean'>
+    readonly similarQuestions: FieldRef<"Problem", 'String'>
     readonly tags: FieldRef<"Problem", 'String[]'>
     readonly companyTags: FieldRef<"Problem", 'String[]'>
     readonly userId: FieldRef<"Problem", 'String'>
@@ -4608,6 +4874,25 @@ export namespace Prisma {
      * Limit how many Problems to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Problem.user
+   */
+  export type Problem$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -13723,9 +14008,25 @@ export namespace Prisma {
 
   export const ProblemScalarFieldEnum: {
     id: 'id',
+    leetcodeId: 'leetcodeId',
     title: 'title',
     description: 'description',
     difficulty: 'difficulty',
+    isPremium: 'isPremium',
+    solutionLink: 'solutionLink',
+    acceptanceRate: 'acceptanceRate',
+    frequency: 'frequency',
+    url: 'url',
+    discussCount: 'discussCount',
+    accepted: 'accepted',
+    submissions: 'submissions',
+    companies: 'companies',
+    relatedTopics: 'relatedTopics',
+    likes: 'likes',
+    dislikes: 'dislikes',
+    rating: 'rating',
+    askedByFaang: 'askedByFaang',
+    similarQuestions: 'similarQuestions',
     tags: 'tags',
     companyTags: 'companyTags',
     userId: 'userId',
@@ -13858,6 +14159,14 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
   export const JsonNullValueInput: {
     JsonNull: typeof JsonNull
   };
@@ -13980,20 +14289,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Json'
-   */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-  /**
-   * Reference to a field of type 'QueryMode'
-   */
-  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
-    
-
-
-  /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -14011,6 +14306,20 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
   /**
    * Deep Input Types
@@ -14162,22 +14471,38 @@ export namespace Prisma {
     OR?: ProblemWhereInput[]
     NOT?: ProblemWhereInput | ProblemWhereInput[]
     id?: StringFilter<"Problem"> | string
+    leetcodeId?: IntNullableFilter<"Problem"> | number | null
     title?: StringFilter<"Problem"> | string
     description?: StringFilter<"Problem"> | string
     difficulty?: EnumDifficultyFilter<"Problem"> | $Enums.Difficulty
+    isPremium?: BoolFilter<"Problem"> | boolean
+    solutionLink?: StringNullableFilter<"Problem"> | string | null
+    acceptanceRate?: FloatNullableFilter<"Problem"> | number | null
+    frequency?: FloatNullableFilter<"Problem"> | number | null
+    url?: StringNullableFilter<"Problem"> | string | null
+    discussCount?: IntNullableFilter<"Problem"> | number | null
+    accepted?: IntNullableFilter<"Problem"> | number | null
+    submissions?: IntNullableFilter<"Problem"> | number | null
+    companies?: StringNullableListFilter<"Problem">
+    relatedTopics?: StringNullableListFilter<"Problem">
+    likes?: IntNullableFilter<"Problem"> | number | null
+    dislikes?: IntNullableFilter<"Problem"> | number | null
+    rating?: FloatNullableFilter<"Problem"> | number | null
+    askedByFaang?: BoolFilter<"Problem"> | boolean
+    similarQuestions?: StringNullableFilter<"Problem"> | string | null
     tags?: StringNullableListFilter<"Problem">
     companyTags?: StringNullableListFilter<"Problem">
-    userId?: StringFilter<"Problem"> | string
-    examples?: JsonFilter<"Problem">
-    constraints?: StringFilter<"Problem"> | string
+    userId?: StringNullableFilter<"Problem"> | string | null
+    examples?: JsonNullableFilter<"Problem">
+    constraints?: StringNullableFilter<"Problem"> | string | null
     hints?: StringNullableFilter<"Problem"> | string | null
     editorial?: StringNullableFilter<"Problem"> | string | null
-    testcases?: JsonFilter<"Problem">
-    codeSnippets?: JsonFilter<"Problem">
-    referenceSolutions?: JsonFilter<"Problem">
+    testcases?: JsonNullableFilter<"Problem">
+    codeSnippets?: JsonNullableFilter<"Problem">
+    referenceSolutions?: JsonNullableFilter<"Problem">
     createdAt?: DateTimeFilter<"Problem"> | Date | string
     updatedAt?: DateTimeFilter<"Problem"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     submission?: SubmissionListRelationFilter
     solvedBy?: ProblemSolvedListRelationFilter
     problemsPlaylist?: ProblemPlaylistListRelationFilter
@@ -14187,19 +14512,35 @@ export namespace Prisma {
 
   export type ProblemOrderByWithRelationInput = {
     id?: SortOrder
+    leetcodeId?: SortOrderInput | SortOrder
     title?: SortOrder
     description?: SortOrder
     difficulty?: SortOrder
+    isPremium?: SortOrder
+    solutionLink?: SortOrderInput | SortOrder
+    acceptanceRate?: SortOrderInput | SortOrder
+    frequency?: SortOrderInput | SortOrder
+    url?: SortOrderInput | SortOrder
+    discussCount?: SortOrderInput | SortOrder
+    accepted?: SortOrderInput | SortOrder
+    submissions?: SortOrderInput | SortOrder
+    companies?: SortOrder
+    relatedTopics?: SortOrder
+    likes?: SortOrderInput | SortOrder
+    dislikes?: SortOrderInput | SortOrder
+    rating?: SortOrderInput | SortOrder
+    askedByFaang?: SortOrder
+    similarQuestions?: SortOrderInput | SortOrder
     tags?: SortOrder
     companyTags?: SortOrder
-    userId?: SortOrder
-    examples?: SortOrder
-    constraints?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    examples?: SortOrderInput | SortOrder
+    constraints?: SortOrderInput | SortOrder
     hints?: SortOrderInput | SortOrder
     editorial?: SortOrderInput | SortOrder
-    testcases?: SortOrder
-    codeSnippets?: SortOrder
-    referenceSolutions?: SortOrder
+    testcases?: SortOrderInput | SortOrder
+    codeSnippets?: SortOrderInput | SortOrder
+    referenceSolutions?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -14212,52 +14553,86 @@ export namespace Prisma {
 
   export type ProblemWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    leetcodeId?: number
     AND?: ProblemWhereInput | ProblemWhereInput[]
     OR?: ProblemWhereInput[]
     NOT?: ProblemWhereInput | ProblemWhereInput[]
     title?: StringFilter<"Problem"> | string
     description?: StringFilter<"Problem"> | string
     difficulty?: EnumDifficultyFilter<"Problem"> | $Enums.Difficulty
+    isPremium?: BoolFilter<"Problem"> | boolean
+    solutionLink?: StringNullableFilter<"Problem"> | string | null
+    acceptanceRate?: FloatNullableFilter<"Problem"> | number | null
+    frequency?: FloatNullableFilter<"Problem"> | number | null
+    url?: StringNullableFilter<"Problem"> | string | null
+    discussCount?: IntNullableFilter<"Problem"> | number | null
+    accepted?: IntNullableFilter<"Problem"> | number | null
+    submissions?: IntNullableFilter<"Problem"> | number | null
+    companies?: StringNullableListFilter<"Problem">
+    relatedTopics?: StringNullableListFilter<"Problem">
+    likes?: IntNullableFilter<"Problem"> | number | null
+    dislikes?: IntNullableFilter<"Problem"> | number | null
+    rating?: FloatNullableFilter<"Problem"> | number | null
+    askedByFaang?: BoolFilter<"Problem"> | boolean
+    similarQuestions?: StringNullableFilter<"Problem"> | string | null
     tags?: StringNullableListFilter<"Problem">
     companyTags?: StringNullableListFilter<"Problem">
-    userId?: StringFilter<"Problem"> | string
-    examples?: JsonFilter<"Problem">
-    constraints?: StringFilter<"Problem"> | string
+    userId?: StringNullableFilter<"Problem"> | string | null
+    examples?: JsonNullableFilter<"Problem">
+    constraints?: StringNullableFilter<"Problem"> | string | null
     hints?: StringNullableFilter<"Problem"> | string | null
     editorial?: StringNullableFilter<"Problem"> | string | null
-    testcases?: JsonFilter<"Problem">
-    codeSnippets?: JsonFilter<"Problem">
-    referenceSolutions?: JsonFilter<"Problem">
+    testcases?: JsonNullableFilter<"Problem">
+    codeSnippets?: JsonNullableFilter<"Problem">
+    referenceSolutions?: JsonNullableFilter<"Problem">
     createdAt?: DateTimeFilter<"Problem"> | Date | string
     updatedAt?: DateTimeFilter<"Problem"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     submission?: SubmissionListRelationFilter
     solvedBy?: ProblemSolvedListRelationFilter
     problemsPlaylist?: ProblemPlaylistListRelationFilter
     discussions?: DiscussionListRelationFilter
     Revision?: RevisionListRelationFilter
-  }, "id">
+  }, "id" | "leetcodeId">
 
   export type ProblemOrderByWithAggregationInput = {
     id?: SortOrder
+    leetcodeId?: SortOrderInput | SortOrder
     title?: SortOrder
     description?: SortOrder
     difficulty?: SortOrder
+    isPremium?: SortOrder
+    solutionLink?: SortOrderInput | SortOrder
+    acceptanceRate?: SortOrderInput | SortOrder
+    frequency?: SortOrderInput | SortOrder
+    url?: SortOrderInput | SortOrder
+    discussCount?: SortOrderInput | SortOrder
+    accepted?: SortOrderInput | SortOrder
+    submissions?: SortOrderInput | SortOrder
+    companies?: SortOrder
+    relatedTopics?: SortOrder
+    likes?: SortOrderInput | SortOrder
+    dislikes?: SortOrderInput | SortOrder
+    rating?: SortOrderInput | SortOrder
+    askedByFaang?: SortOrder
+    similarQuestions?: SortOrderInput | SortOrder
     tags?: SortOrder
     companyTags?: SortOrder
-    userId?: SortOrder
-    examples?: SortOrder
-    constraints?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    examples?: SortOrderInput | SortOrder
+    constraints?: SortOrderInput | SortOrder
     hints?: SortOrderInput | SortOrder
     editorial?: SortOrderInput | SortOrder
-    testcases?: SortOrder
-    codeSnippets?: SortOrder
-    referenceSolutions?: SortOrder
+    testcases?: SortOrderInput | SortOrder
+    codeSnippets?: SortOrderInput | SortOrder
+    referenceSolutions?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ProblemCountOrderByAggregateInput
+    _avg?: ProblemAvgOrderByAggregateInput
     _max?: ProblemMaxOrderByAggregateInput
     _min?: ProblemMinOrderByAggregateInput
+    _sum?: ProblemSumOrderByAggregateInput
   }
 
   export type ProblemScalarWhereWithAggregatesInput = {
@@ -14265,19 +14640,35 @@ export namespace Prisma {
     OR?: ProblemScalarWhereWithAggregatesInput[]
     NOT?: ProblemScalarWhereWithAggregatesInput | ProblemScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Problem"> | string
+    leetcodeId?: IntNullableWithAggregatesFilter<"Problem"> | number | null
     title?: StringWithAggregatesFilter<"Problem"> | string
     description?: StringWithAggregatesFilter<"Problem"> | string
     difficulty?: EnumDifficultyWithAggregatesFilter<"Problem"> | $Enums.Difficulty
+    isPremium?: BoolWithAggregatesFilter<"Problem"> | boolean
+    solutionLink?: StringNullableWithAggregatesFilter<"Problem"> | string | null
+    acceptanceRate?: FloatNullableWithAggregatesFilter<"Problem"> | number | null
+    frequency?: FloatNullableWithAggregatesFilter<"Problem"> | number | null
+    url?: StringNullableWithAggregatesFilter<"Problem"> | string | null
+    discussCount?: IntNullableWithAggregatesFilter<"Problem"> | number | null
+    accepted?: IntNullableWithAggregatesFilter<"Problem"> | number | null
+    submissions?: IntNullableWithAggregatesFilter<"Problem"> | number | null
+    companies?: StringNullableListFilter<"Problem">
+    relatedTopics?: StringNullableListFilter<"Problem">
+    likes?: IntNullableWithAggregatesFilter<"Problem"> | number | null
+    dislikes?: IntNullableWithAggregatesFilter<"Problem"> | number | null
+    rating?: FloatNullableWithAggregatesFilter<"Problem"> | number | null
+    askedByFaang?: BoolWithAggregatesFilter<"Problem"> | boolean
+    similarQuestions?: StringNullableWithAggregatesFilter<"Problem"> | string | null
     tags?: StringNullableListFilter<"Problem">
     companyTags?: StringNullableListFilter<"Problem">
-    userId?: StringWithAggregatesFilter<"Problem"> | string
-    examples?: JsonWithAggregatesFilter<"Problem">
-    constraints?: StringWithAggregatesFilter<"Problem"> | string
+    userId?: StringNullableWithAggregatesFilter<"Problem"> | string | null
+    examples?: JsonNullableWithAggregatesFilter<"Problem">
+    constraints?: StringNullableWithAggregatesFilter<"Problem"> | string | null
     hints?: StringNullableWithAggregatesFilter<"Problem"> | string | null
     editorial?: StringNullableWithAggregatesFilter<"Problem"> | string | null
-    testcases?: JsonWithAggregatesFilter<"Problem">
-    codeSnippets?: JsonWithAggregatesFilter<"Problem">
-    referenceSolutions?: JsonWithAggregatesFilter<"Problem">
+    testcases?: JsonNullableWithAggregatesFilter<"Problem">
+    codeSnippets?: JsonNullableWithAggregatesFilter<"Problem">
+    referenceSolutions?: JsonNullableWithAggregatesFilter<"Problem">
     createdAt?: DateTimeWithAggregatesFilter<"Problem"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Problem"> | Date | string
   }
@@ -15034,21 +15425,37 @@ export namespace Prisma {
 
   export type ProblemCreateInput = {
     id?: string
+    leetcodeId?: number | null
     title: string
     description: string
     difficulty: $Enums.Difficulty
+    isPremium?: boolean
+    solutionLink?: string | null
+    acceptanceRate?: number | null
+    frequency?: number | null
+    url?: string | null
+    discussCount?: number | null
+    accepted?: number | null
+    submissions?: number | null
+    companies?: ProblemCreatecompaniesInput | string[]
+    relatedTopics?: ProblemCreaterelatedTopicsInput | string[]
+    likes?: number | null
+    dislikes?: number | null
+    rating?: number | null
+    askedByFaang?: boolean
+    similarQuestions?: string | null
     tags?: ProblemCreatetagsInput | string[]
     companyTags?: ProblemCreatecompanyTagsInput | string[]
-    examples: JsonNullValueInput | InputJsonValue
-    constraints: string
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: string | null
     hints?: string | null
     editorial?: string | null
-    testcases: JsonNullValueInput | InputJsonValue
-    codeSnippets: JsonNullValueInput | InputJsonValue
-    referenceSolutions: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutProblemsInput
+    user?: UserCreateNestedOneWithoutProblemsInput
     submission?: SubmissionCreateNestedManyWithoutProblemInput
     solvedBy?: ProblemSolvedCreateNestedManyWithoutProblemInput
     problemsPlaylist?: ProblemPlaylistCreateNestedManyWithoutProblemInput
@@ -15058,19 +15465,35 @@ export namespace Prisma {
 
   export type ProblemUncheckedCreateInput = {
     id?: string
+    leetcodeId?: number | null
     title: string
     description: string
     difficulty: $Enums.Difficulty
+    isPremium?: boolean
+    solutionLink?: string | null
+    acceptanceRate?: number | null
+    frequency?: number | null
+    url?: string | null
+    discussCount?: number | null
+    accepted?: number | null
+    submissions?: number | null
+    companies?: ProblemCreatecompaniesInput | string[]
+    relatedTopics?: ProblemCreaterelatedTopicsInput | string[]
+    likes?: number | null
+    dislikes?: number | null
+    rating?: number | null
+    askedByFaang?: boolean
+    similarQuestions?: string | null
     tags?: ProblemCreatetagsInput | string[]
     companyTags?: ProblemCreatecompanyTagsInput | string[]
-    userId: string
-    examples: JsonNullValueInput | InputJsonValue
-    constraints: string
+    userId?: string | null
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: string | null
     hints?: string | null
     editorial?: string | null
-    testcases: JsonNullValueInput | InputJsonValue
-    codeSnippets: JsonNullValueInput | InputJsonValue
-    referenceSolutions: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
@@ -15082,21 +15505,37 @@ export namespace Prisma {
 
   export type ProblemUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    leetcodeId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
+    solutionLink?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptanceRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    frequency?: NullableFloatFieldUpdateOperationsInput | number | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    discussCount?: NullableIntFieldUpdateOperationsInput | number | null
+    accepted?: NullableIntFieldUpdateOperationsInput | number | null
+    submissions?: NullableIntFieldUpdateOperationsInput | number | null
+    companies?: ProblemUpdatecompaniesInput | string[]
+    relatedTopics?: ProblemUpdaterelatedTopicsInput | string[]
+    likes?: NullableIntFieldUpdateOperationsInput | number | null
+    dislikes?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    askedByFaang?: BoolFieldUpdateOperationsInput | boolean
+    similarQuestions?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: ProblemUpdatetagsInput | string[]
     companyTags?: ProblemUpdatecompanyTagsInput | string[]
-    examples?: JsonNullValueInput | InputJsonValue
-    constraints?: StringFieldUpdateOperationsInput | string
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: NullableStringFieldUpdateOperationsInput | string | null
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
-    testcases?: JsonNullValueInput | InputJsonValue
-    codeSnippets?: JsonNullValueInput | InputJsonValue
-    referenceSolutions?: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutProblemsNestedInput
+    user?: UserUpdateOneWithoutProblemsNestedInput
     submission?: SubmissionUpdateManyWithoutProblemNestedInput
     solvedBy?: ProblemSolvedUpdateManyWithoutProblemNestedInput
     problemsPlaylist?: ProblemPlaylistUpdateManyWithoutProblemNestedInput
@@ -15106,19 +15545,35 @@ export namespace Prisma {
 
   export type ProblemUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    leetcodeId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
+    solutionLink?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptanceRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    frequency?: NullableFloatFieldUpdateOperationsInput | number | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    discussCount?: NullableIntFieldUpdateOperationsInput | number | null
+    accepted?: NullableIntFieldUpdateOperationsInput | number | null
+    submissions?: NullableIntFieldUpdateOperationsInput | number | null
+    companies?: ProblemUpdatecompaniesInput | string[]
+    relatedTopics?: ProblemUpdaterelatedTopicsInput | string[]
+    likes?: NullableIntFieldUpdateOperationsInput | number | null
+    dislikes?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    askedByFaang?: BoolFieldUpdateOperationsInput | boolean
+    similarQuestions?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: ProblemUpdatetagsInput | string[]
     companyTags?: ProblemUpdatecompanyTagsInput | string[]
-    userId?: StringFieldUpdateOperationsInput | string
-    examples?: JsonNullValueInput | InputJsonValue
-    constraints?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: NullableStringFieldUpdateOperationsInput | string | null
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
-    testcases?: JsonNullValueInput | InputJsonValue
-    codeSnippets?: JsonNullValueInput | InputJsonValue
-    referenceSolutions?: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
@@ -15130,56 +15585,104 @@ export namespace Prisma {
 
   export type ProblemCreateManyInput = {
     id?: string
+    leetcodeId?: number | null
     title: string
     description: string
     difficulty: $Enums.Difficulty
+    isPremium?: boolean
+    solutionLink?: string | null
+    acceptanceRate?: number | null
+    frequency?: number | null
+    url?: string | null
+    discussCount?: number | null
+    accepted?: number | null
+    submissions?: number | null
+    companies?: ProblemCreatecompaniesInput | string[]
+    relatedTopics?: ProblemCreaterelatedTopicsInput | string[]
+    likes?: number | null
+    dislikes?: number | null
+    rating?: number | null
+    askedByFaang?: boolean
+    similarQuestions?: string | null
     tags?: ProblemCreatetagsInput | string[]
     companyTags?: ProblemCreatecompanyTagsInput | string[]
-    userId: string
-    examples: JsonNullValueInput | InputJsonValue
-    constraints: string
+    userId?: string | null
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: string | null
     hints?: string | null
     editorial?: string | null
-    testcases: JsonNullValueInput | InputJsonValue
-    codeSnippets: JsonNullValueInput | InputJsonValue
-    referenceSolutions: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type ProblemUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    leetcodeId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
+    solutionLink?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptanceRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    frequency?: NullableFloatFieldUpdateOperationsInput | number | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    discussCount?: NullableIntFieldUpdateOperationsInput | number | null
+    accepted?: NullableIntFieldUpdateOperationsInput | number | null
+    submissions?: NullableIntFieldUpdateOperationsInput | number | null
+    companies?: ProblemUpdatecompaniesInput | string[]
+    relatedTopics?: ProblemUpdaterelatedTopicsInput | string[]
+    likes?: NullableIntFieldUpdateOperationsInput | number | null
+    dislikes?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    askedByFaang?: BoolFieldUpdateOperationsInput | boolean
+    similarQuestions?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: ProblemUpdatetagsInput | string[]
     companyTags?: ProblemUpdatecompanyTagsInput | string[]
-    examples?: JsonNullValueInput | InputJsonValue
-    constraints?: StringFieldUpdateOperationsInput | string
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: NullableStringFieldUpdateOperationsInput | string | null
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
-    testcases?: JsonNullValueInput | InputJsonValue
-    codeSnippets?: JsonNullValueInput | InputJsonValue
-    referenceSolutions?: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProblemUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    leetcodeId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
+    solutionLink?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptanceRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    frequency?: NullableFloatFieldUpdateOperationsInput | number | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    discussCount?: NullableIntFieldUpdateOperationsInput | number | null
+    accepted?: NullableIntFieldUpdateOperationsInput | number | null
+    submissions?: NullableIntFieldUpdateOperationsInput | number | null
+    companies?: ProblemUpdatecompaniesInput | string[]
+    relatedTopics?: ProblemUpdaterelatedTopicsInput | string[]
+    likes?: NullableIntFieldUpdateOperationsInput | number | null
+    dislikes?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    askedByFaang?: BoolFieldUpdateOperationsInput | boolean
+    similarQuestions?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: ProblemUpdatetagsInput | string[]
     companyTags?: ProblemUpdatecompanyTagsInput | string[]
-    userId?: StringFieldUpdateOperationsInput | string
-    examples?: JsonNullValueInput | InputJsonValue
-    constraints?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: NullableStringFieldUpdateOperationsInput | string | null
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
-    testcases?: JsonNullValueInput | InputJsonValue
-    codeSnippets?: JsonNullValueInput | InputJsonValue
-    referenceSolutions?: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16091,11 +16594,38 @@ export namespace Prisma {
     _max?: NestedEnumGenderNullableFilter<$PrismaModel>
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type EnumDifficultyFilter<$PrismaModel = never> = {
     equals?: $Enums.Difficulty | EnumDifficultyFieldRefInput<$PrismaModel>
     in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
     notIn?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
     not?: NestedEnumDifficultyFilter<$PrismaModel> | $Enums.Difficulty
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type StringNullableListFilter<$PrismaModel = never> = {
@@ -16104,6 +16634,233 @@ export namespace Prisma {
     hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
     hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
     isEmpty?: boolean
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
+  export type ProblemPlaylistListRelationFilter = {
+    every?: ProblemPlaylistWhereInput
+    some?: ProblemPlaylistWhereInput
+    none?: ProblemPlaylistWhereInput
+  }
+
+  export type ProblemPlaylistOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ProblemCountOrderByAggregateInput = {
+    id?: SortOrder
+    leetcodeId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    difficulty?: SortOrder
+    isPremium?: SortOrder
+    solutionLink?: SortOrder
+    acceptanceRate?: SortOrder
+    frequency?: SortOrder
+    url?: SortOrder
+    discussCount?: SortOrder
+    accepted?: SortOrder
+    submissions?: SortOrder
+    companies?: SortOrder
+    relatedTopics?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
+    rating?: SortOrder
+    askedByFaang?: SortOrder
+    similarQuestions?: SortOrder
+    tags?: SortOrder
+    companyTags?: SortOrder
+    userId?: SortOrder
+    examples?: SortOrder
+    constraints?: SortOrder
+    hints?: SortOrder
+    editorial?: SortOrder
+    testcases?: SortOrder
+    codeSnippets?: SortOrder
+    referenceSolutions?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProblemAvgOrderByAggregateInput = {
+    leetcodeId?: SortOrder
+    acceptanceRate?: SortOrder
+    frequency?: SortOrder
+    discussCount?: SortOrder
+    accepted?: SortOrder
+    submissions?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
+    rating?: SortOrder
+  }
+
+  export type ProblemMaxOrderByAggregateInput = {
+    id?: SortOrder
+    leetcodeId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    difficulty?: SortOrder
+    isPremium?: SortOrder
+    solutionLink?: SortOrder
+    acceptanceRate?: SortOrder
+    frequency?: SortOrder
+    url?: SortOrder
+    discussCount?: SortOrder
+    accepted?: SortOrder
+    submissions?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
+    rating?: SortOrder
+    askedByFaang?: SortOrder
+    similarQuestions?: SortOrder
+    userId?: SortOrder
+    constraints?: SortOrder
+    hints?: SortOrder
+    editorial?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProblemMinOrderByAggregateInput = {
+    id?: SortOrder
+    leetcodeId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    difficulty?: SortOrder
+    isPremium?: SortOrder
+    solutionLink?: SortOrder
+    acceptanceRate?: SortOrder
+    frequency?: SortOrder
+    url?: SortOrder
+    discussCount?: SortOrder
+    accepted?: SortOrder
+    submissions?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
+    rating?: SortOrder
+    askedByFaang?: SortOrder
+    similarQuestions?: SortOrder
+    userId?: SortOrder
+    constraints?: SortOrder
+    hints?: SortOrder
+    editorial?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProblemSumOrderByAggregateInput = {
+    leetcodeId?: SortOrder
+    acceptanceRate?: SortOrder
+    frequency?: SortOrder
+    discussCount?: SortOrder
+    accepted?: SortOrder
+    submissions?: SortOrder
+    likes?: SortOrder
+    dislikes?: SortOrder
+    rating?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type EnumDifficultyWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Difficulty | EnumDifficultyFieldRefInput<$PrismaModel>
+    in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
+    not?: NestedEnumDifficultyWithAggregatesFilter<$PrismaModel> | $Enums.Difficulty
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDifficultyFilter<$PrismaModel>
+    _max?: NestedEnumDifficultyFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
   export type JsonFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -16129,105 +16886,14 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
-  }
-
-  export type ProblemPlaylistListRelationFilter = {
-    every?: ProblemPlaylistWhereInput
-    some?: ProblemPlaylistWhereInput
-    none?: ProblemPlaylistWhereInput
-  }
-
-  export type ProblemPlaylistOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ProblemCountOrderByAggregateInput = {
-    id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    difficulty?: SortOrder
-    tags?: SortOrder
-    companyTags?: SortOrder
-    userId?: SortOrder
-    examples?: SortOrder
-    constraints?: SortOrder
-    hints?: SortOrder
-    editorial?: SortOrder
-    testcases?: SortOrder
-    codeSnippets?: SortOrder
-    referenceSolutions?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type ProblemMaxOrderByAggregateInput = {
-    id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    difficulty?: SortOrder
-    userId?: SortOrder
-    constraints?: SortOrder
-    hints?: SortOrder
-    editorial?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type ProblemMinOrderByAggregateInput = {
-    id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    difficulty?: SortOrder
-    userId?: SortOrder
-    constraints?: SortOrder
-    hints?: SortOrder
-    editorial?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type EnumDifficultyWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Difficulty | EnumDifficultyFieldRefInput<$PrismaModel>
-    in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
-    not?: NestedEnumDifficultyWithAggregatesFilter<$PrismaModel> | $Enums.Difficulty
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumDifficultyFilter<$PrismaModel>
-    _max?: NestedEnumDifficultyFilter<$PrismaModel>
-  }
-  export type JsonWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedJsonFilter<$PrismaModel>
-    _max?: NestedJsonFilter<$PrismaModel>
-  }
-
   export type ProblemScalarRelationFilter = {
     is?: ProblemWhereInput
     isNot?: ProblemWhereInput
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
   }
 
   export type TestCaseResultListRelationFilter = {
@@ -16288,10 +16954,31 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type SubmissionScalarRelationFilter = {
@@ -16353,14 +17040,6 @@ export namespace Prisma {
 
   export type TestCaseResultSumOrderByAggregateInput = {
     testCase?: SortOrder
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type ProblemSolvedUserIdProblemIdCompoundUniqueInput = {
@@ -16879,6 +17558,14 @@ export namespace Prisma {
     deleteMany?: RevisionScalarWhereInput | RevisionScalarWhereInput[]
   }
 
+  export type ProblemCreatecompaniesInput = {
+    set: string[]
+  }
+
+  export type ProblemCreaterelatedTopicsInput = {
+    set: string[]
+  }
+
   export type ProblemCreatetagsInput = {
     set: string[]
   }
@@ -16963,8 +17650,38 @@ export namespace Prisma {
     connect?: RevisionWhereUniqueInput | RevisionWhereUniqueInput[]
   }
 
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type EnumDifficultyFieldUpdateOperationsInput = {
     set?: $Enums.Difficulty
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type ProblemUpdatecompaniesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type ProblemUpdaterelatedTopicsInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type ProblemUpdatetagsInput = {
@@ -16977,10 +17694,12 @@ export namespace Prisma {
     push?: string | string[]
   }
 
-  export type UserUpdateOneRequiredWithoutProblemsNestedInput = {
+  export type UserUpdateOneWithoutProblemsNestedInput = {
     create?: XOR<UserCreateWithoutProblemsInput, UserUncheckedCreateWithoutProblemsInput>
     connectOrCreate?: UserCreateOrConnectWithoutProblemsInput
     upsert?: UserUpsertWithoutProblemsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProblemsInput, UserUpdateWithoutProblemsInput>, UserUncheckedUpdateWithoutProblemsInput>
   }
@@ -17199,10 +17918,6 @@ export namespace Prisma {
     create?: XOR<SubmissionCreateWithoutTestCasesInput, SubmissionUncheckedCreateWithoutTestCasesInput>
     connectOrCreate?: SubmissionCreateOrConnectWithoutTestCasesInput
     connect?: SubmissionWhereUniqueInput
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type SubmissionUpdateOneRequiredWithoutTestCasesNestedInput = {
@@ -17711,6 +18426,38 @@ export namespace Prisma {
     not?: NestedEnumDifficultyFilter<$PrismaModel> | $Enums.Difficulty
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
   export type NestedEnumDifficultyWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Difficulty | EnumDifficultyFieldRefInput<$PrismaModel>
     in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
@@ -17719,6 +18466,53 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumDifficultyFilter<$PrismaModel>
     _max?: NestedEnumDifficultyFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
   export type NestedJsonFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -17744,33 +18538,36 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type ProblemCreateWithoutUserInput = {
     id?: string
+    leetcodeId?: number | null
     title: string
     description: string
     difficulty: $Enums.Difficulty
+    isPremium?: boolean
+    solutionLink?: string | null
+    acceptanceRate?: number | null
+    frequency?: number | null
+    url?: string | null
+    discussCount?: number | null
+    accepted?: number | null
+    submissions?: number | null
+    companies?: ProblemCreatecompaniesInput | string[]
+    relatedTopics?: ProblemCreaterelatedTopicsInput | string[]
+    likes?: number | null
+    dislikes?: number | null
+    rating?: number | null
+    askedByFaang?: boolean
+    similarQuestions?: string | null
     tags?: ProblemCreatetagsInput | string[]
     companyTags?: ProblemCreatecompanyTagsInput | string[]
-    examples: JsonNullValueInput | InputJsonValue
-    constraints: string
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: string | null
     hints?: string | null
     editorial?: string | null
-    testcases: JsonNullValueInput | InputJsonValue
-    codeSnippets: JsonNullValueInput | InputJsonValue
-    referenceSolutions: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     submission?: SubmissionCreateNestedManyWithoutProblemInput
@@ -17782,18 +18579,34 @@ export namespace Prisma {
 
   export type ProblemUncheckedCreateWithoutUserInput = {
     id?: string
+    leetcodeId?: number | null
     title: string
     description: string
     difficulty: $Enums.Difficulty
+    isPremium?: boolean
+    solutionLink?: string | null
+    acceptanceRate?: number | null
+    frequency?: number | null
+    url?: string | null
+    discussCount?: number | null
+    accepted?: number | null
+    submissions?: number | null
+    companies?: ProblemCreatecompaniesInput | string[]
+    relatedTopics?: ProblemCreaterelatedTopicsInput | string[]
+    likes?: number | null
+    dislikes?: number | null
+    rating?: number | null
+    askedByFaang?: boolean
+    similarQuestions?: string | null
     tags?: ProblemCreatetagsInput | string[]
     companyTags?: ProblemCreatecompanyTagsInput | string[]
-    examples: JsonNullValueInput | InputJsonValue
-    constraints: string
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: string | null
     hints?: string | null
     editorial?: string | null
-    testcases: JsonNullValueInput | InputJsonValue
-    codeSnippets: JsonNullValueInput | InputJsonValue
-    referenceSolutions: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
@@ -18008,19 +18821,35 @@ export namespace Prisma {
     OR?: ProblemScalarWhereInput[]
     NOT?: ProblemScalarWhereInput | ProblemScalarWhereInput[]
     id?: StringFilter<"Problem"> | string
+    leetcodeId?: IntNullableFilter<"Problem"> | number | null
     title?: StringFilter<"Problem"> | string
     description?: StringFilter<"Problem"> | string
     difficulty?: EnumDifficultyFilter<"Problem"> | $Enums.Difficulty
+    isPremium?: BoolFilter<"Problem"> | boolean
+    solutionLink?: StringNullableFilter<"Problem"> | string | null
+    acceptanceRate?: FloatNullableFilter<"Problem"> | number | null
+    frequency?: FloatNullableFilter<"Problem"> | number | null
+    url?: StringNullableFilter<"Problem"> | string | null
+    discussCount?: IntNullableFilter<"Problem"> | number | null
+    accepted?: IntNullableFilter<"Problem"> | number | null
+    submissions?: IntNullableFilter<"Problem"> | number | null
+    companies?: StringNullableListFilter<"Problem">
+    relatedTopics?: StringNullableListFilter<"Problem">
+    likes?: IntNullableFilter<"Problem"> | number | null
+    dislikes?: IntNullableFilter<"Problem"> | number | null
+    rating?: FloatNullableFilter<"Problem"> | number | null
+    askedByFaang?: BoolFilter<"Problem"> | boolean
+    similarQuestions?: StringNullableFilter<"Problem"> | string | null
     tags?: StringNullableListFilter<"Problem">
     companyTags?: StringNullableListFilter<"Problem">
-    userId?: StringFilter<"Problem"> | string
-    examples?: JsonFilter<"Problem">
-    constraints?: StringFilter<"Problem"> | string
+    userId?: StringNullableFilter<"Problem"> | string | null
+    examples?: JsonNullableFilter<"Problem">
+    constraints?: StringNullableFilter<"Problem"> | string | null
     hints?: StringNullableFilter<"Problem"> | string | null
     editorial?: StringNullableFilter<"Problem"> | string | null
-    testcases?: JsonFilter<"Problem">
-    codeSnippets?: JsonFilter<"Problem">
-    referenceSolutions?: JsonFilter<"Problem">
+    testcases?: JsonNullableFilter<"Problem">
+    codeSnippets?: JsonNullableFilter<"Problem">
+    referenceSolutions?: JsonNullableFilter<"Problem">
     createdAt?: DateTimeFilter<"Problem"> | Date | string
     updatedAt?: DateTimeFilter<"Problem"> | Date | string
   }
@@ -18563,21 +19392,37 @@ export namespace Prisma {
 
   export type ProblemCreateWithoutSubmissionInput = {
     id?: string
+    leetcodeId?: number | null
     title: string
     description: string
     difficulty: $Enums.Difficulty
+    isPremium?: boolean
+    solutionLink?: string | null
+    acceptanceRate?: number | null
+    frequency?: number | null
+    url?: string | null
+    discussCount?: number | null
+    accepted?: number | null
+    submissions?: number | null
+    companies?: ProblemCreatecompaniesInput | string[]
+    relatedTopics?: ProblemCreaterelatedTopicsInput | string[]
+    likes?: number | null
+    dislikes?: number | null
+    rating?: number | null
+    askedByFaang?: boolean
+    similarQuestions?: string | null
     tags?: ProblemCreatetagsInput | string[]
     companyTags?: ProblemCreatecompanyTagsInput | string[]
-    examples: JsonNullValueInput | InputJsonValue
-    constraints: string
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: string | null
     hints?: string | null
     editorial?: string | null
-    testcases: JsonNullValueInput | InputJsonValue
-    codeSnippets: JsonNullValueInput | InputJsonValue
-    referenceSolutions: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutProblemsInput
+    user?: UserCreateNestedOneWithoutProblemsInput
     solvedBy?: ProblemSolvedCreateNestedManyWithoutProblemInput
     problemsPlaylist?: ProblemPlaylistCreateNestedManyWithoutProblemInput
     discussions?: DiscussionCreateNestedManyWithoutProblemInput
@@ -18586,19 +19431,35 @@ export namespace Prisma {
 
   export type ProblemUncheckedCreateWithoutSubmissionInput = {
     id?: string
+    leetcodeId?: number | null
     title: string
     description: string
     difficulty: $Enums.Difficulty
+    isPremium?: boolean
+    solutionLink?: string | null
+    acceptanceRate?: number | null
+    frequency?: number | null
+    url?: string | null
+    discussCount?: number | null
+    accepted?: number | null
+    submissions?: number | null
+    companies?: ProblemCreatecompaniesInput | string[]
+    relatedTopics?: ProblemCreaterelatedTopicsInput | string[]
+    likes?: number | null
+    dislikes?: number | null
+    rating?: number | null
+    askedByFaang?: boolean
+    similarQuestions?: string | null
     tags?: ProblemCreatetagsInput | string[]
     companyTags?: ProblemCreatecompanyTagsInput | string[]
-    userId: string
-    examples: JsonNullValueInput | InputJsonValue
-    constraints: string
+    userId?: string | null
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: string | null
     hints?: string | null
     editorial?: string | null
-    testcases: JsonNullValueInput | InputJsonValue
-    codeSnippets: JsonNullValueInput | InputJsonValue
-    referenceSolutions: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     solvedBy?: ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput
@@ -18724,21 +19585,37 @@ export namespace Prisma {
 
   export type ProblemUpdateWithoutSubmissionInput = {
     id?: StringFieldUpdateOperationsInput | string
+    leetcodeId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
+    solutionLink?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptanceRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    frequency?: NullableFloatFieldUpdateOperationsInput | number | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    discussCount?: NullableIntFieldUpdateOperationsInput | number | null
+    accepted?: NullableIntFieldUpdateOperationsInput | number | null
+    submissions?: NullableIntFieldUpdateOperationsInput | number | null
+    companies?: ProblemUpdatecompaniesInput | string[]
+    relatedTopics?: ProblemUpdaterelatedTopicsInput | string[]
+    likes?: NullableIntFieldUpdateOperationsInput | number | null
+    dislikes?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    askedByFaang?: BoolFieldUpdateOperationsInput | boolean
+    similarQuestions?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: ProblemUpdatetagsInput | string[]
     companyTags?: ProblemUpdatecompanyTagsInput | string[]
-    examples?: JsonNullValueInput | InputJsonValue
-    constraints?: StringFieldUpdateOperationsInput | string
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: NullableStringFieldUpdateOperationsInput | string | null
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
-    testcases?: JsonNullValueInput | InputJsonValue
-    codeSnippets?: JsonNullValueInput | InputJsonValue
-    referenceSolutions?: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutProblemsNestedInput
+    user?: UserUpdateOneWithoutProblemsNestedInput
     solvedBy?: ProblemSolvedUpdateManyWithoutProblemNestedInput
     problemsPlaylist?: ProblemPlaylistUpdateManyWithoutProblemNestedInput
     discussions?: DiscussionUpdateManyWithoutProblemNestedInput
@@ -18747,19 +19624,35 @@ export namespace Prisma {
 
   export type ProblemUncheckedUpdateWithoutSubmissionInput = {
     id?: StringFieldUpdateOperationsInput | string
+    leetcodeId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
+    solutionLink?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptanceRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    frequency?: NullableFloatFieldUpdateOperationsInput | number | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    discussCount?: NullableIntFieldUpdateOperationsInput | number | null
+    accepted?: NullableIntFieldUpdateOperationsInput | number | null
+    submissions?: NullableIntFieldUpdateOperationsInput | number | null
+    companies?: ProblemUpdatecompaniesInput | string[]
+    relatedTopics?: ProblemUpdaterelatedTopicsInput | string[]
+    likes?: NullableIntFieldUpdateOperationsInput | number | null
+    dislikes?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    askedByFaang?: BoolFieldUpdateOperationsInput | boolean
+    similarQuestions?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: ProblemUpdatetagsInput | string[]
     companyTags?: ProblemUpdatecompanyTagsInput | string[]
-    userId?: StringFieldUpdateOperationsInput | string
-    examples?: JsonNullValueInput | InputJsonValue
-    constraints?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: NullableStringFieldUpdateOperationsInput | string | null
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
-    testcases?: JsonNullValueInput | InputJsonValue
-    codeSnippets?: JsonNullValueInput | InputJsonValue
-    referenceSolutions?: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     solvedBy?: ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput
@@ -18954,21 +19847,37 @@ export namespace Prisma {
 
   export type ProblemCreateWithoutSolvedByInput = {
     id?: string
+    leetcodeId?: number | null
     title: string
     description: string
     difficulty: $Enums.Difficulty
+    isPremium?: boolean
+    solutionLink?: string | null
+    acceptanceRate?: number | null
+    frequency?: number | null
+    url?: string | null
+    discussCount?: number | null
+    accepted?: number | null
+    submissions?: number | null
+    companies?: ProblemCreatecompaniesInput | string[]
+    relatedTopics?: ProblemCreaterelatedTopicsInput | string[]
+    likes?: number | null
+    dislikes?: number | null
+    rating?: number | null
+    askedByFaang?: boolean
+    similarQuestions?: string | null
     tags?: ProblemCreatetagsInput | string[]
     companyTags?: ProblemCreatecompanyTagsInput | string[]
-    examples: JsonNullValueInput | InputJsonValue
-    constraints: string
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: string | null
     hints?: string | null
     editorial?: string | null
-    testcases: JsonNullValueInput | InputJsonValue
-    codeSnippets: JsonNullValueInput | InputJsonValue
-    referenceSolutions: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutProblemsInput
+    user?: UserCreateNestedOneWithoutProblemsInput
     submission?: SubmissionCreateNestedManyWithoutProblemInput
     problemsPlaylist?: ProblemPlaylistCreateNestedManyWithoutProblemInput
     discussions?: DiscussionCreateNestedManyWithoutProblemInput
@@ -18977,19 +19886,35 @@ export namespace Prisma {
 
   export type ProblemUncheckedCreateWithoutSolvedByInput = {
     id?: string
+    leetcodeId?: number | null
     title: string
     description: string
     difficulty: $Enums.Difficulty
+    isPremium?: boolean
+    solutionLink?: string | null
+    acceptanceRate?: number | null
+    frequency?: number | null
+    url?: string | null
+    discussCount?: number | null
+    accepted?: number | null
+    submissions?: number | null
+    companies?: ProblemCreatecompaniesInput | string[]
+    relatedTopics?: ProblemCreaterelatedTopicsInput | string[]
+    likes?: number | null
+    dislikes?: number | null
+    rating?: number | null
+    askedByFaang?: boolean
+    similarQuestions?: string | null
     tags?: ProblemCreatetagsInput | string[]
     companyTags?: ProblemCreatecompanyTagsInput | string[]
-    userId: string
-    examples: JsonNullValueInput | InputJsonValue
-    constraints: string
+    userId?: string | null
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: string | null
     hints?: string | null
     editorial?: string | null
-    testcases: JsonNullValueInput | InputJsonValue
-    codeSnippets: JsonNullValueInput | InputJsonValue
-    referenceSolutions: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
@@ -19075,21 +20000,37 @@ export namespace Prisma {
 
   export type ProblemUpdateWithoutSolvedByInput = {
     id?: StringFieldUpdateOperationsInput | string
+    leetcodeId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
+    solutionLink?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptanceRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    frequency?: NullableFloatFieldUpdateOperationsInput | number | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    discussCount?: NullableIntFieldUpdateOperationsInput | number | null
+    accepted?: NullableIntFieldUpdateOperationsInput | number | null
+    submissions?: NullableIntFieldUpdateOperationsInput | number | null
+    companies?: ProblemUpdatecompaniesInput | string[]
+    relatedTopics?: ProblemUpdaterelatedTopicsInput | string[]
+    likes?: NullableIntFieldUpdateOperationsInput | number | null
+    dislikes?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    askedByFaang?: BoolFieldUpdateOperationsInput | boolean
+    similarQuestions?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: ProblemUpdatetagsInput | string[]
     companyTags?: ProblemUpdatecompanyTagsInput | string[]
-    examples?: JsonNullValueInput | InputJsonValue
-    constraints?: StringFieldUpdateOperationsInput | string
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: NullableStringFieldUpdateOperationsInput | string | null
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
-    testcases?: JsonNullValueInput | InputJsonValue
-    codeSnippets?: JsonNullValueInput | InputJsonValue
-    referenceSolutions?: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutProblemsNestedInput
+    user?: UserUpdateOneWithoutProblemsNestedInput
     submission?: SubmissionUpdateManyWithoutProblemNestedInput
     problemsPlaylist?: ProblemPlaylistUpdateManyWithoutProblemNestedInput
     discussions?: DiscussionUpdateManyWithoutProblemNestedInput
@@ -19098,19 +20039,35 @@ export namespace Prisma {
 
   export type ProblemUncheckedUpdateWithoutSolvedByInput = {
     id?: StringFieldUpdateOperationsInput | string
+    leetcodeId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
+    solutionLink?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptanceRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    frequency?: NullableFloatFieldUpdateOperationsInput | number | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    discussCount?: NullableIntFieldUpdateOperationsInput | number | null
+    accepted?: NullableIntFieldUpdateOperationsInput | number | null
+    submissions?: NullableIntFieldUpdateOperationsInput | number | null
+    companies?: ProblemUpdatecompaniesInput | string[]
+    relatedTopics?: ProblemUpdaterelatedTopicsInput | string[]
+    likes?: NullableIntFieldUpdateOperationsInput | number | null
+    dislikes?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    askedByFaang?: BoolFieldUpdateOperationsInput | boolean
+    similarQuestions?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: ProblemUpdatetagsInput | string[]
     companyTags?: ProblemUpdatecompanyTagsInput | string[]
-    userId?: StringFieldUpdateOperationsInput | string
-    examples?: JsonNullValueInput | InputJsonValue
-    constraints?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: NullableStringFieldUpdateOperationsInput | string | null
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
-    testcases?: JsonNullValueInput | InputJsonValue
-    codeSnippets?: JsonNullValueInput | InputJsonValue
-    referenceSolutions?: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
@@ -19373,21 +20330,37 @@ export namespace Prisma {
 
   export type ProblemCreateWithoutProblemsPlaylistInput = {
     id?: string
+    leetcodeId?: number | null
     title: string
     description: string
     difficulty: $Enums.Difficulty
+    isPremium?: boolean
+    solutionLink?: string | null
+    acceptanceRate?: number | null
+    frequency?: number | null
+    url?: string | null
+    discussCount?: number | null
+    accepted?: number | null
+    submissions?: number | null
+    companies?: ProblemCreatecompaniesInput | string[]
+    relatedTopics?: ProblemCreaterelatedTopicsInput | string[]
+    likes?: number | null
+    dislikes?: number | null
+    rating?: number | null
+    askedByFaang?: boolean
+    similarQuestions?: string | null
     tags?: ProblemCreatetagsInput | string[]
     companyTags?: ProblemCreatecompanyTagsInput | string[]
-    examples: JsonNullValueInput | InputJsonValue
-    constraints: string
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: string | null
     hints?: string | null
     editorial?: string | null
-    testcases: JsonNullValueInput | InputJsonValue
-    codeSnippets: JsonNullValueInput | InputJsonValue
-    referenceSolutions: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutProblemsInput
+    user?: UserCreateNestedOneWithoutProblemsInput
     submission?: SubmissionCreateNestedManyWithoutProblemInput
     solvedBy?: ProblemSolvedCreateNestedManyWithoutProblemInput
     discussions?: DiscussionCreateNestedManyWithoutProblemInput
@@ -19396,19 +20369,35 @@ export namespace Prisma {
 
   export type ProblemUncheckedCreateWithoutProblemsPlaylistInput = {
     id?: string
+    leetcodeId?: number | null
     title: string
     description: string
     difficulty: $Enums.Difficulty
+    isPremium?: boolean
+    solutionLink?: string | null
+    acceptanceRate?: number | null
+    frequency?: number | null
+    url?: string | null
+    discussCount?: number | null
+    accepted?: number | null
+    submissions?: number | null
+    companies?: ProblemCreatecompaniesInput | string[]
+    relatedTopics?: ProblemCreaterelatedTopicsInput | string[]
+    likes?: number | null
+    dislikes?: number | null
+    rating?: number | null
+    askedByFaang?: boolean
+    similarQuestions?: string | null
     tags?: ProblemCreatetagsInput | string[]
     companyTags?: ProblemCreatecompanyTagsInput | string[]
-    userId: string
-    examples: JsonNullValueInput | InputJsonValue
-    constraints: string
+    userId?: string | null
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: string | null
     hints?: string | null
     editorial?: string | null
-    testcases: JsonNullValueInput | InputJsonValue
-    codeSnippets: JsonNullValueInput | InputJsonValue
-    referenceSolutions: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
@@ -19464,21 +20453,37 @@ export namespace Prisma {
 
   export type ProblemUpdateWithoutProblemsPlaylistInput = {
     id?: StringFieldUpdateOperationsInput | string
+    leetcodeId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
+    solutionLink?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptanceRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    frequency?: NullableFloatFieldUpdateOperationsInput | number | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    discussCount?: NullableIntFieldUpdateOperationsInput | number | null
+    accepted?: NullableIntFieldUpdateOperationsInput | number | null
+    submissions?: NullableIntFieldUpdateOperationsInput | number | null
+    companies?: ProblemUpdatecompaniesInput | string[]
+    relatedTopics?: ProblemUpdaterelatedTopicsInput | string[]
+    likes?: NullableIntFieldUpdateOperationsInput | number | null
+    dislikes?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    askedByFaang?: BoolFieldUpdateOperationsInput | boolean
+    similarQuestions?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: ProblemUpdatetagsInput | string[]
     companyTags?: ProblemUpdatecompanyTagsInput | string[]
-    examples?: JsonNullValueInput | InputJsonValue
-    constraints?: StringFieldUpdateOperationsInput | string
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: NullableStringFieldUpdateOperationsInput | string | null
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
-    testcases?: JsonNullValueInput | InputJsonValue
-    codeSnippets?: JsonNullValueInput | InputJsonValue
-    referenceSolutions?: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutProblemsNestedInput
+    user?: UserUpdateOneWithoutProblemsNestedInput
     submission?: SubmissionUpdateManyWithoutProblemNestedInput
     solvedBy?: ProblemSolvedUpdateManyWithoutProblemNestedInput
     discussions?: DiscussionUpdateManyWithoutProblemNestedInput
@@ -19487,19 +20492,35 @@ export namespace Prisma {
 
   export type ProblemUncheckedUpdateWithoutProblemsPlaylistInput = {
     id?: StringFieldUpdateOperationsInput | string
+    leetcodeId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
+    solutionLink?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptanceRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    frequency?: NullableFloatFieldUpdateOperationsInput | number | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    discussCount?: NullableIntFieldUpdateOperationsInput | number | null
+    accepted?: NullableIntFieldUpdateOperationsInput | number | null
+    submissions?: NullableIntFieldUpdateOperationsInput | number | null
+    companies?: ProblemUpdatecompaniesInput | string[]
+    relatedTopics?: ProblemUpdaterelatedTopicsInput | string[]
+    likes?: NullableIntFieldUpdateOperationsInput | number | null
+    dislikes?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    askedByFaang?: BoolFieldUpdateOperationsInput | boolean
+    similarQuestions?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: ProblemUpdatetagsInput | string[]
     companyTags?: ProblemUpdatecompanyTagsInput | string[]
-    userId?: StringFieldUpdateOperationsInput | string
-    examples?: JsonNullValueInput | InputJsonValue
-    constraints?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: NullableStringFieldUpdateOperationsInput | string | null
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
-    testcases?: JsonNullValueInput | InputJsonValue
-    codeSnippets?: JsonNullValueInput | InputJsonValue
-    referenceSolutions?: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
@@ -19569,21 +20590,37 @@ export namespace Prisma {
 
   export type ProblemCreateWithoutRevisionInput = {
     id?: string
+    leetcodeId?: number | null
     title: string
     description: string
     difficulty: $Enums.Difficulty
+    isPremium?: boolean
+    solutionLink?: string | null
+    acceptanceRate?: number | null
+    frequency?: number | null
+    url?: string | null
+    discussCount?: number | null
+    accepted?: number | null
+    submissions?: number | null
+    companies?: ProblemCreatecompaniesInput | string[]
+    relatedTopics?: ProblemCreaterelatedTopicsInput | string[]
+    likes?: number | null
+    dislikes?: number | null
+    rating?: number | null
+    askedByFaang?: boolean
+    similarQuestions?: string | null
     tags?: ProblemCreatetagsInput | string[]
     companyTags?: ProblemCreatecompanyTagsInput | string[]
-    examples: JsonNullValueInput | InputJsonValue
-    constraints: string
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: string | null
     hints?: string | null
     editorial?: string | null
-    testcases: JsonNullValueInput | InputJsonValue
-    codeSnippets: JsonNullValueInput | InputJsonValue
-    referenceSolutions: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutProblemsInput
+    user?: UserCreateNestedOneWithoutProblemsInput
     submission?: SubmissionCreateNestedManyWithoutProblemInput
     solvedBy?: ProblemSolvedCreateNestedManyWithoutProblemInput
     problemsPlaylist?: ProblemPlaylistCreateNestedManyWithoutProblemInput
@@ -19592,19 +20629,35 @@ export namespace Prisma {
 
   export type ProblemUncheckedCreateWithoutRevisionInput = {
     id?: string
+    leetcodeId?: number | null
     title: string
     description: string
     difficulty: $Enums.Difficulty
+    isPremium?: boolean
+    solutionLink?: string | null
+    acceptanceRate?: number | null
+    frequency?: number | null
+    url?: string | null
+    discussCount?: number | null
+    accepted?: number | null
+    submissions?: number | null
+    companies?: ProblemCreatecompaniesInput | string[]
+    relatedTopics?: ProblemCreaterelatedTopicsInput | string[]
+    likes?: number | null
+    dislikes?: number | null
+    rating?: number | null
+    askedByFaang?: boolean
+    similarQuestions?: string | null
     tags?: ProblemCreatetagsInput | string[]
     companyTags?: ProblemCreatecompanyTagsInput | string[]
-    userId: string
-    examples: JsonNullValueInput | InputJsonValue
-    constraints: string
+    userId?: string | null
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: string | null
     hints?: string | null
     editorial?: string | null
-    testcases: JsonNullValueInput | InputJsonValue
-    codeSnippets: JsonNullValueInput | InputJsonValue
-    referenceSolutions: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
@@ -19696,21 +20749,37 @@ export namespace Prisma {
 
   export type ProblemUpdateWithoutRevisionInput = {
     id?: StringFieldUpdateOperationsInput | string
+    leetcodeId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
+    solutionLink?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptanceRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    frequency?: NullableFloatFieldUpdateOperationsInput | number | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    discussCount?: NullableIntFieldUpdateOperationsInput | number | null
+    accepted?: NullableIntFieldUpdateOperationsInput | number | null
+    submissions?: NullableIntFieldUpdateOperationsInput | number | null
+    companies?: ProblemUpdatecompaniesInput | string[]
+    relatedTopics?: ProblemUpdaterelatedTopicsInput | string[]
+    likes?: NullableIntFieldUpdateOperationsInput | number | null
+    dislikes?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    askedByFaang?: BoolFieldUpdateOperationsInput | boolean
+    similarQuestions?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: ProblemUpdatetagsInput | string[]
     companyTags?: ProblemUpdatecompanyTagsInput | string[]
-    examples?: JsonNullValueInput | InputJsonValue
-    constraints?: StringFieldUpdateOperationsInput | string
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: NullableStringFieldUpdateOperationsInput | string | null
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
-    testcases?: JsonNullValueInput | InputJsonValue
-    codeSnippets?: JsonNullValueInput | InputJsonValue
-    referenceSolutions?: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutProblemsNestedInput
+    user?: UserUpdateOneWithoutProblemsNestedInput
     submission?: SubmissionUpdateManyWithoutProblemNestedInput
     solvedBy?: ProblemSolvedUpdateManyWithoutProblemNestedInput
     problemsPlaylist?: ProblemPlaylistUpdateManyWithoutProblemNestedInput
@@ -19719,19 +20788,35 @@ export namespace Prisma {
 
   export type ProblemUncheckedUpdateWithoutRevisionInput = {
     id?: StringFieldUpdateOperationsInput | string
+    leetcodeId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
+    solutionLink?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptanceRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    frequency?: NullableFloatFieldUpdateOperationsInput | number | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    discussCount?: NullableIntFieldUpdateOperationsInput | number | null
+    accepted?: NullableIntFieldUpdateOperationsInput | number | null
+    submissions?: NullableIntFieldUpdateOperationsInput | number | null
+    companies?: ProblemUpdatecompaniesInput | string[]
+    relatedTopics?: ProblemUpdaterelatedTopicsInput | string[]
+    likes?: NullableIntFieldUpdateOperationsInput | number | null
+    dislikes?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    askedByFaang?: BoolFieldUpdateOperationsInput | boolean
+    similarQuestions?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: ProblemUpdatetagsInput | string[]
     companyTags?: ProblemUpdatecompanyTagsInput | string[]
-    userId?: StringFieldUpdateOperationsInput | string
-    examples?: JsonNullValueInput | InputJsonValue
-    constraints?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: NullableStringFieldUpdateOperationsInput | string | null
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
-    testcases?: JsonNullValueInput | InputJsonValue
-    codeSnippets?: JsonNullValueInput | InputJsonValue
-    referenceSolutions?: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
@@ -19742,21 +20827,37 @@ export namespace Prisma {
 
   export type ProblemCreateWithoutDiscussionsInput = {
     id?: string
+    leetcodeId?: number | null
     title: string
     description: string
     difficulty: $Enums.Difficulty
+    isPremium?: boolean
+    solutionLink?: string | null
+    acceptanceRate?: number | null
+    frequency?: number | null
+    url?: string | null
+    discussCount?: number | null
+    accepted?: number | null
+    submissions?: number | null
+    companies?: ProblemCreatecompaniesInput | string[]
+    relatedTopics?: ProblemCreaterelatedTopicsInput | string[]
+    likes?: number | null
+    dislikes?: number | null
+    rating?: number | null
+    askedByFaang?: boolean
+    similarQuestions?: string | null
     tags?: ProblemCreatetagsInput | string[]
     companyTags?: ProblemCreatecompanyTagsInput | string[]
-    examples: JsonNullValueInput | InputJsonValue
-    constraints: string
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: string | null
     hints?: string | null
     editorial?: string | null
-    testcases: JsonNullValueInput | InputJsonValue
-    codeSnippets: JsonNullValueInput | InputJsonValue
-    referenceSolutions: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutProblemsInput
+    user?: UserCreateNestedOneWithoutProblemsInput
     submission?: SubmissionCreateNestedManyWithoutProblemInput
     solvedBy?: ProblemSolvedCreateNestedManyWithoutProblemInput
     problemsPlaylist?: ProblemPlaylistCreateNestedManyWithoutProblemInput
@@ -19765,19 +20866,35 @@ export namespace Prisma {
 
   export type ProblemUncheckedCreateWithoutDiscussionsInput = {
     id?: string
+    leetcodeId?: number | null
     title: string
     description: string
     difficulty: $Enums.Difficulty
+    isPremium?: boolean
+    solutionLink?: string | null
+    acceptanceRate?: number | null
+    frequency?: number | null
+    url?: string | null
+    discussCount?: number | null
+    accepted?: number | null
+    submissions?: number | null
+    companies?: ProblemCreatecompaniesInput | string[]
+    relatedTopics?: ProblemCreaterelatedTopicsInput | string[]
+    likes?: number | null
+    dislikes?: number | null
+    rating?: number | null
+    askedByFaang?: boolean
+    similarQuestions?: string | null
     tags?: ProblemCreatetagsInput | string[]
     companyTags?: ProblemCreatecompanyTagsInput | string[]
-    userId: string
-    examples: JsonNullValueInput | InputJsonValue
-    constraints: string
+    userId?: string | null
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: string | null
     hints?: string | null
     editorial?: string | null
-    testcases: JsonNullValueInput | InputJsonValue
-    codeSnippets: JsonNullValueInput | InputJsonValue
-    referenceSolutions: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
@@ -19944,21 +21061,37 @@ export namespace Prisma {
 
   export type ProblemUpdateWithoutDiscussionsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    leetcodeId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
+    solutionLink?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptanceRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    frequency?: NullableFloatFieldUpdateOperationsInput | number | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    discussCount?: NullableIntFieldUpdateOperationsInput | number | null
+    accepted?: NullableIntFieldUpdateOperationsInput | number | null
+    submissions?: NullableIntFieldUpdateOperationsInput | number | null
+    companies?: ProblemUpdatecompaniesInput | string[]
+    relatedTopics?: ProblemUpdaterelatedTopicsInput | string[]
+    likes?: NullableIntFieldUpdateOperationsInput | number | null
+    dislikes?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    askedByFaang?: BoolFieldUpdateOperationsInput | boolean
+    similarQuestions?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: ProblemUpdatetagsInput | string[]
     companyTags?: ProblemUpdatecompanyTagsInput | string[]
-    examples?: JsonNullValueInput | InputJsonValue
-    constraints?: StringFieldUpdateOperationsInput | string
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: NullableStringFieldUpdateOperationsInput | string | null
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
-    testcases?: JsonNullValueInput | InputJsonValue
-    codeSnippets?: JsonNullValueInput | InputJsonValue
-    referenceSolutions?: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutProblemsNestedInput
+    user?: UserUpdateOneWithoutProblemsNestedInput
     submission?: SubmissionUpdateManyWithoutProblemNestedInput
     solvedBy?: ProblemSolvedUpdateManyWithoutProblemNestedInput
     problemsPlaylist?: ProblemPlaylistUpdateManyWithoutProblemNestedInput
@@ -19967,19 +21100,35 @@ export namespace Prisma {
 
   export type ProblemUncheckedUpdateWithoutDiscussionsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    leetcodeId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
+    solutionLink?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptanceRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    frequency?: NullableFloatFieldUpdateOperationsInput | number | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    discussCount?: NullableIntFieldUpdateOperationsInput | number | null
+    accepted?: NullableIntFieldUpdateOperationsInput | number | null
+    submissions?: NullableIntFieldUpdateOperationsInput | number | null
+    companies?: ProblemUpdatecompaniesInput | string[]
+    relatedTopics?: ProblemUpdaterelatedTopicsInput | string[]
+    likes?: NullableIntFieldUpdateOperationsInput | number | null
+    dislikes?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    askedByFaang?: BoolFieldUpdateOperationsInput | boolean
+    similarQuestions?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: ProblemUpdatetagsInput | string[]
     companyTags?: ProblemUpdatecompanyTagsInput | string[]
-    userId?: StringFieldUpdateOperationsInput | string
-    examples?: JsonNullValueInput | InputJsonValue
-    constraints?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: NullableStringFieldUpdateOperationsInput | string | null
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
-    testcases?: JsonNullValueInput | InputJsonValue
-    codeSnippets?: JsonNullValueInput | InputJsonValue
-    referenceSolutions?: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
@@ -20304,18 +21453,34 @@ export namespace Prisma {
 
   export type ProblemCreateManyUserInput = {
     id?: string
+    leetcodeId?: number | null
     title: string
     description: string
     difficulty: $Enums.Difficulty
+    isPremium?: boolean
+    solutionLink?: string | null
+    acceptanceRate?: number | null
+    frequency?: number | null
+    url?: string | null
+    discussCount?: number | null
+    accepted?: number | null
+    submissions?: number | null
+    companies?: ProblemCreatecompaniesInput | string[]
+    relatedTopics?: ProblemCreaterelatedTopicsInput | string[]
+    likes?: number | null
+    dislikes?: number | null
+    rating?: number | null
+    askedByFaang?: boolean
+    similarQuestions?: string | null
     tags?: ProblemCreatetagsInput | string[]
     companyTags?: ProblemCreatecompanyTagsInput | string[]
-    examples: JsonNullValueInput | InputJsonValue
-    constraints: string
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: string | null
     hints?: string | null
     editorial?: string | null
-    testcases: JsonNullValueInput | InputJsonValue
-    codeSnippets: JsonNullValueInput | InputJsonValue
-    referenceSolutions: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -20375,18 +21540,34 @@ export namespace Prisma {
 
   export type ProblemUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    leetcodeId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
+    solutionLink?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptanceRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    frequency?: NullableFloatFieldUpdateOperationsInput | number | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    discussCount?: NullableIntFieldUpdateOperationsInput | number | null
+    accepted?: NullableIntFieldUpdateOperationsInput | number | null
+    submissions?: NullableIntFieldUpdateOperationsInput | number | null
+    companies?: ProblemUpdatecompaniesInput | string[]
+    relatedTopics?: ProblemUpdaterelatedTopicsInput | string[]
+    likes?: NullableIntFieldUpdateOperationsInput | number | null
+    dislikes?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    askedByFaang?: BoolFieldUpdateOperationsInput | boolean
+    similarQuestions?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: ProblemUpdatetagsInput | string[]
     companyTags?: ProblemUpdatecompanyTagsInput | string[]
-    examples?: JsonNullValueInput | InputJsonValue
-    constraints?: StringFieldUpdateOperationsInput | string
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: NullableStringFieldUpdateOperationsInput | string | null
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
-    testcases?: JsonNullValueInput | InputJsonValue
-    codeSnippets?: JsonNullValueInput | InputJsonValue
-    referenceSolutions?: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submission?: SubmissionUpdateManyWithoutProblemNestedInput
@@ -20398,18 +21579,34 @@ export namespace Prisma {
 
   export type ProblemUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    leetcodeId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
+    solutionLink?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptanceRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    frequency?: NullableFloatFieldUpdateOperationsInput | number | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    discussCount?: NullableIntFieldUpdateOperationsInput | number | null
+    accepted?: NullableIntFieldUpdateOperationsInput | number | null
+    submissions?: NullableIntFieldUpdateOperationsInput | number | null
+    companies?: ProblemUpdatecompaniesInput | string[]
+    relatedTopics?: ProblemUpdaterelatedTopicsInput | string[]
+    likes?: NullableIntFieldUpdateOperationsInput | number | null
+    dislikes?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    askedByFaang?: BoolFieldUpdateOperationsInput | boolean
+    similarQuestions?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: ProblemUpdatetagsInput | string[]
     companyTags?: ProblemUpdatecompanyTagsInput | string[]
-    examples?: JsonNullValueInput | InputJsonValue
-    constraints?: StringFieldUpdateOperationsInput | string
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: NullableStringFieldUpdateOperationsInput | string | null
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
-    testcases?: JsonNullValueInput | InputJsonValue
-    codeSnippets?: JsonNullValueInput | InputJsonValue
-    referenceSolutions?: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
@@ -20421,18 +21618,34 @@ export namespace Prisma {
 
   export type ProblemUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    leetcodeId?: NullableIntFieldUpdateOperationsInput | number | null
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     difficulty?: EnumDifficultyFieldUpdateOperationsInput | $Enums.Difficulty
+    isPremium?: BoolFieldUpdateOperationsInput | boolean
+    solutionLink?: NullableStringFieldUpdateOperationsInput | string | null
+    acceptanceRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    frequency?: NullableFloatFieldUpdateOperationsInput | number | null
+    url?: NullableStringFieldUpdateOperationsInput | string | null
+    discussCount?: NullableIntFieldUpdateOperationsInput | number | null
+    accepted?: NullableIntFieldUpdateOperationsInput | number | null
+    submissions?: NullableIntFieldUpdateOperationsInput | number | null
+    companies?: ProblemUpdatecompaniesInput | string[]
+    relatedTopics?: ProblemUpdaterelatedTopicsInput | string[]
+    likes?: NullableIntFieldUpdateOperationsInput | number | null
+    dislikes?: NullableIntFieldUpdateOperationsInput | number | null
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    askedByFaang?: BoolFieldUpdateOperationsInput | boolean
+    similarQuestions?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: ProblemUpdatetagsInput | string[]
     companyTags?: ProblemUpdatecompanyTagsInput | string[]
-    examples?: JsonNullValueInput | InputJsonValue
-    constraints?: StringFieldUpdateOperationsInput | string
+    examples?: NullableJsonNullValueInput | InputJsonValue
+    constraints?: NullableStringFieldUpdateOperationsInput | string | null
     hints?: NullableStringFieldUpdateOperationsInput | string | null
     editorial?: NullableStringFieldUpdateOperationsInput | string | null
-    testcases?: JsonNullValueInput | InputJsonValue
-    codeSnippets?: JsonNullValueInput | InputJsonValue
-    referenceSolutions?: JsonNullValueInput | InputJsonValue
+    testcases?: NullableJsonNullValueInput | InputJsonValue
+    codeSnippets?: NullableJsonNullValueInput | InputJsonValue
+    referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

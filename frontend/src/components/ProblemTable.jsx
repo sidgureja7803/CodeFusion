@@ -448,6 +448,44 @@ const ProblemTable = ({ problems, onProblemDeleted }) => {
                     </div>
                   )}
 
+                  {/* LeetCode Stats - only show for LeetCode problems */}
+                  {problem.leetcodeId && (
+                    <div className="mb-4 grid grid-cols-2 gap-3">
+                      {problem.acceptanceRate && (
+                        <div className="flex items-center gap-1 text-xs">
+                          <CheckCircle className="w-3 h-3 text-emerald-500" />
+                          <span className="text-slate-600 dark:text-slate-400">
+                            {(problem.acceptanceRate * 100).toFixed(1)}% accepted
+                          </span>
+                        </div>
+                      )}
+                      {problem.frequency && (
+                        <div className="flex items-center gap-1 text-xs">
+                          <TrendingUp className="w-3 h-3 text-purple-500" />
+                          <span className="text-slate-600 dark:text-slate-400">
+                            {(problem.frequency * 100).toFixed(1)}% frequency
+                          </span>
+                        </div>
+                      )}
+                      {problem.likes && (
+                        <div className="flex items-center gap-1 text-xs">
+                          <Eye className="w-3 h-3 text-blue-500" />
+                          <span className="text-slate-600 dark:text-slate-400">
+                            {problem.likes} likes
+                          </span>
+                        </div>
+                      )}
+                      {problem.askedByFaang && (
+                        <div className="flex items-center gap-1 text-xs">
+                          <Code2 className="w-3 h-3 text-orange-500" />
+                          <span className="text-orange-600 dark:text-orange-400 font-medium">
+                            FAANG
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
                   {/* Actions */}
                   <div className="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-700">
                     <div className="flex items-center gap-2">
@@ -527,6 +565,9 @@ const ProblemTable = ({ problems, onProblemDeleted }) => {
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
                       Companies
+                    </th>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
+                      Stats
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
                       Actions
@@ -616,6 +657,32 @@ const ProblemTable = ({ problems, onProblemDeleted }) => {
                               <span className="text-slate-400 text-xs">N/A</span>
                             )}
                           </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          {problem.leetcodeId ? (
+                            <div className="space-y-1">
+                              {problem.acceptanceRate && (
+                                <div className="flex items-center gap-1 text-xs text-emerald-600 dark:text-emerald-400">
+                                  <CheckCircle className="w-3 h-3" />
+                                  <span>{(problem.acceptanceRate * 100).toFixed(1)}%</span>
+                                </div>
+                              )}
+                              {problem.frequency && (
+                                <div className="flex items-center gap-1 text-xs text-purple-600 dark:text-purple-400">
+                                  <TrendingUp className="w-3 h-3" />
+                                  <span>{(problem.frequency * 100).toFixed(1)}%</span>
+                                </div>
+                              )}
+                              {problem.askedByFaang && (
+                                <div className="flex items-center gap-1 text-xs text-orange-600 dark:text-orange-400">
+                                  <Code2 className="w-3 h-3" />
+                                  <span>FAANG</span>
+                                </div>
+                              )}
+                            </div>
+                          ) : (
+                            <span className="text-slate-400 text-xs">N/A</span>
+                          )}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center gap-2">

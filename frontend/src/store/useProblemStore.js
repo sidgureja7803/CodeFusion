@@ -33,20 +33,46 @@ export const useProblemStore = create(
         return Date.now() - lastFetch < CACHE_EXPIRY;
       },
 
-      // Enhanced getProblems with intelligent caching
-      getProblems: async (forceRefresh = false) => {
+      // Enhanced getProblems with intelligent caching and filtering
+      getProblems: async (options = {}, forceRefresh = false) => {
         const state = get();
         
+        // Create cache key based on options
+        const optionsKey = JSON.stringify(options);
+        const cacheKey = `${PROBLEMS_CACHE_KEY}-${optionsKey}`;
+        
         // Return cached data if valid and not forcing refresh
-        if (!forceRefresh && state.problems.length > 0 && state.isCacheValid(PROBLEMS_CACHE_KEY)) {
+        if (!forceRefresh && state.problems.length > 0 && !options.page && state.isCacheValid(PROBLEMS_CACHE_KEY)) {
           console.log("📦 Using cached problems data");
           return state.problems;
         }
 
         set({ isProblemsLoading: true });
         try {
-          console.log("🌐 Fetching problems from API");
-          const response = await axiosInstance.get(`/problems/get-all-problems`);
+          console.log("🌐 Fetching problems from API with options:", options);
+          
+          // Build query parameters
+          const params = new URLSearchParams();
+          if (options.page) params.append('page', options.page);
+          if (options.limit) params.append('limit', options.limit);
+          if (options.difficulty) params.append('difficulty', options.difficulty);
+          if (options.search) params.append('search', options.search);
+          if (options.company) params.append('company', options.company);
+          if (options.topic) params.append('topic', options.topic);
+          if (options.source) params.append('source', options.source);
+          
+          const queryString = params.toString();
+          const url = `/problems/get-all-problems${queryString ? `?${queryString}` : ''}`;
+          
+          const response = await axiosInstance.get(url);
+          
+          // For paginated requests, don't override the main problems cache
+          if (options.page) {
+            return {
+              problems: response.data.problems,
+              pagination: response.data.pagination
+            };
+          }
           
           set({ 
             problems: response.data.problems,

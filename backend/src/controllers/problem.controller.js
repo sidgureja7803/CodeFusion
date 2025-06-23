@@ -4,6 +4,11 @@ import {
   submitBatch,
   pollBatchResults,
 } from "../libs/judge0.lib.js";
+import { 
+  getLeetCodeProblems, 
+  getLeetCodeProblemById, 
+  parseLeetCodeCSV 
+} from "../libs/csv-parser.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -104,59 +109,146 @@ export const createProblem = async (req, res) => {
 
 export const getAllProblems = async (req, res) => {
   try {
-    // First try to fetch from database
-    const problems = await db.problem.findMany(
-      {
-        ...(req.loggedInUser && {
-          include: {
-            solvedBy: {
-              where: {
-                userId: req.loggedInUser.id,
+    const {
+      page = 1,
+      limit = 50,
+      difficulty,
+      search,
+      company,
+      topic,
+      source = 'all' // 'all', 'leetcode', 'custom'
+    } = req.query;
+
+    let dbProblems = [];
+    let leetcodeProblems = [];
+    let totalCount = 0;
+
+    // Get custom problems from database
+    if (source === 'all' || source === 'custom') {
+      try {
+        dbProblems = await db.problem.findMany({
+          where: {
+            userId: { not: null }, // Custom problems have a userId
+            ...(difficulty && { difficulty: difficulty.toUpperCase() }),
+            ...(search && {
+              OR: [
+                { title: { contains: search, mode: 'insensitive' } },
+                { description: { contains: search, mode: 'insensitive' } }
+              ]
+            })
+          },
+          ...(req.loggedInUser && {
+            include: {
+              solvedBy: {
+                where: {
+                  userId: req.loggedInUser.id,
+                },
               },
             },
+          }),
+          orderBy: {
+            createdAt: "desc",
           },
-        }),
-      },
-      {
-        orderBy: {
-          createdAt: "desc",
-        },
+        });
+      } catch (dbError) {
+        console.log("Database query failed, skipping custom problems:", dbError.message);
       }
-    );
-
-    // If database has problems, return them
-    if (problems.length > 0) {
-      return res.status(200).json({
-        success: true,
-        message: "Problems fetched successfully",
-        problems,
-      });
     }
 
-    // If no problems in database, fallback to JSON data
-    console.log("No problems found in database, falling back to JSON data");
-    
-    const problemsFilePath = path.join(__dirname, "../data/problems.json");
-    
-    if (fs.existsSync(problemsFilePath)) {
-      const jsonData = fs.readFileSync(problemsFilePath, "utf8");
-      const jsonProblems = JSON.parse(jsonData);
-      
-      // Add empty solvedBy array for each problem to match expected format
-      const formattedProblems = jsonProblems.map(problem => ({
-        ...problem,
-        solvedBy: req.loggedInUser ? [] : []
-      }));
+    // Get LeetCode problems from CSV
+    if (source === 'all' || source === 'leetcode') {
+      try {
+        const leetcodeData = await getLeetCodeProblems({
+          page: parseInt(page),
+          limit: parseInt(limit),
+          difficulty,
+          search,
+          company,
+          topic,
+        });
 
-      return res.status(200).json({
-        success: true,
-        message: "Problems fetched successfully from JSON data",
-        problems: formattedProblems,
-      });
+        leetcodeProblems = leetcodeData.problems;
+        
+        // Add solved status for LeetCode problems if user is logged in
+        if (req.loggedInUser) {
+          const solvedProblemIds = await db.problemSolved.findMany({
+            where: { userId: req.loggedInUser.id },
+            select: { problemId: true }
+          });
+          
+          const solvedIds = new Set(solvedProblemIds.map(p => p.problemId));
+          
+          leetcodeProblems = leetcodeProblems.map(problem => ({
+            ...problem,
+            // Generate a consistent ID for LeetCode problems
+            id: `leetcode_${problem.leetcodeId}`,
+            solvedBy: solvedIds.has(`leetcode_${problem.leetcodeId}`) ? [{ userId: req.loggedInUser.id }] : []
+          }));
+        } else {
+          leetcodeProblems = leetcodeProblems.map(problem => ({
+            ...problem,
+            id: `leetcode_${problem.leetcodeId}`,
+            solvedBy: []
+          }));
+        }
+
+        totalCount = leetcodeData.totalCount;
+      } catch (csvError) {
+        console.log("CSV parsing failed, skipping LeetCode problems:", csvError.message);
+      }
     }
 
-    // If no JSON file either, return empty
-    return res.status(404).json({ message: "No problems found" });
+    // Combine and sort problems
+    let allProblems = [];
+    
+    if (source === 'custom') {
+      allProblems = dbProblems;
+      totalCount = dbProblems.length;
+    } else if (source === 'leetcode') {
+      allProblems = leetcodeProblems;
+      // totalCount already set above
+    } else {
+      // Combine both sources
+      allProblems = [...dbProblems, ...leetcodeProblems];
+      totalCount = dbProblems.length + leetcodeProblems.length;
+    }
+
+    // Apply additional filtering if needed for combined results
+    if (source === 'all' && (difficulty || search)) {
+      if (difficulty) {
+        allProblems = allProblems.filter(p => 
+          p.difficulty?.toLowerCase() === difficulty.toLowerCase()
+        );
+      }
+      if (search) {
+        const searchLower = search.toLowerCase();
+        allProblems = allProblems.filter(p => 
+          p.title?.toLowerCase().includes(searchLower) ||
+          p.description?.toLowerCase().includes(searchLower)
+        );
+      }
+      totalCount = allProblems.length;
+    }
+
+    // Apply pagination for combined results
+    if (source === 'all') {
+      const startIndex = (parseInt(page) - 1) * parseInt(limit);
+      const endIndex = startIndex + parseInt(limit);
+      allProblems = allProblems.slice(startIndex, endIndex);
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Problems fetched successfully",
+      problems: allProblems,
+      pagination: {
+        currentPage: parseInt(page),
+        totalPages: Math.ceil(totalCount / parseInt(limit)),
+        totalCount,
+        hasNextPage: parseInt(page) * parseInt(limit) < totalCount,
+        hasPrevPage: parseInt(page) > 1,
+      }
+    });
 
   } catch (error) {
     console.error("Error fetching problems:", error);
@@ -168,14 +260,35 @@ export const getProblemById = async (req, res) => {
   try {
     const { id } = req.params;
     
-    // First try to fetch from database
+    // Check if it's a LeetCode problem ID (starts with 'leetcode_')
+    if (id.startsWith('leetcode_')) {
+      const leetcodeId = parseInt(id.replace('leetcode_', ''));
+      
+      try {
+        const leetcodeProblem = await getLeetCodeProblemById(leetcodeId);
+        
+        if (leetcodeProblem) {
+          return res.status(200).json({
+            success: true,
+            message: "LeetCode problem fetched successfully",
+            problem: {
+              ...leetcodeProblem,
+              id: `leetcode_${leetcodeProblem.leetcodeId}`,
+            },
+          });
+        }
+      } catch (csvError) {
+        console.log("Error fetching LeetCode problem:", csvError.message);
+      }
+    }
+    
+    // Try to fetch custom problem from database
     const problem = await db.problem.findUnique({
       where: {
         id,
       },
     });
     
-    // If found in database, return it
     if (problem) {
       return res.status(200).json({
         success: true,
@@ -184,34 +297,17 @@ export const getProblemById = async (req, res) => {
       });
     }
 
-    // If not found in database, try JSON data
-    console.log(`Problem ${id} not found in database, checking JSON data`);
-    
-    const problemsFilePath = path.join(__dirname, "../data/problems.json");
-    
-    if (fs.existsSync(problemsFilePath)) {
-      const jsonData = fs.readFileSync(problemsFilePath, "utf8");
-      const jsonProblems = JSON.parse(jsonData);
-      
-      const jsonProblem = jsonProblems.find(p => p.id === id);
-      
-      if (jsonProblem) {
-        return res.status(200).json({
-          success: true,
-          message: "Problem fetched successfully from JSON data",
-          problem: jsonProblem,
-        });
-      }
-    }
+    return res.status(404).json({
+      success: false,
+      message: "Problem not found"
+    });
 
-    // If not found in either place
-    return res.status(404).json({ message: "Problem not found" });
-    
   } catch (error) {
     console.error("Error fetching problem:", error);
-    return res
-      .status(500)
-      .json({ error: "Error While Fetching Problem Details" });
+    return res.status(500).json({ 
+      success: false,
+      error: "Error While Fetching Problem" 
+    });
   }
 };
 

@@ -69,26 +69,46 @@ model User {
 
 model Problem {
   id          String     @id @default(uuid())
-  title       String
-  description String
-  difficulty  Difficulty
+  
+  // Original LeetCode fields
+  leetcodeId     Int?      @unique  // Original LeetCode problem ID
+  title          String
+  description    String
+  difficulty     Difficulty
+  isPremium      Boolean   @default(false)
+  solutionLink   String?
+  acceptanceRate Float?
+  frequency      Float?
+  url            String?
+  discussCount   Int?
+  accepted       Int?
+  submissions    Int?
+  companies      String[]  // JSON array of companies
+  relatedTopics  String[]  // JSON array of related topics  
+  likes          Int?
+  dislikes       Int?
+  rating         Float?
+  askedByFaang   Boolean   @default(false)
+  similarQuestions String? // JSON string of similar questions
+  
+  // Existing fields for custom problems
   tags        String[]
   companyTags String[]
-  userId      String
-  examples    Json
-  constraints String
+  userId      String?   // Make optional for LeetCode problems
+  examples    Json?     // Make optional for LeetCode problems
+  constraints String?
   hints       String?
   editorial   String?
 
-  testcases          Json
-  codeSnippets       Json
-  referenceSolutions Json
+  testcases          Json?  // Make optional for LeetCode problems
+  codeSnippets       Json?  // Make optional for LeetCode problems
+  referenceSolutions Json?  // Make optional for LeetCode problems
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   //Relations
-  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user             User?             @relation(fields: [userId], references: [id], onDelete: Cascade)
   submission       Submission[]
   solvedBy         ProblemSolved[]
   problemsPlaylist ProblemPlaylist[]
