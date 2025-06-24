@@ -199,9 +199,22 @@ export const ProblemPage = () => {
         setUserSolvedCode(userAcceptedCode);
       } else {
         // User hasn't solved or no submissions, use default template
-        setCode(problem.codeSnippets[selectedLanguage] || "");
+        const codeTemplate = problem.codeSnippets[selectedLanguage] || 
+                           problem.codeSnippets["JAVASCRIPT"] || 
+                           problem.codeSnippets["PYTHON"] || 
+                           "// Write your solution here";
+        setCode(codeTemplate);
         setUserSolvedCode(null);
       }
+    } else if (problem) {
+      // Fallback if no code snippets are available
+      setCode(`// Problem: ${problem.title || 'Unknown Problem'}
+// Write your solution here
+
+function solution() {
+    // Your code goes here
+}`);
+      setUserSolvedCode(null);
     }
   }, [problem, selectedLanguage, submissions]);
 
@@ -217,6 +230,32 @@ export const ProblemPage = () => {
       setUserSolvedCode(userAcceptedCode);
     } else if (problem?.codeSnippets?.[lang]) {
       setCode(problem.codeSnippets[lang]);
+      setUserSolvedCode(null);
+    } else {
+      // Fallback code template based on language
+      const fallbackTemplates = {
+        JAVASCRIPT: `function solution() {
+    // Write your solution here
+    
+}`,
+        PYTHON: `def solution():
+    # Write your solution here
+    pass`,
+        JAVA: `public int solution() {
+    // Write your solution here
+    
+}`,
+        CPP: `int solution() {
+    // Write your solution here
+    
+}`,
+        C: `int solution() {
+    // Write your solution here
+    
+}`
+      };
+      
+      setCode(fallbackTemplates[lang] || fallbackTemplates.JAVASCRIPT);
       setUserSolvedCode(null);
     }
   };
@@ -801,17 +840,27 @@ export const ProblemPage = () => {
                   value={selectedLanguage}
                   onChange={handleLanguageChange}
                 >
-                  {Object.keys(problem?.codeSnippets || {}).map((lang) => (
-                    <option key={lang} value={lang}>
-                      {lang
-                        .toLowerCase()
-                        .split("_")
-                        .map(
-                          (word) => word.charAt(0).toUpperCase() + word.slice(1)
-                        )
-                        .join(" ")}
-                    </option>
-                  ))}
+                  {problem?.codeSnippets && Object.keys(problem.codeSnippets).length > 0 ? (
+                    Object.keys(problem.codeSnippets).map((lang) => (
+                      <option key={lang} value={lang}>
+                        {lang
+                          .toLowerCase()
+                          .split("_")
+                          .map(
+                            (word) => word.charAt(0).toUpperCase() + word.slice(1)
+                          )
+                          .join(" ")}
+                      </option>
+                    ))
+                  ) : (
+                    <>
+                      <option value="JAVASCRIPT">JavaScript</option>
+                      <option value="PYTHON">Python</option>
+                      <option value="JAVA">Java</option>
+                      <option value="CPP">C++</option>
+                      <option value="C">C</option>
+                    </>
+                  )}
                 </select>
               </div>
 

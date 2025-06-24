@@ -46,12 +46,12 @@ export const parseLeetCodeCSV = () => {
             tags: parseArrayField(row.related_topics), // Use related_topics as tags
             companyTags: parseArrayField(row.companies),
             userId: null, // LeetCode problems don't have a user
-            examples: null,
-            constraints: null,
-            hints: null,
+            examples: generateDefaultExamples(row.title, row.description),
+            constraints: generateDefaultConstraints(row.difficulty),
+            hints: generateDefaultHints(row.title, row.description),
             editorial: null,
-            testcases: null,
-            codeSnippets: null,
+            testcases: generateDefaultTestCases(row.title, row.description, row.difficulty),
+            codeSnippets: generateDefaultCodeSnippets(row.title, row.description),
             referenceSolutions: null,
           };
 
@@ -169,4 +169,203 @@ export const getLeetCodeProblems = async (options = {}) => {
     hasNextPage: endIndex < filteredProblems.length,
     hasPrevPage: page > 1,
   };
+};
+
+// Helper function to generate default examples from description
+const generateDefaultExamples = (title, description) => {
+  try {
+    const examples = {};
+    
+    // Extract examples from description using regex
+    const exampleMatches = description.match(/Example \d+:[\s\S]*?(?=Example \d+:|Constraints:|$)/gi);
+    
+    if (exampleMatches) {
+      exampleMatches.forEach((match, index) => {
+        const inputMatch = match.match(/Input:\s*([^\n]+)/i);
+        const outputMatch = match.match(/Output:\s*([^\n]+)/i);
+        const explanationMatch = match.match(/Explanation:\s*([^\n]+)/i);
+        
+        if (inputMatch && outputMatch) {
+          examples[`example${index + 1}`] = {
+            input: inputMatch[1].trim(),
+            output: outputMatch[1].trim(),
+            explanation: explanationMatch ? explanationMatch[1].trim() : null
+          };
+        }
+      });
+    }
+    
+    // If no examples found, create a basic one
+    if (Object.keys(examples).length === 0) {
+      examples.example1 = {
+        input: "Input will be provided here",
+        output: "Expected output will be shown here",
+        explanation: "Explanation of the solution approach"
+      };
+    }
+    
+    return examples;
+  } catch (error) {
+    console.error("Error generating examples:", error);
+    return {
+      example1: {
+        input: "Input will be provided here",
+        output: "Expected output will be shown here",
+        explanation: "Explanation of the solution approach"
+      }
+    };
+  }
+};
+
+// Helper function to generate default test cases from description
+const generateDefaultTestCases = (title, description, difficulty) => {
+  try {
+    const testCases = [];
+    
+    // Extract examples from description and convert to test cases
+    const exampleMatches = description.match(/Example \d+:[\s\S]*?(?=Example \d+:|Constraints:|$)/gi);
+    
+    if (exampleMatches) {
+      exampleMatches.forEach((match, index) => {
+        const inputMatch = match.match(/Input:\s*([^\n]+)/i);
+        const outputMatch = match.match(/Output:\s*([^\n]+)/i);
+        
+        if (inputMatch && outputMatch) {
+          let input = inputMatch[1].trim();
+          let output = outputMatch[1].trim();
+          
+          // Clean up common patterns
+          input = input.replace(/^(nums\s*=\s*|target\s*=\s*|s\s*=\s*|"([^"]*)")/g, '$2').trim();
+          output = output.replace(/^(return\s+|output:\s*)/i, '').trim();
+          
+          testCases.push({
+            input: input,
+            output: output
+          });
+        }
+      });
+    }
+    
+    // If no test cases found, create basic ones based on difficulty
+    if (testCases.length === 0) {
+      const basicCases = difficulty === 'EASY' ? 2 : difficulty === 'MEDIUM' ? 3 : 4;
+      
+      for (let i = 0; i < basicCases; i++) {
+        testCases.push({
+          input: `test_input_${i + 1}`,
+          output: `expected_output_${i + 1}`
+        });
+      }
+    }
+    
+    return testCases;
+  } catch (error) {
+    console.error("Error generating test cases:", error);
+    return [
+      { input: "test_input_1", output: "expected_output_1" },
+      { input: "test_input_2", output: "expected_output_2" }
+    ];
+  }
+};
+
+// Helper function to generate default code snippets
+const generateDefaultCodeSnippets = (title, description) => {
+  try {
+    // Detect problem type from title and description
+    const titleLower = title.toLowerCase();
+    const descLower = description.toLowerCase();
+    
+    let functionName = "solution";
+    let params = "nums";
+    let returnType = "int";
+    
+    // Common patterns
+    if (titleLower.includes("two sum") || descLower.includes("two numbers")) {
+      functionName = "twoSum";
+      params = "nums, target";
+      returnType = "int[]";
+    } else if (titleLower.includes("add") && titleLower.includes("number")) {
+      functionName = "addNumbers";
+      params = "l1, l2";
+    } else if (titleLower.includes("reverse")) {
+      functionName = "reverse";
+      params = "x";
+    } else if (titleLower.includes("palindrome")) {
+      functionName = "isPalindrome";
+      params = "s";
+      returnType = "boolean";
+    } else if (titleLower.includes("valid")) {
+      functionName = "isValid";
+      params = "s";
+      returnType = "boolean";
+    }
+    
+    return {
+      JAVASCRIPT: `function ${functionName}(${params}) {
+    // Write your solution here
+    
+}`,
+      PYTHON: `def ${functionName}(${params}):
+    # Write your solution here
+    pass`,
+      JAVA: `public ${returnType} ${functionName}(${params.includes(',') ? 'int[] nums, int target' : 'int[] nums'}) {
+    // Write your solution here
+    
+}`,
+      CPP: `${returnType} ${functionName}(${params.includes(',') ? 'vector<int>& nums, int target' : 'vector<int>& nums'}) {
+    // Write your solution here
+    
+}`,
+      C: `${returnType} ${functionName}(${params.includes(',') ? 'int* nums, int numsSize, int target' : 'int* nums, int numsSize'}) {
+    // Write your solution here
+    
+}`
+    };
+  } catch (error) {
+    console.error("Error generating code snippets:", error);
+    return {
+      JAVASCRIPT: `function solution(nums) {
+    // Write your solution here
+    
+}`,
+      PYTHON: `def solution(nums):
+    # Write your solution here
+    pass`
+    };
+  }
+};
+
+// Helper function to generate default constraints
+const generateDefaultConstraints = (difficulty) => {
+  const constraints = {
+    EASY: "• 1 <= nums.length <= 100\n• -100 <= nums[i] <= 100",
+    MEDIUM: "• 1 <= nums.length <= 1000\n• -1000 <= nums[i] <= 1000",
+    HARD: "• 1 <= nums.length <= 10000\n• -10000 <= nums[i] <= 10000"
+  };
+  
+  return constraints[difficulty] || constraints.MEDIUM;
+};
+
+// Helper function to generate default hints
+const generateDefaultHints = (title, description) => {
+  try {
+    const titleLower = title.toLowerCase();
+    const descLower = description.toLowerCase();
+    
+    if (titleLower.includes("two sum")) {
+      return "Try using a hash map to store the numbers you've seen and their indices.";
+    } else if (titleLower.includes("palindrome")) {
+      return "Consider using two pointers approach from both ends.";
+    } else if (titleLower.includes("reverse")) {
+      return "Think about the mathematical approach to reverse digits.";
+    } else if (descLower.includes("array")) {
+      return "Consider different approaches: brute force, two pointers, or hash map.";
+    } else if (descLower.includes("string")) {
+      return "Think about string manipulation techniques and edge cases.";
+    }
+    
+    return "Break down the problem into smaller parts and think about the edge cases.";
+  } catch (error) {
+    return "Think step by step and consider different approaches.";
+  }
 }; 
