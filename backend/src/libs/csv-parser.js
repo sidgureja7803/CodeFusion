@@ -278,46 +278,176 @@ const generateDefaultCodeSnippets = (title, description) => {
     let functionName = "solution";
     let params = "nums";
     let returnType = "int";
+    let javaParams = "int[] nums";
+    let cppParams = "vector<int>& nums";
+    let cParams = "int* nums, int numsSize";
     
-    // Common patterns
-    if (titleLower.includes("two sum") || descLower.includes("two numbers")) {
+    // Advanced pattern matching for more specific function signatures
+    if (titleLower.includes("two sum")) {
       functionName = "twoSum";
       params = "nums, target";
       returnType = "int[]";
-    } else if (titleLower.includes("add") && titleLower.includes("number")) {
-      functionName = "addNumbers";
+      javaParams = "int[] nums, int target";
+      cppParams = "vector<int>& nums, int target";
+      cParams = "int* nums, int numsSize, int target";
+    } else if (titleLower.includes("add two numbers")) {
+      functionName = "addTwoNumbers";
       params = "l1, l2";
-    } else if (titleLower.includes("reverse")) {
-      functionName = "reverse";
-      params = "x";
+      returnType = "ListNode";
+      javaParams = "ListNode l1, ListNode l2";
+      cppParams = "ListNode* l1, ListNode* l2";
+      cParams = "struct ListNode* l1, struct ListNode* l2";
+    } else if (titleLower.includes("longest substring")) {
+      functionName = "lengthOfLongestSubstring";
+      params = "s";
+      returnType = "int";
+      javaParams = "String s";
+      cppParams = "string s";
+      cParams = "char* s";
+    } else if (titleLower.includes("median")) {
+      functionName = "findMedianSortedArrays";
+      params = "nums1, nums2";
+      returnType = "double";
+      javaParams = "int[] nums1, int[] nums2";
+      cppParams = "vector<int>& nums1, vector<int>& nums2";
+      cParams = "int* nums1, int nums1Size, int* nums2, int nums2Size";
     } else if (titleLower.includes("palindrome")) {
       functionName = "isPalindrome";
       params = "s";
       returnType = "boolean";
-    } else if (titleLower.includes("valid")) {
+      javaParams = "String s";
+      cppParams = "string s";
+      cParams = "char* s";
+    } else if (titleLower.includes("reverse")) {
+      if (titleLower.includes("integer")) {
+        functionName = "reverse";
+        params = "x";
+        returnType = "int";
+        javaParams = "int x";
+        cppParams = "int x";
+        cParams = "int x";
+      } else {
+        functionName = "reverseString";
+        params = "s";
+        returnType = "string";
+        javaParams = "char[] s";
+        cppParams = "vector<char>& s";
+        cParams = "char* s";
+      }
+    } else if (titleLower.includes("valid parentheses") || titleLower.includes("valid brackets")) {
       functionName = "isValid";
       params = "s";
       returnType = "boolean";
+      javaParams = "String s";
+      cppParams = "string s";
+      cParams = "char* s";
+    } else if (titleLower.includes("merge")) {
+      functionName = "merge";
+      params = "nums1, m, nums2, n";
+      returnType = "void";
+      javaParams = "int[] nums1, int m, int[] nums2, int n";
+      cppParams = "vector<int>& nums1, int m, vector<int>& nums2, int n";
+      cParams = "int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n";
+    } else if (titleLower.includes("container")) {
+      functionName = "maxArea";
+      params = "height";
+      returnType = "int";
+      javaParams = "int[] height";
+      cppParams = "vector<int>& height";
+      cParams = "int* height, int heightSize";
+    } else if (titleLower.includes("climb") || titleLower.includes("stair")) {
+      functionName = "climbStairs";
+      params = "n";
+      returnType = "int";
+      javaParams = "int n";
+      cppParams = "int n";
+      cParams = "int n";
+    } else if (titleLower.includes("fibonacci")) {
+      functionName = "fib";
+      params = "n";
+      returnType = "int";
+      javaParams = "int n";
+      cppParams = "int n";
+      cParams = "int n";
+    } else if (titleLower.includes("binary tree")) {
+      functionName = "inorderTraversal";
+      params = "root";
+      returnType = "int[]";
+      javaParams = "TreeNode root";
+      cppParams = "TreeNode* root";
+      cParams = "struct TreeNode* root";
+    } else if (titleLower.includes("linked list")) {
+      functionName = "reverseList";
+      params = "head";
+      returnType = "ListNode";
+      javaParams = "ListNode head";
+      cppParams = "ListNode* head";
+      cParams = "struct ListNode* head";
+    } else {
+      // Convert title to camelCase for function name
+      functionName = title
+        .toLowerCase()
+        .replace(/[^a-zA-Z0-9\s]/g, '')
+        .split(' ')
+        .map((word, index) => index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1))
+        .join('')
+        .replace(/^\d+\.?\s*/, ''); // Remove leading numbers
+      
+      if (!functionName || functionName.length < 2) {
+        functionName = "solution";
+      }
     }
     
     return {
-      JAVASCRIPT: `function ${functionName}(${params}) {
-    // Write your solution here
+      JAVASCRIPT: `/**
+ * ${title}
+ * @param {${params.includes(',') ? 'number[], number' : 'number[]'}} ${params.split(',')[0].trim()}
+ * @return {${returnType === 'boolean' ? 'boolean' : returnType === 'int[]' ? 'number[]' : 'number'}}
+ */
+function ${functionName}(${params}) {
+    // TODO: Implement your solution here
     
 }`,
-      PYTHON: `def ${functionName}(${params}):
-    # Write your solution here
+      PYTHON: `"""
+${title}
+
+Args:
+    ${params.split(',').map(p => `${p.trim()}: ${returnType === 'boolean' ? 'bool' : 'int or List[int]'}`).join('\n    ')}
+
+Returns:
+    ${returnType === 'boolean' ? 'bool' : returnType === 'int[]' ? 'List[int]' : 'int'}: The result
+"""
+def ${functionName}(${params}):
+    # TODO: Implement your solution here
     pass`,
-      JAVA: `public ${returnType} ${functionName}(${params.includes(',') ? 'int[] nums, int target' : 'int[] nums'}) {
-    // Write your solution here
+      JAVA: `/**
+ * ${title}
+ * 
+ * @param ${javaParams.split(',').map(p => p.trim()).join('\n * @param ')}
+ * @return ${returnType === 'int[]' ? 'int[]' : returnType === 'boolean' ? 'boolean' : returnType}
+ */
+public ${returnType === 'int[]' ? 'int[]' : returnType === 'boolean' ? 'boolean' : returnType === 'void' ? 'void' : 'int'} ${functionName}(${javaParams}) {
+    // TODO: Implement your solution here
     
 }`,
-      CPP: `${returnType} ${functionName}(${params.includes(',') ? 'vector<int>& nums, int target' : 'vector<int>& nums'}) {
-    // Write your solution here
+      CPP: `/**
+ * ${title}
+ * 
+ * @param ${cppParams}
+ * @return ${returnType === 'int[]' ? 'vector<int>' : returnType === 'boolean' ? 'bool' : returnType === 'void' ? 'void' : 'int'}
+ */
+${returnType === 'int[]' ? 'vector<int>' : returnType === 'boolean' ? 'bool' : returnType === 'void' ? 'void' : 'int'} ${functionName}(${cppParams}) {
+    // TODO: Implement your solution here
     
 }`,
-      C: `${returnType} ${functionName}(${params.includes(',') ? 'int* nums, int numsSize, int target' : 'int* nums, int numsSize'}) {
-    // Write your solution here
+      C: `/**
+ * ${title}
+ * 
+ * @param ${cParams}
+ * @return ${returnType === 'int[]' ? 'int*' : returnType === 'boolean' ? 'bool' : returnType === 'void' ? 'void' : 'int'}
+ */
+${returnType === 'int[]' ? 'int*' : returnType === 'boolean' ? 'bool' : returnType === 'void' ? 'void' : 'int'} ${functionName}(${cParams}) {
+    // TODO: Implement your solution here
     
 }`
     };

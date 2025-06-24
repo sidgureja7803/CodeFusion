@@ -17,7 +17,7 @@ import aiorb from "../assets/images/ai-orb2.webp";
 import "../styles/AIChatPanel.css";
 // Using CSS-based AI icon instead of batman image
 
-const AIChatPanel = ({ problem, code, language }) => {
+const AIChatPanel = ({ problem, code, language, onClose }) => {
   const [prompt, setPrompt] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
   const [minimized, setMinimized] = useState(false);
@@ -47,11 +47,21 @@ const AIChatPanel = ({ problem, code, language }) => {
     e.preventDefault();
     if (!prompt.trim()) return;
 
+    console.log("🤖 AI Chat: Submitting prompt:", prompt);
+    console.log("🤖 AI Chat: Problem ID:", problem?.id);
+    console.log("🤖 AI Chat: Language:", language);
+    console.log("🤖 AI Chat: Code length:", code?.length || 0);
+
     await getAIHelp(prompt, problem?.id, code, language);
     setPrompt("");
   };
 
   const handleQuickPrompt = async (quickPrompt) => {
+    console.log("🤖 AI Chat: Using quick prompt:", quickPrompt);
+    console.log("🤖 AI Chat: Problem ID:", problem?.id);
+    console.log("🤖 AI Chat: Language:", language);
+    console.log("🤖 AI Chat: Code length:", code?.length || 0);
+    
     await getAIHelp(quickPrompt, problem?.id, code, language);
   };
 
@@ -148,7 +158,13 @@ const AIChatPanel = ({ problem, code, language }) => {
             </button>
           )}
           <button
-            onClick={() => setMinimized(!minimized)}
+            onClick={() => {
+              if (onClose) {
+                onClose();
+              } else {
+                setMinimized(!minimized);
+              }
+            }}
             className="text-white/60 hover:text-white"
           >
             {minimized ? <Maximize2 size={16} /> : <X size={16} />}
