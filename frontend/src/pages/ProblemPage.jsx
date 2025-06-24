@@ -238,8 +238,12 @@ export const ProblemPage = () => {
     switch (activeTab) {
       case "description":
         return (
-          <div className="prose max-w-none text-slate-700 dark:text-slate-300">
-            <div className="text-lg leading-relaxed font-inter">{problem?.description}</div>
+          <div className="prose max-w-none">
+            <div className="bg-white/90 dark:bg-slate-800/90 rounded-xl p-6 shadow-lg border border-purple-200 dark:border-purple-600 mb-8">
+              <div className="text-xl leading-relaxed font-inter text-slate-800 dark:text-white whitespace-pre-wrap">
+                {problem?.description}
+              </div>
+            </div>
 
             {problem?.examples && (
               <>
@@ -258,41 +262,111 @@ export const ProblemPage = () => {
                     </div>
                   </div>
                 )}
-                <h3 className="text-xl font-bold mb-6 text-slate-800 dark:text-slate-200 font-inter">Examples:</h3>
-                {Object.entries(problem?.examples).map(
-                  ([lang, example], idx) => (
-                    <div
-                      key={lang}
-                      className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 p-6 rounded-xl mb-6 border border-slate-200 dark:border-slate-700 shadow-sm"
-                    >
-                      <div className="mb-4">
-                        <div className="text-emerald-600 dark:text-emerald-400 mb-2 text-sm font-semibold uppercase tracking-wide">
-                          Input:
-                        </div>
-                        <div className="bg-slate-800 dark:bg-slate-900 text-green-400 px-4 py-3 rounded-lg font-mono text-sm border border-slate-700">
-                          {example.input}
-                        </div>
-                      </div>
-                      <div className="mb-4">
-                        <div className="text-blue-600 dark:text-blue-400 mb-2 text-sm font-semibold uppercase tracking-wide">
-                          Output:
-                        </div>
-                        <div className="bg-slate-800 dark:bg-slate-900 text-blue-400 px-4 py-3 rounded-lg font-mono text-sm border border-slate-700">
-                          {example.output}
-                        </div>
-                      </div>
-                      {example.explanation && (
-                        <div>
-                          <div className="text-purple-600 dark:text-purple-400 mb-2 text-sm font-semibold uppercase tracking-wide">
-                            Explanation:
+                <div className="flex items-center gap-3 mb-6">
+                  <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                    Examples
+                  </h3>
+                  <div className="h-2 w-2 bg-purple-500 rounded-full animate-pulse"></div>
+                </div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {Object.entries(problem?.examples).map(
+                    ([lang, example], idx) => (
+                      <div
+                        key={lang}
+                        className="bg-white dark:bg-slate-800 rounded-xl border-2 border-purple-200 dark:border-purple-700 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02]"
+                      >
+                        <div className="p-6">
+                          <div className="flex items-center gap-2 mb-6">
+                            <div className="px-3 py-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg text-sm font-bold">
+                              Example {idx + 1}
+                            </div>
                           </div>
-                          <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed font-inter">
-                            {example.explanation}
-                          </p>
+                          <div className="space-y-4">
+                            <div>
+                              <h4 className="font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-2">
+                                <span className="w-2 h-2 bg-emerald-500 rounded-full"></span>
+                                Input:
+                              </h4>
+                              <pre className="mt-2 p-4 bg-emerald-50 dark:bg-emerald-900/30 rounded-lg overflow-x-auto border border-emerald-200 dark:border-emerald-700 font-mono text-emerald-900 dark:text-emerald-100">
+                                {example.input}
+                              </pre>
+                            </div>
+                            <div>
+                              <h4 className="font-bold text-blue-700 dark:text-blue-400 flex items-center gap-2">
+                                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                Output:
+                              </h4>
+                              <pre className="mt-2 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg overflow-x-auto border border-blue-200 dark:border-blue-700 font-mono text-blue-900 dark:text-blue-100">
+                                {example.output}
+                              </pre>
+                            </div>
+                            {example.explanation && (
+                              <div>
+                                <h4 className="font-bold text-purple-700 dark:text-purple-400 flex items-center gap-2">
+                                  <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
+                                  Explanation:
+                                </h4>
+                                <div className="mt-2 p-4 bg-purple-50 dark:bg-purple-900/30 rounded-lg border border-purple-200 dark:border-purple-700 text-purple-900 dark:text-purple-100">
+                                  {example.explanation}
+                                </div>
+                              </div>
+                            )}
+                          </div>
                         </div>
-                      )}
+                      </div>
+                    )
+                  )}
+                </div>
+
+                {problem?.testcases && problem.testcases.length > 0 && (
+                  <div className="mt-12">
+                    <div className="bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/40 dark:to-pink-900/40 p-4 rounded-xl border border-purple-300 dark:border-purple-600 mb-6">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
+                        <span className="text-lg font-bold text-purple-800 dark:text-purple-200">Test Cases</span>
+                      </div>
+                      <p className="text-purple-700 dark:text-purple-300">
+                        Your solution will be tested against the following test cases. Make sure your code handles all of them correctly.
+                      </p>
                     </div>
-                  )
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      {problem.testcases.map((testcase, idx) => (
+                        <div
+                          key={idx}
+                          className="bg-white dark:bg-slate-800 rounded-xl border-2 border-purple-200 dark:border-purple-700 shadow-xl hover:shadow-2xl transition-all duration-300"
+                        >
+                          <div className="p-6">
+                            <div className="flex items-center gap-2 mb-6">
+                              <div className="px-3 py-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg text-sm font-bold">
+                                Test Case {idx + 1}
+                              </div>
+                            </div>
+                            <div className="space-y-4">
+                              <div>
+                                <h4 className="font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-2">
+                                  <span className="w-2 h-2 bg-emerald-500 rounded-full"></span>
+                                  Input:
+                                </h4>
+                                <pre className="mt-2 p-4 bg-emerald-50 dark:bg-emerald-900/30 rounded-lg overflow-x-auto border border-emerald-200 dark:border-emerald-700 font-mono text-emerald-900 dark:text-emerald-100">
+                                  {testcase.input}
+                                </pre>
+                              </div>
+                              <div>
+                                <h4 className="font-bold text-blue-700 dark:text-blue-400 flex items-center gap-2">
+                                  <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                  Expected Output:
+                                </h4>
+                                <pre className="mt-2 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg overflow-x-auto border border-blue-200 dark:border-blue-700 font-mono text-blue-900 dark:text-blue-100">
+                                  {testcase.output}
+                                </pre>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 )}
               </>
             )}
@@ -880,11 +954,21 @@ export const ProblemPage = () => {
 
                 {problem?.testcases && problem.testcases.length > 0 ? (
                   <div className="space-y-6">
+                    <div className="bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/40 dark:to-pink-900/40 p-4 rounded-xl border border-purple-300 dark:border-purple-600 mb-6">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
+                        <span className="text-lg font-bold text-purple-800 dark:text-purple-200">Available Test Cases</span>
+                      </div>
+                      <p className="text-purple-700 dark:text-purple-300">
+                        These test cases will be used to validate your solution. Make sure your code handles all of them correctly.
+                      </p>
+                    </div>
+
                     {problem.testcases.map((testcase, index) => (
-                      <div key={index} className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-800/30 dark:to-pink-800/30 rounded-2xl border border-purple-300/60 dark:border-purple-600/60 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                      <div key={index} className="bg-white dark:bg-slate-800 rounded-2xl border-2 border-purple-300 dark:border-purple-600 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02]">
                         <div className="p-6">
                           <div className="flex items-center gap-3 mb-6">
-                            <div className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl text-sm font-bold shadow-md">
+                            <div className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl text-base font-bold shadow-md">
                               Test Case {index + 1}
                             </div>
                             <div className="h-2 w-2 bg-purple-400 rounded-full animate-pulse"></div>
@@ -892,21 +976,21 @@ export const ProblemPage = () => {
 
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-3">
-                              <h4 className="text-sm font-bold mb-3 text-emerald-700 dark:text-emerald-400 uppercase tracking-wide flex items-center gap-2">
+                              <h4 className="text-base font-bold mb-3 text-emerald-700 dark:text-emerald-400 uppercase tracking-wide flex items-center gap-2">
                                 <span className="w-3 h-3 bg-emerald-500 rounded-full"></span>
                                 Input:
                               </h4>
-                              <div className="bg-gradient-to-r from-slate-900 to-emerald-900 text-emerald-300 p-4 rounded-xl font-mono text-sm overflow-x-auto border border-emerald-600/30 shadow-inner">
+                              <div className="bg-emerald-50 dark:bg-emerald-900/30 text-emerald-900 dark:text-emerald-100 p-4 rounded-xl font-mono text-base overflow-x-auto border-2 border-emerald-200 dark:border-emerald-700 shadow-inner">
                                 {testcase?.input || "No input"}
                               </div>
                             </div>
 
                             <div className="space-y-3">
-                              <h4 className="text-sm font-bold mb-3 text-blue-700 dark:text-blue-400 uppercase tracking-wide flex items-center gap-2">
+                              <h4 className="text-base font-bold mb-3 text-blue-700 dark:text-blue-400 uppercase tracking-wide flex items-center gap-2">
                                 <span className="w-3 h-3 bg-blue-500 rounded-full"></span>
                                 Expected Output:
                               </h4>
-                              <div className="bg-gradient-to-r from-slate-900 to-blue-900 text-blue-300 p-4 rounded-xl font-mono text-sm overflow-x-auto border border-blue-600/30 shadow-inner">
+                              <div className="bg-blue-50 dark:bg-blue-900/30 text-blue-900 dark:text-blue-100 p-4 rounded-xl font-mono text-base overflow-x-auto border-2 border-blue-200 dark:border-blue-700 shadow-inner">
                                 {testcase?.output || "No output"}
                               </div>
                             </div>
