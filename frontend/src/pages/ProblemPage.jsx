@@ -574,31 +574,38 @@ function solution() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-violet-100 dark:from-slate-900 dark:via-blue-900 dark:to-indigo-900 font-inter relative overflow-hidden">
-      {/* Enhanced animated background elements */}
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/40 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 font-['Inter'] relative overflow-hidden">
+      {/* Premium animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-blue-500/30 to-indigo-500/30 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-cyan-500/30 to-blue-500/30 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 rounded-full blur-2xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-64 h-64 bg-gradient-to-br from-violet-500/20 to-blue-500/20 rounded-full blur-2xl animate-pulse"></div>
+        {/* Main gradient orbs */}
+        <div className="absolute -top-64 -right-64 w-128 h-128 bg-gradient-to-br from-blue-500/12 via-indigo-500/12 to-purple-500/12 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-64 -left-64 w-128 h-128 bg-gradient-to-br from-emerald-500/12 via-cyan-500/12 to-blue-500/12 rounded-full blur-3xl animate-pulse"></div>
+        
+        {/* Secondary accent orbs */}
+        <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-gradient-to-br from-violet-400/8 to-purple-400/8 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-cyan-400/8 to-blue-400/8 rounded-full blur-3xl animate-pulse"></div>
+        
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.02)_1px,transparent_1px)] bg-[size:64px_64px] dark:bg-[linear-gradient(rgba(199,210,254,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(199,210,254,0.015)_1px,transparent_1px)]"></div>
       </div>
       <DebugAIPanel />
-      <nav className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-3xl border-b border-purple-300/60 dark:border-purple-600/40 px-6 py-4 sticky top-0 z-50 shadow-xl shadow-purple-200/30 dark:shadow-purple-900/30">
+      <nav className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200/60 dark:border-slate-700/60 px-6 py-4 sticky top-0 z-50 shadow-xl shadow-slate-200/40 dark:shadow-slate-900/40">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
-                              <button
-                  onClick={() => {
-                    console.log("Back button clicked, navigating to dashboard");
-                    navigate("/dashboard", { replace: true });
-                  }}
-                  className="group flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-200 to-indigo-200 dark:from-blue-700/50 dark:to-indigo-700/50 text-blue-800 dark:text-blue-200 hover:from-blue-300 hover:to-indigo-300 dark:hover:from-blue-600/60 dark:hover:to-indigo-600/60 rounded-xl transition-all duration-300 font-semibold shadow-lg shadow-blue-300/40 hover:shadow-xl hover:shadow-blue-400/50 hover:scale-105 transform border border-blue-300/50"
-                  title="Go to Dashboard"
-                >
-                  <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" />
-                  <span className="hidden sm:inline">Dashboard</span>
-                </button>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => {
+                  console.log("Back button clicked, navigating to dashboard");
+                  navigate("/dashboard", { replace: true });
+                }}
+                className="group flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-slate-100 to-slate-200 dark:from-slate-700/50 dark:to-slate-800/50 text-slate-700 dark:text-slate-200 hover:from-blue-100 hover:to-indigo-100 dark:hover:from-blue-800/40 dark:hover:to-indigo-800/40 rounded-xl transition-all duration-300 font-semibold shadow-lg shadow-slate-200/40 hover:shadow-xl hover:shadow-blue-300/30 border border-slate-300/50 dark:border-slate-600/50"
+                title="Go to Dashboard"
+              >
+                <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" />
+                <span className="hidden sm:inline">Dashboard</span>
+              </motion.button>
               <Link
                 to="/dashboard"
                 className="flex items-center gap-3 text-slate-800 dark:text-slate-200 hover:text-purple-600 dark:hover:text-purple-400 transition-colors font-semibold"
