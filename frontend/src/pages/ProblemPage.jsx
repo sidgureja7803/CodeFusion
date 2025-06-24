@@ -302,7 +302,7 @@ function solution() {
                   </div>
                 )}
                 <div className="flex items-center gap-3 mb-6">
-                  <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                     Examples
                   </h3>
                   <div className="h-2 w-2 bg-purple-500 rounded-full animate-pulse"></div>
@@ -316,7 +316,7 @@ function solution() {
                       >
                         <div className="p-6">
                           <div className="flex items-center gap-2 mb-6">
-                            <div className="px-3 py-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg text-sm font-bold">
+                            <div className="px-3 py-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg text-sm font-bold">
                               Example {idx + 1}
                             </div>
                           </div>
@@ -574,14 +574,14 @@ function solution() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-100 via-purple-50 to-fuchsia-100 dark:from-slate-900 dark:via-purple-900 dark:to-indigo-900 font-inter relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-violet-100 dark:from-slate-900 dark:via-blue-900 dark:to-indigo-900 font-inter relative overflow-hidden">
       {/* Enhanced animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-purple-500/30 to-pink-500/30 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-blue-500/30 to-cyan-500/30 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-blue-500/30 to-indigo-500/30 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-cyan-500/30 to-blue-500/30 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 rounded-full blur-2xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-64 h-64 bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-full blur-2xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-64 h-64 bg-gradient-to-br from-violet-500/20 to-blue-500/20 rounded-full blur-2xl animate-pulse"></div>
       </div>
       <DebugAIPanel />
       <nav className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-3xl border-b border-purple-300/60 dark:border-purple-600/40 px-6 py-4 sticky top-0 z-50 shadow-xl shadow-purple-200/30 dark:shadow-purple-900/30">
@@ -593,7 +593,7 @@ function solution() {
                     console.log("Back button clicked, navigating to dashboard");
                     navigate("/dashboard", { replace: true });
                   }}
-                  className="group flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-purple-200 to-pink-200 dark:from-purple-700/50 dark:to-pink-700/50 text-purple-800 dark:text-purple-200 hover:from-purple-300 hover:to-pink-300 dark:hover:from-purple-600/60 dark:hover:to-pink-600/60 rounded-xl transition-all duration-300 font-semibold shadow-lg shadow-purple-300/40 hover:shadow-xl hover:shadow-purple-400/50 hover:scale-105 transform border border-purple-300/50"
+                  className="group flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-200 to-indigo-200 dark:from-blue-700/50 dark:to-indigo-700/50 text-blue-800 dark:text-blue-200 hover:from-blue-300 hover:to-indigo-300 dark:hover:from-blue-600/60 dark:hover:to-indigo-600/60 rounded-xl transition-all duration-300 font-semibold shadow-lg shadow-blue-300/40 hover:shadow-xl hover:shadow-blue-400/50 hover:scale-105 transform border border-blue-300/50"
                   title="Go to Dashboard"
                 >
                   <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" />
@@ -604,7 +604,7 @@ function solution() {
                 className="flex items-center gap-3 text-slate-800 dark:text-slate-200 hover:text-purple-600 dark:hover:text-purple-400 transition-colors font-semibold"
               >
                 <img src={logo} className="w-10 h-10" alt="CodeFusion" />
-                <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
+                <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
                   CodeFusion
                 </span>
               </Link>
@@ -661,8 +661,8 @@ function solution() {
                 <button
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 border ${
                     showAiChat 
-                      ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg border-purple-400" 
-                      : "bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-800/40 dark:to-pink-800/40 text-purple-700 dark:text-purple-200 hover:from-purple-200 hover:to-pink-200 dark:hover:from-purple-700/60 dark:hover:to-pink-700/60 border-purple-300 dark:border-purple-600"
+                      ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg border-blue-400" 
+                      : "bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-800/40 dark:to-indigo-800/40 text-blue-700 dark:text-blue-200 hover:from-blue-200 hover:to-indigo-200 dark:hover:from-blue-700/60 dark:hover:to-indigo-700/60 border-blue-300 dark:border-blue-600"
                   }`}
                   onClick={() => {
                     console.log("AI button clicked, current state:", showAiChat);
@@ -925,95 +925,13 @@ function solution() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 pb-6">
-        <div className="bg-gradient-to-br from-white/95 to-purple-50/90 dark:from-slate-800/95 dark:to-purple-900/90 backdrop-blur-3xl rounded-3xl shadow-2xl border border-purple-300/50 dark:border-purple-600/50">
-          <div className="p-6">
-            {submission ? (
+        {submission && (
+          <div className="bg-gradient-to-br from-white/95 to-blue-50/90 dark:from-slate-800/95 dark:to-blue-900/90 backdrop-blur-3xl rounded-3xl shadow-2xl border border-blue-300/50 dark:border-blue-600/50">
+            <div className="p-6">
               <Submission submission={submission} />
-            ) : (
-              <>
-                {/* Test Cases Header with Notice */}
-                <div className="bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-800/30 dark:to-pink-800/30 p-4 rounded-xl mb-6 border border-purple-300/50 dark:border-purple-600/50">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
-                    <span className="text-sm font-bold text-purple-700 dark:text-purple-300 uppercase tracking-wide">Test Cases Ready</span>
-                  </div>
-                  <p className="text-purple-600 dark:text-purple-400 text-sm">
-                    Review the test cases below before running your code. These will be used to validate your solution.
-                  </p>
-                </div>
-                
-                <div className="flex items-center justify-between mb-6 pb-4 border-b border-purple-200/50 dark:border-purple-700/50">
-                  <h3 className="text-2xl font-bold flex items-center gap-3 text-purple-800 dark:text-purple-200">
-                    <Terminal className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-                    Test Cases
-                  </h3>
-                  <div className="px-4 py-2 bg-gradient-to-r from-purple-200 to-pink-200 dark:from-purple-700/60 dark:to-pink-700/60 text-purple-800 dark:text-purple-200 rounded-full text-sm font-bold border border-purple-300 dark:border-purple-600 shadow-md">
-                    {problem?.testcases?.length || 0} cases available
-                  </div>
-                </div>
-
-                {problem?.testcases && problem.testcases.length > 0 ? (
-                  <div className="space-y-6">
-                    <div className="bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/40 dark:to-pink-900/40 p-4 rounded-xl border border-purple-300 dark:border-purple-600 mb-6">
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
-                        <span className="text-lg font-bold text-purple-800 dark:text-purple-200">Available Test Cases</span>
-                      </div>
-                      <p className="text-purple-700 dark:text-purple-300">
-                        These test cases will be used to validate your solution. Make sure your code handles all of them correctly.
-                      </p>
-                    </div>
-
-                    {problem.testcases.map((testcase, index) => (
-                      <div key={index} className="bg-white dark:bg-slate-800 rounded-2xl border-2 border-purple-300 dark:border-purple-600 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02]">
-                        <div className="p-6">
-                          <div className="flex items-center gap-3 mb-6">
-                            <div className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl text-base font-bold shadow-md">
-                              Test Case {index + 1}
-                            </div>
-                            <div className="h-2 w-2 bg-purple-400 rounded-full animate-pulse"></div>
-                          </div>
-
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="space-y-3">
-                              <h4 className="text-base font-bold mb-3 text-emerald-700 dark:text-emerald-400 uppercase tracking-wide flex items-center gap-2">
-                                <span className="w-3 h-3 bg-emerald-500 rounded-full"></span>
-                                Input:
-                              </h4>
-                              <div className="bg-emerald-50 dark:bg-emerald-900/30 text-emerald-900 dark:text-emerald-100 p-4 rounded-xl font-mono text-base overflow-x-auto border-2 border-emerald-200 dark:border-emerald-700 shadow-inner">
-                                {testcase?.input || "No input"}
-                              </div>
-                            </div>
-
-                            <div className="space-y-3">
-                              <h4 className="text-base font-bold mb-3 text-blue-700 dark:text-blue-400 uppercase tracking-wide flex items-center gap-2">
-                                <span className="w-3 h-3 bg-blue-500 rounded-full"></span>
-                                Expected Output:
-                              </h4>
-                              <div className="bg-blue-50 dark:bg-blue-900/30 text-blue-900 dark:text-blue-100 p-4 rounded-xl font-mono text-base overflow-x-auto border-2 border-blue-200 dark:border-blue-700 shadow-inner">
-                                {testcase?.output || "No output"}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center py-12">
-                    <Terminal className="w-16 h-16 mx-auto mb-4 text-slate-400 dark:text-slate-500" />
-                    <h4 className="text-lg font-medium mb-2 text-slate-600 dark:text-slate-400">
-                      No Test Cases Available
-                    </h4>
-                    <p className="text-sm text-slate-500 dark:text-slate-500">
-                      Test cases will appear here when the problem is loaded.
-                    </p>
-                  </div>
-                )}
-              </>
-            )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {showAiChat && (
