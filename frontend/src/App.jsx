@@ -23,6 +23,8 @@ import EditProblem from "./pages/EditProblem";
 import { ProblemPage } from "./pages/ProblemPage";
 import { Loader } from "./components/Loader";
 import RevisionProblems from "./pages/RevisionProblems";
+import DSASheets from "./pages/DSASheets";
+import DSASheetDetail from "./pages/DSASheetDetail";
 import { useThemeStore } from "./store/useThemeStore";
 import FirebaseDebugPanel from "./components/FirebaseDebugPanel";
 import gsap from "gsap";
@@ -165,6 +167,22 @@ function AppRoutes() {
           element={
             <ProtectedRoute>
               <Playlists />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dsasheets"
+          element={
+            <ProtectedRoute>
+              <DSASheets />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dsasheets/:sheetId"
+          element={
+            <ProtectedRoute>
+              <DSASheetDetail />
             </ProtectedRoute>
           }
         />

@@ -2,7 +2,7 @@ import {
   generateAIResponse,
   explainCode,
   generateProblem,
-} from "../libs/llama.lib.js";
+} from "../libs/blackbox.lib.js";
 import { db } from "../libs/db.js";
 
 export const getAIHelp = async (req, res) => {

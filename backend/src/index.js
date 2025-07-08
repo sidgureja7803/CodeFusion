@@ -13,6 +13,7 @@ import liveblocksRoutes from "./routes/liveblocks.route.js";
 import discussionRoutes from "./routes/discussion.routes.js";
 import metricsRoutes from "./routes/metrics.route.js";
 import firebaseAuthRoutes from "./routes/firebase-auth.routes.js";
+import dsaSheetsRoutes from "./routes/dsasheets.routes.js";
 import { connectDatabase, disconnectDatabase } from "./libs/db.js";
 import { setUserContext } from "./middleware/rls.middleware.js";
 
@@ -85,6 +86,7 @@ app.use("/api/v1/liveblocks", liveblocksRoutes);
 app.use("/api/v1/discussions", discussionRoutes);
 app.use("/api/v1/metrics", metricsRoutes);
 app.use("/api/v1/firebase-auth", firebaseAuthRoutes);
+app.use("/api/v1/dsasheets", dsaSheetsRoutes);
 
 // Start server with database connection
 const startServer = async () => {
