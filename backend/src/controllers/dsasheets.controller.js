@@ -1,4 +1,4 @@
-import { getAllDSASheets, getDSASheetById } from "../libs/dsasheets.lib.js";
+import { getAllDSASheets, getDSASheetById as getDSASheetByIdFromLib } from "../libs/dsasheets.lib.js";
 
 /**
  * Get all available DSA sheets
@@ -29,7 +29,7 @@ export const getDSASheets = async (req, res) => {
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  */
-export const getDSASheetById = async (req, res) => {
+export const getDSASheetByIdController = async (req, res) => {
   try {
     const { sheetId } = req.params;
     
@@ -40,7 +40,7 @@ export const getDSASheetById = async (req, res) => {
       });
     }
     
-    const sheet = await getDSASheetById(sheetId);
+    const sheet = await getDSASheetByIdFromLib(sheetId);
     
     return res.status(200).json({
       success: true,

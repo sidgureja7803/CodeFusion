@@ -61,32 +61,21 @@ const DSASheets = () => {
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white p-6">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col items-center mb-12 text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600"
-          >
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600 animate-fade-in">
             DSA Practice Sheets
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-xl text-gray-300 max-w-3xl"
-          >
+          </h1>
+          <p className="text-xl text-gray-300 max-w-3xl animate-fade-in-delay">
             Sharpen your coding skills with our curated collection of data structures and algorithms problems
-          </motion.p>
+          </p>
+          <p className="mt-4 text-md text-blue-400">Powered by Blackbox AI</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {sheets.map((sheet, index) => (
-            <motion.div
+            <div
               key={sheet.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.1 * index }}
-              className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden hover:border-blue-500/50 transition-all duration-300 shadow-lg hover:shadow-blue-500/20"
+              className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden hover:border-blue-500/50 transition-all duration-300 shadow-lg hover:shadow-blue-500/20 animate-fade-in"
+              style={{animationDelay: `${index * 100}ms`}}
             >
               <div className="p-6">
                 <div className="flex items-center mb-4">
@@ -110,7 +99,7 @@ const DSASheets = () => {
                   </button>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

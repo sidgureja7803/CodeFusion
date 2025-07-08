@@ -77,15 +77,27 @@ export const FirstPage = () => {
         </div>
         
         <div className="z-[2] absolute sm:top-0 top-24 left-0 w-full h-screen flex flex-col sm:justify-center items-center" ref={heroRef}>
-          <motion.div
-            className="flex items-center justify-center gap-2 text-white px-4 py-2 rounded-full uppercase bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 backdrop-blur-sm mb-6"
-            variants={badgeVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-          >
-            <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium">Real-time Collaboration</span>
-          </motion.div>
+          <div className="flex flex-col gap-3 items-center mb-6">
+            <motion.div
+              className="flex items-center justify-center gap-2 text-white px-4 py-2 rounded-full uppercase bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 backdrop-blur-sm"
+              variants={badgeVariants}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+            >
+              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium">Real-time Collaboration</span>
+            </motion.div>
+            
+            <motion.div
+              className="flex items-center justify-center gap-2 text-white px-4 py-2 rounded-full bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 backdrop-blur-sm"
+              variants={badgeVariants}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              transition={{ delay: 0.2 }}
+            >
+              <span className="text-sm font-medium">Powered by Blackbox AI</span>
+            </motion.div>
+          </div>
 
           <motion.p
             className="text-sm text-blue-200 mb-6 tracking-wide opacity-80"

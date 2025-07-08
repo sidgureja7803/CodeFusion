@@ -84,28 +84,20 @@ const DSASheetDetail = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white p-4 md:p-6">
       <div className="max-w-7xl mx-auto">
-        <motion.div 
-          initial={{ opacity: 0, y: -10 }} 
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-6"
-        >
+        <div className="mb-6 animate-fade-in">
           <button
             onClick={handleGoBack}
             className="flex items-center text-blue-400 hover:text-blue-300 transition-colors"
           >
             <FaArrowLeft className="mr-2" /> Back to DSA Sheets
           </button>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4 }}
-          className="mb-8 md:mb-12"
-        >
+        <div className="mb-8 md:mb-12 animate-fade-in">
           <h1 className="text-3xl md:text-4xl font-bold mb-3">{sheet.title}</h1>
           <p className="text-gray-400 text-lg">{sheet.description}</p>
-        </motion.div>
+          <p className="mt-3 text-blue-400 text-sm">Powered by Blackbox AI</p>
+        </div>
 
         <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden shadow-lg">
           <div className="p-4 border-b border-gray-700 bg-gray-800/80">
