@@ -59,7 +59,7 @@ app.use(express.urlencoded({ extended: true }));
 // Add RLS middleware to set user context for database operations
 app.use(setUserContext);
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
   res.send("Can y'all crack the code ? 🃏");
