@@ -1,26 +1,57 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 // eslint-disable-next-line no-unused-vars
-import { motion, useInView } from "framer-motion";
-import { Code2, Users, Zap, Brain, GitBranch, Sparkles, Play, Clock, Shield, Database } from "lucide-react";
+import { motion, useInView, useAnimation } from "framer-motion";
+import { Code2, Users, Zap, Brain, GitBranch, Sparkles, Play, Clock, Shield, Database, Check, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const Features = () => {
   const sectionRef = useRef(null);
+  const controls = useAnimation();
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
+  
+  useEffect(() => {
+    if (isInView) {
+      controls.start("visible");
+    }
+  }, [isInView, controls]);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      }
+    }
+  };
+  
+  const titleVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.7,
+        ease: [0.25, 0.1, 0.25, 1.0], // Custom easing function
+      }
+    }
+  };
+  
   const cardVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: (i) => ({
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
-        delay: i * 0.2,
-        ease: "easeOut"
+        duration: 0.5,
+        delay: i * 0.1,
+        ease: [0.25, 0.1, 0.25, 1.0]
       }
     }),
     hover: {
-      y: -10,
-      scale: 1.02,
+      y: -8,
+      boxShadow: "0 25px 50px rgba(0, 0, 0, 0.2)",
       transition: {
         duration: 0.3,
         ease: "easeOut"
@@ -30,172 +61,221 @@ export const Features = () => {
 
   const features = [
     {
-      icon: <Play className="w-8 h-8" />,
-      title: "Judge0 Code Execution",
-      description: "Execute your code instantly with the robust Judge0 API. Support for multiple programming languages with real-time compilation and execution.",
-      gradient: "from-emerald-500 to-teal-500",
-      delay: 0,
-      tech: "Judge0 API"
+      icon: <Code2 className="w-6 h-6" />,
+      title: "Code Execution Engine",
+      description: "Professional-grade execution environment powered by Judge0, supporting 40+ programming languages with real-time compilation and testing.",
+      gradient: "from-[#0070f3] to-[#3b82f6]",
+      tech: "Judge0 API",
+      benefits: [
+        "Support for 40+ programming languages",
+        "Memory-safe execution environment",
+        "Comprehensive test case framework"
+      ]
     },
     {
-      icon: <Brain className="w-8 h-8" />,
-      title: "GPT-5 AI Assistant",
-      description: "Get intelligent help from GPT-5, OpenAI's most advanced model. Problem understanding, solution approaches, debugging, and code explanations.",
-      gradient: "from-purple-500 to-pink-500",
-      delay: 0.1,
-      tech: "OpenAI GPT-5"
+      icon: <Brain className="w-6 h-6" />,
+      title: "GPT-5 AI Assistance",
+      description: "Get intelligent help from OpenAI's most advanced model. Tackle complex problems with AI-powered suggestions, debugging assistance, and explanations.",
+      gradient: "from-[#9333ea] to-[#a855f7]",
+      tech: "OpenAI GPT-5",
+      benefits: [
+        "Context-aware code suggestions",
+        "Intelligent debugging assistance",
+        "Step-by-step problem explanations"
+      ]
     },
     {
-      icon: <Users className="w-8 h-8" />,
-      title: "Real-Time Collaboration",
-      description: "Code together live with Liveblocks integration. See each other's cursors, share sessions, and collaborate seamlessly in real-time.",
-      gradient: "from-blue-500 to-cyan-500",
-      delay: 0.2,
-      tech: "Liveblocks API"
+      icon: <Users className="w-6 h-6" />,
+      title: "Enterprise Collaboration",
+      description: "Industry-leading collaborative coding experience with Liveblocks. See teammates' cursors, share sessions, and work together in real-time.",
+      gradient: "from-[#3b82f6] to-[#06b6d4]",
+      tech: "Liveblocks API",
+      benefits: [
+        "Real-time cursor and selection sync",
+        "Conflict-free editing experience",
+        "Seamless session sharing"
+      ]
     },
     {
-      icon: <Database className="w-8 h-8" />,
-      title: "LeetCode-Style Platform",
-      description: "Solve coding problems just like LeetCode. Complete problem sets, track your progress, and build your coding skills systematically.",
-      gradient: "from-orange-500 to-red-500",
-      delay: 0.3,
-      tech: "PostgreSQL + Prisma"
+      icon: <Database className="w-6 h-6" />,
+      title: "Professional Problem Bank",
+      description: "Access a growing library of coding challenges ranging from beginner to expert levels, carefully crafted to build your skills systematically.",
+      gradient: "from-[#f59e0b] to-[#f97316]",
+      tech: "PostgreSQL + Prisma",
+      benefits: [
+        "Curated industry-relevant problems",
+        "Comprehensive test coverage",
+        "Detailed solution explanations"
+      ]
     },
     {
-      icon: <Clock className="w-8 h-8" />,
-      title: "Submission History & Analytics",
-      description: "Visualize your coding journey with detailed submission history. Track your progress over time, just like GitHub contributions.",
-      gradient: "from-indigo-500 to-blue-500",
-      delay: 0.4,
-      tech: "Analytics Dashboard"
+      icon: <Clock className="w-6 h-6" />,
+      title: "Advanced Analytics Dashboard",
+      description: "Track your coding journey with comprehensive analytics. Visualize progress, identify improvement areas, and build consistent coding habits.",
+      gradient: "from-[#4f46e5] to-[#6366f1]",
+      tech: "Analytics Dashboard",
+      benefits: [
+        "Visual performance tracking",
+        "Skill gap analysis",
+        "Personalized improvement recommendations"
+      ]
     },
     {
-      icon: <Sparkles className="w-8 h-8" />,
-      title: "Modern Animated UI",
-      description: "Experience a world-class interface with smooth animations using GSAP and Framer Motion. Professional design meets delightful interactions.",
-      gradient: "from-yellow-500 to-orange-500",
-      delay: 0.5,
-      tech: "GSAP + Framer Motion"
-    },
-    {
-      icon: <Shield className="w-8 h-8" />,
-      title: "Firebase Authentication",
-      description: "Secure login with Firebase. Support for Google and GitHub OAuth, ensuring your coding sessions are safe and personalized.",
-      gradient: "from-red-500 to-pink-500",
-      delay: 0.6,
-      tech: "Firebase Auth"
-    },
-    {
-      icon: <GitBranch className="w-8 h-8" />,
-      title: "Problem Playlists",
-      description: "Organize your coding practice with custom playlists. Create themed collections, save problems for revision, and structure your learning.",
-      gradient: "from-green-500 to-emerald-500",
-      delay: 0.7,
-      tech: "Custom Organization"
+      icon: <Sparkles className="w-6 h-6" />,
+      title: "Enterprise-Grade UI",
+      description: "Experience a world-class interface designed for professional developers, with smooth animations, intuitive workflows, and exceptional attention to detail.",
+      gradient: "from-[#10b981] to-[#34d399]",
+      tech: "GSAP + Framer Motion",
+      benefits: [
+        "Optimized for productivity",
+        "Responsive on all devices",
+        "Accessibility-first design"
+      ]
     }
   ];
 
   return (
     <div
       id="features"
-      className="min-h-screen p-4 relative overflow-hidden"
+      className="min-h-screen relative overflow-hidden bg-[#0a101f] py-24"
       ref={sectionRef}
     >
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-        {/* Animated grid pattern */}
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDYwIDAgTCAwIDAgMCA2MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMDMpIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-60 animate-pulse"></div>
+      {/* Professional Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0a192f] via-[#112240] to-[#0a192f]">
+        {/* Subtle grid pattern */}
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDYwIDAgTCAwIDAgMCA2MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMDIpIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30"></div>
         
-        {/* Floating orbs */}
-        <div className="absolute top-20 left-20 w-32 h-32 bg-purple-500/20 rounded-full blur-xl animate-bounce"></div>
-        <div className="absolute bottom-20 right-20 w-40 h-40 bg-blue-500/20 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-pink-500/20 rounded-full blur-xl animate-ping"></div>
+        {/* Subtle glow effects */}
+        <div className="absolute top-1/4 right-[25%] w-[350px] h-[350px] bg-[#0070f3]/10 rounded-full blur-[120px] opacity-30"></div>
+        <div className="absolute bottom-1/4 left-[20%] w-[300px] h-[300px] bg-[#9333ea]/10 rounded-full blur-[100px] opacity-20"></div>
       </div>
 
       {/* Content Layer */}
-      <div className="relative z-10 h-full w-full flex flex-col items-center py-20">
+      <div className="container mx-auto max-w-7xl px-6 relative z-10">
         <motion.div
-          initial={{ y: -30, opacity: 0 }}
-          animate={isInView ? { y: 0, opacity: 1 } : { y: -30, opacity: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center mb-16"
+          variants={containerVariants}
+          initial="hidden"
+          animate={controls}
+          className="mb-20"
         >
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-300 bg-clip-text text-transparent">
-            Powerful Features{" "}
-            <span className="italic text-purple-400 block mt-2">Built for Coders</span>
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            Everything you need for competitive programming, learning, and collaborative coding in one platform.
-          </p>
-          
-          <div className="flex flex-wrap justify-center gap-4 mt-8 text-sm text-purple-300">
-            <span className="px-3 py-1 bg-purple-500/20 rounded-full border border-purple-500/30">Judge0 API</span>
-            <span className="px-3 py-1 bg-blue-500/20 rounded-full border border-blue-500/30">Liveblocks</span>
-            <span className="px-3 py-1 bg-pink-500/20 rounded-full border border-pink-500/30">OpenAI GPT-5</span>
-            <span className="px-3 py-1 bg-green-500/20 rounded-full border border-green-500/30">Firebase</span>
+          <div className="flex flex-col items-center justify-center text-center mb-6">
+            <motion.div variants={titleVariants} className="mb-4 inline-block">
+              <span className="bg-gradient-to-r from-[#0070f3]/10 to-[#9333ea]/10 backdrop-blur-sm border border-blue-500/10 px-4 py-1 rounded-md text-blue-200 text-sm font-medium">Industry-Leading Tools</span>
+            </motion.div>
+            
+            <motion.h1 variants={titleVariants} className="text-4xl md:text-5xl font-bold mb-6 text-white">
+              <span className="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">Powerful Features</span>{" "}
+              <span className="text-3xl md:text-4xl block mt-1 bg-gradient-to-r from-[#0070f3] via-[#9333ea] to-[#0070f3] bg-clip-text text-transparent font-normal">Built for Professional Developers</span>
+            </motion.h1>
+            
+            <motion.p variants={titleVariants} className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Everything you need for competitive programming, learning, and collaborative coding in one seamless platform.
+            </motion.p>
           </div>
+          
+          <motion.div variants={titleVariants} className="flex flex-wrap justify-center gap-3 mt-10 mb-4">
+            <span className="px-4 py-1.5 bg-[#0070f3]/10 rounded-full border border-[#0070f3]/20 text-sm text-blue-300 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-[#0070f3] rounded-full"></span>
+              Judge0 API
+            </span>
+            <span className="px-4 py-1.5 bg-[#9333ea]/10 rounded-full border border-[#9333ea]/20 text-sm text-purple-300 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-[#9333ea] rounded-full"></span>
+              OpenAI GPT-5
+            </span>
+            <span className="px-4 py-1.5 bg-[#3b82f6]/10 rounded-full border border-[#3b82f6]/20 text-sm text-blue-300 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-[#3b82f6] rounded-full"></span>
+              Liveblocks
+            </span>
+            <span className="px-4 py-1.5 bg-[#10b981]/10 rounded-full border border-[#10b981]/20 text-sm text-green-300 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-[#10b981] rounded-full"></span>
+              Firebase
+            </span>
+          </motion.div>
         </motion.div>
 
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl px-4">
+        {/* Modern Features Grid */}
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          animate={controls}
+        >
           {features.map((feature, index) => (
             <motion.div
               key={index}
-              className="group relative bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-6 hover:border-white/30 transition-all duration-500"
-              style={{
-                background: "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%)",
-                backdropFilter: "blur(20px)",
-                boxShadow: "0 8px 32px rgba(0,0,0,0.1)"
-              }}
+              className="group relative bg-gradient-to-br from-[#112240]/80 to-[#0a192f]/80 backdrop-blur-lg border border-blue-500/10 rounded-xl p-8 hover:border-blue-500/30 transition-all duration-300"
               variants={cardVariants}
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-              whileHover="hover"
               custom={index}
+              whileHover="hover"
             >
-              {/* Tech badge */}
-              <div className="absolute top-4 right-4 text-xs text-purple-300 bg-purple-500/20 px-2 py-1 rounded-full border border-purple-500/30">
+              {/* Modern Tech badge */}
+              <div className="absolute top-6 right-6 text-xs font-medium px-2.5 py-1 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 text-blue-300">
                 {feature.tech}
               </div>
 
               {/* Icon */}
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-all duration-500 shadow-lg`}>
+              <div className={`w-14 h-14 rounded-lg bg-gradient-to-br ${feature.gradient} flex items-center justify-center text-white mb-5 shadow-lg group-hover:scale-110 transition-all duration-300`}>
                 {feature.icon}
               </div>
 
               {/* Content */}
-              <h3 className="text-lg font-bold text-white mb-3 group-hover:text-purple-200 transition-colors duration-300">
+              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-200 transition-colors duration-300">
                 {feature.title}
               </h3>
               
-              <p className="text-gray-400 leading-relaxed text-sm group-hover:text-gray-300 transition-colors duration-300">
+              <p className="text-gray-400 leading-relaxed mb-6 group-hover:text-gray-300 transition-colors duration-300">
                 {feature.description}
               </p>
-
-              {/* Hover effect overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+              
+              {/* Feature benefit list */}
+              <ul className="space-y-2 mb-6">
+                {feature.benefits && feature.benefits.map((benefit, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-gray-400">
+                    <Check size={16} className="text-blue-400 mt-0.5 flex-shrink-0" />
+                    <span>{benefit}</span>
+                  </li>
+                ))}
+              </ul>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Bottom CTA */}
+        {/* Professional Bottom CTA */}
         <motion.div
-          initial={{ y: 50, opacity: 0 }}
-          animate={isInView ? { y: 0, opacity: 1 } : { y: 50, opacity: 0 }}
-          transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-          className="mt-20 text-center"
+          variants={containerVariants}
+          initial="hidden"
+          animate={controls}
+          className="mt-24 text-center bg-gradient-to-r from-[#112240]/60 to-[#0a192f]/60 p-10 md:p-16 rounded-2xl border border-blue-500/10 backdrop-blur-md"
         >
-          <p className="text-xl text-gray-300 mb-8">
-            Ready to level up your coding game?
-          </p>
-          <motion.button
-            whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(147, 51, 234, 0.3)" }}
-            whileTap={{ scale: 0.95 }}
-            className="px-12 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-2xl text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
-          >
-            Start Coding Now
-          </motion.button>
+          <motion.h2 variants={titleVariants} className="text-3xl md:text-4xl font-bold text-white mb-4">
+            Ready to level up your coding experience?
+          </motion.h2>
+          
+          <motion.p variants={titleVariants} className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
+            Join CodeFusion today and experience the perfect blend of collaborative coding and GPT-5 powered assistance.
+          </motion.p>
+          
+          <motion.div variants={titleVariants} className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/sign-up">
+              <motion.button
+                whileHover={{ scale: 1.03, boxShadow: "0 15px 30px rgba(0, 112, 243, 0.3)" }}
+                whileTap={{ scale: 0.97 }}
+                className="px-8 py-4 bg-[#0070f3] text-white font-semibold rounded-lg text-lg flex items-center justify-center gap-2 min-w-[200px]"
+              >
+                Get Started <ArrowRight size={18} />
+              </motion.button>
+            </Link>
+            
+            <Link to="/features">
+              <motion.button
+                whileHover={{ scale: 1.03, backgroundColor: "rgba(255,255,255,0.1)" }}
+                whileTap={{ scale: 0.97 }}
+                className="px-8 py-4 bg-transparent border border-white/20 text-white font-semibold rounded-lg text-lg min-w-[200px]"
+              >
+                Learn More
+              </motion.button>
+            </Link>
+          </motion.div>
         </motion.div>
       </div>
     </div>

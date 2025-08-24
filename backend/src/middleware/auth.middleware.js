@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { db } from "../libs/db.js";
 import rateLimit from "express-rate-limit";
+import { getCookieConfig } from "./cors.middleware.js";
 
 // Rate limiting for authentication endpoints
 export const authRateLimit = rateLimit({
@@ -179,12 +180,8 @@ export const refreshTokenMiddleware = async (req, res, next) => {
         { expiresIn: "7d" }
       );
 
-      res.cookie("jwt", newToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-      });
+      // Use consistent cookie config helper
+      res.cookie("jwt", newToken, getCookieConfig());
     }
 
     next();

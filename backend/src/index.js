@@ -1,7 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import cors from "cors";
 import authRoutes from "./routes/auth.routes.js";
 import problemRoutes from "./routes/problem.routes.js";
 import executionRoutes from "./routes/code-execution.routes.js";
@@ -16,44 +15,24 @@ import firebaseAuthRoutes from "./routes/firebase-auth.routes.js";
 import dsaSheetsRoutes from "./routes/dsasheets.routes.js";
 import { connectDatabase, disconnectDatabase } from "./libs/db.js";
 import { setUserContext } from "./middleware/rls.middleware.js";
+import { configureCors } from "./middleware/cors.middleware.js";
 
 dotenv.config();
 
 const app = express();
 
-// Convert comma-separated domains from .env to an array
-const allowedOrigins = [
-  ...(process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(',').map(url => url.trim()) : []),
-  "http://localhost:5174"
-];
-
-// Log allowed origins for debugging
-console.log("🔗 Allowed CORS Origins:", allowedOrigins);
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    console.log(`🌐 CORS Request from origin: ${origin}`);
-    if (!origin || allowedOrigins.includes(origin)) {
-      console.log(`✅ CORS allowed for origin: ${origin}`);
-      callback(null, true);
-    } else {
-      console.log(`❌ CORS blocked for origin: ${origin}`);
-      console.log(`📋 Allowed origins: ${allowedOrigins.join(', ')}`);
-      callback(new Error(`Not allowed by CORS. Origin: ${origin} is not in allowed list: ${allowedOrigins.join(', ')}`));
-    }
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
-
-
-
-// Apply CORS middleware before other middleware
-app.use(cors(corsOptions));
+// Configure enhanced CORS with improved cookie handling
+configureCors(app);
 
 app.use(express.json());
-app.use(cookieParser());
+// Configure cookie parser with extended options for better cookie handling
+app.use(cookieParser(process.env.COOKIE_SECRET));
+
+// Add debug middleware to log all requests
+app.use((req, res, next) => {
+  console.log(`📝 ${req.method} ${req.path} - Origin: ${req.headers.origin || 'No origin'} - ${new Date().toISOString()}`);
+  next();
+});
 app.use(express.urlencoded({ extended: true }));
 
 // Add RLS middleware to set user context for database operations

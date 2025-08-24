@@ -27,6 +27,7 @@ import DSASheets from "./pages/DSASheets";
 import DSASheetDetail from "./pages/DSASheetDetail";
 import { useThemeStore } from "./store/useThemeStore";
 import FirebaseDebugPanel from "./components/FirebaseDebugPanel";
+import TestAuth from "./pages/TestAuth";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -204,6 +205,8 @@ function AppRoutes() {
             }
           />
         </Route>
+        {/* Debug route for testing authentication */}
+        <Route path="/test-auth" element={<TestAuth />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>

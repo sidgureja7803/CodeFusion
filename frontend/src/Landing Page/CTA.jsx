@@ -1,11 +1,20 @@
-import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import React, { useRef, useEffect } from "react";
+// eslint-disable-next-line no-unused-vars
+import { motion, useInView, useAnimation } from "framer-motion";
 import "../styles/CTA.css";
 import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 export const CTA = () => {
   const sectionRef = useRef(null);
+  const controls = useAnimation();
   const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
+  
+  useEffect(() => {
+    if (isInView) {
+      controls.start("visible");
+    }
+  }, [isInView, controls]);
 
   // Animation variants
   const containerVariants = {
@@ -56,160 +65,195 @@ export const CTA = () => {
   };
 
   return (
-    <div id="cta" className="min-h-[90vh] p-4" ref={sectionRef}>
-      <div className="relative min-h-[90vh] rounded-4xl overflow-hidden flex items-center justify-center">
-        {/* Background with animation */}
+    <div id="cta" className="min-h-[90vh] py-24 px-4 bg-[#0a101f]" ref={sectionRef}>
+      <div className="container mx-auto max-w-7xl relative min-h-[70vh] rounded-3xl overflow-hidden flex items-center justify-center">
+        {/* Professional Background */}
         <motion.div
-          initial={{ scale: 1.2, opacity: 0.8 }}
-          animate={
-            isInView ? { scale: 1, opacity: 1 } : { scale: 1.1, opacity: 0.8 }
-          }
-          transition={{ duration: 2 }}
-          className="absolute w-full h-full bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900"
-          style={{
-            backgroundImage: "linear-gradient(-45deg, #0f172a, #1e1b4b, #312e81, #1e293b, #0f172a)",
+          initial={{ scale: 1.05, opacity: 0.9 }}
+          animate={controls}
+          variants={{
+            hidden: { scale: 1.05, opacity: 0.9 },
+            visible: { scale: 1, opacity: 1 }
           }}
+          transition={{ duration: 1.5 }}
+          className="absolute w-full h-full bg-gradient-to-br from-[#0a192f] via-[#112240] to-[#0a192f] border border-blue-500/10 rounded-3xl"
         />
+        
+        {/* Subtle grid pattern */}
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDYwIDAgTCAwIDAgMCA2MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMDIpIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30 rounded-3xl"></div>
+        
+        {/* Subtle glow effects */}
+        <div className="absolute top-1/4 right-1/4 w-[300px] h-[300px] bg-[#0070f3]/10 rounded-full blur-[100px] opacity-30"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-[250px] h-[250px] bg-[#9333ea]/10 rounded-full blur-[80px] opacity-20"></div>
 
-        {/* Floating Code Snippets */}
+        {/* Modern Floating Code Snippets */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {/* Code Snippet 1 - Top Left */}
           <motion.div 
-            className="absolute top-20 left-10 bg-gray-900/90 backdrop-blur-sm rounded-lg p-4 border border-blue-500/30 shadow-2xl max-w-xs"
-            initial={{ opacity: 0, y: 100, scale: 0.8, rotation: -10 }}
-            animate={isInView ? { opacity: 1, y: 0, scale: 1, rotation: 0 } : { opacity: 0, y: 100, scale: 0.8, rotation: -10 }}
-            transition={{ duration: 1.2, delay: 0.5 }}
+            className="absolute top-20 left-10 md:left-20 bg-[#112240]/80 backdrop-blur-sm rounded-lg p-4 border border-[#0070f3]/30 shadow-2xl max-w-xs hidden md:block"
+            variants={{
+              hidden: { opacity: 0, y: 100, scale: 0.8, rotation: -5 },
+              visible: { opacity: 1, y: 0, scale: 1, rotation: 0 }
+            }}
+            initial="hidden"
+            animate={controls}
+            transition={{ duration: 0.8, delay: 0.5 }}
           >
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-              <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <span className="text-xs text-gray-400 ml-2">collaboration.js</span>
+              <div className="w-2.5 h-2.5 bg-red-500 rounded-full"></div>
+              <div className="w-2.5 h-2.5 bg-yellow-500 rounded-full"></div>
+              <div className="w-2.5 h-2.5 bg-green-500 rounded-full"></div>
+              <span className="text-xs text-gray-400 ml-2 font-mono">collaboration.js</span>
             </div>
-            <div className="text-xs font-mono space-y-1">
-              <div className="text-purple-400">const team = new CodeFusion();</div>
-              <div className="text-blue-300">team.collaborate().realTime();</div>
-              <div className="text-green-400">// Magic happens here ✨</div>
+            <div className="text-xs font-mono space-y-1.5 text-left">
+              <div className="text-[#5ccfe6]">const team = new CodeFusion();</div>
+              <div className="text-[#82aaff]">team.collaborate().realTime();</div>
+              <div className="text-[#c3e88d]">// Seamless collaboration ✨</div>
             </div>
           </motion.div>
 
           {/* Code Snippet 2 - Top Right */}
           <motion.div 
-            className="absolute top-32 right-16 bg-gray-900/90 backdrop-blur-sm rounded-lg p-4 border border-purple-500/30 shadow-2xl max-w-xs"
-            initial={{ opacity: 0, y: 100, scale: 0.8, rotation: 10 }}
-            animate={isInView ? { opacity: 1, y: 0, scale: 1, rotation: 0 } : { opacity: 0, y: 100, scale: 0.8, rotation: 10 }}
-            transition={{ duration: 1.2, delay: 0.8 }}
+            className="absolute top-32 right-16 md:right-28 bg-[#112240]/80 backdrop-blur-sm rounded-lg p-4 border border-[#9333ea]/30 shadow-2xl max-w-xs hidden md:block"
+            variants={{
+              hidden: { opacity: 0, y: 100, scale: 0.8, rotation: 5 },
+              visible: { opacity: 1, y: 0, scale: 1, rotation: 0 }
+            }}
+            initial="hidden"
+            animate={controls}
+            transition={{ duration: 0.8, delay: 0.7 }}
           >
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-              <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <span className="text-xs text-gray-400 ml-2">ai-assistant.py</span>
+              <div className="w-2.5 h-2.5 bg-red-500 rounded-full"></div>
+              <div className="w-2.5 h-2.5 bg-yellow-500 rounded-full"></div>
+              <div className="w-2.5 h-2.5 bg-green-500 rounded-full"></div>
+              <span className="text-xs text-gray-400 ml-2 font-mono">ai-assistant.py</span>
             </div>
-            <div className="text-xs font-mono space-y-1">
-              <div className="text-orange-400">def solve_problem():</div>
-              <div className="text-cyan-300">    ai = LlamaAssistant()</div>
-              <div className="text-pink-400">    return ai.help_debug() 🤖</div>
+            <div className="text-xs font-mono space-y-1.5 text-left">
+              <div className="text-[#f78c6c]">def solve_problem():</div>
+              <div className="text-[#c792ea]">    ai = GPT5Assistant()</div>
+              <div className="text-[#89ddff]">    return ai.help_debug() 🧠</div>
             </div>
           </motion.div>
 
           {/* Code Snippet 3 - Bottom Left */}
           <motion.div 
-            className="absolute bottom-32 left-20 bg-gray-900/90 backdrop-blur-sm rounded-lg p-4 border border-cyan-500/30 shadow-2xl max-w-xs"
-            initial={{ opacity: 0, y: -100, scale: 0.8, rotation: -5 }}
-            animate={isInView ? { opacity: 1, y: 0, scale: 1, rotation: 0 } : { opacity: 0, y: -100, scale: 0.8, rotation: -5 }}
-            transition={{ duration: 1.2, delay: 1.1 }}
+            className="absolute bottom-32 left-20 bg-[#112240]/80 backdrop-blur-sm rounded-lg p-4 border border-[#3b82f6]/30 shadow-2xl max-w-xs hidden md:block"
+            variants={{
+              hidden: { opacity: 0, y: -60, scale: 0.8, rotation: -5 },
+              visible: { opacity: 1, y: 0, scale: 1, rotation: 0 }
+            }}
+            initial="hidden"
+            animate={controls}
+            transition={{ duration: 0.8, delay: 0.9 }}
           >
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-              <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <span className="text-xs text-gray-400 ml-2">deploy.sh</span>
+              <div className="w-2.5 h-2.5 bg-red-500 rounded-full"></div>
+              <div className="w-2.5 h-2.5 bg-yellow-500 rounded-full"></div>
+              <div className="w-2.5 h-2.5 bg-green-500 rounded-full"></div>
+              <span className="text-xs text-gray-400 ml-2 font-mono">execute.js</span>
             </div>
-            <div className="text-xs font-mono space-y-1">
-              <div className="text-yellow-400"># Deploy with confidence</div>
-              <div className="text-green-300">git push origin main</div>
-              <div className="text-blue-400">echo "🚀 Deployed!"</div>
+            <div className="text-xs font-mono space-y-1.5 text-left">
+              <div className="text-[#ffcb6b]"># Run with confidence</div>
+              <div className="text-[#82aaff]">await judge0.execute(code)</div>
+              <div className="text-[#c3e88d]">console.log("✅ Executed!")</div>
             </div>
           </motion.div>
 
           {/* Code Snippet 4 - Bottom Right */}
           <motion.div 
-            className="absolute bottom-20 right-32 bg-gray-900/90 backdrop-blur-sm rounded-lg p-4 border border-pink-500/30 shadow-2xl max-w-xs"
-            initial={{ opacity: 0, y: -100, scale: 0.8, rotation: 5 }}
-            animate={isInView ? { opacity: 1, y: 0, scale: 1, rotation: 0 } : { opacity: 0, y: -100, scale: 0.8, rotation: 5 }}
-            transition={{ duration: 1.2, delay: 1.4 }}
+            className="absolute bottom-20 right-32 bg-[#112240]/80 backdrop-blur-sm rounded-lg p-4 border border-[#0070f3]/30 shadow-2xl max-w-xs hidden md:block"
+            variants={{
+              hidden: { opacity: 0, y: -60, scale: 0.8, rotation: 5 },
+              visible: { opacity: 1, y: 0, scale: 1, rotation: 0 }
+            }}
+            initial="hidden"
+            animate={controls}
+            transition={{ duration: 0.8, delay: 1.1 }}
           >
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-              <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <span className="text-xs text-gray-400 ml-2">success.java</span>
+              <div className="w-2.5 h-2.5 bg-red-500 rounded-full"></div>
+              <div className="w-2.5 h-2.5 bg-yellow-500 rounded-full"></div>
+              <div className="w-2.5 h-2.5 bg-green-500 rounded-full"></div>
+              <span className="text-xs text-gray-400 ml-2 font-mono">success.java</span>
             </div>
-            <div className="text-xs font-mono space-y-1">
-              <div className="text-purple-400">public class Success {`{`}</div>
-              <div className="text-blue-300">  System.out.println("We did it!");</div>
-              <div className="text-green-400">{"}"} // 🎉</div>
+            <div className="text-xs font-mono space-y-1.5 text-left">
+              <div className="text-[#c792ea]">public class Success {`{`}</div>
+              <div className="text-[#82aaff]">  System.out.println("Success!");</div>
+              <div className="text-[#c3e88d]">{"} // 🚀"}</div>
             </div>
           </motion.div>
         </div>
 
-        {/* Content Layer */}
-        <div className="relative cta-box z-10 h-full w-full ">
+        {/* Professional Content Layer */}
+        <div className="relative z-10 h-full w-full py-8">
           <motion.div
-            className="text-center max-w-4xl mx-auto px-4 flex flex-col items-center justify-center h-full"
+            className="text-center max-w-4xl mx-auto px-6 flex flex-col items-center justify-center h-full"
             variants={containerVariants}
             initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
+            animate={controls}
           >
+            <motion.div variants={itemVariants} className="mb-4 inline-block">
+              <span className="bg-gradient-to-r from-[#0070f3]/10 to-[#9333ea]/10 backdrop-blur-sm border border-blue-500/10 px-4 py-1 rounded-md text-blue-200 text-sm font-medium">Experience the Future</span>
+            </motion.div>
+            
             <motion.h2
-              className="sm:text-6xl text-4xl font-bold text-white mb-4"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white"
               variants={itemVariants}
             >
-              Ready to <span className="italic">Embrace</span> the Night?
+              <span className="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">Elevate Your Coding</span>{" "}
+              <span className="text-3xl md:text-4xl lg:text-5xl block mt-2 bg-gradient-to-r from-[#0070f3] via-[#9333ea] to-[#0070f3] bg-clip-text text-transparent font-normal">with GPT-5 Powered Assistance</span>
             </motion.h2>
 
             <motion.p
-              className="sm:text-xl text-lg text-[#ffffff]/70 mb-8"
+              className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl"
               variants={itemVariants}
             >
-              Where collaborative coding meets AI-powered innovation.{" "}
-              <br />
-              Join the future of development with CodeFusion.
+              Where collaborative coding meets AI-powered innovation. Join thousands of developers building the future with CodeFusion.
             </motion.p>
 
-            <motion.div className="cta-buttons" variants={itemVariants}>
-              <motion.button
-                className="cta-button primary-button"
-                variants={buttonVariants}
-                whileHover="hover"
-                whileTap="tap"
+            <motion.div className="flex flex-col sm:flex-row gap-4 justify-center mb-8" variants={itemVariants}>
+              <Link to="/sign-up">
+                <motion.button
+                  variants={buttonVariants}
+                  whileHover="hover"
+                  whileTap="tap"
+                  className="px-8 py-4 bg-[#0070f3] text-white font-semibold rounded-lg text-lg flex items-center justify-center gap-2 min-w-[200px]"
+                >
+                  Get Started <ArrowRight size={18} />
+                </motion.button>
+              </Link>
+              
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://youtu.be/Rczr7Lizdy0?feature=shared"
               >
-                <Link to="sign-up"> ✦&nbsp; Start Training</Link>
-              </motion.button>
-
-              <motion.button
-                className="cta-button secondary-button"
-                variants={buttonVariants}
-                whileHover="hover"
-                whileTap="tap"
-              >
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://youtu.be/Rczr7Lizdy0?feature=shared"
+                <motion.button
+                  variants={buttonVariants}
+                  whileHover="hover"
+                  whileTap="tap"
+                  className="px-8 py-4 bg-transparent border border-white/20 text-white font-semibold rounded-lg text-lg min-w-[200px]"
                 >
                   Watch Demo
-                </a>
-              </motion.button>
+                </motion.button>
+              </a>
             </motion.div>
 
-            <motion.p
-              className="text-sm text-[#f1f1f1]/60 "
-              variants={itemVariants}
-            >
-              No credit card required. Cancel anytime.
-            </motion.p>
+            <motion.div className="flex flex-wrap gap-4 justify-center" variants={itemVariants}>
+              <div className="flex items-center gap-2 text-gray-400 text-sm">
+                <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                <span>No credit card required</span>
+              </div>
+              <div className="flex items-center gap-2 text-gray-400 text-sm">
+                <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                <span>Cancel anytime</span>
+              </div>
+              <div className="flex items-center gap-2 text-gray-400 text-sm">
+                <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                <span>24/7 support</span>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>
