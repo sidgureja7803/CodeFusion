@@ -3,7 +3,7 @@ import React, { useRef, useEffect } from "react";
 import { motion, useInView, useAnimation, AnimatePresence } from "framer-motion";
 import ParallaxStickers from "../components/ParallaxStickers";
 import { Link } from "react-router-dom";
-import { ArrowRight, Code, Users, GitMerge, Star, Zap, Shield, Code2 } from "lucide-react";
+import { ArrowRight, Code, Users, GitMerge, Star, Zap, Shield, Code2, Check } from "lucide-react";
 
 export const FirstPage = () => {
   const sectionRef = useRef(null);
@@ -194,16 +194,6 @@ export const FirstPage = () => {
                 </motion.button>
               </Link>
               
-              <Link to="/features">
-                <motion.button
-                  className="px-8 py-3.5 bg-gray-800/60 backdrop-blur-sm text-gray-200 border border-gray-700 rounded-lg font-medium hover:bg-gray-800/80 transition-all duration-300"
-                  variants={buttonVariants}
-                  whileHover="hover"
-                  whileTap="tap"
-                >
-                  Explore Features
-                </motion.button>
-              </Link>
             </motion.div>
             
             <motion.div variants={itemVariants} className="flex items-center gap-2 text-gray-400 text-sm">

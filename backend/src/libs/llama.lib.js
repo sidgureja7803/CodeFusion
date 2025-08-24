@@ -52,7 +52,7 @@ ${
 }
 `;
 
-    console.log("Making API call to Novita AI...");
+    console.log("Making API call to AIMLAPI.COM...");
     const completion = await openai.chat.completions.create({
       messages: [
         { role: "system", content: systemPrompt },
@@ -97,7 +97,7 @@ export const explainCode = async (code, language) => {
       throw new Error("NOVITA_API_KEY is not configured");
     }
 
-    console.log("Making API call to Novita AI for code explanation...");
+    console.log("Making API call to AIMLAPI.COM for code explanation...");
     const completion = await openai.chat.completions.create({
       messages: [
         {

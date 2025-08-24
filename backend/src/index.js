@@ -83,7 +83,7 @@ const startServer = async () => {
     const server = app.listen(PORT, () => {
       console.log(`🌟 CodeFusion Server is running on port ${PORT}`);
       console.log(`🔗 Frontend URL: ${process.env.FRONTEND_URL || "http://localhost:5173"}`);
-      console.log(`🤖 AI Provider: Novita AI (LLaMA 3-8B)`);
+      console.log(`🤖 AI Provider: AIMLAPI.COM (GPT-5)`);
       console.log("✅ All systems ready!");
     });
 

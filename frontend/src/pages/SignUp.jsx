@@ -235,21 +235,12 @@ export const SignUp = () => {
 
       {/* Content */}
       <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-8">
-        <motion.div
-          className="signup-form w-full max-w-md"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="signup-form w-full max-w-md">
           {/* Logo and Header */}
           <div className="text-center mb-8">
-            <motion.div
-              className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl mb-4"
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
+            <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl mb-4">
               <Code2 className="w-6 h-6 text-white" />
-            </motion.div>
+            </div>
             
             <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-2">
               Create Account
@@ -469,7 +460,7 @@ export const SignUp = () => {
               </Link>
             </p>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );
