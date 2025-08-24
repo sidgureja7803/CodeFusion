@@ -24,7 +24,7 @@ const app = express();
 // Convert comma-separated domains from .env to an array
 const allowedOrigins = [
   ...(process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(',').map(url => url.trim()) : []),
-  "http://localhost:5173"
+  "http://localhost:5174"
 ];
 
 // Log allowed origins for debugging

@@ -3,17 +3,17 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// Blackbox API configuration
-const apiKey = process.env.BLACKBOX_API_KEY;
+// GPT-5 API configuration from AIML.com
+const apiKey = process.env.BLACKBOX_API_KEY; // Using the same env variable as requested
 
-// OpenAI API configuration for Blackbox API
+// OpenAI API configuration for AIML.com GPT-5 API
 const openai = new OpenAI({
   apiKey: apiKey,
-  baseURL: "https://www.blackbox.ai/api/v1", // Blackbox API endpoint
+  baseURL: "https://api.aiml.com/v1", // AIML.com API endpoint
 });
 
 /**
- * Generate an AI response for code assistance using Blackbox API
+ * Generate an AI response for code assistance using AIML.com GPT-5 API
  * @param {string} prompt - The user's query
  * @param {Object} context - Additional context (problem details, user code, etc.)
  * @returns {Promise<string>} AI response
@@ -22,7 +22,7 @@ export const generateAIResponse = async (prompt, context) => {
   try {
     // Check if API key is available
     if (!apiKey) {
-      throw new Error("BLACKBOX_API_KEY is not configured");
+      throw new Error("API key for AIML.com GPT-5 is not configured");
     }
 
     const { problem, userCode, language } = context;
@@ -52,13 +52,13 @@ ${
 }
 `;
 
-    console.log("Making API call to Blackbox AI...");
+    console.log("Making API call to AIML.com GPT-5...");
     const completion = await openai.chat.completions.create({
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user", content: userPrompt },
       ],
-      model: "blackbox-code-assistant", // Using Blackbox's code assistant model
+      model: "gpt-5", // Using AIML.com's GPT-5 model
       stream: false,
       temperature: 0.5, // Balanced between creativity and accuracy
       max_tokens: 1024, // Reasonable response length
@@ -72,7 +72,7 @@ ${
     
     // More specific error messages
     if (error.message.includes('401')) {
-      throw new Error("Invalid API key - please check your BLACKBOX_API_KEY");
+      throw new Error("Invalid API key - please check your API key for AIML.com GPT-5");
     } else if (error.message.includes('429')) {
       throw new Error("API rate limit exceeded - please try again later");
     } else if (error.message.includes('503') || error.message.includes('502')) {
@@ -84,7 +84,7 @@ ${
 };
 
 /**
- * Generate code explanations using Blackbox API
+ * Generate code explanations using AIML.com GPT-5 API
  * @param {string} code - Code to explain
  * @param {string} language - Programming language
  * @returns {Promise<string>} Explanation
@@ -93,10 +93,10 @@ export const explainCode = async (code, language) => {
   try {
     // Check if API key is available
     if (!apiKey) {
-      throw new Error("BLACKBOX_API_KEY is not configured");
+      throw new Error("API key for AIML.com GPT-5 is not configured");
     }
 
-    console.log("Making API call to Blackbox AI for code explanation...");
+    console.log("Making API call to AIML.com GPT-5 for code explanation...");
     const completion = await openai.chat.completions.create({
       messages: [
         {
@@ -109,7 +109,7 @@ export const explainCode = async (code, language) => {
           content: `Explain this ${language} code step by step:\n\`\`\`${language.toLowerCase()}\n${code}\n\`\`\``,
         },
       ],
-      model: "blackbox-code-assistant",
+      model: "gpt-5",
       stream: false,
       temperature: 0.3, // More factual for explanations
       max_tokens: 1024,
@@ -123,7 +123,7 @@ export const explainCode = async (code, language) => {
     
     // More specific error messages
     if (error.message.includes('401')) {
-      throw new Error("Invalid API key - please check your BLACKBOX_API_KEY");
+      throw new Error("Invalid API key - please check your API key for AIML.com GPT-5");
     } else if (error.message.includes('429')) {
       throw new Error("API rate limit exceeded - please try again later");
     } else {
@@ -133,7 +133,7 @@ export const explainCode = async (code, language) => {
 };
 
 /**
- * Generate a complete coding problem using Blackbox API
+ * Generate a complete coding problem using AIML.com GPT-5 API
  * @param {Object} options - Problem generation options
  * @param {string} options.topic - Main topic/concept for the problem
  * @param {string} options.difficulty - Problem difficulty (EASY, MEDIUM, HARD)
@@ -147,10 +147,10 @@ export const generateProblem = async (options) => {
 
     // Check if API key is available
     if (!apiKey) {
-      throw new Error("BLACKBOX_API_KEY is not configured");
+      throw new Error("API key for AIML.com GPT-5 is not configured");
     }
 
-    console.log("Making API call to Blackbox AI for problem generation...");
+    console.log("Making API call to AIML.com GPT-5 for problem generation...");
     const completion = await openai.chat.completions.create({
       messages: [
         {
@@ -217,7 +217,7 @@ export const generateProblem = async (options) => {
           `,
         },
       ],
-      model: "blackbox-code-assistant",
+      model: "gpt-5",
       stream: false,
       temperature: 0.7,
       max_tokens: 3000,

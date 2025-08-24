@@ -1,13 +1,13 @@
 # 🚀 CodeFusion
 
-**CodeFusion** is a modern, LeetCode-like collaborative coding platform where users can solve problems, run code with Judge0, get AI-powered help (Llama3-70b-8192 via Novita.ai), and collaborate in real-time with Liveblocks. The platform features a professional, animated UI using GSAP and Framer Motion for a world-class user experience.
+**CodeFusion** is a modern, LeetCode-like collaborative coding platform where users can solve problems, run code with Judge0, get AI-powered help (powered by GPT-5), and collaborate in real-time with Liveblocks. The platform features a professional, animated UI using GSAP and Framer Motion for a world-class user experience.
 
-This project was built for the hackathon organized by [lablab.ai](https://lablab.ai/) in collaboration with Trae IDE and [Novita.ai](https://novita.ai/).
+This project was built for the **Co-Creating with GPT-5** hackathon organized by [lablab.ai](https://lablab.ai/event/co-creating-with-gpt-5).
 
 ## ✨ Features
 
 - **Code Execution:** Run code with the robust **Judge0 API**.
-- **AI Assistance:** Get help from the **Llama3-70b-8192** model via **Novita.ai** for problem understanding, solution approach, and debugging.
+- **AI Assistance:** Get help from **GPT-5**, OpenAI's most advanced model yet, for problem understanding, solution approach, and debugging.
 - **Real-time Collaboration:** Work together live, see each other's cursors, and share sessions with **Liveblocks**.
 - **Submission History:** Visualize your coding activity, just like GitHub/LeetCode.
 - **Professional UI:** Modern, animated interface using **GSAP** and **Framer Motion** for smooth transitions and delightful effects.
@@ -20,7 +20,7 @@ This project was built for the hackathon organized by [lablab.ai](https://lablab
 - **Backend:** Node.js, Express.js
 - **Database:** PostgreSQL (via Prisma)
 - **Code Execution:** Judge0 API
-- **AI Model:** Llama3-70b-8192 via Novita.ai API
+- **AI Model:** GPT-5 via OpenAI API
 - **Real-time Collaboration:** Liveblocks API
 - **Authentication:** Firebase
 

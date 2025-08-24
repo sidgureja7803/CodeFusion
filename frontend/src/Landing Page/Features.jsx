@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+// eslint-disable-next-line no-unused-vars
 import { motion, useInView } from "framer-motion";
 import { Code2, Users, Zap, Brain, GitBranch, Sparkles, Play, Clock, Shield, Database } from "lucide-react";
 
@@ -38,11 +39,11 @@ export const Features = () => {
     },
     {
       icon: <Brain className="w-8 h-8" />,
-      title: "Llama3-70B AI Assistant",
-      description: "Get intelligent help from Llama3-70b-8192 model via Novita.ai. Problem understanding, solution approaches, debugging, and code explanations.",
+      title: "GPT-5 AI Assistant",
+      description: "Get intelligent help from GPT-5, OpenAI's most advanced model. Problem understanding, solution approaches, debugging, and code explanations.",
       gradient: "from-purple-500 to-pink-500",
       delay: 0.1,
-      tech: "Novita.ai + Llama3"
+      tech: "OpenAI GPT-5"
     },
     {
       icon: <Users className="w-8 h-8" />,
@@ -131,7 +132,7 @@ export const Features = () => {
           <div className="flex flex-wrap justify-center gap-4 mt-8 text-sm text-purple-300">
             <span className="px-3 py-1 bg-purple-500/20 rounded-full border border-purple-500/30">Judge0 API</span>
             <span className="px-3 py-1 bg-blue-500/20 rounded-full border border-blue-500/30">Liveblocks</span>
-            <span className="px-3 py-1 bg-pink-500/20 rounded-full border border-pink-500/30">Llama3-70B</span>
+            <span className="px-3 py-1 bg-pink-500/20 rounded-full border border-pink-500/30">OpenAI GPT-5</span>
             <span className="px-3 py-1 bg-green-500/20 rounded-full border border-green-500/30">Firebase</span>
           </div>
         </motion.div>
