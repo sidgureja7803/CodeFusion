@@ -111,32 +111,54 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
-  console.log("Logging in user:", { email, password });
+  console.log("Login attempt:", { email, hasPassword: !!password });
 
   try {
-    const user = await db.user.findUnique({
-      where: { email },
-    });
-
-    if (!user) {
-      return res.status(401).json({ message: "User not found" });
-    }
-
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-
-    if (!isPasswordValid) {
-      return res.status(401).json({
+    // Basic validation
+    if (!email || !password) {
+      console.log("❌ Login failed: Missing required fields");
+      return res.status(400).json({ 
         success: false,
-        message: "Incorrect password. Please try again.",
+        message: "Email and password are required",
+        code: "MISSING_CREDENTIALS"
       });
     }
 
+    // Find user by email
+    console.log("🔍 Looking up user by email...");
+    const user = await db.user.findUnique({
+      where: { email: email.toLowerCase() },
+    });
+
+    if (!user) {
+      console.log("❌ Login failed: User not found with email:", email);
+      return res.status(401).json({ 
+        success: false,
+        message: "User not found",
+        code: "USER_NOT_FOUND"
+      });
+    }
+
+    console.log("✅ User found, validating password...");
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      console.log("❌ Login failed: Incorrect password for user:", user.email);
+      return res.status(401).json({
+        success: false,
+        message: "Incorrect password. Please try again.",
+        code: "INVALID_PASSWORD"
+      });
+    }
+
+    console.log("✅ Password valid, generating token...");
     // Generate JWT token
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
 
     // Update last login and streak
+    console.log("📊 Updating user streak data...");
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
@@ -162,9 +184,13 @@ export const login = async (req, res) => {
     if (isYesterday) {
       // Continued streak
       streakCount += 1;
+      console.log(`✨ User streak continued: ${streakCount} days`);
     } else if (!isSameDay) {
       // Streak broken, unless this is the first login of today
       streakCount = 1;
+      console.log("🔄 User streak reset to 1 day");
+    } else {
+      console.log("👍 User already logged in today, streak unchanged");
     }
 
     // Update max streak if current streak is higher
@@ -183,6 +209,7 @@ export const login = async (req, res) => {
     console.log("🍪 Setting JWT cookie with config:", getCookieConfig());
     res.cookie("jwt", token, getCookieConfig());
 
+    console.log("✅ Login successful for user:", user.email);
     res.status(200).json({
       success: true,
       message: "User logged in successfully",
@@ -191,11 +218,31 @@ export const login = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        streakCount,
+        maxStreakCount
       },
     });
   } catch (error) {
-    console.error("Error logging in user:", error);
-    return res.status(500).json({ message: "Error logging in user" });
+    console.error("💥 Error logging in user:", { 
+      message: error.message,
+      code: error.code,
+      stack: error.stack
+    });
+    
+    // Database connection issues
+    if (error.code === "P1001" || error.code === "P1002") {
+      return res.status(503).json({
+        success: false,
+        message: "Database service unavailable, please try again later",
+        code: "DB_ERROR"
+      });
+    }
+    
+    return res.status(500).json({ 
+      success: false,
+      message: "Error logging in user",
+      code: "SERVER_ERROR"
+    });
   }
 };
 
@@ -362,10 +409,37 @@ export const updateProfile = async (req, res) => {
     });
 
   } catch (error) {
-    console.error("Error updating profile:", error);
-    res.status(500).json({ 
-      success: false, 
-      message: "Error updating profile" 
+    console.error("Error updating profile:", { 
+      message: error.message,
+      code: error.code,
+      stack: error.stack,
+      prismaError: error.code === "P2002" ? "Unique constraint failed" : undefined
+    });
+
+    // Handle Prisma unique constraint violation
+    if (error.code === "P2002") {
+      return res.status(400).json({
+        success: false,
+        message: "Email already exists",
+        code: "EMAIL_EXISTS",
+        field: "email"
+      });
+    }
+
+    // Database connection issues
+    if (error.code === "P1001" || error.code === "P1002") {
+      return res.status(503).json({
+        success: false,
+        message: "Database service unavailable, please try again later",
+        code: "DB_ERROR"
+      });
+    }
+
+    // Generic server error with more details in logs
+    return res.status(500).json({
+      success: false,
+      message: "An error occurred while updating profile",
+      code: "SERVER_ERROR"
     });
   }
 };

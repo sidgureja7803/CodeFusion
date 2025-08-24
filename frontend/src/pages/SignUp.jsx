@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
 import { Eye, EyeOff, Mail, Lock, User, Code2, ArrowRight, CheckCircle, AlertCircle, Check, X, Github } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 import SocialLoginButtons from "../components/SocialLoginButtons";
@@ -102,26 +101,55 @@ export const SignUp = () => {
     }
   };
 
+  const [errorState, setErrorState] = useState({
+    visible: false,
+    message: '',
+    type: '' // 'email', 'server', 'validation'
+  });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
+    // Reset error state
+    setErrorState({ visible: false, message: '', type: '' });
+    
     // Validation checks
     if (!formData.name.trim()) {
+      setErrorState({
+        visible: true,
+        message: "Please enter your full name!",
+        type: 'validation'
+      });
       toast.error("Please enter your full name!");
       return;
     }
 
     if (!formData.email.trim()) {
-      toast.error("Please enter your email!");
+      setErrorState({
+        visible: true,
+        message: "Please enter your email address!",
+        type: 'email'
+      });
+      toast.error("Please enter your email address!");
       return;
     }
 
     if (!passwordStrength.isValid) {
+      setErrorState({
+        visible: true,
+        message: "Please create a stronger password that meets the requirements.",
+        type: 'validation'
+      });
       toast.error("Please create a stronger password!");
       return;
     }
 
     if (formData.password !== formData.confirmPassword) {
+      setErrorState({
+        visible: true,
+        message: "Passwords don't match! Please check and try again.",
+        type: 'validation'
+      });
       toast.error("Passwords don't match!");
       return;
     }
@@ -138,8 +166,29 @@ export const SignUp = () => {
       navigate("/dashboard");
     } catch (error) {
       console.error("Signup error:", error);
-      const errorMessage = error.response?.data?.message || error.message || "Sign up failed. Please try again.";
-      toast.error(errorMessage);
+      let errorMessage = error.response?.data?.message || error.message || "Sign up failed. Please try again.";
+      let errorType = 'server';
+      
+      // Handle specific error cases
+      if (errorMessage.toLowerCase().includes('already exists') || 
+          errorMessage.toLowerCase().includes('email already exists')) {
+        errorMessage = "This email address is already registered. Please sign in instead.";
+        errorType = 'email';
+      } else if (error.response?.status === 500) {
+        errorMessage = "Server error occurred. Please try again later.";
+      } else if (error.message === "Network Error") {
+        errorMessage = "Cannot connect to server. Please check your internet connection.";
+      }
+      
+      setErrorState({
+        visible: true,
+        message: errorMessage,
+        type: errorType
+      });
+      
+      toast.error(errorMessage, {
+        duration: 5000 // Show error for longer
+      });
     } finally {
       setIsLoading(false);
     }
@@ -269,11 +318,17 @@ export const SignUp = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-800 dark:text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                    className={`w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-700 border ${errorState.visible && errorState.type === 'email' ? 'border-red-500 dark:border-red-500' : 'border-slate-200 dark:border-slate-600'} rounded-lg text-slate-800 dark:text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 ${errorState.visible && errorState.type === 'email' ? 'focus:ring-red-500' : 'focus:ring-purple-500'} focus:border-transparent transition-all`}
                     placeholder="Enter your email"
                     required
                   />
                 </div>
+                {errorState.visible && errorState.type === 'email' && (
+                  <div className="flex items-center gap-2 mt-1 text-red-500 text-sm">
+                    <AlertCircle className="w-4 h-4" />
+                    <span>{errorState.message}</span>
+                  </div>
+                )}
               </div>
 
               {/* Password Field */}
@@ -361,6 +416,16 @@ export const SignUp = () => {
                   </div>
                 )}
               </div>
+
+              {/* Error Message Display */}
+              {errorState.visible && errorState.type === 'server' && (
+                <div className="p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg">
+                  <div className="flex items-center gap-2 text-red-600 dark:text-red-400">
+                    <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                    <span className="font-medium">{errorState.message}</span>
+                  </div>
+                </div>
+              )}
 
               {/* Submit Button */}
               <button
