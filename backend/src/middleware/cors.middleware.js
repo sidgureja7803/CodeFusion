@@ -64,8 +64,9 @@ export const configureCors = (app) => {
   // Apply CORS middleware
   app.use(cors(corsOptions));
 
-  // Add special handling for OPTIONS preflight requests
-  app.options('*', cors(corsOptions));
+  // Handle OPTIONS preflight requests - use properly formatted route pattern
+  // This fixes the path-to-regexp error
+  app.options('/*', cors(corsOptions));
 
   console.log("✅ Enhanced CORS middleware configured");
 };

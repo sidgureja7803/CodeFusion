@@ -3,6 +3,7 @@ import { db } from "../libs/db.js";
 import { Role } from "../generated/prisma/index.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { getCookieConfig } from "../middleware/cors.middleware.js";
 dotenv.config();
 
 export const register = async (req, res) => {
@@ -72,13 +73,9 @@ export const register = async (req, res) => {
     });
     console.log("✅ JWT generated");
 
-    // Set cookie
-    res.cookie("jwt", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    });
+    // Set cookie using consistent helper
+    console.log("🍪 Setting JWT cookie with config:", getCookieConfig());
+    res.cookie("jwt", token, getCookieConfig());
 
     console.log("🎉 Registration successful!");
     
@@ -183,12 +180,9 @@ export const login = async (req, res) => {
       },
     });
 
-    res.cookie("jwt", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    });
+    // Set cookie using consistent helper
+    console.log("🍪 Setting JWT cookie with config:", getCookieConfig());
+    res.cookie("jwt", token, getCookieConfig());
 
     res.status(200).json({
       success: true,
@@ -209,11 +203,9 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   try {
-    res.clearCookie("jwt", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-    });
+    // Clear cookie using consistent helper
+    console.log("🍪 Clearing JWT cookie with config:", getCookieConfig());
+    res.clearCookie("jwt", getCookieConfig());
     res.status(200).json({
       success: true,
       message: "User logged out successfully",
