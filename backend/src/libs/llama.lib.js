@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const baseURL = "https://api.novita.ai/v3/openai";
-const apiKey = process.env.NOVITA_API_KEY;
+const apiKey = process.env.AIMLAPI_GPT5;
 const model = "meta-llama/llama-3.1-8b-instruct";
 
 const openai = new OpenAI({
@@ -22,7 +22,7 @@ export const generateAIResponse = async (prompt, context) => {
   try {
     // Check if API key is available
     if (!apiKey) {
-      throw new Error("NOVITA_API_KEY is not configured");
+      throw new Error("AIMLAPI_GPT5 is not configured");
     }
 
     const { problem, userCode, language } = context;
@@ -73,7 +73,7 @@ ${
     
     // More specific error messages
     if (error.message.includes('401')) {
-      throw new Error("Invalid API key - please check your NOVITA_API_KEY");
+      throw new Error("Invalid API key - please check your AIMLAPI_GPT5");
     } else if (error.message.includes('429')) {
       throw new Error("API rate limit exceeded - please try again later");
     } else if (error.message.includes('503') || error.message.includes('502')) {
@@ -94,7 +94,7 @@ export const explainCode = async (code, language) => {
   try {
     // Check if API key is available
     if (!apiKey) {
-      throw new Error("NOVITA_API_KEY is not configured");
+      throw new Error("AIMLAPI_GPT5 is not configured");
     }
 
     console.log("Making API call to AIMLAPI.COM for code explanation...");
@@ -124,7 +124,7 @@ export const explainCode = async (code, language) => {
     
     // More specific error messages
     if (error.message.includes('401')) {
-      throw new Error("Invalid API key - please check your NOVITA_API_KEY");
+      throw new Error("Invalid API key - please check your AIMLAPI_GPT5");
     } else if (error.message.includes('429')) {
       throw new Error("API rate limit exceeded - please try again later");
     } else {
