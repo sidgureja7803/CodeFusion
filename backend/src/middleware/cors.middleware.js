@@ -7,10 +7,8 @@ import cors from 'cors';
  */
 export const configureCors = (app) => {
   // Get allowed origins from environment
-  const allowedOrigins = [
-    ...(process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(',').map(url => url.trim()) : []),
-    "http://localhost:5173"
-  ];
+  const allowedOrigins = process.env.FRONTEND_URL.split(",");
+
 
   // Log allowed origins for debugging
   console.log("🔗 Configured CORS Origins:", allowedOrigins);

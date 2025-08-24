@@ -39,7 +39,6 @@ export const firebaseLogin = async (req, res) => {
         data: {
           email: email,
           name: name || firebaseUser.displayName || 'User',
-          image: picture || firebaseUser.photoURL,
           password: 'firebase_auth', // Placeholder for Firebase users
           role: 'USER',
           firebaseUid: uid,
@@ -54,7 +53,6 @@ export const firebaseLogin = async (req, res) => {
           data: {
             firebaseUid: uid,
             authProvider: providerId,
-            image: picture || firebaseUser.photoURL || user.image,
             lastLogin: new Date(),
           },
         });
@@ -95,7 +93,6 @@ export const firebaseLogin = async (req, res) => {
         id: user.id,
         name: user.name,
         email: user.email,
-        image: user.image,
         role: user.role,
         authProvider: user.authProvider,
         streakCount: user.streakCount,
@@ -161,7 +158,6 @@ export const linkFirebaseAccount = async (req, res) => {
         id: updatedUser.id,
         name: updatedUser.name,
         email: updatedUser.email,
-        image: updatedUser.image,
         role: updatedUser.role,
         authProvider: updatedUser.authProvider,
       },
@@ -197,7 +193,6 @@ export const unlinkFirebaseAccount = async (req, res) => {
         id: updatedUser.id,
         name: updatedUser.name,
         email: updatedUser.email,
-        image: updatedUser.image,
         role: updatedUser.role,
       },
     });

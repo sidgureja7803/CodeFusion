@@ -1,8 +1,10 @@
 import axios from "axios";
 
-export const API_URL = import.meta.env.MODE === "production"
-  ? import.meta.env.VITE_API_URL || import.meta.env.VITE_DEV_BACKEND_URL
-  : import.meta.env.VITE_API_URL || "http://localhost:3000/api/v1";
+export const API_URL =
+  import.meta.env.MODE === "production"
+    ? import.meta.env.VITE_API_URL
+    : "http://localhost:3000/api/v1";
+
 
 // Create axios instance with enhanced configuration
 export const axiosInstance = axios.create({

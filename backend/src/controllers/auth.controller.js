@@ -87,7 +87,6 @@ export const register = async (req, res) => {
         name: newUser.name,
         email: newUser.email,
         role: newUser.role,
-        image: newUser.image,
       },
     });
 
@@ -192,7 +191,6 @@ export const login = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
-        image: user.image,
       },
     });
   } catch (error) {
@@ -343,7 +341,6 @@ export const updateProfile = async (req, res) => {
         name: true,
         email: true,
         role: true,
-        image: true,
         gender: true,
         dateOfBirth: true,
         bio: true,
