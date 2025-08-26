@@ -52,7 +52,8 @@ export const register = async (req, res) => {
       name: name.trim(),
       email: email.toLowerCase().trim(),
       password: hashedPassword,
-      role: "USER" // Use string instead of enum for now
+      role: "USER", // Use string instead of enum for now
+      emailVerified: false // Set email as not verified initially
     };
     console.log("User data to create:", { ...userData, password: "[HIDDEN]" });
 
@@ -62,26 +63,20 @@ export const register = async (req, res) => {
     
     console.log("✅ User created with ID:", newUser.id);
 
-    // Generate token
-    console.log("🔑 Generating JWT...");
-    if (!process.env.JWT_SECRET) {
-      throw new Error("JWT_SECRET is not defined");
-    }
+    // Import OTP service and generate OTP
+    const { generateOTP, sendVerificationEmail } = await import("../services/otpService.js");
     
-    const token = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
-    });
-    console.log("✅ JWT generated");
+    // Generate and send OTP
+    const otp = generateOTP(email);
+    await sendVerificationEmail(email, name, otp);
+    console.log("✉️ Verification email sent to:", email);
 
-    // Set cookie using consistent helper
-    console.log("🍪 Setting JWT cookie with config:", getCookieConfig());
-    res.cookie("jwt", token, getCookieConfig());
-
-    console.log("🎉 Registration successful!");
+    console.log("🎉 Registration successful! OTP verification required.");
     
     return res.status(201).json({
       success: true,
-      message: "User created successfully",
+      message: "User registered successfully. Please verify your email with the OTP sent to your inbox.",
+      requireVerification: true,
       user: {
         id: newUser.id,
         name: newUser.name,
@@ -151,7 +146,32 @@ export const login = async (req, res) => {
       });
     }
 
-    console.log("✅ Password valid, generating token...");
+    // Check if email is verified
+    if (user.emailVerified === false) {
+      console.log("⚠️ Login attempt with unverified email:", user.email);
+      
+      // Import OTP service and generate new OTP
+      const { generateOTP, sendVerificationEmail } = await import("../services/otpService.js");
+      
+      // Generate and send a new OTP
+      const otp = generateOTP(email);
+      await sendVerificationEmail(email, user.name, otp);
+      
+      console.log("✉️ New verification email sent to:", email);
+      
+      return res.status(403).json({
+        success: false,
+        message: "Email not verified. A new verification code has been sent to your email.",
+        requireVerification: true,
+        user: {
+          id: user.id,
+          email: user.email,
+          name: user.name
+        }
+      });
+    }
+
+    console.log("✅ Email verified, generating token...");
     // Generate JWT token
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
@@ -218,6 +238,7 @@ export const login = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        emailVerified: user.emailVerified,
         streakCount,
         maxStreakCount
       },

@@ -1,15 +1,19 @@
-const crypto = require('crypto');
-const nodemailer = require('nodemailer');
+import crypto from 'crypto';
+import nodemailer from 'nodemailer';
+import { db } from '../libs/db.js';
 
 // In-memory OTP storage (replace with database in production)
 const otpStore = new Map();
 
 /**
  * Generate a random 6-digit OTP
+ * @param {string} email - User's email address 
  * @returns {string} - 6-digit OTP
  */
-const generateOTP = () => {
-  return crypto.randomInt(100000, 999999).toString();
+export const generateOTP = (email) => {
+  const otp = crypto.randomInt(100000, 999999).toString();
+  storeOTP(email, otp);
+  return otp;
 };
 
 /**
@@ -20,74 +24,66 @@ const generateOTP = () => {
  */
 const storeOTP = (email, otp, expiryMinutes = 10) => {
   const expiryTime = Date.now() + expiryMinutes * 60 * 1000;
-  otpStore.set(email, { otp, expiryTime });
+  otpStore.set(email.toLowerCase(), { otp, expiryTime });
   
   // Set up automatic cleanup after expiry
   setTimeout(() => {
-    if (otpStore.has(email) && otpStore.get(email).otp === otp) {
-      otpStore.delete(email);
+    if (otpStore.has(email.toLowerCase()) && otpStore.get(email.toLowerCase()).otp === otp) {
+      otpStore.delete(email.toLowerCase());
     }
   }, expiryMinutes * 60 * 1000);
 };
 
 /**
- * Verify OTP for a user
+ * Send verification email with OTP to user
  * @param {string} email - User's email address
- * @param {string} otp - OTP to verify
- * @returns {boolean} - Whether OTP is valid
- */
-const verifyOTP = (email, otp) => {
-  if (!otpStore.has(email)) {
-    return false;
-  }
-  
-  const storedData = otpStore.get(email);
-  
-  if (Date.now() > storedData.expiryTime) {
-    otpStore.delete(email);
-    return false;
-  }
-  
-  if (storedData.otp !== otp) {
-    return false;
-  }
-  
-  // OTP verified successfully, remove it from store
-  otpStore.delete(email);
-  return true;
-};
-
-/**
- * Send OTP email to user
- * @param {string} email - User's email address
+ * @param {string} name - User's name
  * @param {string} otp - OTP to send
  * @returns {Promise<boolean>} - Whether email was sent successfully
  */
-const sendOTPEmail = async (email, otp) => {
+export const sendVerificationEmail = async (email, name, otp) => {
   try {
-    // Create a test account for development
-    // In production, use your own SMTP server credentials
-    const testAccount = await nodemailer.createTestAccount();
+    let testAccount;
+    let transportConfig;
     
-    const transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST || 'smtp.ethereal.email',
-      port: process.env.EMAIL_PORT || 587,
-      secure: process.env.EMAIL_SECURE === 'true',
-      auth: {
-        user: process.env.EMAIL_USER || testAccount.user,
-        pass: process.env.EMAIL_PASS || testAccount.pass,
-      },
-    });
+    // Check for environment variables
+    if (process.env.EMAIL_HOST && process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+      transportConfig = {
+        host: process.env.EMAIL_HOST,
+        port: parseInt(process.env.EMAIL_PORT || '587'),
+        secure: process.env.EMAIL_SECURE === 'true',
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS,
+        },
+      };
+    } else {
+      // Use Ethereal for development if no email config
+      testAccount = await nodemailer.createTestAccount();
+      transportConfig = {
+        host: 'smtp.ethereal.email',
+        port: 587,
+        secure: false,
+        auth: {
+          user: testAccount.user,
+          pass: testAccount.pass,
+        },
+      };
+    }
+    
+    const transporter = nodemailer.createTransport(transportConfig);
+    
+    const fromAddress = process.env.EMAIL_FROM || '"CodeFusion" <verify@codefusion.dev>';
     
     const info = await transporter.sendMail({
-      from: '"CodeFusion" <verify@codefusion.dev>',
+      from: fromAddress,
       to: email,
-      subject: 'Email Verification Code',
-      text: `Your verification code is: ${otp}. It will expire in 10 minutes.`,
+      subject: 'CodeFusion - Verify Your Email',
+      text: `Hello ${name},\n\nYour verification code is: ${otp}\n\nThis code will expire in 10 minutes.\n\nIf you didn't request this code, please ignore this email.\n\nBest regards,\nThe CodeFusion Team`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #4a5568;">CodeFusion Email Verification</h2>
-          <p>Hello,</p>
+          <p>Hello ${name},</p>
           <p>Thank you for registering with CodeFusion. Please verify your email address with the following code:</p>
           <div style="background-color: #edf2f7; padding: 15px; border-radius: 5px; text-align: center; margin: 20px 0;">
             <h1 style="font-size: 32px; margin: 0; color: #4299e1;">${otp}</h1>
@@ -99,32 +95,154 @@ const sendOTPEmail = async (email, otp) => {
       `,
     });
     
-    console.log('OTP email sent: %s', info.messageId);
+    console.log('✅ Verification email sent to %s: %s', email, info.messageId);
+    
     // For development, log the test email URL
     if (testAccount) {
-      console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+      console.log('📧 Preview URL: %s', nodemailer.getTestMessageUrl(info));
     }
     
     return true;
   } catch (error) {
-    console.error('Error sending OTP email:', error);
+    console.error('❌ Error sending verification email:', error);
     return false;
   }
 };
 
 /**
- * Generate and send OTP to user's email
- * @param {string} email - User's email address
- * @returns {Promise<boolean>} - Whether OTP was sent successfully
+ * Resend verification OTP
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
  */
-const sendVerificationOTP = async (email) => {
-  const otp = generateOTP();
-  storeOTP(email, otp);
-  return await sendOTPEmail(email, otp);
+export const resendVerificationOTP = async (req, res) => {
+  try {
+    const { email } = req.body;
+    
+    if (!email) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Email is required' 
+      });
+    }
+    
+    // Check if user exists
+    const user = await db.user.findUnique({
+      where: { email: email.toLowerCase() }
+    });
+    
+    if (!user) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'User not found' 
+      });
+    }
+    
+    // If already verified
+    if (user.emailVerified) {
+      return res.status(400).json({
+        success: false,
+        message: 'Email is already verified'
+      });
+    }
+    
+    // Generate and send OTP
+    const otp = generateOTP(email);
+    const emailSent = await sendVerificationEmail(email, user.name, otp);
+    
+    if (!emailSent) {
+      return res.status(500).json({
+        success: false,
+        message: 'Failed to send verification email. Please try again.'
+      });
+    }
+    
+    return res.status(200).json({
+      success: true,
+      message: 'Verification code sent to your email'
+    });
+    
+  } catch (error) {
+    console.error('❌ Error resending verification OTP:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'An error occurred while resending verification code'
+    });
+  }
 };
 
-module.exports = {
-  generateOTP,
-  verifyOTP,
-  sendVerificationOTP,
+/**
+ * Verify email with OTP
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
+export const verifyEmail = async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+    
+    if (!email || !otp) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Email and OTP are required' 
+      });
+    }
+    
+    // Check if OTP exists and is valid
+    const emailLower = email.toLowerCase();
+    if (!otpStore.has(emailLower)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Verification code is invalid or expired. Please request a new one.'
+      });
+    }
+    
+    const storedData = otpStore.get(emailLower);
+    
+    if (Date.now() > storedData.expiryTime) {
+      otpStore.delete(emailLower);
+      return res.status(400).json({
+        success: false,
+        message: 'Verification code has expired. Please request a new one.'
+      });
+    }
+    
+    if (storedData.otp !== otp) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid verification code. Please try again.'
+      });
+    }
+    
+    // OTP is valid, update user as verified
+    const user = await db.user.findUnique({
+      where: { email: emailLower }
+    });
+    
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      });
+    }
+    
+    // Update user as verified
+    await db.user.update({
+      where: { email: emailLower },
+      data: { emailVerified: true }
+    });
+    
+    // Remove OTP from store
+    otpStore.delete(emailLower);
+    
+    return res.status(200).json({
+      success: true,
+      message: 'Email verified successfully'
+    });
+    
+  } catch (error) {
+    console.error('❌ Error verifying email:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'An error occurred during verification'
+    });
+  }
 };

@@ -45,6 +45,7 @@ model User {
   lastLogin     DateTime?
   streakCount   Int       @default(0)
   maxStreakCount Int      @default(0)
+  emailVerified Boolean   @default(false)
   
   // Firebase authentication fields
   firebaseUid    String?  @unique
