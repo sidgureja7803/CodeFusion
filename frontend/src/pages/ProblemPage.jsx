@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useParams, Link, useLocation, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import Editor from "@monaco-editor/react";
 import {
   Play,
@@ -39,7 +40,7 @@ import { RoomProvider } from "../libs/liveblocks.js";
 import CollaborativeEditor from "../components/CollaborativeEditor";
 import { Toast } from "../store/useToastStore";
 import { useAuthStore } from "../store/useAuthStore.js";
-import { formatSubmissionStatus } from "../libs/utils";
+// Removed unused import: formatSubmissionStatus
 import { useThemeStore } from "../store/useThemeStore.js";
 import Discussion from "../components/Discussion";
 import DebugAIPanel from "../components/DebugAIPanel.jsx";
@@ -48,12 +49,12 @@ export const ProblemPage = () => {
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  const { getProblemById, problem, isProblemLoading } = useProblemStore();
+  const { getProblemById, problem } = useProblemStore();
   const [code, setCode] = useState("");
   const [activeTab, setActiveTab] = useState("description");
   const [selectedLanguage, setSelectedLanguage] = useState("JAVASCRIPT");
-  const [isBookmarked, setIsBookmarked] = useState(false);
-  const [testcases, setTestcases] = useState([]);
+  // Removed unused state: isBookmarked
+  // Removed unused state: testcases
   const [successRate, setSuccessRate] = useState(0);
   const [showAiChat, setShowAiChat] = useState(false);
   const [isCollaborative, setIsCollaborative] = useState(false);
@@ -62,7 +63,8 @@ export const ProblemPage = () => {
   const [userSolvedCode, setUserSolvedCode] = useState(null);
   const { authUser } = useAuthStore();
   const { theme } = useThemeStore();
-  const [nonCollabEditorRef, setNonCollabEditorRef] = useState(null);
+  // This ref will be used by the editor
+  const nonCollabEditorRef = useRef(null);
 
   const { isExecuting, executeCode, isSubmitting, submission } =
     useExecutionStore();
@@ -92,29 +94,25 @@ export const ProblemPage = () => {
       } else {
         await addToRevision(id);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error toggling revision:", error);
+      Toast.error("Failed to update revision status");
+    }
   };
 
   // Check if current problem is in revision
   const isMarkedForRevision = isInRevision(id);
 
   useEffect(() => {
-    // console.log("Full URL:", window.location.href);
-    // console.log("Location search:", location.search);
-
     // Force re-parse URL parameters
     const currentURL = new URL(window.location.href);
     const session = currentURL.searchParams.get("session");
 
-    // console.log("Session from current URL:", session);
-
     if (session) {
-      // console.log("Setting collaborative mode with session:", session);
       setIsCollaborative(true);
       setSessionId(session);
       setCollaborationUrl(window.location.href);
     } else {
-      // console.log("No session found, setting normal mode");
       // Only reset if we're not in the middle of creating a session
       if (!sessionId && !isCollaborative) {
         setIsCollaborative(false);
@@ -122,7 +120,7 @@ export const ProblemPage = () => {
         setCollaborationUrl("");
       }
     }
-  }, [location.search, location.pathname]); // Changed dependency to location.search
+  }, [location.search, location.pathname, sessionId, isCollaborative]); // Added missing dependencies
 
   useEffect(() => {
     getProblemById(id);
@@ -267,11 +265,12 @@ function solution() {
     }
   };
 
-  const isProblemSolved =
-    submissions &&
-    submissions.some(
-      (sub) => sub.status === "ACCEPTED" || sub.status === "Accepted"
-    );
+  // Useful for future UI indicators
+  // const isProblemSolved =
+  //   submissions &&
+  //   submissions.some(
+  //     (sub) => sub.status === "ACCEPTED" || sub.status === "Accepted"
+  //   );
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -570,7 +569,9 @@ function solution() {
 
   // Handle non-collaborative editor mount
   const handleNonCollabEditorMount = useCallback((editor) => {
-    setNonCollabEditorRef(editor);
+    // Store editor reference for future use
+    nonCollabEditorRef.current = editor;
+    console.log("Editor mounted:", editor?.getId());
   }, []);
 
   return (

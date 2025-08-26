@@ -16,13 +16,16 @@ const SubmissionHeatmap = () => {
     const countsByDate = {};
 
     submissions.forEach((submission) => {
-      const date = new Date(submission.createdAt);
-      const dateKey = date.toISOString().split("T")[0];
+      // Check if submission and createdAt exist before processing
+      if (submission?.createdAt) {
+        const date = new Date(submission.createdAt);
+        const dateKey = date.toISOString().split("T")[0];
 
-      if (!countsByDate[dateKey]) {
-        countsByDate[dateKey] = 0;
+        if (!countsByDate[dateKey]) {
+          countsByDate[dateKey] = 0;
+        }
+        countsByDate[dateKey] += 1;
       }
-      countsByDate[dateKey] += 1;
     });
 
     // Transform to array format for the heatmap

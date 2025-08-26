@@ -39,7 +39,8 @@ export const useProblemStore = create(
         
         // Create cache key based on options
         const optionsKey = JSON.stringify(options);
-        const cacheKey = `${PROBLEMS_CACHE_KEY}-${optionsKey}`;
+        // Use cache key for potential future implementations
+        const _cacheKey = `${PROBLEMS_CACHE_KEY}-${optionsKey}`;
         
         // Return cached data if valid and not forcing refresh
         if (!forceRefresh && state.problems.length > 0 && !options.page && state.isCacheValid(PROBLEMS_CACHE_KEY)) {
@@ -86,7 +87,29 @@ export const useProblemStore = create(
           return response.data.problems;
         } catch (error) {
           console.error("❌ Failed to fetch problems:", error);
-          Toast.error("Failed to fetch problems");
+          
+          // Enhanced error reporting
+          const statusCode = error.response?.status;
+          let errorMessage = "Failed to fetch problems";
+          let errorTitle = "Error";
+          
+          if (statusCode === 401) {
+            errorMessage = "Authentication required. Please log in again.";
+            errorTitle = "Session Expired";
+            console.warn("🔒 Authentication issue detected in problem fetching");
+          } else if (statusCode === 404) {
+            errorMessage = "Problems endpoint not found. Please check API configuration.";
+            errorTitle = "API Error";
+          } else if (statusCode === 500) {
+            errorMessage = "Server error occurred. Please try again later.";
+            errorTitle = "Server Error";
+          } else if (error.message === "Network Error") {
+            errorMessage = "Unable to connect to the server. Please check your internet connection.";
+            errorTitle = "Network Error";
+            console.warn("🌐 Network connectivity issue detected");
+          }
+          
+          Toast.error(errorMessage, errorTitle, 6000);
           throw error;
         } finally {
           set({ isProblemsLoading: false });
@@ -132,7 +155,28 @@ export const useProblemStore = create(
           return response.data.problem;
         } catch (error) {
           console.error(`❌ Failed to fetch problem ${id}:`, error);
-          Toast.error("Failed to fetch problem");
+          
+          // Enhanced error reporting
+          const statusCode = error.response?.status;
+          let errorMessage = `Failed to fetch problem #${id}`;
+          let errorTitle = "Error";
+          
+          if (statusCode === 401) {
+            errorMessage = "Authentication required. Please log in again to view this problem.";
+            errorTitle = "Session Expired";
+            console.warn("🔒 Authentication issue detected in problem fetching");
+          } else if (statusCode === 404) {
+            errorMessage = "Problem not found. It may have been removed or you may not have access.";
+            errorTitle = "Not Found";
+          } else if (statusCode === 500) {
+            errorMessage = "Server error occurred. Please try again later.";
+            errorTitle = "Server Error";
+          } else if (error.message === "Network Error") {
+            errorMessage = "Unable to connect to the server. Please check your internet connection.";
+            errorTitle = "Network Error";
+          }
+          
+          Toast.error(errorMessage, errorTitle, 6000);
           throw error;
         } finally {
           set({ isProblemLoading: false });
@@ -165,7 +209,25 @@ export const useProblemStore = create(
           return response.data.problems;
         } catch (error) {
           console.error("❌ Failed to fetch solved problems:", error);
-          Toast.error("Failed to fetch solved problems");
+          
+          // Enhanced error reporting
+          const statusCode = error.response?.status;
+          let errorMessage = "Failed to fetch your solved problems history";
+          let errorTitle = "Error";
+          
+          if (statusCode === 401) {
+            errorMessage = "Authentication required. Please log in again to view your progress.";
+            errorTitle = "Session Expired";
+            console.warn("🔒 Authentication issue detected in solved problems fetching");
+          } else if (statusCode === 500) {
+            errorMessage = "Server error occurred. Please try again later.";
+            errorTitle = "Server Error";
+          } else if (error.message === "Network Error") {
+            errorMessage = "Unable to connect to the server. Please check your internet connection.";
+            errorTitle = "Network Error";
+          }
+          
+          Toast.error(errorMessage, errorTitle, 6000);
           throw error;
         } finally {
           set({ isProblemsLoading: false });

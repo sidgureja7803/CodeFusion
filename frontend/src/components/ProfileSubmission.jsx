@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useSubmissionStore } from "../store/useSubmissionStore";
-import { motion } from "framer-motion";
+// Import motion if needed for animations
 import Editor from "@monaco-editor/react";
 import {
   Code,
@@ -132,7 +132,7 @@ const ProfileSubmission = () => {
 
         <div className="flex items-center gap-2 text-black/50 dark:text-white/50 text-sm">
           <Clock size={14} />
-          <span>{helpers.formatDate(submission.createdAt)}</span>
+          <span>{submission?.createdAt ? helpers.formatDate(submission.createdAt) : 'Date unavailable'}</span>
         </div>
       </div>
 
@@ -157,12 +157,12 @@ const ProfileSubmission = () => {
       <div className="mb-4">
         <h3 className="text-lg font-medium dark:text-white text-black mb-2 flex items-center gap-2">
           <Code size={16} />
-          Solution Code ({submission.language})
+          Solution Code ({submission?.language || 'Unknown'})
         </h3>
         <div className="border dark:border-white/5 border-black/5 rounded-lg overflow-hidden">
           <Editor
             height="400px"
-            language={helpers.getEditorLanguage(submission.language)}
+            language={helpers.getEditorLanguage(submission?.language || 'javascript')}
             theme={getEditorTheme()}
             value={helpers.safeValue(
               submission.sourceCode,
@@ -223,12 +223,12 @@ const ProfileSubmission = () => {
             title: "Memory Used",
             value: submission.memory,
           },
-        ].map(({ icon: Icon, color, title, value }) => (
+        ].map(({ icon, color, title, value }) => (
           <div
             key={title}
             className="flex items-center gap-4 dark:bg-black/20 bg-white/20 p-3 rounded-lg border border-white/5"
           >
-            <Icon className={`${color} w-10 h-10`} />
+            {React.createElement(icon, { className: `${color} w-10 h-10` })}
             <div>
               <div className="dark:text-white/60 text-black/60 text-xs">
                 {title}

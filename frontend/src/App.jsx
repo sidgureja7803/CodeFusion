@@ -44,28 +44,34 @@ function AppRoutes() {
   useEffect(() => {
     initializeTheme();
     
-    // Initialize GSAP animations
-    const ctx = gsap.context(() => {
-      // Page transition animation
-      gsap.from(".page-transition", {
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        ease: "power2.out",
-      });
-
-      // Smooth scroll animation
-      gsap.to("html, body", {
-        scrollTo: {
-          y: 0,
-          autoKill: false
-        },
-        duration: 0.5,
-        ease: "power2.inOut"
-      });
-    }, appRef);
-
-    return () => ctx.revert();
+    // Initialize GSAP animations safely with proper error handling
+    try {
+      const ctx = gsap.context(() => {
+        // Page transition animation
+        if (document.querySelector(".page-transition")) {
+          gsap.from(".page-transition", {
+            opacity: 0,
+            y: 20,
+            duration: 0.6,
+            ease: "power2.out",
+          });
+        }
+        
+        // Only animate scroll if ScrollTrigger is properly loaded
+        if (ScrollTrigger && document.querySelector("html")) {
+          gsap.to(window, {
+            duration: 0.5,
+            scrollTo: 0,
+            ease: "power2.inOut",
+            onComplete: () => console.log("Scroll animation complete") 
+          });
+        }
+      }, appRef);
+      
+      return () => ctx.revert();
+    } catch (err) {
+      console.error("GSAP initialization error:", err);
+    }
   }, [initializeTheme, location.pathname]);
 
   useEffect(() => {

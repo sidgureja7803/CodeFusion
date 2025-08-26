@@ -121,7 +121,14 @@ export const useAuthStore = create((set) => ({
       const response = await axiosInstance.post("/auth/login", data);
       console.log("Login response:", response.data);
 
-      Toast.success("Login successful!", "Welcome back!", 4000);
+      // Enhanced login success popup with username
+      const userName = response.data.user?.name || 'User';
+      Toast.success(
+        `Welcome back, ${userName}! You've successfully logged in.`,
+        "Login Successful",
+        5000,
+        { position: "top-center", style: { backgroundColor: "#4ade80", borderRadius: "10px" } }
+      );
       set({ authUser: response.data.user });
     } catch (error) {
       console.error("Error logging in:", error);

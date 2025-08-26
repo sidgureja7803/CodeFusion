@@ -3,7 +3,8 @@ import { useProblemStore } from "../store/useProblemStore";
 import { useSubmissionStore } from "../store/useSubmissionStore";
 import { useStreak } from "../store/useStreak";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+// Import framer motion for animations
+import { motion as m } from "framer-motion";
 import {
   Tag,
   ExternalLink,
@@ -32,6 +33,7 @@ const ProblemSolvedByUser = () => {
     if (!submissions.length) return null;
 
     const submissionDates = submissions
+      .filter(s => s?.createdAt) // Filter out submissions without createdAt
       .map((s) => new Date(s.createdAt))
       .sort((a, b) => b - a); // Sort descending to get latest first
 
@@ -76,14 +78,14 @@ const ProblemSolvedByUser = () => {
   // Memoized difficulty counts
   const difficultyCounts = useMemo(() => {
     return {
-      easy: solvedProblems.filter((p) => p.difficulty === "EASY").length,
-      medium: solvedProblems.filter((p) => p.difficulty === "MEDIUM").length,
-      hard: solvedProblems.filter((p) => p.difficulty === "HARD").length,
+      easy: solvedProblems.filter((p) => p?.difficulty === "EASY").length,
+      medium: solvedProblems.filter((p) => p?.difficulty === "MEDIUM").length,
+      hard: solvedProblems.filter((p) => p?.difficulty === "HARD").length,
     };
   }, [solvedProblems]);
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
@@ -212,7 +214,7 @@ const ProblemSolvedByUser = () => {
             color: "red",
             icon: AlertTriangle,
           },
-        ].map(({ label, count, color, icon: Icon }) => (
+        ].map(({ label, count, color, icon }) => (
           <div
             key={label}
             className="stat-card bg-black/20 border border-white/10 rounded-md p-4 flex items-center justify-between"
@@ -226,7 +228,7 @@ const ProblemSolvedByUser = () => {
               </div>
             </div>
             <div className={`rounded-full bg-${color}-500/20 p-3`}>
-              <Icon className={`w-6 h-6 text-${color}-500`} />
+              {React.createElement(icon, { className: `w-6 h-6 text-${color}-500` })}
             </div>
           </div>
         ))}
@@ -266,7 +268,7 @@ const ProblemSolvedByUser = () => {
                   <td className="font-medium dark:text-white text-black">
                     {problem.title}
                   </td>
-                  <td>{getDifficultyBadge(problem.difficulty)}</td>
+                  <td>{getDifficultyBadge(problem?.difficulty)}</td>
                   <td>
                     <div className="flex flex-wrap gap-1">
                       {problem.tags?.map((tag, index) => (
@@ -320,7 +322,7 @@ const ProblemSolvedByUser = () => {
           )}
         </div>
       )}
-    </motion.div>
+    </m.div>
   );
 };
 
