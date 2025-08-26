@@ -3,17 +3,22 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// GPT-5 API configuration from AIML.com
-const apiKey = process.env.BLACKBOX_API_KEY; // Using the same env variable as requested
+// Get API key from environment variables
+const apiKey = process.env.NOVITA_API_KEY; // Changed from BLACKBOX_API_KEY to NOVITA_API_KEY
 
-// OpenAI API configuration for AIML.com GPT-5 API
+// Check if API key is available at startup
+if (!apiKey) {
+  console.error("⚠️ WARNING: NOVITA_API_KEY is not configured in environment variables");
+}
+
+// OpenAI API configuration
 const openai = new OpenAI({
   apiKey: apiKey,
-  baseURL: "https://api.aiml.com/v1", // AIML.com API endpoint
+  // Use default OpenAI endpoint
 });
 
 /**
- * Generate an AI response for code assistance using AIML.com GPT-5 API
+ * Generate an AI response for code assistance
  * @param {string} prompt - The user's query
  * @param {Object} context - Additional context (problem details, user code, etc.)
  * @returns {Promise<string>} AI response
@@ -22,7 +27,7 @@ export const generateAIResponse = async (prompt, context) => {
   try {
     // Check if API key is available
     if (!apiKey) {
-      throw new Error("API key for AIML.com GPT-5 is not configured");
+      throw new Error("NOVITA_API_KEY is not configured in environment variables");
     }
 
     const { problem, userCode, language } = context;
@@ -52,13 +57,13 @@ ${
 }
 `;
 
-    console.log("Making API call to AIML.com GPT-5...");
+    console.log("Making API call to OpenAI...");
     const completion = await openai.chat.completions.create({
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user", content: userPrompt },
       ],
-      model: "gpt-5", // Using AIML.com's GPT-5 model
+      model: "gpt-3.5-turbo", // Use GPT-3.5 Turbo as default model
       stream: false,
       temperature: 0.5, // Balanced between creativity and accuracy
       max_tokens: 1024, // Reasonable response length
@@ -72,7 +77,7 @@ ${
     
     // More specific error messages
     if (error.message.includes('401')) {
-      throw new Error("Invalid API key - please check your API key for AIML.com GPT-5");
+      throw new Error("Invalid API key - please check your NOVITA_API_KEY environment variable");
     } else if (error.message.includes('429')) {
       throw new Error("API rate limit exceeded - please try again later");
     } else if (error.message.includes('503') || error.message.includes('502')) {
@@ -84,7 +89,7 @@ ${
 };
 
 /**
- * Generate code explanations using AIML.com GPT-5 API
+ * Generate code explanations
  * @param {string} code - Code to explain
  * @param {string} language - Programming language
  * @returns {Promise<string>} Explanation
@@ -93,10 +98,10 @@ export const explainCode = async (code, language) => {
   try {
     // Check if API key is available
     if (!apiKey) {
-      throw new Error("API key for AIML.com GPT-5 is not configured");
+      throw new Error("NOVITA_API_KEY is not configured in environment variables");
     }
 
-    console.log("Making API call to AIML.com GPT-5 for code explanation...");
+    console.log("Making API call to OpenAI for code explanation...");
     const completion = await openai.chat.completions.create({
       messages: [
         {
@@ -109,7 +114,7 @@ export const explainCode = async (code, language) => {
           content: `Explain this ${language} code step by step:\n\`\`\`${language.toLowerCase()}\n${code}\n\`\`\``,
         },
       ],
-      model: "gpt-5",
+      model: "gpt-3.5-turbo",
       stream: false,
       temperature: 0.3, // More factual for explanations
       max_tokens: 1024,
@@ -123,7 +128,7 @@ export const explainCode = async (code, language) => {
     
     // More specific error messages
     if (error.message.includes('401')) {
-      throw new Error("Invalid API key - please check your API key for AIML.com GPT-5");
+      throw new Error("Invalid API key - please check your NOVITA_API_KEY environment variable");
     } else if (error.message.includes('429')) {
       throw new Error("API rate limit exceeded - please try again later");
     } else {
@@ -133,7 +138,7 @@ export const explainCode = async (code, language) => {
 };
 
 /**
- * Generate a complete coding problem using AIML.com GPT-5 API
+ * Generate a complete coding problem
  * @param {Object} options - Problem generation options
  * @param {string} options.topic - Main topic/concept for the problem
  * @param {string} options.difficulty - Problem difficulty (EASY, MEDIUM, HARD)
@@ -147,10 +152,10 @@ export const generateProblem = async (options) => {
 
     // Check if API key is available
     if (!apiKey) {
-      throw new Error("API key for AIML.com GPT-5 is not configured");
+      throw new Error("NOVITA_API_KEY is not configured in environment variables");
     }
 
-    console.log("Making API call to AIML.com GPT-5 for problem generation...");
+    console.log("Making API call to OpenAI for problem generation...");
     const completion = await openai.chat.completions.create({
       messages: [
         {
@@ -217,7 +222,7 @@ export const generateProblem = async (options) => {
           `,
         },
       ],
-      model: "gpt-5",
+      model: "gpt-3.5-turbo",
       stream: false,
       temperature: 0.7,
       max_tokens: 3000,

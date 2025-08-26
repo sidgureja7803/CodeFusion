@@ -3,9 +3,9 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const baseURL = "https://api.novita.ai/v3/openai";
+const baseURL = "https://api.aimlapi.com/v1";
 const apiKey = process.env.AIMLAPI_GPT5;
-const model = "meta-llama/llama-3.1-8b-instruct";
+const model = "gpt-5";
 
 const openai = new OpenAI({
   baseURL: baseURL,
@@ -60,9 +60,8 @@ ${
       ],
       model: model,
       stream: false,
-      temperature: 0.5, // Balanced between creativity and accuracy
-      max_tokens: 1024, // Reasonable response length
-      top_p: 0.9,
+      temperature: 0.7,
+      max_tokens: 1024,
     });
 
     console.log("API call successful");
@@ -72,12 +71,12 @@ ${
     console.error("Full error:", error);
     
     // More specific error messages
-    if (error.message.includes('401')) {
-      throw new Error("Invalid API key - please check your AIMLAPI_GPT5");
+    if (error.message.includes('401') || error.message.includes('403')) {
+      throw new Error("Invalid API key - please check your AIMLAPI_GPT5 environment variable");
     } else if (error.message.includes('429')) {
       throw new Error("API rate limit exceeded - please try again later");
     } else if (error.message.includes('503') || error.message.includes('502')) {
-      throw new Error("AI service is temporarily unavailable");
+      throw new Error("AIMLAPI.COM service is temporarily unavailable");
     } else {
       throw new Error(`Failed to generate AI response: ${error.message}`);
     }
@@ -112,7 +111,7 @@ export const explainCode = async (code, language) => {
       ],
       model: model,
       stream: false,
-      temperature: 0.3, // More factual for explanations
+      temperature: 0.5,
       max_tokens: 1024,
     });
 
@@ -123,10 +122,12 @@ export const explainCode = async (code, language) => {
     console.error("Full error:", error);
     
     // More specific error messages
-    if (error.message.includes('401')) {
-      throw new Error("Invalid API key - please check your AIMLAPI_GPT5");
+    if (error.message.includes('401') || error.message.includes('403')) {
+      throw new Error("Invalid API key - please check your AIMLAPI_GPT5 environment variable");
     } else if (error.message.includes('429')) {
       throw new Error("API rate limit exceeded - please try again later");
+    } else if (error.message.includes('503') || error.message.includes('502')) {
+      throw new Error("AIMLAPI.COM service is temporarily unavailable");
     } else {
       throw new Error(`Failed to generate code explanation: ${error.message}`);
     }
@@ -444,10 +445,8 @@ public class Main {
       ],
       model: model,
       stream: false,
-      response_format: { type: "text" },
-      temperature: 0.5,
+      temperature: 0.7,
       max_tokens: 4000,
-      top_p: 0.9,
     });
 
     try {
