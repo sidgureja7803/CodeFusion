@@ -1,0 +1,239 @@
+/* CodeFusion Design System
+ * This file contains standardized variables for consistent styling across the application
+ */
+
+:root {
+  /* Color Palette - Primary */
+  --cf-primary-50: #eef2ff;
+  --cf-primary-100: #e0e7ff;
+  --cf-primary-200: #c7d2fe;
+  --cf-primary-300: #a5b4fc;
+  --cf-primary-400: #818cf8;
+  --cf-primary-500: #6366f1;
+  --cf-primary-600: #4f46e5;
+  --cf-primary-700: #4338ca;
+  --cf-primary-800: #3730a3;
+  --cf-primary-900: #312e81;
+  --cf-primary-950: #1e1b4b;
+
+  /* Color Palette - Gray */
+  --cf-gray-50: #f9fafb;
+  --cf-gray-100: #f3f4f6;
+  --cf-gray-200: #e5e7eb;
+  --cf-gray-300: #d1d5db;
+  --cf-gray-400: #9ca3af;
+  --cf-gray-500: #6b7280;
+  --cf-gray-600: #4b5563;
+  --cf-gray-700: #374151;
+  --cf-gray-800: #1f2937;
+  --cf-gray-900: #111827;
+  --cf-gray-950: #030712;
+
+  /* Semantic Colors */
+  --cf-success: #10b981;
+  --cf-warning: #f59e0b;
+  --cf-error: #ef4444;
+  --cf-info: #3b82f6;
+
+  /* Difficulty Colors */
+  --cf-easy: #10b981;
+  --cf-medium: #f59e0b;
+  --cf-hard: #ef4444;
+
+  /* Text Colors */
+  --cf-text-primary: var(--cf-gray-900);
+  --cf-text-secondary: var(--cf-gray-600);
+  --cf-text-tertiary: var(--cf-gray-500);
+  --cf-text-disabled: var(--cf-gray-400);
+  
+  /* Dark Mode Text Colors */
+  --cf-dark-text-primary: var(--cf-gray-50);
+  --cf-dark-text-secondary: var(--cf-gray-300);
+  --cf-dark-text-tertiary: var(--cf-gray-400);
+  --cf-dark-text-disabled: var(--cf-gray-500);
+
+  /* Backgrounds */
+  --cf-bg-primary: white;
+  --cf-bg-secondary: var(--cf-gray-50);
+  --cf-bg-tertiary: var(--cf-gray-100);
+  
+  /* Dark Mode Backgrounds */
+  --cf-dark-bg-primary: var(--cf-gray-900);
+  --cf-dark-bg-secondary: var(--cf-gray-800);
+  --cf-dark-bg-tertiary: var(--cf-gray-700);
+
+  /* Borders */
+  --cf-border-light: var(--cf-gray-200);
+  --cf-border-medium: var(--cf-gray-300);
+  --cf-border-dark: var(--cf-gray-400);
+  
+  /* Dark Mode Borders */
+  --cf-dark-border-light: var(--cf-gray-700);
+  --cf-dark-border-medium: var(--cf-gray-600);
+  --cf-dark-border-dark: var(--cf-gray-500);
+
+  /* Spacing Scale */
+  --cf-space-xs: 0.25rem;   /* 4px */
+  --cf-space-sm: 0.5rem;    /* 8px */
+  --cf-space-md: 1rem;      /* 16px */
+  --cf-space-lg: 1.5rem;    /* 24px */
+  --cf-space-xl: 2rem;      /* 32px */
+  --cf-space-2xl: 2.5rem;   /* 40px */
+  --cf-space-3xl: 3rem;     /* 48px */
+
+  /* Typography */
+  --cf-font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --cf-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Font Sizes */
+  --cf-text-xs: 0.75rem;    /* 12px */
+  --cf-text-sm: 0.875rem;   /* 14px */
+  --cf-text-base: 1rem;     /* 16px */
+  --cf-text-lg: 1.125rem;   /* 18px */
+  --cf-text-xl: 1.25rem;    /* 20px */
+  --cf-text-2xl: 1.5rem;    /* 24px */
+  --cf-text-3xl: 1.875rem;  /* 30px */
+  --cf-text-4xl: 2.25rem;   /* 36px */
+
+  /* Font Weights */
+  --cf-font-light: 300;
+  --cf-font-normal: 400;
+  --cf-font-medium: 500;
+  --cf-font-semibold: 600;
+  --cf-font-bold: 700;
+
+  /* Line Heights */
+  --cf-leading-tight: 1.25;
+  --cf-leading-normal: 1.5;
+  --cf-leading-loose: 1.75;
+
+  /* Border Radius */
+  --cf-radius-sm: 0.125rem; /* 2px */
+  --cf-radius-md: 0.25rem;  /* 4px */
+  --cf-radius-lg: 0.5rem;   /* 8px */
+  --cf-radius-xl: 0.75rem;  /* 12px */
+  --cf-radius-2xl: 1rem;    /* 16px */
+  --cf-radius-full: 9999px; /* Fully rounded */
+
+  /* Shadows */
+  --cf-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --cf-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --cf-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --cf-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* Z-index Scale */
+  --cf-z-0: 0;
+  --cf-z-10: 10;
+  --cf-z-20: 20;
+  --cf-z-30: 30;
+  --cf-z-40: 40;
+  --cf-z-50: 50;
+  --cf-z-auto: auto;
+
+  /* Transitions */
+  --cf-transition-fast: 150ms;
+  --cf-transition-normal: 300ms;
+  --cf-transition-slow: 500ms;
+  --cf-transition-ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Common Component Styles */
+.cf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--cf-radius-md);
+  padding: 0.5rem 1rem;
+  font-weight: var(--cf-font-medium);
+  transition: all var(--cf-transition-fast) var(--cf-transition-ease);
+}
+
+.cf-btn-primary {
+  background-color: var(--cf-primary-600);
+  color: white;
+}
+
+.cf-btn-primary:hover {
+  background-color: var(--cf-primary-700);
+}
+
+.cf-btn-secondary {
+  background-color: var(--cf-gray-200);
+  color: var(--cf-gray-800);
+}
+
+.cf-btn-secondary:hover {
+  background-color: var(--cf-gray-300);
+}
+
+.cf-btn-danger {
+  background-color: var(--cf-error);
+  color: white;
+}
+
+.cf-btn-danger:hover {
+  opacity: 0.9;
+}
+
+.cf-card {
+  background-color: var(--cf-bg-primary);
+  border-radius: var(--cf-radius-lg);
+  box-shadow: var(--cf-shadow-md);
+  padding: var(--cf-space-lg);
+}
+
+.dark .cf-card {
+  background-color: var(--cf-dark-bg-secondary);
+}
+
+.cf-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--cf-radius-md);
+  border: 1px solid var(--cf-border-medium);
+  background-color: var(--cf-bg-primary);
+  color: var(--cf-text-primary);
+}
+
+.dark .cf-input {
+  background-color: var(--cf-dark-bg-tertiary);
+  border-color: var(--cf-dark-border-medium);
+  color: var(--cf-dark-text-primary);
+}
+
+.cf-input:focus {
+  outline: none;
+  ring: 2px solid var(--cf-primary-500);
+  border-color: var(--cf-primary-500);
+}
+
+/* Problem difficulty badges */
+.cf-badge-easy {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: var(--cf-easy);
+  border: 1px solid var(--cf-easy);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--cf-radius-md);
+  font-size: var(--cf-text-xs);
+  font-weight: var(--cf-font-medium);
+}
+
+.cf-badge-medium {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: var(--cf-medium);
+  border: 1px solid var(--cf-medium);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--cf-radius-md);
+  font-size: var(--cf-text-xs);
+  font-weight: var(--cf-font-medium);
+}
+
+.cf-badge-hard {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: var(--cf-error);
+  border: 1px solid var(--cf-error);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--cf-radius-md);
+  font-size: var(--cf-text-xs);
+  font-weight: var(--cf-font-medium);
+}

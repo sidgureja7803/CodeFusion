@@ -3,8 +3,7 @@ import { useProblemStore } from "../store/useProblemStore";
 import { useSubmissionStore } from "../store/useSubmissionStore";
 import { useStreak } from "../store/useStreak";
 import { Link } from "react-router-dom";
-// Import framer motion for animations
-import { motion as m } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Tag,
   ExternalLink,
@@ -85,7 +84,7 @@ const ProblemSolvedByUser = () => {
   }, [solvedProblems]);
 
   return (
-    <m.div
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
@@ -322,7 +321,7 @@ const ProblemSolvedByUser = () => {
           )}
         </div>
       )}
-    </m.div>
+    </motion.div>
   );
 };
 
