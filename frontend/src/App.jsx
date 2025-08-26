@@ -30,9 +30,10 @@ import FirebaseDebugPanel from "./components/FirebaseDebugPanel";
 import TestAuth from "./pages/TestAuth";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
 // Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 // Separate component to handle location and auth state
 function AppRoutes() {
@@ -58,13 +59,21 @@ function AppRoutes() {
         }
         
         // Only animate scroll if ScrollTrigger is properly loaded
-        if (ScrollTrigger && document.querySelector("html")) {
-          gsap.to(window, {
-            duration: 0.5,
-            scrollTo: 0,
-            ease: "power2.inOut",
-            onComplete: () => console.log("Scroll animation complete") 
+        if (document.querySelector("html")) {
+          // Use standard window.scrollTo for compatibility
+          window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
           });
+          
+          // Alternatively with GSAP ScrollToPlugin (if installed)
+          // gsap.to(window, {
+          //   duration: 0.5,
+          //   scrollTo: { y: 0 },
+          //   ease: "power2.inOut",
+          //   onComplete: () => console.log("Scroll animation complete") 
+          // });
         }
       }, appRef);
       
