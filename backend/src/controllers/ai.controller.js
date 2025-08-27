@@ -7,7 +7,16 @@ import { db } from "../libs/db.js";
 
 export const getAIHelp = async (req, res) => {
   try {
+    // Log more details about the user making the request
     console.log("📝 AI Help Request from user:", req.loggedInUser?.id);
+    console.log("📧 User email:", req.loggedInUser?.email);
+    
+    // Check if token refresh is recommended (from auth middleware)
+    const needsRefresh = res.getHeader('X-Token-Refresh-Required');
+    if (needsRefresh) {
+      console.log("⚠️ Token refresh recommended for this user");
+    }
+    
     const { prompt, problemId, code, language } = req.body;
 
     if (!prompt) {

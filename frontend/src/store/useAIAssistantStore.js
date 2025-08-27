@@ -19,6 +19,17 @@ export const useAIAssistantStore = create((set) => ({
       
       set({ isLoading: true });
 
+      // First, check if we need to refresh token before AI request
+      try {
+        console.log("🔄 Proactively refreshing token before AI request");
+        await axiosInstance.post("/auth/refresh");
+        console.log("✅ Token refreshed successfully");
+      } catch (refreshError) {
+        // If refresh fails, we'll still try the AI request
+        // Our axios interceptor will handle auth errors for AI requests gracefully
+        console.log("⚠️ Token refresh failed, continuing with AI request anyway");
+      }
+
       const requestData = {
         prompt,
         problemId,
@@ -28,6 +39,7 @@ export const useAIAssistantStore = create((set) => ({
 
       console.log("Request data:", requestData);
 
+      // Send the AI request with special handling via axios interceptor
       const response = await axiosInstance.post("/ai/help", requestData);
 
       console.log("🤖 AI Assistant: Response received:", response.data);
@@ -51,7 +63,7 @@ export const useAIAssistantStore = create((set) => ({
         ],
       }));
 
-      Toast.success("AI response received!");
+      // Silent success - no need for toast
       return response.data.response;
     } catch (error) {
       console.error("🤖 AI Assistant Error:", error);
@@ -62,19 +74,56 @@ export const useAIAssistantStore = create((set) => ({
         statusText: error.response?.statusText,
       });
       
-      let errorMessage = "Failed to get AI assistance";
+      // Add the user's message to history even if we get an error
+      set((state) => ({
+        history: [
+          ...state.history,
+          {
+            role: "user",
+            content: prompt,
+            timestamp: new Date().toISOString(),
+          }
+        ],
+      }));
       
-      if (error.response?.status === 401) {
-        errorMessage = "Please log in to use AI Assistant";
+      // Create user-friendly error message
+      let errorMessage = "Failed to get AI assistance";
+      let errorContent = "I encountered a problem processing your request. Please try again.";
+      
+      if (error.response?.status === 401 || error.response?.data?.code === "AI_AUTH_REQUIRED") {
+        errorMessage = "Authentication required";
+        errorContent = "You need to be logged in to use the AI assistant. Please refresh the page and try again.";
       } else if (error.response?.status === 429) {
-        errorMessage = "Too many requests. Please try again later.";
+        errorMessage = "Too many requests";
+        errorContent = "I'm receiving too many requests right now. Please try again in a moment.";
       } else if (error.response?.status === 500) {
-        errorMessage = "AI service is temporarily unavailable";
+        errorMessage = "AI service unavailable";
+        errorContent = "The AI service is temporarily unavailable. Please try again later.";
       } else if (error.response?.data?.message) {
         errorMessage = error.response.data.message;
+        errorContent = error.response.data.message;
       }
       
-      Toast.error(errorMessage);
+      // Add error message to chat history as an assistant message
+      const errorResponseMessage = {
+        role: "assistant",
+        content: errorContent,
+        timestamp: new Date().toISOString(),
+        isError: true
+      };
+      
+      set((state) => ({
+        history: [
+          ...state.history,
+          errorResponseMessage
+        ],
+      }));
+      
+      // Show toast for non-auth errors only
+      if (error.response?.status !== 401) {
+        Toast.error(errorMessage);
+      }
+      
       return null;
     } finally {
       set({ isLoading: false });

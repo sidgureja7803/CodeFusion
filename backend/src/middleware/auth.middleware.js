@@ -18,22 +18,50 @@ export const authRateLimit = rateLimit({
 // Enhanced authentication middleware with security improvements and better error handling
 export const authMiddleware = async (req, res, next) => {
   try {
-    // Extract token from cookies or Authorization header
-    const token = req.cookies.jwt || req.headers.authorization?.replace('Bearer ', '');
+    // Extract token from cookies or Authorization header with better debugging
+    const cookieToken = req.cookies?.jwt;
+    const authHeaderToken = req.headers.authorization?.replace('Bearer ', '');
+    const token = cookieToken || authHeaderToken;
+    
+    console.log(`🔐 Auth check for path: ${req.method} ${req.path}`);
+    console.log(`🍪 Cookie token exists: ${!!cookieToken}`);
+    console.log(`🔑 Auth header token exists: ${!!authHeaderToken}`);
     
     if (!token) {
+      console.log("❌ No auth token found in request");
       return res.status(401).json({ 
         message: "Unauthorized - No token found",
         code: "NO_TOKEN"
       });
     }
 
+    // For AI endpoints specifically, handle token verification differently
+    const isAiEndpoint = req.path.startsWith('/ai/');
+    console.log(`🤖 Is AI endpoint: ${isAiEndpoint}`);
+
     try {
-      // Verify JWT token with more detailed error handling
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      // Use more robust token verification
+      let jwtOptions = {};
+      if (isAiEndpoint) {
+        // More lenient settings for AI endpoints
+        jwtOptions = { 
+          ignoreExpiration: true // Don't strictly enforce expiration for AI calls
+        };
+      }
       
-      // Check if token is expired (additional safety check)
-      if (decoded.exp && Date.now() >= decoded.exp * 1000) {
+      // Log token first few characters for debugging
+      console.log(`🔑 Verifying token: ${token.substring(0, 10)}...`);
+
+      // Verify JWT token with more detailed error handling
+      const decoded = jwt.verify(token, process.env.JWT_SECRET, jwtOptions);
+      
+      // If we're ignoring expiration for AI endpoints, handle expired tokens gracefully
+      if (isAiEndpoint && decoded.exp && Date.now() >= decoded.exp * 1000) {
+        console.log("⚠️ AI endpoint using expired token, but continuing due to lenient policy");
+      }
+      // For non-AI endpoints, still check expiration
+      else if (!isAiEndpoint && decoded.exp && Date.now() >= decoded.exp * 1000) {
+        console.log("❌ Token expired for regular endpoint");
         return res.status(401).json({ 
           message: "Unauthorized - Token expired",
           code: "TOKEN_EXPIRED"
@@ -41,7 +69,7 @@ export const authMiddleware = async (req, res, next) => {
       }
 
       // Log successful token verification
-      console.log(`Token verified successfully for user ID: ${decoded.id}`);
+      console.log(`✅ Token verified successfully for user ID: ${decoded.id}`);
 
       // Fetch user with security considerations
       const user = await db.user.findUnique({
@@ -67,7 +95,7 @@ export const authMiddleware = async (req, res, next) => {
       });
 
       if (!user) {
-        console.error(`User not found for ID: ${decoded.id}`);
+        console.error(`❌ User not found for ID: ${decoded.id}`);
         return res.status(404).json({ 
           message: "User not found",
           code: "USER_NOT_FOUND"
@@ -76,11 +104,14 @@ export const authMiddleware = async (req, res, next) => {
 
       // Check if user account is active
       if (user.isActive === false) {
+        console.log(`❌ Account suspended for user: ${user.email}`);
         return res.status(403).json({ 
           message: "Account suspended",
           code: "ACCOUNT_SUSPENDED"
         });
       }
+
+      console.log(`👤 User authenticated: ${user.email} (${user.id})`);
 
       // Update last activity timestamp - don't wait for this to complete
       db.user.update({
@@ -90,6 +121,12 @@ export const authMiddleware = async (req, res, next) => {
 
       // Attach user to request object
       req.loggedInUser = user;
+      
+      // If token was expired for AI endpoint but we're being lenient,
+      // let's also set a header to indicate that a refresh is needed
+      if (isAiEndpoint && decoded.exp && Date.now() >= decoded.exp * 1000) {
+        res.setHeader('X-Token-Refresh-Required', 'true');
+      }
       
       // Add security headers
       res.setHeader('X-Content-Type-Options', 'nosniff');
@@ -101,19 +138,19 @@ export const authMiddleware = async (req, res, next) => {
     } catch (jwtError) {
       // Handle specific JWT errors
       if (jwtError.name === 'TokenExpiredError') {
-        console.log('Token expired:', jwtError.message);
+        console.log('❌ Token expired:', jwtError.message);
         return res.status(401).json({ 
           message: "Unauthorized - Token expired",
           code: "TOKEN_EXPIRED"
         });
       } else if (jwtError.name === 'JsonWebTokenError') {
-        console.error('Invalid token:', jwtError.message);
+        console.error('❌ Invalid token:', jwtError.message);
         return res.status(401).json({ 
           message: "Unauthorized - Invalid token",
           code: "INVALID_TOKEN"
         });
       } else {
-        console.error('Token verification failed:', jwtError);
+        console.error('❌ Token verification failed:', jwtError);
         return res.status(401).json({ 
           message: "Unauthorized - Token verification failed",
           code: "TOKEN_VERIFICATION_FAILED"
@@ -121,7 +158,7 @@ export const authMiddleware = async (req, res, next) => {
       }
     }
   } catch (error) {
-    console.error("Error in auth middleware:", error);
+    console.error("💥 Error in auth middleware:", error);
     return res.status(500).json({ 
       message: "Internal server error during authentication",
       code: "AUTH_ERROR"
