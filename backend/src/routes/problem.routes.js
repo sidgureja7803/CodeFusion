@@ -7,7 +7,7 @@ import {
   deleteProblem,
   getAllProblemsSolvedByUser,
 } from "../controllers/problem.controller.js";
-import { authMiddleware, checkAdmin } from "../middleware/auth.middleware.js";
+import { authMiddleware, checkAdmin } from "../middleware/auth.middleware.compatible.js";
 
 const problemRoutes = express.Router();
 

@@ -1,6 +1,6 @@
 import express from "express";
 import { Liveblocks } from "@liveblocks/node";
-import { authMiddleware } from "../middleware/auth.middleware.js";
+import { authMiddleware } from "../middleware/auth.middleware.compatible.js";
 import dotenv from "dotenv";
 dotenv.config();
 

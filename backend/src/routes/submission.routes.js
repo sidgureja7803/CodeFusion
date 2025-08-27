@@ -4,7 +4,7 @@ import {
   getSubmissionByProblem,
   getSubmissionsCountByProblemId,
 } from "../controllers/submission.controller.js";
-import { authMiddleware } from "../middleware/auth.middleware.js";
+import { authMiddleware } from "../middleware/auth.middleware.compatible.js";
 
 const submissionRoutes = express.Router();
 

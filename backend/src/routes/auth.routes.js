@@ -1,7 +1,7 @@
 import express from "express";
 import { register, login, logout, me, updateProfile, refreshToken } from "../controllers/auth.controller.js";
 import { verifyEmail, resendVerificationOTP } from "../services/otpService.js";
-import { authMiddleware } from "../middleware/auth.middleware.js";
+import { authMiddleware } from "../middleware/auth.middleware.compatible.js";
 
 const authRoutes = express.Router();
 

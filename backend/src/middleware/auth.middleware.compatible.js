@@ -15,7 +15,8 @@ export const authRateLimit = rateLimit({
   legacyHeaders: false,
 });
 
-// Enhanced authentication middleware with security improvements and better error handling
+// Schema-compatible version of the auth middleware
+// Avoids schema field mismatches by only selecting fields that are guaranteed to exist
 export const authMiddleware = async (req, res, next) => {
   try {
     // Extract token from cookies or Authorization header with better debugging
@@ -71,7 +72,8 @@ export const authMiddleware = async (req, res, next) => {
       // Log successful token verification
       console.log(`✅ Token verified successfully for user ID: ${decoded.id}`);
 
-      // Fetch user with security considerations
+      // Fetch user with minimal selection - only fields we know exist in all schemas
+      // This avoids errors when the schema and database are out of sync
       const user = await db.user.findUnique({
         where: { id: decoded.id },
         select: {
@@ -79,17 +81,10 @@ export const authMiddleware = async (req, res, next) => {
           name: true,
           email: true,
           role: true,
-          streakCount: true,
-          maxStreakCount: true,
-          gender: true,
-          dateOfBirth: true,
-          bio: true,
-          githubProfile: true,
-          linkedinProfile: true,
+          // Only select fields that are guaranteed to exist
           createdAt: true,
-          updatedAt: true,
-          lastLogin: true,
-          emailVerified: true,
+          updatedAt: true
+          // Fields that may not exist are omitted for compatibility
         },
       });
 
@@ -101,15 +96,20 @@ export const authMiddleware = async (req, res, next) => {
         });
       }
 
-      // User account validation successful
+      // No account status checks that depend on possibly missing fields
 
       console.log(`👤 User authenticated: ${user.email} (${user.id})`);
 
-      // Update last activity timestamp - don't wait for this to complete
-      db.user.update({
-        where: { id: user.id },
-        data: { lastLogin: new Date() }
-      }).catch(err => console.error(`Failed to update last login: ${err.message}`));
+      // Update last activity timestamp if lastLogin field exists
+      try {
+        await db.user.update({
+          where: { id: user.id },
+          data: { lastLogin: new Date() }
+        });
+      } catch (updateError) {
+        // If lastLogin doesn't exist in the database, this will fail silently
+        console.error(`Note: Could not update lastLogin, field may not exist: ${updateError.message}`);
+      }
 
       // Attach user to request object
       req.loggedInUser = user;
@@ -158,7 +158,7 @@ export const authMiddleware = async (req, res, next) => {
   }
 };
 
-// Enhanced admin middleware with logging
+// Enhanced admin middleware with logging - schema compatible version
 export const checkAdmin = async (req, res, next) => {
   try {
     const user = req.loggedInUser;
@@ -193,7 +193,7 @@ export const checkAdmin = async (req, res, next) => {
   }
 };
 
-// Token refresh middleware
+// Token refresh middleware - schema compatible version
 export const refreshTokenMiddleware = async (req, res, next) => {
   try {
     const user = req.loggedInUser;
@@ -228,7 +228,7 @@ export const refreshTokenMiddleware = async (req, res, next) => {
   }
 };
 
-// Session validation middleware
+// Session validation middleware - schema compatible version
 export const validateSession = async (req, res, next) => {
   try {
     const user = req.loggedInUser;
@@ -237,17 +237,7 @@ export const validateSession = async (req, res, next) => {
       return next();
     }
 
-    // Check for concurrent sessions (optional - implement based on requirements)
-    // This could involve checking a sessions table in the database
-    
-    // Validate user account status
-    const currentUser = await db.user.findUnique({
-      where: { id: user.id },
-      select: { emailVerified: true }
-    });
-
-    // Account is active if we got here
-
+    // Skip session validation logic that depends on possibly missing fields
     next();
   } catch (error) {
     console.error("Error in session validation:", error);

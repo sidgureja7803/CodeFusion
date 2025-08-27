@@ -4,7 +4,7 @@ import {
   removeFromRevision,
   getAllRevisionProblems,
 } from "../controllers/revision.controller.js";
-import { authMiddleware } from "../middleware/auth.middleware.js";
+import { authMiddleware } from "../middleware/auth.middleware.compatible.js";
 
 const revisionRoutes = express.Router();
 

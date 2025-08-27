@@ -3,7 +3,7 @@ import {
   getDSASheets,
   getDSASheetByIdController
 } from "../controllers/dsasheets.controller.js";
-import { authMiddleware } from "../middleware/auth.middleware.js";
+import { authMiddleware } from "../middleware/auth.middleware.compatible.js";
 
 const dsaSheetsRoutes = express.Router();
 
