@@ -66,7 +66,7 @@ export const ProblemPage = () => {
   // This ref will be used by the editor
   const nonCollabEditorRef = useRef(null);
 
-  const { isExecuting, executeCode, isSubmitting, submission } =
+  const { isExecuting, executeCode, isSubmitting, submission, set: setExecution } =
     useExecutionStore();
   const {
     submission: submissions,
@@ -592,6 +592,7 @@ function solution() {
       <DebugAIPanel />
       <nav className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200/60 dark:border-slate-700/60 px-6 py-4 sticky top-0 z-50 shadow-xl shadow-slate-200/40 dark:shadow-slate-900/40">
         <div className="max-w-7xl mx-auto">
+          {/* Main header row */}
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
               <motion.button
@@ -618,19 +619,36 @@ function solution() {
               </Link>
             </div>
             
-            {/* Problem title and difficulty */}
+            {/* Problem title and difficulty - for medium+ screens */}
             {problem && (
               <div className="hidden md:flex items-center gap-4">
                 <h1 className="text-xl font-bold text-slate-800 dark:text-slate-200">
                   {problem.title}
                 </h1>
                 <span
-                  className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  className={`px-3 py-1 rounded-full text-sm font-semibold ${
                     problem.difficulty === "EASY"
-                      ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                      ? "bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800/50"
                       : problem.difficulty === "MEDIUM"
-                      ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
-                      : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+                      ? "bg-gradient-to-r from-yellow-100 to-amber-100 dark:from-yellow-900/30 dark:to-amber-900/30 text-yellow-700 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-800/50"
+                      : "bg-gradient-to-r from-red-100 to-rose-100 dark:from-red-900/30 dark:to-rose-900/30 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800/50"
+                  }`}
+                >
+                  {problem.difficulty}
+                </span>
+              </div>
+            )}
+
+            {/* Mobile problem title - for small screens */}
+            {problem && (
+              <div className="md:hidden flex items-center">
+                <span
+                  className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                    problem.difficulty === "EASY"
+                      ? "bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 border border-green-200"
+                      : problem.difficulty === "MEDIUM"
+                      ? "bg-gradient-to-r from-yellow-100 to-amber-100 text-yellow-700 border border-yellow-200"
+                      : "bg-gradient-to-r from-red-100 to-rose-100 text-red-700 border border-red-200"
                   }`}
                 >
                   {problem.difficulty}
@@ -638,11 +656,23 @@ function solution() {
               </div>
             )}
           </div>
+
+          {/* Show problem title on small screens */}
+          {problem && (
+            <div className="md:hidden mt-2 mb-3">
+              <h1 className="text-xl font-bold text-slate-800 dark:text-slate-200">
+                {problem.title}
+              </h1>
+            </div>
+          )}
+          
+          {/* Stats & actions row */}
           <div className="flex flex-col mt-3">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              {/* Problem stats */}
               <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600 dark:text-slate-400">
-                <div className="flex items-center gap-2 px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
-                  <Clock className="w-4 h-4" />
+                <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-800/80 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
+                  <Clock className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                   <span>
                     Updated{" "}
                     {new Date(problem?.createdAt).toLocaleString("en-US", {
@@ -652,12 +682,12 @@ function solution() {
                     })}
                   </span>
                 </div>
-                <div className="flex items-center gap-2 px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
-                  <Users className="w-4 h-4" />
-                  <span>{submissionCount} Submissions</span>
+                <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-800/80 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
+                  <Users className="w-4 h-4 text-slate-500 dark:text-slate-400" />
+                  <span>{submissionCount || 0} Submissions</span>
                 </div>
-                <div className="flex items-center gap-2 px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
-                  <ThumbsUp className="w-4 h-4" />
+                <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-800/80 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
+                  <ThumbsUp className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                   <span>
                     {submissions && submissions.length > 0
                       ? `${successRate}% Success Rate`
@@ -665,18 +695,17 @@ function solution() {
                   </span>
                 </div>
               </div>
+
+              {/* Action buttons */}
               <div className="flex flex-wrap gap-3 items-center">
+                {/* AI Assistant button */}
                 <button
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 border ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 border shadow-md ${
                     showAiChat 
-                      ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg border-blue-400" 
-                      : "bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-800/40 dark:to-indigo-800/40 text-blue-700 dark:text-blue-200 hover:from-blue-200 hover:to-indigo-200 dark:hover:from-blue-700/60 dark:hover:to-indigo-700/60 border-blue-300 dark:border-blue-600"
+                      ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg border-blue-400 dark:border-blue-600" 
+                      : "bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-800/40 dark:to-indigo-800/40 text-blue-700 dark:text-blue-200 hover:from-blue-200 hover:to-indigo-200 dark:hover:from-blue-700/60 dark:hover:to-indigo-700/60 border-blue-300 dark:border-blue-600 hover:shadow-xl"
                   }`}
-                  onClick={() => {
-                    console.log("AI button clicked, current state:", showAiChat);
-                    setShowAiChat(!showAiChat);
-                    console.log("New state will be:", !showAiChat);
-                  }}
+                  onClick={() => setShowAiChat(!showAiChat)}
                 >
                   <img
                     src={aiorb}
@@ -688,10 +717,10 @@ function solution() {
 
                 {/* Collaboration toggle button */}
                 <button
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 shadow-md hover:shadow-xl ${
                     isCollaborative
-                      ? "bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg"
-                      : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-gradient-to-r hover:from-blue-500 hover:to-cyan-500 hover:text-white"
+                      ? "bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg border border-blue-400 dark:border-blue-600"
+                      : "bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-800/80 text-slate-700 dark:text-slate-300 hover:bg-gradient-to-r hover:from-blue-500 hover:to-cyan-500 hover:text-white border border-slate-200 dark:border-slate-700"
                   }`}
                   onClick={toggleCollaborativeMode}
                 >
@@ -700,14 +729,15 @@ function solution() {
                     ? "Collaborating"
                     : "Collaborate"}
                 </button>
+
                 {/* Save to Revision Button */}
                 <button
                   onClick={handleRevisionToggle}
                   disabled={isRevisionLoading}
-                  className={`p-2 rounded-lg transition-all duration-300 ${
+                  className={`p-2 rounded-lg transition-all duration-300 shadow-md hover:shadow-xl ${
                     isMarkedForRevision
-                      ? "bg-gradient-to-r from-emerald-500 to-green-500 text-white shadow-lg"
-                      : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-gradient-to-r hover:from-emerald-500 hover:to-green-500 hover:text-white"
+                      ? "bg-gradient-to-r from-emerald-500 to-green-500 text-white shadow-lg border border-emerald-400 dark:border-emerald-600"
+                      : "bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-800/80 text-slate-700 dark:text-slate-300 hover:bg-gradient-to-r hover:from-emerald-500 hover:to-green-500 hover:text-white border border-slate-200 dark:border-slate-700"
                   }`}
                   title={
                     isMarkedForRevision
@@ -716,7 +746,7 @@ function solution() {
                   }
                 >
                   {isRevisionLoading ? (
-                    <span className="loading loading-spinner loading-sm"></span>
+                    <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white"></div>
                   ) : isMarkedForRevision ? (
                     <BookmarkCheck className="w-5 h-5" />
                   ) : (
@@ -910,22 +940,74 @@ function solution() {
               </div>
 
               <div className="mt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-                <button
-                  className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:from-blue-600 hover:via-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-                  onClick={handleRunCode}
-                  disabled={isExecuting || isSubmitting}
-                >
-                  <Play className="w-5 h-5" />
-                  {isExecuting ? "Running..." : "Run Code"}
-                </button>
-                <button
-                  className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-700 hover:from-emerald-600 hover:via-emerald-700 hover:to-emerald-800 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-                  onClick={handleSubmitSolution}
-                  disabled={isExecuting || isSubmitting}
-                >
-                  <Code2 className="w-5 h-5" />
-                  {isSubmitting ? "Submitting..." : "Submit Solution"}
-                </button>
+                <div className="flex flex-col sm:flex-row w-full gap-4">
+                  <button
+                    className="w-full sm:flex-1 flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:from-blue-600 hover:via-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                    onClick={handleRunCode}
+                    disabled={isExecuting || isSubmitting}
+                  >
+                    {isExecuting ? (
+                      <>
+                        <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white"></div>
+                        Running...
+                      </>
+                    ) : (
+                      <>
+                        <Play className="w-5 h-5" />
+                        Run Code
+                      </>
+                    )}
+                  </button>
+                  <button
+                    className="w-full sm:flex-1 flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-700 hover:from-emerald-600 hover:via-emerald-700 hover:to-emerald-800 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                    onClick={handleSubmitSolution}
+                    disabled={isExecuting || isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white"></div>
+                        Submitting...
+                      </>
+                    ) : (
+                      <>
+                        <Code2 className="w-5 h-5" />
+                        Submit Solution
+                      </>
+                    )}
+                  </button>
+                </div>
+                
+                <div className="flex gap-2">
+                  <button 
+                    onClick={() => resetToTemplate()}
+                    className="p-2 rounded-lg bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 transition-all"
+                    title="Reset to template code"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M3 2v6h6"></path>
+                      <path d="M3 13a9 9 0 1 0 3-7.7L3 8"></path>
+                    </svg>
+                  </button>
+                  
+                  <button
+                    onClick={() => {
+                      // Copy code to clipboard
+                      navigator.clipboard.writeText(code).then(() => {
+                        Toast.success("Code copied to clipboard!");
+                      }).catch(err => {
+                        Toast.error("Failed to copy code");
+                        console.error("Copy failed:", err);
+                      });
+                    }}
+                    className="p-2 rounded-lg bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 transition-all"
+                    title="Copy code to clipboard"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -936,6 +1018,24 @@ function solution() {
         {submission && (
           <div className="bg-gradient-to-br from-white/95 to-blue-50/90 dark:from-slate-800/95 dark:to-blue-900/90 backdrop-blur-3xl rounded-3xl shadow-2xl border border-blue-300/50 dark:border-blue-600/50">
             <div className="p-6">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent flex items-center gap-2">
+                  <Terminal className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                  Execution Results
+                </h3>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setExecution({ submission: null })}
+                    className="p-2 rounded-lg bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 transition-all"
+                    title="Clear results"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M18 6L6 18"></path>
+                      <path d="M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
               <Submission submission={submission} />
             </div>
           </div>

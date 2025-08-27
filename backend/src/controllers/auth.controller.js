@@ -295,6 +295,61 @@ export const me = async (req, res) => {
   }
 };
 
+// Token refresh endpoint
+export const refreshToken = async (req, res) => {
+  try {
+    const user = req.loggedInUser;
+    
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "No user found to refresh token",
+        code: "NO_USER",
+      });
+    }
+    
+    console.log(`🔄 Refreshing token for user: ${user.email}`);
+    
+    // Generate a new token
+    const token = jwt.sign(
+      { 
+        id: user.id,
+        email: user.email,
+        role: user.role
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+    
+    // Set the new token as a cookie
+    res.cookie("jwt", token, getCookieConfig());
+    
+    console.log("✅ Token refreshed successfully");
+    
+    // Return success response
+    return res.status(200).json({
+      success: true,
+      message: "Token refreshed successfully",
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        emailVerified: user.emailVerified,
+        streakCount: user.streakCount,
+        maxStreakCount: user.maxStreakCount
+      },
+    });
+  } catch (error) {
+    console.error("Error refreshing token:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Failed to refresh token",
+      code: "REFRESH_ERROR",
+    });
+  }
+};
+
 export const updateProfile = async (req, res) => {
   try {
     const userId = req.loggedInUser.id;

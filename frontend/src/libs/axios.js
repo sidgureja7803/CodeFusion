@@ -32,7 +32,22 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-// Add response interceptor for debugging
+// Add response interceptor for debugging and token refresh
+let isRefreshing = false;
+let failedQueue = [];
+
+const processQueue = (error, token = null) => {
+  failedQueue.forEach(prom => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token);
+    }
+  });
+  
+  failedQueue = [];
+};
+
 axiosInstance.interceptors.response.use(
   response => {
     console.log(`✅ [API] Response from ${response.config.url}:`, { 
@@ -42,7 +57,56 @@ axiosInstance.interceptors.response.use(
     });
     return response;
   },
-  error => {
+  async error => {
+    const originalRequest = error.config;
+    
+    // Handle token expired errors
+    if (error.response && error.response.status === 401 && error.response.data.code === "TOKEN_EXPIRED" && !originalRequest._retry) {
+      if (isRefreshing) {
+        // If token refresh is in progress, queue this request
+        try {
+          // Wait for the token refresh to complete
+          await new Promise((resolve, reject) => {
+            failedQueue.push({ resolve, reject });
+          });
+          // Retry the request with new token (will be attached via cookies)
+          return axiosInstance(originalRequest);
+        } catch (err) {
+          return Promise.reject(err);
+        }
+      }
+
+      originalRequest._retry = true;
+      isRefreshing = true;
+
+      try {
+        // Try to refresh the token
+        const refreshResponse = await axiosInstance.post("/auth/refresh");
+        console.log("✅ Token refreshed successfully");
+        
+        // Process queued requests
+        processQueue(null);
+        
+        // Retry the original request
+        return axiosInstance(originalRequest);
+      } catch (refreshError) {
+        // If refresh fails, process queue with error
+        processQueue(refreshError);
+        
+        // Handle refresh failure - redirect to login
+        console.error("❌ Failed to refresh token, redirect to login page");
+        
+        // Clear login state
+        if (window.location.pathname !== "/login" && window.location.pathname !== "/signup") {
+          window.location.href = "/login";
+        }
+        
+        return Promise.reject(refreshError);
+      } finally {
+        isRefreshing = false;
+      }
+    }
+
     if (error.response) {
       // The request was made and the server responded with an error status
       console.error(`❌ [API] Error ${error.response.status} from ${error.config?.url}:`, {

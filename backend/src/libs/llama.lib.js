@@ -3,14 +3,22 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const baseURL = "https://api.aimlapi.com/v1";
-const apiKey = process.env.AIMLAPI_GPT5;
-const model = "gpt-5";
+// Use fallback mechanism to support multiple API providers
+const apiKey = process.env.OPENAI_API_KEY || process.env.NOVITA_API_KEY;
+const baseURL = process.env.OPENAI_BASE_URL; // Only use if custom endpoint is needed
+const model = process.env.OPENAI_MODEL || "gpt-3.5-turbo"; // Default to GPT-3.5
 
-const openai = new OpenAI({
-  baseURL: baseURL,
-  apiKey: apiKey,
-});
+// Log API configuration for debugging
+console.log("AI Integration Configuration:");
+console.log(`- API Key Available: ${!!apiKey}`);
+console.log(`- Using custom base URL: ${!!baseURL}`);
+console.log(`- Using model: ${model}`);
+
+const openaiConfig = baseURL
+  ? { baseURL, apiKey }
+  : { apiKey };
+
+const openai = new OpenAI(openaiConfig);
 
 /**
  * Generate an AI response for code assistance
@@ -22,7 +30,7 @@ export const generateAIResponse = async (prompt, context) => {
   try {
     // Check if API key is available
     if (!apiKey) {
-      throw new Error("AIMLAPI_GPT5 is not configured");
+      throw new Error("No OpenAI API key configured - check OPENAI_API_KEY or NOVITA_API_KEY environment variable");
     }
 
     const { problem, userCode, language } = context;
@@ -47,36 +55,61 @@ ${prompt}
 
 ${
   userCode
-    ? `Here's my current code:\n\`\`\`${language.toLowerCase()}\n${userCode}\n\`\`\``
+    ? `Here's my current code:\n\`\`\`${language?.toLowerCase()}\n${userCode}\n\`\`\``
     : ""
 }
 `;
 
-    console.log("Making API call to AIMLAPI.COM...");
-    const completion = await openai.chat.completions.create({
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: userPrompt },
-      ],
-      model: model,
-      stream: false,
-      temperature: 0.7,
-      max_tokens: 1024,
-    });
+    console.log(`Making API call to OpenAI using model: ${model}...`);
+    
+    try {
+      const completion = await openai.chat.completions.create({
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userPrompt },
+        ],
+        model: model,
+        stream: false,
+        temperature: 0.7,
+        max_tokens: 1024,
+      });
 
-    console.log("API call successful");
-    return completion.choices[0].message.content;
+      console.log("API call successful");
+      return completion.choices[0].message.content;
+    } catch (apiError) {
+      console.error("OpenAI API error:", apiError.message);
+      
+      // Try fallback to gpt-3.5-turbo if using a different model
+      if (model !== "gpt-3.5-turbo") {
+        console.log("Attempting fallback to gpt-3.5-turbo model...");
+        const fallbackCompletion = await openai.chat.completions.create({
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userPrompt },
+          ],
+          model: "gpt-3.5-turbo",
+          stream: false,
+          temperature: 0.7,
+          max_tokens: 1024,
+        });
+        
+        console.log("Fallback API call successful");
+        return fallbackCompletion.choices[0].message.content;
+      } else {
+        throw apiError;
+      }
+    }
   } catch (error) {
     console.error("Error generating AI response:", error.message);
     console.error("Full error:", error);
     
     // More specific error messages
     if (error.message.includes('401') || error.message.includes('403')) {
-      throw new Error("Invalid API key - please check your AIMLAPI_GPT5 environment variable");
+      throw new Error("Invalid API key - please check your API key environment variables");
     } else if (error.message.includes('429')) {
       throw new Error("API rate limit exceeded - please try again later");
     } else if (error.message.includes('503') || error.message.includes('502')) {
-      throw new Error("AIMLAPI.COM service is temporarily unavailable");
+      throw new Error("AI service is temporarily unavailable");
     } else {
       throw new Error(`Failed to generate AI response: ${error.message}`);
     }
@@ -93,41 +126,72 @@ export const explainCode = async (code, language) => {
   try {
     // Check if API key is available
     if (!apiKey) {
-      throw new Error("AIMLAPI_GPT5 is not configured");
+      throw new Error("No OpenAI API key configured - check environment variables");
     }
 
-    console.log("Making API call to AIMLAPI.COM for code explanation...");
-    const completion = await openai.chat.completions.create({
-      messages: [
-        {
-          role: "system",
-          content:
-            "You are an expert programming tutor. Explain code clearly and concisely using markdown formatting.",
-        },
-        {
-          role: "user",
-          content: `Explain this ${language} code step by step:\n\`\`\`${language.toLowerCase()}\n${code}\n\`\`\``,
-        },
-      ],
-      model: model,
-      stream: false,
-      temperature: 0.5,
-      max_tokens: 1024,
-    });
+    console.log(`Making API call to OpenAI for code explanation using model: ${model}...`);
+    try {
+      const completion = await openai.chat.completions.create({
+        messages: [
+          {
+            role: "system",
+            content:
+              "You are an expert programming tutor. Explain code clearly and concisely using markdown formatting.",
+          },
+          {
+            role: "user",
+            content: `Explain this ${language} code step by step:\n\`\`\`${language?.toLowerCase() || 'javascript'}\n${code}\n\`\`\``,
+          },
+        ],
+        model: model,
+        stream: false,
+        temperature: 0.5,
+        max_tokens: 1024,
+      });
 
-    console.log("Code explanation API call successful");
-    return completion.choices[0].message.content;
+      console.log("Code explanation API call successful");
+      return completion.choices[0].message.content;
+    } catch (apiError) {
+      console.error("OpenAI API error during code explanation:", apiError.message);
+      
+      // Try fallback to gpt-3.5-turbo if using a different model
+      if (model !== "gpt-3.5-turbo") {
+        console.log("Attempting fallback to gpt-3.5-turbo model for code explanation...");
+        const fallbackCompletion = await openai.chat.completions.create({
+          messages: [
+            {
+              role: "system",
+              content:
+                "You are an expert programming tutor. Explain code clearly and concisely using markdown formatting.",
+            },
+            {
+              role: "user",
+              content: `Explain this ${language} code step by step:\n\`\`\`${language?.toLowerCase() || 'javascript'}\n${code}\n\`\`\``,
+            },
+          ],
+          model: "gpt-3.5-turbo",
+          stream: false,
+          temperature: 0.5,
+          max_tokens: 1024,
+        });
+        
+        console.log("Fallback code explanation API call successful");
+        return fallbackCompletion.choices[0].message.content;
+      } else {
+        throw apiError;
+      }
+    }
   } catch (error) {
     console.error("Error explaining code:", error.message);
     console.error("Full error:", error);
     
     // More specific error messages
     if (error.message.includes('401') || error.message.includes('403')) {
-      throw new Error("Invalid API key - please check your AIMLAPI_GPT5 environment variable");
+      throw new Error("Invalid API key - please check your API key environment variables");
     } else if (error.message.includes('429')) {
       throw new Error("API rate limit exceeded - please try again later");
     } else if (error.message.includes('503') || error.message.includes('502')) {
-      throw new Error("AIMLAPI.COM service is temporarily unavailable");
+      throw new Error("AI service is temporarily unavailable");
     } else {
       throw new Error(`Failed to generate code explanation: ${error.message}`);
     }

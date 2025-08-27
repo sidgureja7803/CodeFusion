@@ -1,5 +1,5 @@
 import express from "express";
-import { register, login, logout, me, updateProfile } from "../controllers/auth.controller.js";
+import { register, login, logout, me, updateProfile, refreshToken } from "../controllers/auth.controller.js";
 import { verifyEmail, resendVerificationOTP } from "../services/otpService.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
 
@@ -8,6 +8,9 @@ const authRoutes = express.Router();
 authRoutes.post("/register", register);
 
 authRoutes.post("/login", login);
+
+// Add token refresh endpoint
+authRoutes.post("/refresh", authMiddleware, refreshToken);
 
 authRoutes.post("/logout", authMiddleware, logout);
 

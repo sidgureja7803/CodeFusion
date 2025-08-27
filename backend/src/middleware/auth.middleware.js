@@ -15,9 +15,10 @@ export const authRateLimit = rateLimit({
   legacyHeaders: false,
 });
 
-// Enhanced authentication middleware with security improvements
+// Enhanced authentication middleware with security improvements and better error handling
 export const authMiddleware = async (req, res, next) => {
   try {
+    // Extract token from cookies or Authorization header
     const token = req.cookies.jwt || req.headers.authorization?.replace('Bearer ', '');
     
     if (!token) {
@@ -28,7 +29,7 @@ export const authMiddleware = async (req, res, next) => {
     }
 
     try {
-      // Verify JWT token
+      // Verify JWT token with more detailed error handling
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       
       // Check if token is expired (additional safety check)
@@ -38,6 +39,9 @@ export const authMiddleware = async (req, res, next) => {
           code: "TOKEN_EXPIRED"
         });
       }
+
+      // Log successful token verification
+      console.log(`Token verified successfully for user ID: ${decoded.id}`);
 
       // Fetch user with security considerations
       const user = await db.user.findUnique({
@@ -57,12 +61,13 @@ export const authMiddleware = async (req, res, next) => {
           createdAt: true,
           updatedAt: true,
           lastLogin: true,
-          isActive: true, // Add this field to user model
-          emailVerified: true, // Add this field for email verification
+          isActive: true,
+          emailVerified: true,
         },
       });
 
       if (!user) {
+        console.error(`User not found for ID: ${decoded.id}`);
         return res.status(404).json({ 
           message: "User not found",
           code: "USER_NOT_FOUND"
@@ -77,11 +82,11 @@ export const authMiddleware = async (req, res, next) => {
         });
       }
 
-      // Update last activity timestamp
-      await db.user.update({
+      // Update last activity timestamp - don't wait for this to complete
+      db.user.update({
         where: { id: user.id },
         data: { lastLogin: new Date() }
-      });
+      }).catch(err => console.error(`Failed to update last login: ${err.message}`));
 
       // Attach user to request object
       req.loggedInUser = user;
@@ -90,21 +95,25 @@ export const authMiddleware = async (req, res, next) => {
       res.setHeader('X-Content-Type-Options', 'nosniff');
       res.setHeader('X-Frame-Options', 'DENY');
       res.setHeader('X-XSS-Protection', '1; mode=block');
+      res.setHeader('Cache-Control', 'no-store');
       
       next();
     } catch (jwtError) {
       // Handle specific JWT errors
       if (jwtError.name === 'TokenExpiredError') {
+        console.log('Token expired:', jwtError.message);
         return res.status(401).json({ 
           message: "Unauthorized - Token expired",
           code: "TOKEN_EXPIRED"
         });
       } else if (jwtError.name === 'JsonWebTokenError') {
+        console.error('Invalid token:', jwtError.message);
         return res.status(401).json({ 
           message: "Unauthorized - Invalid token",
           code: "INVALID_TOKEN"
         });
       } else {
+        console.error('Token verification failed:', jwtError);
         return res.status(401).json({ 
           message: "Unauthorized - Token verification failed",
           code: "TOKEN_VERIFICATION_FAILED"
