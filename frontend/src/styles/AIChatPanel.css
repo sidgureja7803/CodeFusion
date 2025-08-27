@@ -88,6 +88,16 @@
   color: #e6e6e6;
 }
 
+/* Error message styling */
+.markdown-content.error-message {
+  border-left: 3px solid rgba(220, 20, 60, 0.8);
+  background-color: rgba(220, 20, 60, 0.15);
+}
+
+.markdown-content.error-message p {
+  color: #ffcccc;
+}
+
 .ai-chat-input {
   display: flex;
   padding: 12px;

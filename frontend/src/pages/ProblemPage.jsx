@@ -123,9 +123,35 @@ export const ProblemPage = () => {
   }, [location.search, location.pathname, sessionId, isCollaborative]); // Added missing dependencies
 
   useEffect(() => {
-    getProblemById(id);
-    getSubmissionForProblem(id);
-    getSubmissionCountForProblem(id);
+    if (!id) {
+      console.error("No problem ID provided");
+      return;
+    }
+
+    console.log("🔍 Loading problem data for ID:", id);
+    
+    // Use Promise.allSettled to handle errors independently
+    const loadProblemData = async () => {
+      try {
+        await getProblemById(id);
+      } catch (error) {
+        console.error("Error loading problem:", error);
+      }
+      
+      try {
+        await getSubmissionForProblem(id);
+      } catch (error) {
+        console.error("Error loading submissions:", error);
+      }
+      
+      try {
+        await getSubmissionCountForProblem(id);
+      } catch (error) {
+        console.error("Error loading submission count:", error);
+      }
+    };
+    
+    loadProblemData();
   }, [
     id,
     getProblemById,
@@ -373,6 +399,23 @@ function solution() {
           </div>
         );
       case "submissions":
+        if (!authUser) {
+          // User is not logged in
+          return (
+            <div className="p-8 text-center">
+              <div className="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-xl p-6 mb-8 max-w-md mx-auto">
+                <div className="text-blue-600 dark:text-blue-400 mb-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                  <h3 className="text-xl font-bold">Authentication Required</h3>
+                </div>
+                <p className="text-slate-700 dark:text-slate-300">Please log in to view your submission history for this problem.</p>
+              </div>
+            </div>
+          );
+        }
+        
         return (
           <SubmissionsList
             submissions={submissions}

@@ -27,9 +27,37 @@ export const useAuthStore = create((set) => ({
       // Try to wake up backend first
       await useAuthStore.getState().wakeUpBackend();
       
-      const response = await axiosInstance.get("/auth/me");
-      set({ authUser: response.data.user });
-      return true;
+      try {
+        const response = await axiosInstance.get("/auth/me");
+        set({ authUser: response.data.user });
+        console.log("✅ User authenticated successfully:", response.data.user.email);
+        return true;
+      } catch (authError) {
+        // If we get a token expired error, try to refresh the token
+        if (authError.response?.status === 401 && 
+            authError.response?.data?.code === "TOKEN_EXPIRED") {
+          console.log("🔄 Token expired, attempting to refresh...");
+          
+          try {
+            // Try to refresh the token
+            const refreshResponse = await axiosInstance.post("/auth/refresh");
+            console.log("✅ Token refreshed successfully");
+            
+            // Retry the original auth check with the new token
+            const retryResponse = await axiosInstance.get("/auth/me");
+            set({ authUser: retryResponse.data.user });
+            console.log("✅ User re-authenticated after token refresh");
+            return true;
+          } catch (refreshError) {
+            console.error("❌ Failed to refresh token:", refreshError.message);
+            set({ authUser: null });
+            throw refreshError;
+          }
+        } else {
+          // For other auth errors, propagate the error
+          throw authError;
+        }
+      }
     } catch (error) {
       console.error("Error checking authentication:", error);
       
@@ -40,7 +68,8 @@ export const useAuthStore = create((set) => ({
         const data = error.response.data;
         
         if (status === 401) {
-          error.friendlyMessage = 'You are not logged in. Please sign in to continue.';
+          console.log("👤 Authentication required: User not logged in");
+          error.friendlyMessage = 'You need to log in to continue.';
         } else if (status === 500) {
           error.friendlyMessage = 'Server error occurred. Please try again later.';
         } else {

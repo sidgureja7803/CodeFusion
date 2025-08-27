@@ -7,14 +7,18 @@ import { db } from "../libs/db.js";
 
 export const getAIHelp = async (req, res) => {
   try {
+    console.log("📝 AI Help Request from user:", req.loggedInUser?.id);
     const { prompt, problemId, code, language } = req.body;
 
     if (!prompt) {
+      console.log("❌ AI Help: Missing prompt");
       return res.status(400).json({
         success: false,
         message: "Prompt is required",
       });
     }
+    
+    console.log("✅ AI Help: Valid prompt received, length:", prompt.length);
 
     // Get problem details if problemId is provided
     let problem = null;
@@ -24,22 +28,51 @@ export const getAIHelp = async (req, res) => {
       });
     }
 
-    const aiResponse = await generateAIResponse(prompt, {
-      problem,
-      userCode: code,
-      language,
-    });
+    try {
+      const aiResponse = await generateAIResponse(prompt, {
+        problem,
+        userCode: code,
+        language,
+      });
+      
+      console.log("✅ AI Help: Response generated successfully, length:", aiResponse?.length);
 
-    return res.status(200).json({
-      success: true,
-      message: "AI response generated successfully",
-      response: aiResponse,
-    });
+      return res.status(200).json({
+        success: true,
+        message: "AI response generated successfully",
+        response: aiResponse,
+      });
+    } catch (aiError) {
+      console.error("❌ AI Service Error:", aiError.message);
+      
+      // Try fallback response for API errors
+      if (aiError.message.includes("API key") || 
+          aiError.message.includes("401") || 
+          aiError.message.includes("403")) {
+        return res.status(500).json({
+          success: false,
+          message: "AI service authentication failed. Please check API configuration.",
+          error: "API_AUTH_ERROR"
+        });
+      } else if (aiError.message.includes("429") || aiError.message.includes("rate limit")) {
+        return res.status(429).json({
+          success: false,
+          message: "AI service rate limit exceeded. Please try again later.",
+          error: "RATE_LIMIT"
+        });
+      } else {
+        return res.status(500).json({
+          success: false,
+          message: "Failed to generate AI response",
+          error: aiError.message,
+        });
+      }
+    }
   } catch (error) {
-    console.error("Error getting AI help:", error);
+    console.error("💥 Error getting AI help:", error);
     return res.status(500).json({
       success: false,
-      message: "Failed to generate AI response",
+      message: "Server error processing AI request",
       error: error.message,
     });
   }

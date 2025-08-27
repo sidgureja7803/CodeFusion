@@ -3,12 +3,14 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// Get API key from environment variables
-const apiKey = process.env.NOVITA_API_KEY; // Changed from BLACKBOX_API_KEY to NOVITA_API_KEY
+// Get API key from environment variables - try AIMLAPI_GPT5 as fallback
+const apiKey = process.env.NOVITA_API_KEY || process.env.AIMLAPI_GPT5;
 
 // Check if API key is available at startup
 if (!apiKey) {
-  console.error("⚠️ WARNING: NOVITA_API_KEY is not configured in environment variables");
+  console.error("⚠️ WARNING: Neither NOVITA_API_KEY nor AIMLAPI_GPT5 is configured in environment variables");
+} else {
+  console.log(`🔑 Using API key from ${process.env.NOVITA_API_KEY ? 'NOVITA_API_KEY' : 'AIMLAPI_GPT5'}`);
 }
 
 // OpenAI API configuration
@@ -27,8 +29,10 @@ export const generateAIResponse = async (prompt, context) => {
   try {
     // Check if API key is available
     if (!apiKey) {
-      throw new Error("NOVITA_API_KEY is not configured in environment variables");
+      throw new Error("No API key available - check NOVITA_API_KEY or AIMLAPI_GPT5 in environment variables");
     }
+    
+    console.log("🤖 AI: Generating response for prompt:", prompt.substring(0, 50) + "...");
 
     const { problem, userCode, language } = context;
 

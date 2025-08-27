@@ -122,10 +122,10 @@ export const FirstPage = () => {
           initial="hidden"
           animate={controls}
         >
-          <div className="px-3 py-1.5 bg-gradient-to-r from-[#10b981]/20 to-[#10b981]/5 backdrop-blur-md rounded-lg border border-[#10b981]/30 shadow-lg shadow-green-500/5 flex items-center gap-2">
+          {/* <div className="px-3 py-1.5 bg-gradient-to-r from-[#10b981]/20 to-[#10b981]/5 backdrop-blur-md rounded-lg border border-[#10b981]/30 shadow-lg shadow-green-500/5 flex items-center gap-2">
             <Zap size={14} className="text-[#10b981]" />
             <span className="text-xs font-medium text-green-100">High Performance</span>
-          </div>
+          </div> */}
         </motion.div>
         
         {/* Top Badges - Industry Standard Badges */}

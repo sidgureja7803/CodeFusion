@@ -28,32 +28,41 @@ export const useSubmissionStore = create((set, get) => ({
       // Don't proceed without problem ID
       if (!problemId) {
         console.error("Missing problem ID for getSubmissionForProblem");
+        // Set default empty data instead of showing error
+        set({ submission: [] });
         return;
       }
       
       set({ isLoading: true });
-      const res = await axiosInstance.get(
-        `/submission/get-submissions/${problemId}`
-      );
+      
+      try {
+        const res = await axiosInstance.get(
+          `/submission/get-submissions/${problemId}`
+        );
 
-      set({ submission: res.data.data });
-    } catch (error) {
-      console.error("Error getting submissions for problem:", error);
-      
-      let errorMessage = "Error getting submissions for problem";
-      
-      // More specific error messages based on error type
-      if (error.response?.status === 401) {
-        errorMessage = "Please log in to view submissions";
-      } else if (error.response?.status === 404) {
-        errorMessage = "No submissions found for this problem";
-        // Set empty array to avoid undefined errors
-        set({ submission: [] });
-      } else if (!error.response && error.message) {
-        errorMessage = "Network error. Please check your connection.";
+        set({ submission: res.data.data });
+        console.log("✅ Retrieved submissions successfully");
+      } catch (submissionError) {
+        console.error("Error getting submissions:", submissionError);
+        
+        // Handle specific error cases
+        if (submissionError.response?.status === 401) {
+          console.log("👤 Authentication required to view submissions");
+          // Don't show error toast here, just set empty data
+          set({ submission: [] });
+        } else if (submissionError.response?.status === 404) {
+          console.log("ℹ️ No submissions found for this problem");
+          // Set empty array to avoid undefined errors
+          set({ submission: [] });
+        } else {
+          // For other errors, show toast only for non-auth errors
+          let errorMessage = "Error loading submissions";
+          if (!submissionError.response?.status === 401) {
+            Toast.error(errorMessage, "Submissions Error");
+          }
+          set({ submission: [] });
+        }
       }
-      
-      Toast.error(errorMessage, "Submissions Error");
     } finally {
       set({ isLoading: false });
     }
@@ -64,31 +73,42 @@ export const useSubmissionStore = create((set, get) => ({
       // Don't proceed without problem ID
       if (!problemId) {
         console.error("Missing problem ID for getSubmissionCountForProblem");
-        return;
-      }
-      
-      const res = await axiosInstance.get(
-        `/submission/get-submissions-count/${problemId}`
-      );
-
-      set({ submissionCount: res.data.data });
-    } catch (error) {
-      console.error("Error getting submission count for problem:", error);
-      
-      let errorMessage = "Error getting submission count";
-      
-      // More specific error messages based on error type
-      if (error.response?.status === 401) {
-        errorMessage = "Please log in to view submission count";
-      } else if (error.response?.status === 404) {
-        // If 404, set count to 0 instead of showing error
+        // Set default value instead of showing error
         set({ submissionCount: 0 });
         return;
-      } else if (!error.response && error.message) {
-        errorMessage = "Network error. Please check your connection.";
       }
       
-      Toast.error(errorMessage, "Submission Count Error");
+      try {
+        const res = await axiosInstance.get(
+          `/submission/get-submissions-count/${problemId}`
+        );
+
+        set({ submissionCount: res.data.data });
+        console.log("✅ Retrieved submission count successfully:", res.data.data);
+      } catch (countError) {
+        console.error("Error getting submission count:", countError);
+        
+        // Handle specific error cases
+        if (countError.response?.status === 401) {
+          console.log("👤 Authentication required to view submission count");
+          // Don't show error toast, just set default value
+          set({ submissionCount: 0 });
+        } else if (countError.response?.status === 404) {
+          console.log("ℹ️ No submission count found for this problem");
+          // Set default to 0
+          set({ submissionCount: 0 });
+        } else {
+          // For other errors, set default and only show toast for non-auth errors
+          if (countError.response?.status !== 401) {
+            let errorMessage = "Error loading submission count";
+            Toast.error(errorMessage, "Submission Error");
+          }
+          set({ submissionCount: 0 });
+        }
+      }
+    } catch (error) {
+      console.error("Unexpected error in getSubmissionCountForProblem:", error);
+      set({ submissionCount: 0 });
     }
   },
 }));

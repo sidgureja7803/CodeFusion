@@ -52,8 +52,40 @@ const AIChatPanel = ({ problem, code, language, onClose }) => {
     console.log("🤖 AI Chat: Language:", language);
     console.log("🤖 AI Chat: Code length:", code?.length || 0);
 
-    await getAIHelp(prompt, problem?.id, code, language);
-    setPrompt("");
+    try {
+      await getAIHelp(prompt, problem?.id, code, language);
+      setPrompt("");
+    } catch (error) {
+      // Keep the prompt in case the user wants to retry
+      console.error("Failed to get AI help:", error);
+      
+      // Show user-friendly error in the chat
+      const errorMessage = {
+        role: "assistant",
+        content: "Sorry, I encountered a problem processing your request. Please try again in a moment.",
+        timestamp: new Date().toISOString(),
+        isError: true
+      };
+      
+      if (error.response?.status === 401) {
+        errorMessage.content = "You need to be logged in to use the AI assistant. Please log in and try again.";
+      } else if (error.response?.status === 429) {
+        errorMessage.content = "I've received too many requests. Please wait a moment before trying again.";
+      }
+      
+      // Add error message to chat history
+      useAIAssistantStore.getState().set((state) => ({
+        history: [
+          ...state.history,
+          {
+            role: "user",
+            content: prompt,
+            timestamp: new Date().toISOString(),
+          },
+          errorMessage
+        ],
+      }));
+    }
   };
 
   const handleQuickPrompt = async (quickPrompt) => {
@@ -62,7 +94,38 @@ const AIChatPanel = ({ problem, code, language, onClose }) => {
     console.log("🤖 AI Chat: Language:", language);
     console.log("🤖 AI Chat: Code length:", code?.length || 0);
     
-    await getAIHelp(quickPrompt, problem?.id, code, language);
+    try {
+      await getAIHelp(quickPrompt, problem?.id, code, language);
+    } catch (error) {
+      console.error("Failed to get AI help for quick prompt:", error);
+      
+      // Show user-friendly error in the chat
+      const errorMessage = {
+        role: "assistant",
+        content: "Sorry, I encountered a problem processing your request. Please try again in a moment.",
+        timestamp: new Date().toISOString(),
+        isError: true
+      };
+      
+      if (error.response?.status === 401) {
+        errorMessage.content = "You need to be logged in to use the AI assistant. Please log in and try again.";
+      } else if (error.response?.status === 429) {
+        errorMessage.content = "I've received too many requests. Please wait a moment before trying again.";
+      }
+      
+      // Add error message to chat history
+      useAIAssistantStore.getState().set((state) => ({
+        history: [
+          ...state.history,
+          {
+            role: "user",
+            content: quickPrompt,
+            timestamp: new Date().toISOString(),
+          },
+          errorMessage
+        ],
+      }));
+    }
   };
 
   const orbVariants = {
@@ -220,7 +283,7 @@ const AIChatPanel = ({ problem, code, language, onClose }) => {
                     className={`chat-message ${message.role}`}
                   >
                     {message.role === "assistant" ? (
-                      <div className="markdown-content">
+                      <div className={`markdown-content ${message.isError ? "error-message" : ""}`}>
                         <ReactMarkdown>{message.content}</ReactMarkdown>
                       </div>
                     ) : (
