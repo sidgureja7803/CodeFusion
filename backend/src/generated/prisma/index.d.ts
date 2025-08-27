@@ -124,7 +124,7 @@ export const Gender: typeof $Enums.Gender
  */
 export class PrismaClient<
   ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
-  U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
+  const U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
   ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs
 > {
   [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
@@ -156,13 +156,6 @@ export class PrismaClient<
    * Disconnect from the database
    */
   $disconnect(): $Utils.JsPromise<void>;
-
-  /**
-   * Add a middleware
-   * @deprecated since 4.16.0. For new code, prefer client extensions instead.
-   * @see https://pris.ly/d/extensions
-   */
-  $use(cb: Prisma.Middleware): void
 
 /**
    * Executes a prepared raw query and returns the number of affected rows.
@@ -390,8 +383,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.9.0
-   * Query Engine version: 81e4af48011447c3cc503a190e86995b66d2a28e
+   * Prisma Client JS version: 6.14.0
+   * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
    */
   export type PrismaVersion = {
     client: string
@@ -1587,16 +1580,24 @@ export namespace Prisma {
     /**
      * @example
      * ```
-     * // Defaults to stdout
+     * // Shorthand for `emit: 'stdout'`
      * log: ['query', 'info', 'warn', 'error']
      * 
-     * // Emit as events
+     * // Emit as events only
      * log: [
-     *   { emit: 'stdout', level: 'query' },
-     *   { emit: 'stdout', level: 'info' },
-     *   { emit: 'stdout', level: 'warn' }
-     *   { emit: 'stdout', level: 'error' }
+     *   { emit: 'event', level: 'query' },
+     *   { emit: 'event', level: 'info' },
+     *   { emit: 'event', level: 'warn' }
+     *   { emit: 'event', level: 'error' }
      * ]
+     * 
+     * / Emit as events and log to stdout
+     * og: [
+     *  { emit: 'stdout', level: 'query' },
+     *  { emit: 'stdout', level: 'info' },
+     *  { emit: 'stdout', level: 'warn' }
+     *  { emit: 'stdout', level: 'error' }
+     * 
      * ```
      * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
      */
@@ -1647,10 +1648,15 @@ export namespace Prisma {
     emit: 'stdout' | 'event'
   }
 
-  export type GetLogType<T extends LogLevel | LogDefinition> = T extends LogDefinition ? T['emit'] extends 'event' ? T['level'] : never : never
-  export type GetEvents<T extends any> = T extends Array<LogLevel | LogDefinition> ?
-    GetLogType<T[0]> | GetLogType<T[1]> | GetLogType<T[2]> | GetLogType<T[3]>
-    : never
+  export type CheckIsLogLevel<T> = T extends LogLevel ? T : never;
+
+  export type GetLogType<T> = CheckIsLogLevel<
+    T extends LogDefinition ? T['level'] : T
+  >;
+
+  export type GetEvents<T extends any[]> = T extends Array<LogLevel | LogDefinition>
+    ? GetLogType<T[number]>
+    : never;
 
   export type QueryEvent = {
     timestamp: Date
@@ -1690,25 +1696,6 @@ export namespace Prisma {
     | 'runCommandRaw'
     | 'findRaw'
     | 'groupBy'
-
-  /**
-   * These options are being passed into the middleware as "params"
-   */
-  export type MiddlewareParams = {
-    model?: ModelName
-    action: PrismaAction
-    args: any
-    dataPath: string[]
-    runInTransaction: boolean
-  }
-
-  /**
-   * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
-   */
-  export type Middleware<T = any> = (
-    params: MiddlewareParams,
-    next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
-  ) => $Utils.JsPromise<T>
 
   // tested in getLogLevel.test.ts
   export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
@@ -2019,6 +2006,7 @@ export namespace Prisma {
     lastLogin: Date | null
     streakCount: number | null
     maxStreakCount: number | null
+    emailVerified: boolean | null
     firebaseUid: string | null
     authProvider: string | null
     gender: $Enums.Gender | null
@@ -2040,6 +2028,7 @@ export namespace Prisma {
     lastLogin: Date | null
     streakCount: number | null
     maxStreakCount: number | null
+    emailVerified: boolean | null
     firebaseUid: string | null
     authProvider: string | null
     gender: $Enums.Gender | null
@@ -2061,6 +2050,7 @@ export namespace Prisma {
     lastLogin: number
     streakCount: number
     maxStreakCount: number
+    emailVerified: number
     firebaseUid: number
     authProvider: number
     gender: number
@@ -2094,6 +2084,7 @@ export namespace Prisma {
     lastLogin?: true
     streakCount?: true
     maxStreakCount?: true
+    emailVerified?: true
     firebaseUid?: true
     authProvider?: true
     gender?: true
@@ -2115,6 +2106,7 @@ export namespace Prisma {
     lastLogin?: true
     streakCount?: true
     maxStreakCount?: true
+    emailVerified?: true
     firebaseUid?: true
     authProvider?: true
     gender?: true
@@ -2136,6 +2128,7 @@ export namespace Prisma {
     lastLogin?: true
     streakCount?: true
     maxStreakCount?: true
+    emailVerified?: true
     firebaseUid?: true
     authProvider?: true
     gender?: true
@@ -2244,6 +2237,7 @@ export namespace Prisma {
     lastLogin: Date | null
     streakCount: number
     maxStreakCount: number
+    emailVerified: boolean
     firebaseUid: string | null
     authProvider: string | null
     gender: $Enums.Gender | null
@@ -2284,6 +2278,7 @@ export namespace Prisma {
     lastLogin?: boolean
     streakCount?: boolean
     maxStreakCount?: boolean
+    emailVerified?: boolean
     firebaseUid?: boolean
     authProvider?: boolean
     gender?: boolean
@@ -2313,6 +2308,7 @@ export namespace Prisma {
     lastLogin?: boolean
     streakCount?: boolean
     maxStreakCount?: boolean
+    emailVerified?: boolean
     firebaseUid?: boolean
     authProvider?: boolean
     gender?: boolean
@@ -2334,6 +2330,7 @@ export namespace Prisma {
     lastLogin?: boolean
     streakCount?: boolean
     maxStreakCount?: boolean
+    emailVerified?: boolean
     firebaseUid?: boolean
     authProvider?: boolean
     gender?: boolean
@@ -2355,6 +2352,7 @@ export namespace Prisma {
     lastLogin?: boolean
     streakCount?: boolean
     maxStreakCount?: boolean
+    emailVerified?: boolean
     firebaseUid?: boolean
     authProvider?: boolean
     gender?: boolean
@@ -2364,7 +2362,7 @@ export namespace Prisma {
     linkedinProfile?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "image" | "role" | "password" | "createdAt" | "updatedAt" | "lastLogin" | "streakCount" | "maxStreakCount" | "firebaseUid" | "authProvider" | "gender" | "dateOfBirth" | "bio" | "githubProfile" | "linkedinProfile", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "image" | "role" | "password" | "createdAt" | "updatedAt" | "lastLogin" | "streakCount" | "maxStreakCount" | "emailVerified" | "firebaseUid" | "authProvider" | "gender" | "dateOfBirth" | "bio" | "githubProfile" | "linkedinProfile", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     problems?: boolean | User$problemsArgs<ExtArgs>
     submissions?: boolean | User$submissionsArgs<ExtArgs>
@@ -2401,6 +2399,7 @@ export namespace Prisma {
       lastLogin: Date | null
       streakCount: number
       maxStreakCount: number
+      emailVerified: boolean
       firebaseUid: string | null
       authProvider: string | null
       gender: $Enums.Gender | null
@@ -2849,6 +2848,7 @@ export namespace Prisma {
     readonly lastLogin: FieldRef<"User", 'DateTime'>
     readonly streakCount: FieldRef<"User", 'Int'>
     readonly maxStreakCount: FieldRef<"User", 'Int'>
+    readonly emailVerified: FieldRef<"User", 'Boolean'>
     readonly firebaseUid: FieldRef<"User", 'String'>
     readonly authProvider: FieldRef<"User", 'String'>
     readonly gender: FieldRef<"User", 'Gender'>
@@ -13994,6 +13994,7 @@ export namespace Prisma {
     lastLogin: 'lastLogin',
     streakCount: 'streakCount',
     maxStreakCount: 'maxStreakCount',
+    emailVerified: 'emailVerified',
     firebaseUid: 'firebaseUid',
     authProvider: 'authProvider',
     gender: 'gender',
@@ -14261,6 +14262,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Gender'
    */
   export type EnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender'>
@@ -14285,13 +14293,6 @@ export namespace Prisma {
    * Reference to a field of type 'Difficulty[]'
    */
   export type ListEnumDifficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Difficulty[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -14341,6 +14342,7 @@ export namespace Prisma {
     lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
     streakCount?: IntFilter<"User"> | number
     maxStreakCount?: IntFilter<"User"> | number
+    emailVerified?: BoolFilter<"User"> | boolean
     firebaseUid?: StringNullableFilter<"User"> | string | null
     authProvider?: StringNullableFilter<"User"> | string | null
     gender?: EnumGenderNullableFilter<"User"> | $Enums.Gender | null
@@ -14369,6 +14371,7 @@ export namespace Prisma {
     lastLogin?: SortOrderInput | SortOrder
     streakCount?: SortOrder
     maxStreakCount?: SortOrder
+    emailVerified?: SortOrder
     firebaseUid?: SortOrderInput | SortOrder
     authProvider?: SortOrderInput | SortOrder
     gender?: SortOrderInput | SortOrder
@@ -14401,6 +14404,7 @@ export namespace Prisma {
     lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
     streakCount?: IntFilter<"User"> | number
     maxStreakCount?: IntFilter<"User"> | number
+    emailVerified?: BoolFilter<"User"> | boolean
     authProvider?: StringNullableFilter<"User"> | string | null
     gender?: EnumGenderNullableFilter<"User"> | $Enums.Gender | null
     dateOfBirth?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -14428,6 +14432,7 @@ export namespace Prisma {
     lastLogin?: SortOrderInput | SortOrder
     streakCount?: SortOrder
     maxStreakCount?: SortOrder
+    emailVerified?: SortOrder
     firebaseUid?: SortOrderInput | SortOrder
     authProvider?: SortOrderInput | SortOrder
     gender?: SortOrderInput | SortOrder
@@ -14457,6 +14462,7 @@ export namespace Prisma {
     lastLogin?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     streakCount?: IntWithAggregatesFilter<"User"> | number
     maxStreakCount?: IntWithAggregatesFilter<"User"> | number
+    emailVerified?: BoolWithAggregatesFilter<"User"> | boolean
     firebaseUid?: StringNullableWithAggregatesFilter<"User"> | string | null
     authProvider?: StringNullableWithAggregatesFilter<"User"> | string | null
     gender?: EnumGenderNullableWithAggregatesFilter<"User"> | $Enums.Gender | null
@@ -15260,6 +15266,7 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -15288,6 +15295,7 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -15316,6 +15324,7 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -15344,6 +15353,7 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -15372,6 +15382,7 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -15393,6 +15404,7 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -15414,6 +15426,7 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -16339,6 +16352,11 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type EnumGenderNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel> | null
     in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
@@ -16433,6 +16451,7 @@ export namespace Prisma {
     lastLogin?: SortOrder
     streakCount?: SortOrder
     maxStreakCount?: SortOrder
+    emailVerified?: SortOrder
     firebaseUid?: SortOrder
     authProvider?: SortOrder
     gender?: SortOrder
@@ -16459,6 +16478,7 @@ export namespace Prisma {
     lastLogin?: SortOrder
     streakCount?: SortOrder
     maxStreakCount?: SortOrder
+    emailVerified?: SortOrder
     firebaseUid?: SortOrder
     authProvider?: SortOrder
     gender?: SortOrder
@@ -16480,6 +16500,7 @@ export namespace Prisma {
     lastLogin?: SortOrder
     streakCount?: SortOrder
     maxStreakCount?: SortOrder
+    emailVerified?: SortOrder
     firebaseUid?: SortOrder
     authProvider?: SortOrder
     gender?: SortOrder
@@ -16584,6 +16605,14 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type EnumGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel> | null
     in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
@@ -16610,11 +16639,6 @@ export namespace Prisma {
     in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
     notIn?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
     not?: NestedEnumDifficultyFilter<$PrismaModel> | $Enums.Difficulty
-  }
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type FloatNullableFilter<$PrismaModel = never> = {
@@ -16811,14 +16835,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumDifficultyFilter<$PrismaModel>
     _max?: NestedEnumDifficultyFilter<$PrismaModel>
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -17358,6 +17374,10 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type NullableEnumGenderFieldUpdateOperationsInput = {
     set?: $Enums.Gender | null
   }
@@ -17660,10 +17680,6 @@ export namespace Prisma {
 
   export type EnumDifficultyFieldUpdateOperationsInput = {
     set?: $Enums.Difficulty
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type NullableFloatFieldUpdateOperationsInput = {
@@ -18292,6 +18308,11 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedEnumGenderNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel> | null
     in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
@@ -18409,6 +18430,14 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedEnumGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel> | null
     in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
@@ -18424,11 +18453,6 @@ export namespace Prisma {
     in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
     notIn?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
     not?: NestedEnumDifficultyFilter<$PrismaModel> | $Enums.Difficulty
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedFloatNullableFilter<$PrismaModel = never> = {
@@ -18466,14 +18490,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumDifficultyFilter<$PrismaModel>
     _max?: NestedEnumDifficultyFilter<$PrismaModel>
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -19039,6 +19055,7 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -19066,6 +19083,7 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -19257,6 +19275,7 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -19284,6 +19303,7 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -19485,6 +19505,7 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -19512,6 +19533,7 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -19684,6 +19706,7 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -19711,6 +19734,7 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -19940,6 +19964,7 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -19967,6 +19992,7 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -20099,6 +20125,7 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -20126,6 +20153,7 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -20177,6 +20205,7 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -20204,6 +20233,7 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -20263,6 +20293,7 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -20290,6 +20321,7 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -20541,6 +20573,7 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -20568,6 +20601,7 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -20694,6 +20728,7 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -20721,6 +20756,7 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -20920,6 +20956,7 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -20947,6 +20984,7 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -21160,6 +21198,7 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -21187,6 +21226,7 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -21306,6 +21346,7 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -21333,6 +21374,7 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
+    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -21409,6 +21451,7 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -21436,6 +21479,7 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null

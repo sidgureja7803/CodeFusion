@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.9.0
- * Query Engine version: 81e4af48011447c3cc503a190e86995b66d2a28e
+ * Prisma Client JS version: 6.14.0
+ * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
  */
 Prisma.prismaVersion = {
-  client: "6.9.0",
-  engine: "81e4af48011447c3cc503a190e86995b66d2a28e"
+  client: "6.14.0",
+  engine: "717184b7b35ea05dfa71a3236b7af656013e1e49"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -132,6 +132,7 @@ exports.Prisma.UserScalarFieldEnum = {
   lastLogin: 'lastLogin',
   streakCount: 'streakCount',
   maxStreakCount: 'maxStreakCount',
+  emailVerified: 'emailVerified',
   firebaseUid: 'firebaseUid',
   authProvider: 'authProvider',
   gender: 'gender',
