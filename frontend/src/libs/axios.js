@@ -5,10 +5,22 @@ export const API_URL =
     ? import.meta.env.VITE_API_URL
     : "http://localhost:3000/api/v1";
 
+// Ensure the API_URL ends with /api/v1
+const ensureApiPrefix = (url) => {
+  if (!url.endsWith('/api/v1')) {
+    return url.endsWith('/') ? `${url}api/v1` : `${url}/api/v1`;
+  }
+  return url;
+};
+
+// Ensure the API URL has the correct prefix
+const baseURL = ensureApiPrefix(API_URL);
+console.log('🚀 API Base URL:', baseURL);
+
 
 // Create axios instance with enhanced configuration
 export const axiosInstance = axios.create({
-  baseURL: API_URL,
+  baseURL: baseURL,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json"
@@ -130,7 +142,7 @@ axiosInstance.interceptors.response.use(
       try {
         // Try to refresh the token
         console.log("🔄 Attempting to refresh token");
-        const refreshResponse = await axiosInstance.post("/auth/refresh");
+        await axiosInstance.post("/auth/refresh");
         console.log("✅ Token refreshed successfully");
         
         // Process queued requests

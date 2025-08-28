@@ -1,3 +1,9 @@
+/**
+ * @deprecated This file is deprecated and should not be used.
+ * Please use auth.controller.js instead which uses ES module syntax.
+ * This file is causing conflicts in the authentication system.
+ */
+
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');

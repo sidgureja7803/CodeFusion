@@ -10,6 +10,12 @@ export const register = async (req, res) => {
   console.log("=== REGISTRATION ENDPOINT HIT ===");
   console.log("Request body:", req.body);
   
+  // Check if request body exists
+  if (!req.body || Object.keys(req.body).length === 0) {
+    console.log("❌ Empty request body");
+    return res.status(400).json({ message: "Request body is empty" });
+  }
+  
   try {
     const { name, email, password } = req.body;
     
@@ -30,8 +36,13 @@ export const register = async (req, res) => {
 
     // Check if user exists
     console.log("🔍 Checking if user exists...");
+    // Use select to only retrieve needed fields to avoid schema mismatch issues
     const existingUser = await db.user.findUnique({
       where: { email: email.toLowerCase() },
+      select: {
+        id: true,
+        email: true
+      }
     });
     
     if (existingUser) {
@@ -48,35 +59,47 @@ export const register = async (req, res) => {
 
     // Create user (simplified)
     console.log("👤 Creating user...");
-    const userData = {
-      name: name.trim(),
-      email: email.toLowerCase().trim(),
-      password: hashedPassword,
-      role: "USER", // Use string instead of enum for now
-      emailVerified: false // Set email as not verified initially
-    };
-    console.log("User data to create:", { ...userData, password: "[HIDDEN]" });
-
+    
+    // Explicitly define the fields we want to create to avoid schema mismatch issues
+    // Don't include emailVerified field that might be causing problems
+    console.log("Creating user with explicit fields...");
+    
     const newUser = await db.user.create({
-      data: userData,
+      data: {
+        name: name.trim(),
+        email: email.toLowerCase().trim(),
+        password: hashedPassword,
+        role: Role.USER,
+        streakCount: 0,
+        maxStreakCount: 0
+      },
+      // Select only fields we know exist in the database
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        streakCount: true,
+        maxStreakCount: true,
+        createdAt: true
+      }
     });
     
     console.log("✅ User created with ID:", newUser.id);
-
-    // Import OTP service and generate OTP
-    const { generateOTP, sendVerificationEmail } = await import("../services/otpService.js");
+    console.log("🎉 Registration successful!");
     
-    // Generate and send OTP
-    const otp = generateOTP(email);
-    await sendVerificationEmail(email, name, otp);
-    console.log("✉️ Verification email sent to:", email);
+    // Generate JWT token for immediate login after signup
+    const token = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
 
-    console.log("🎉 Registration successful! OTP verification required.");
+    // Set cookie
+    console.log("🍪 Setting JWT cookie with config:", getCookieConfig());
+    res.cookie("jwt", token, getCookieConfig());
     
     return res.status(201).json({
       success: true,
-      message: "User registered successfully. Please verify your email with the OTP sent to your inbox.",
-      requireVerification: true,
+      message: "User registered successfully.",
       user: {
         id: newUser.id,
         name: newUser.name,
@@ -104,6 +127,19 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
+  console.log("=== LOGIN ENDPOINT HIT ===");
+  console.log("Request body:", req.body ? { ...req.body, password: req.body.password ? '[REDACTED]' : null } : 'No body');
+  
+  // Check if request body exists
+  if (!req.body || Object.keys(req.body).length === 0) {
+    console.log("❌ Empty request body");
+    return res.status(400).json({ 
+      success: false,
+      message: "Request body is empty", 
+      code: "EMPTY_REQUEST" 
+    });
+  }
+  
   const { email, password } = req.body;
 
   console.log("Login attempt:", { email, hasPassword: !!password });
@@ -123,6 +159,16 @@ export const login = async (req, res) => {
     console.log("🔍 Looking up user by email...");
     const user = await db.user.findUnique({
       where: { email: email.toLowerCase() },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        password: true,
+        role: true,
+        lastLogin: true,
+        streakCount: true,
+        maxStreakCount: true
+      }
     });
 
     if (!user) {
@@ -146,30 +192,7 @@ export const login = async (req, res) => {
       });
     }
 
-    // Check if email is verified
-    if (user.emailVerified === false) {
-      console.log("⚠️ Login attempt with unverified email:", user.email);
-      
-      // Import OTP service and generate new OTP
-      const { generateOTP, sendVerificationEmail } = await import("../services/otpService.js");
-      
-      // Generate and send a new OTP
-      const otp = generateOTP(email);
-      await sendVerificationEmail(email, user.name, otp);
-      
-      console.log("✉️ New verification email sent to:", email);
-      
-      return res.status(403).json({
-        success: false,
-        message: "Email not verified. A new verification code has been sent to your email.",
-        requireVerification: true,
-        user: {
-          id: user.id,
-          email: user.email,
-          name: user.name
-        }
-      });
-    }
+    // Email verification check removed - all users can log in directly
 
     console.log("✅ Email verified, generating token...");
     // Generate JWT token
@@ -226,8 +249,16 @@ export const login = async (req, res) => {
     });
 
     // Set cookie using consistent helper
-    console.log("🍪 Setting JWT cookie with config:", getCookieConfig());
-    res.cookie("jwt", token, getCookieConfig());
+    const cookieConfig = getCookieConfig();
+    console.log("🍪 Setting JWT cookie with config:", cookieConfig);
+    
+    try {
+      res.cookie("jwt", token, cookieConfig);
+      console.log("✅ Cookie set successfully");
+    } catch (cookieError) {
+      console.error("❌ Error setting cookie:", cookieError);
+      // Continue execution even if cookie setting fails
+    }
 
     console.log("✅ Login successful for user:", user.email);
     res.status(200).json({
@@ -238,7 +269,6 @@ export const login = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
-        emailVerified: user.emailVerified,
         streakCount,
         maxStreakCount
       },
@@ -335,7 +365,6 @@ export const refreshToken = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
-        emailVerified: user.emailVerified,
         streakCount: user.streakCount,
         maxStreakCount: user.maxStreakCount
       },

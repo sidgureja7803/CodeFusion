@@ -49,15 +49,15 @@ async function registerUser() {
   try {
     logStep('Testing user registration...');
     
-    const response = await fetch(`${API_URL}/auth/register`, {
+    const response = await fetch(`${API_URL}/api/v1/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         name: 'Test User',
         email: testEmail,
         password: password,
-        confirmPassword: password,
       }),
+      credentials: 'include',
     });
 
     const data = await response.json();
@@ -79,17 +79,19 @@ async function loginUser(email, password) {
   try {
     logStep(`Attempting login with email: ${email}...`);
     
-    const response = await fetch(`${API_URL}/auth/login`, {
+    const response = await fetch(`${API_URL}/api/v1/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
+      credentials: 'include',
     });
 
     const data = await response.json();
     
-    if (response.ok && data.token) {
-      logSuccess('Login successful! Token received.');
-      return data.token;
+    if (response.ok && data.success) {
+      logSuccess('Login successful!');
+      // Get token from cookies instead
+      return 'cookie-auth-used';
     } else {
       logError(`Login failed: ${data.message || 'Unknown error'}`);
       return null;
@@ -104,10 +106,9 @@ async function getUserProfile(token) {
   try {
     logStep('Fetching user profile...');
     
-    const response = await fetch(`${API_URL}/auth/me`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
+    // Use credentials: 'include' to send cookies with the request
+    const response = await fetch(`${API_URL}/api/v1/auth/me`, {
+      credentials: 'include'
     });
 
     const data = await response.json();
