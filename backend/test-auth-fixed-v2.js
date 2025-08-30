@@ -68,10 +68,48 @@ async function makeRequest(endpoint, method = 'GET', data = null) {
     // Save cookies for subsequent requests
     const setCookieHeader = response.headers.get('set-cookie');
     if (setCookieHeader) {
-      // Parse and store the cookies
-      const newCookies = setCookieHeader.split(',').map(cookie => cookie.split(';')[0].trim());
-      cookies = [...cookies, ...newCookies];
-      console.log(`${colors.dim}Received cookies: ${newCookies.join(', ')}${colors.reset}`);
+      // Parse cookies and check for expired ones
+      const cookieHeaderArray = setCookieHeader.split(',');
+      const newCookies = [];
+      
+      for (const cookieHeader of cookieHeaderArray) {
+        const cookieParts = cookieHeader.split(';');
+        const cookieNameValue = cookieParts[0].trim();
+        const cookieName = cookieNameValue.split('=')[0];
+        
+        // Check if this cookie has an expires attribute in the past
+        const hasExpires = cookieParts.some(part => {
+          const trimmed = part.trim().toLowerCase();
+          return trimmed.startsWith('expires=') && new Date(trimmed.substring(8)) <= new Date();
+        });
+        
+        // Check if max-age is 0 or negative
+        const hasZeroMaxAge = cookieParts.some(part => {
+          const trimmed = part.trim().toLowerCase();
+          return trimmed.startsWith('max-age=') && parseInt(trimmed.substring(8)) <= 0;
+        });
+        
+        if (hasExpires || hasZeroMaxAge) {
+          // Remove this cookie from our stored cookies
+          cookies = cookies.filter(c => !c.startsWith(`${cookieName}=`));
+          console.log(`${colors.dim}Cookie expired: ${cookieName}${colors.reset}`);
+        } else {
+          // Add/update the cookie
+          newCookies.push(cookieNameValue);
+        }
+      }
+      
+      if (newCookies.length > 0) {
+        // Update our cookies, replacing any with the same name
+        for (const newCookie of newCookies) {
+          const cookieName = newCookie.split('=')[0];
+          // Remove old version if exists
+          cookies = cookies.filter(c => !c.startsWith(`${cookieName}=`));
+          // Add new cookie
+          cookies.push(newCookie);
+        }
+        console.log(`${colors.dim}Received cookies: ${newCookies.join(', ')}${colors.reset}`);
+      }
     }
 
     const responseData = await response.json();

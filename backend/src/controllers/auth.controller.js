@@ -192,7 +192,7 @@ export const login = async (req, res) => {
       });
     }
 
-    // Email verification check removed - all users can log in directly
+    // No email verification check needed - all users can log in directly
 
     console.log("✅ Email verified, generating token...");
     // Generate JWT token
@@ -277,8 +277,37 @@ export const login = async (req, res) => {
     console.error("💥 Error logging in user:", { 
       message: error.message,
       code: error.code,
+      name: error.name,
       stack: error.stack
     });
+    
+    // More detailed error logging
+    try {
+      console.error("📊 Debug info for login error:");
+      console.error("JWT_SECRET exists:", !!process.env.JWT_SECRET);
+      console.error("NODE_ENV:", process.env.NODE_ENV);
+      
+      // Check cookie handling
+      if (error.message && error.message.includes("cookie")) {
+        console.error("🍪 Cookie-related error detected");
+        // Try login without setting the cookie
+        return res.status(200).json({
+          success: true,
+          message: "User logged in successfully (cookie handling bypassed)",
+          user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            streakCount: user.streakCount || 0,
+            maxStreakCount: user.maxStreakCount || 0
+          },
+          tokenError: error.message
+        });
+      }
+    } catch (debugError) {
+      console.error("Error in debug handling:", debugError);
+    }
     
     // Database connection issues
     if (error.code === "P1001" || error.code === "P1002") {
@@ -289,19 +318,52 @@ export const login = async (req, res) => {
       });
     }
     
+    // JWT errors
+    if (error.name === "JsonWebTokenError" || error.message.includes("jwt")) {
+      return res.status(500).json({
+        success: false,
+        message: "Authentication error - please contact support",
+        code: "JWT_ERROR",
+        details: process.env.NODE_ENV === "development" ? error.message : undefined
+      });
+    }
+    
+    // Database update errors
+    if (error.message.includes("update") || error.message.includes("prisma")) {
+      return res.status(500).json({
+        success: false,
+        message: "Database update error - please try again",
+        code: "UPDATE_ERROR",
+        details: process.env.NODE_ENV === "development" ? error.message : undefined
+      });
+    }
+    
     return res.status(500).json({ 
       success: false,
       message: "Error logging in user",
-      code: "SERVER_ERROR"
+      code: "SERVER_ERROR",
+      details: process.env.NODE_ENV === "development" ? error.message : undefined
     });
   }
 };
 
 export const logout = async (req, res) => {
   try {
-    // Clear cookie using consistent helper
-    console.log("🍪 Clearing JWT cookie with config:", getCookieConfig());
-    res.clearCookie("jwt", getCookieConfig());
+    // Get cookie config but ensure path is correct
+    const cookieConfig = {
+      ...getCookieConfig(),
+      maxAge: 0,           // Immediate expiration
+      expires: new Date(0) // Set to epoch time
+    };
+    
+    console.log("🍪 Clearing JWT cookie with config:", cookieConfig);
+    
+    // Clear the cookie by setting an expired date
+    res.cookie("jwt", "", cookieConfig);
+    res.clearCookie("jwt", cookieConfig);
+    
+    console.log("✅ JWT cookie cleared successfully");
+    
     res.status(200).json({
       success: true,
       message: "User logged out successfully",

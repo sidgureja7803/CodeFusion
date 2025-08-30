@@ -1719,23 +1719,23 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    problems: number
-    submissions: number
-    solvedProblems: number
     Playlists: number
-    discussions: number
-    discussionLikes: number
+    problems: number
+    solvedProblems: number
     Revision: number
+    submissions: number
+    discussionLikes: number
+    discussions: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    problems?: boolean | UserCountOutputTypeCountProblemsArgs
-    submissions?: boolean | UserCountOutputTypeCountSubmissionsArgs
-    solvedProblems?: boolean | UserCountOutputTypeCountSolvedProblemsArgs
     Playlists?: boolean | UserCountOutputTypeCountPlaylistsArgs
-    discussions?: boolean | UserCountOutputTypeCountDiscussionsArgs
-    discussionLikes?: boolean | UserCountOutputTypeCountDiscussionLikesArgs
+    problems?: boolean | UserCountOutputTypeCountProblemsArgs
+    solvedProblems?: boolean | UserCountOutputTypeCountSolvedProblemsArgs
     Revision?: boolean | UserCountOutputTypeCountRevisionArgs
+    submissions?: boolean | UserCountOutputTypeCountSubmissionsArgs
+    discussionLikes?: boolean | UserCountOutputTypeCountDiscussionLikesArgs
+    discussions?: boolean | UserCountOutputTypeCountDiscussionsArgs
   }
 
   // Custom InputTypes
@@ -1752,15 +1752,15 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountProblemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ProblemWhereInput
+  export type UserCountOutputTypeCountPlaylistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlaylistWhereInput
   }
 
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountSubmissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SubmissionWhereInput
+  export type UserCountOutputTypeCountProblemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProblemWhereInput
   }
 
   /**
@@ -1773,15 +1773,15 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountPlaylistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PlaylistWhereInput
+  export type UserCountOutputTypeCountRevisionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RevisionWhereInput
   }
 
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountDiscussionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DiscussionWhereInput
+  export type UserCountOutputTypeCountSubmissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubmissionWhereInput
   }
 
   /**
@@ -1794,8 +1794,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountRevisionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RevisionWhereInput
+  export type UserCountOutputTypeCountDiscussionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DiscussionWhereInput
   }
 
 
@@ -1804,19 +1804,19 @@ export namespace Prisma {
    */
 
   export type ProblemCountOutputType = {
-    submission: number
-    solvedBy: number
     problemsPlaylist: number
-    discussions: number
+    solvedBy: number
     Revision: number
+    submission: number
+    discussions: number
   }
 
   export type ProblemCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    submission?: boolean | ProblemCountOutputTypeCountSubmissionArgs
-    solvedBy?: boolean | ProblemCountOutputTypeCountSolvedByArgs
     problemsPlaylist?: boolean | ProblemCountOutputTypeCountProblemsPlaylistArgs
-    discussions?: boolean | ProblemCountOutputTypeCountDiscussionsArgs
+    solvedBy?: boolean | ProblemCountOutputTypeCountSolvedByArgs
     Revision?: boolean | ProblemCountOutputTypeCountRevisionArgs
+    submission?: boolean | ProblemCountOutputTypeCountSubmissionArgs
+    discussions?: boolean | ProblemCountOutputTypeCountDiscussionsArgs
   }
 
   // Custom InputTypes
@@ -1833,8 +1833,8 @@ export namespace Prisma {
   /**
    * ProblemCountOutputType without action
    */
-  export type ProblemCountOutputTypeCountSubmissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SubmissionWhereInput
+  export type ProblemCountOutputTypeCountProblemsPlaylistArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProblemPlaylistWhereInput
   }
 
   /**
@@ -1847,8 +1847,15 @@ export namespace Prisma {
   /**
    * ProblemCountOutputType without action
    */
-  export type ProblemCountOutputTypeCountProblemsPlaylistArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ProblemPlaylistWhereInput
+  export type ProblemCountOutputTypeCountRevisionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RevisionWhereInput
+  }
+
+  /**
+   * ProblemCountOutputType without action
+   */
+  export type ProblemCountOutputTypeCountSubmissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubmissionWhereInput
   }
 
   /**
@@ -1856,13 +1863,6 @@ export namespace Prisma {
    */
   export type ProblemCountOutputTypeCountDiscussionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DiscussionWhereInput
-  }
-
-  /**
-   * ProblemCountOutputType without action
-   */
-  export type ProblemCountOutputTypeCountRevisionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RevisionWhereInput
   }
 
 
@@ -1933,13 +1933,13 @@ export namespace Prisma {
    */
 
   export type DiscussionCountOutputType = {
-    replies: number
     likes: number
+    replies: number
   }
 
   export type DiscussionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    replies?: boolean | DiscussionCountOutputTypeCountRepliesArgs
     likes?: boolean | DiscussionCountOutputTypeCountLikesArgs
+    replies?: boolean | DiscussionCountOutputTypeCountRepliesArgs
   }
 
   // Custom InputTypes
@@ -1956,15 +1956,15 @@ export namespace Prisma {
   /**
    * DiscussionCountOutputType without action
    */
-  export type DiscussionCountOutputTypeCountRepliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DiscussionWhereInput
+  export type DiscussionCountOutputTypeCountLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DiscussionLikeWhereInput
   }
 
   /**
    * DiscussionCountOutputType without action
    */
-  export type DiscussionCountOutputTypeCountLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DiscussionLikeWhereInput
+  export type DiscussionCountOutputTypeCountRepliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DiscussionWhereInput
   }
 
 
@@ -2006,7 +2006,6 @@ export namespace Prisma {
     lastLogin: Date | null
     streakCount: number | null
     maxStreakCount: number | null
-    emailVerified: boolean | null
     firebaseUid: string | null
     authProvider: string | null
     gender: $Enums.Gender | null
@@ -2028,7 +2027,6 @@ export namespace Prisma {
     lastLogin: Date | null
     streakCount: number | null
     maxStreakCount: number | null
-    emailVerified: boolean | null
     firebaseUid: string | null
     authProvider: string | null
     gender: $Enums.Gender | null
@@ -2050,7 +2048,6 @@ export namespace Prisma {
     lastLogin: number
     streakCount: number
     maxStreakCount: number
-    emailVerified: number
     firebaseUid: number
     authProvider: number
     gender: number
@@ -2084,7 +2081,6 @@ export namespace Prisma {
     lastLogin?: true
     streakCount?: true
     maxStreakCount?: true
-    emailVerified?: true
     firebaseUid?: true
     authProvider?: true
     gender?: true
@@ -2106,7 +2102,6 @@ export namespace Prisma {
     lastLogin?: true
     streakCount?: true
     maxStreakCount?: true
-    emailVerified?: true
     firebaseUid?: true
     authProvider?: true
     gender?: true
@@ -2128,7 +2123,6 @@ export namespace Prisma {
     lastLogin?: true
     streakCount?: true
     maxStreakCount?: true
-    emailVerified?: true
     firebaseUid?: true
     authProvider?: true
     gender?: true
@@ -2237,7 +2231,6 @@ export namespace Prisma {
     lastLogin: Date | null
     streakCount: number
     maxStreakCount: number
-    emailVerified: boolean
     firebaseUid: string | null
     authProvider: string | null
     gender: $Enums.Gender | null
@@ -2278,7 +2271,6 @@ export namespace Prisma {
     lastLogin?: boolean
     streakCount?: boolean
     maxStreakCount?: boolean
-    emailVerified?: boolean
     firebaseUid?: boolean
     authProvider?: boolean
     gender?: boolean
@@ -2286,13 +2278,13 @@ export namespace Prisma {
     bio?: boolean
     githubProfile?: boolean
     linkedinProfile?: boolean
-    problems?: boolean | User$problemsArgs<ExtArgs>
-    submissions?: boolean | User$submissionsArgs<ExtArgs>
-    solvedProblems?: boolean | User$solvedProblemsArgs<ExtArgs>
     Playlists?: boolean | User$PlaylistsArgs<ExtArgs>
-    discussions?: boolean | User$discussionsArgs<ExtArgs>
-    discussionLikes?: boolean | User$discussionLikesArgs<ExtArgs>
+    problems?: boolean | User$problemsArgs<ExtArgs>
+    solvedProblems?: boolean | User$solvedProblemsArgs<ExtArgs>
     Revision?: boolean | User$RevisionArgs<ExtArgs>
+    submissions?: boolean | User$submissionsArgs<ExtArgs>
+    discussionLikes?: boolean | User$discussionLikesArgs<ExtArgs>
+    discussions?: boolean | User$discussionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2308,7 +2300,6 @@ export namespace Prisma {
     lastLogin?: boolean
     streakCount?: boolean
     maxStreakCount?: boolean
-    emailVerified?: boolean
     firebaseUid?: boolean
     authProvider?: boolean
     gender?: boolean
@@ -2330,7 +2321,6 @@ export namespace Prisma {
     lastLogin?: boolean
     streakCount?: boolean
     maxStreakCount?: boolean
-    emailVerified?: boolean
     firebaseUid?: boolean
     authProvider?: boolean
     gender?: boolean
@@ -2352,7 +2342,6 @@ export namespace Prisma {
     lastLogin?: boolean
     streakCount?: boolean
     maxStreakCount?: boolean
-    emailVerified?: boolean
     firebaseUid?: boolean
     authProvider?: boolean
     gender?: boolean
@@ -2362,15 +2351,15 @@ export namespace Prisma {
     linkedinProfile?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "image" | "role" | "password" | "createdAt" | "updatedAt" | "lastLogin" | "streakCount" | "maxStreakCount" | "emailVerified" | "firebaseUid" | "authProvider" | "gender" | "dateOfBirth" | "bio" | "githubProfile" | "linkedinProfile", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "image" | "role" | "password" | "createdAt" | "updatedAt" | "lastLogin" | "streakCount" | "maxStreakCount" | "firebaseUid" | "authProvider" | "gender" | "dateOfBirth" | "bio" | "githubProfile" | "linkedinProfile", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    problems?: boolean | User$problemsArgs<ExtArgs>
-    submissions?: boolean | User$submissionsArgs<ExtArgs>
-    solvedProblems?: boolean | User$solvedProblemsArgs<ExtArgs>
     Playlists?: boolean | User$PlaylistsArgs<ExtArgs>
-    discussions?: boolean | User$discussionsArgs<ExtArgs>
-    discussionLikes?: boolean | User$discussionLikesArgs<ExtArgs>
+    problems?: boolean | User$problemsArgs<ExtArgs>
+    solvedProblems?: boolean | User$solvedProblemsArgs<ExtArgs>
     Revision?: boolean | User$RevisionArgs<ExtArgs>
+    submissions?: boolean | User$submissionsArgs<ExtArgs>
+    discussionLikes?: boolean | User$discussionLikesArgs<ExtArgs>
+    discussions?: boolean | User$discussionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2379,13 +2368,13 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      problems: Prisma.$ProblemPayload<ExtArgs>[]
-      submissions: Prisma.$SubmissionPayload<ExtArgs>[]
-      solvedProblems: Prisma.$ProblemSolvedPayload<ExtArgs>[]
       Playlists: Prisma.$PlaylistPayload<ExtArgs>[]
-      discussions: Prisma.$DiscussionPayload<ExtArgs>[]
-      discussionLikes: Prisma.$DiscussionLikePayload<ExtArgs>[]
+      problems: Prisma.$ProblemPayload<ExtArgs>[]
+      solvedProblems: Prisma.$ProblemSolvedPayload<ExtArgs>[]
       Revision: Prisma.$RevisionPayload<ExtArgs>[]
+      submissions: Prisma.$SubmissionPayload<ExtArgs>[]
+      discussionLikes: Prisma.$DiscussionLikePayload<ExtArgs>[]
+      discussions: Prisma.$DiscussionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2399,7 +2388,6 @@ export namespace Prisma {
       lastLogin: Date | null
       streakCount: number
       maxStreakCount: number
-      emailVerified: boolean
       firebaseUid: string | null
       authProvider: string | null
       gender: $Enums.Gender | null
@@ -2801,13 +2789,13 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    problems<T extends User$problemsArgs<ExtArgs> = {}>(args?: Subset<T, User$problemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProblemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    submissions<T extends User$submissionsArgs<ExtArgs> = {}>(args?: Subset<T, User$submissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    solvedProblems<T extends User$solvedProblemsArgs<ExtArgs> = {}>(args?: Subset<T, User$solvedProblemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProblemSolvedPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Playlists<T extends User$PlaylistsArgs<ExtArgs> = {}>(args?: Subset<T, User$PlaylistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlaylistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    discussions<T extends User$discussionsArgs<ExtArgs> = {}>(args?: Subset<T, User$discussionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscussionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    discussionLikes<T extends User$discussionLikesArgs<ExtArgs> = {}>(args?: Subset<T, User$discussionLikesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscussionLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    problems<T extends User$problemsArgs<ExtArgs> = {}>(args?: Subset<T, User$problemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProblemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    solvedProblems<T extends User$solvedProblemsArgs<ExtArgs> = {}>(args?: Subset<T, User$solvedProblemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProblemSolvedPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Revision<T extends User$RevisionArgs<ExtArgs> = {}>(args?: Subset<T, User$RevisionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RevisionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    submissions<T extends User$submissionsArgs<ExtArgs> = {}>(args?: Subset<T, User$submissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    discussionLikes<T extends User$discussionLikesArgs<ExtArgs> = {}>(args?: Subset<T, User$discussionLikesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscussionLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    discussions<T extends User$discussionsArgs<ExtArgs> = {}>(args?: Subset<T, User$discussionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscussionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2848,7 +2836,6 @@ export namespace Prisma {
     readonly lastLogin: FieldRef<"User", 'DateTime'>
     readonly streakCount: FieldRef<"User", 'Int'>
     readonly maxStreakCount: FieldRef<"User", 'Int'>
-    readonly emailVerified: FieldRef<"User", 'Boolean'>
     readonly firebaseUid: FieldRef<"User", 'String'>
     readonly authProvider: FieldRef<"User", 'String'>
     readonly gender: FieldRef<"User", 'Gender'>
@@ -3244,6 +3231,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.Playlists
+   */
+  export type User$PlaylistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Playlist
+     */
+    select?: PlaylistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Playlist
+     */
+    omit?: PlaylistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlaylistInclude<ExtArgs> | null
+    where?: PlaylistWhereInput
+    orderBy?: PlaylistOrderByWithRelationInput | PlaylistOrderByWithRelationInput[]
+    cursor?: PlaylistWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PlaylistScalarFieldEnum | PlaylistScalarFieldEnum[]
+  }
+
+  /**
    * User.problems
    */
   export type User$problemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3265,30 +3276,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ProblemScalarFieldEnum | ProblemScalarFieldEnum[]
-  }
-
-  /**
-   * User.submissions
-   */
-  export type User$submissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Submission
-     */
-    select?: SubmissionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Submission
-     */
-    omit?: SubmissionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubmissionInclude<ExtArgs> | null
-    where?: SubmissionWhereInput
-    orderBy?: SubmissionOrderByWithRelationInput | SubmissionOrderByWithRelationInput[]
-    cursor?: SubmissionWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: SubmissionScalarFieldEnum | SubmissionScalarFieldEnum[]
   }
 
   /**
@@ -3316,51 +3303,51 @@ export namespace Prisma {
   }
 
   /**
-   * User.Playlists
+   * User.Revision
    */
-  export type User$PlaylistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$RevisionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Playlist
+     * Select specific fields to fetch from the Revision
      */
-    select?: PlaylistSelect<ExtArgs> | null
+    select?: RevisionSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Playlist
+     * Omit specific fields from the Revision
      */
-    omit?: PlaylistOmit<ExtArgs> | null
+    omit?: RevisionOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PlaylistInclude<ExtArgs> | null
-    where?: PlaylistWhereInput
-    orderBy?: PlaylistOrderByWithRelationInput | PlaylistOrderByWithRelationInput[]
-    cursor?: PlaylistWhereUniqueInput
+    include?: RevisionInclude<ExtArgs> | null
+    where?: RevisionWhereInput
+    orderBy?: RevisionOrderByWithRelationInput | RevisionOrderByWithRelationInput[]
+    cursor?: RevisionWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: PlaylistScalarFieldEnum | PlaylistScalarFieldEnum[]
+    distinct?: RevisionScalarFieldEnum | RevisionScalarFieldEnum[]
   }
 
   /**
-   * User.discussions
+   * User.submissions
    */
-  export type User$discussionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$submissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Discussion
+     * Select specific fields to fetch from the Submission
      */
-    select?: DiscussionSelect<ExtArgs> | null
+    select?: SubmissionSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Discussion
+     * Omit specific fields from the Submission
      */
-    omit?: DiscussionOmit<ExtArgs> | null
+    omit?: SubmissionOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DiscussionInclude<ExtArgs> | null
-    where?: DiscussionWhereInput
-    orderBy?: DiscussionOrderByWithRelationInput | DiscussionOrderByWithRelationInput[]
-    cursor?: DiscussionWhereUniqueInput
+    include?: SubmissionInclude<ExtArgs> | null
+    where?: SubmissionWhereInput
+    orderBy?: SubmissionOrderByWithRelationInput | SubmissionOrderByWithRelationInput[]
+    cursor?: SubmissionWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: DiscussionScalarFieldEnum | DiscussionScalarFieldEnum[]
+    distinct?: SubmissionScalarFieldEnum | SubmissionScalarFieldEnum[]
   }
 
   /**
@@ -3388,27 +3375,27 @@ export namespace Prisma {
   }
 
   /**
-   * User.Revision
+   * User.discussions
    */
-  export type User$RevisionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$discussionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Revision
+     * Select specific fields to fetch from the Discussion
      */
-    select?: RevisionSelect<ExtArgs> | null
+    select?: DiscussionSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Revision
+     * Omit specific fields from the Discussion
      */
-    omit?: RevisionOmit<ExtArgs> | null
+    omit?: DiscussionOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RevisionInclude<ExtArgs> | null
-    where?: RevisionWhereInput
-    orderBy?: RevisionOrderByWithRelationInput | RevisionOrderByWithRelationInput[]
-    cursor?: RevisionWhereUniqueInput
+    include?: DiscussionInclude<ExtArgs> | null
+    where?: DiscussionWhereInput
+    orderBy?: DiscussionOrderByWithRelationInput | DiscussionOrderByWithRelationInput[]
+    cursor?: DiscussionWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: RevisionScalarFieldEnum | RevisionScalarFieldEnum[]
+    distinct?: DiscussionScalarFieldEnum | DiscussionScalarFieldEnum[]
   }
 
   /**
@@ -3845,11 +3832,11 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | Problem$userArgs<ExtArgs>
-    submission?: boolean | Problem$submissionArgs<ExtArgs>
-    solvedBy?: boolean | Problem$solvedByArgs<ExtArgs>
     problemsPlaylist?: boolean | Problem$problemsPlaylistArgs<ExtArgs>
-    discussions?: boolean | Problem$discussionsArgs<ExtArgs>
+    solvedBy?: boolean | Problem$solvedByArgs<ExtArgs>
     Revision?: boolean | Problem$RevisionArgs<ExtArgs>
+    submission?: boolean | Problem$submissionArgs<ExtArgs>
+    discussions?: boolean | Problem$discussionsArgs<ExtArgs>
     _count?: boolean | ProblemCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["problem"]>
 
@@ -3963,11 +3950,11 @@ export namespace Prisma {
   export type ProblemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "leetcodeId" | "title" | "description" | "difficulty" | "isPremium" | "solutionLink" | "acceptanceRate" | "frequency" | "url" | "discussCount" | "accepted" | "submissions" | "companies" | "relatedTopics" | "likes" | "dislikes" | "rating" | "askedByFaang" | "similarQuestions" | "tags" | "companyTags" | "userId" | "examples" | "constraints" | "hints" | "editorial" | "testcases" | "codeSnippets" | "referenceSolutions" | "createdAt" | "updatedAt", ExtArgs["result"]["problem"]>
   export type ProblemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Problem$userArgs<ExtArgs>
-    submission?: boolean | Problem$submissionArgs<ExtArgs>
-    solvedBy?: boolean | Problem$solvedByArgs<ExtArgs>
     problemsPlaylist?: boolean | Problem$problemsPlaylistArgs<ExtArgs>
-    discussions?: boolean | Problem$discussionsArgs<ExtArgs>
+    solvedBy?: boolean | Problem$solvedByArgs<ExtArgs>
     Revision?: boolean | Problem$RevisionArgs<ExtArgs>
+    submission?: boolean | Problem$submissionArgs<ExtArgs>
+    discussions?: boolean | Problem$discussionsArgs<ExtArgs>
     _count?: boolean | ProblemCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProblemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3981,11 +3968,11 @@ export namespace Prisma {
     name: "Problem"
     objects: {
       user: Prisma.$UserPayload<ExtArgs> | null
-      submission: Prisma.$SubmissionPayload<ExtArgs>[]
-      solvedBy: Prisma.$ProblemSolvedPayload<ExtArgs>[]
       problemsPlaylist: Prisma.$ProblemPlaylistPayload<ExtArgs>[]
-      discussions: Prisma.$DiscussionPayload<ExtArgs>[]
+      solvedBy: Prisma.$ProblemSolvedPayload<ExtArgs>[]
       Revision: Prisma.$RevisionPayload<ExtArgs>[]
+      submission: Prisma.$SubmissionPayload<ExtArgs>[]
+      discussions: Prisma.$DiscussionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4415,11 +4402,11 @@ export namespace Prisma {
   export interface Prisma__ProblemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends Problem$userArgs<ExtArgs> = {}>(args?: Subset<T, Problem$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    submission<T extends Problem$submissionArgs<ExtArgs> = {}>(args?: Subset<T, Problem$submissionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    solvedBy<T extends Problem$solvedByArgs<ExtArgs> = {}>(args?: Subset<T, Problem$solvedByArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProblemSolvedPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     problemsPlaylist<T extends Problem$problemsPlaylistArgs<ExtArgs> = {}>(args?: Subset<T, Problem$problemsPlaylistArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProblemPlaylistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    discussions<T extends Problem$discussionsArgs<ExtArgs> = {}>(args?: Subset<T, Problem$discussionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscussionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    solvedBy<T extends Problem$solvedByArgs<ExtArgs> = {}>(args?: Subset<T, Problem$solvedByArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProblemSolvedPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Revision<T extends Problem$RevisionArgs<ExtArgs> = {}>(args?: Subset<T, Problem$RevisionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RevisionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    submission<T extends Problem$submissionArgs<ExtArgs> = {}>(args?: Subset<T, Problem$submissionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    discussions<T extends Problem$discussionsArgs<ExtArgs> = {}>(args?: Subset<T, Problem$discussionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscussionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4896,27 +4883,27 @@ export namespace Prisma {
   }
 
   /**
-   * Problem.submission
+   * Problem.problemsPlaylist
    */
-  export type Problem$submissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Problem$problemsPlaylistArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Submission
+     * Select specific fields to fetch from the ProblemPlaylist
      */
-    select?: SubmissionSelect<ExtArgs> | null
+    select?: ProblemPlaylistSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Submission
+     * Omit specific fields from the ProblemPlaylist
      */
-    omit?: SubmissionOmit<ExtArgs> | null
+    omit?: ProblemPlaylistOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: SubmissionInclude<ExtArgs> | null
-    where?: SubmissionWhereInput
-    orderBy?: SubmissionOrderByWithRelationInput | SubmissionOrderByWithRelationInput[]
-    cursor?: SubmissionWhereUniqueInput
+    include?: ProblemPlaylistInclude<ExtArgs> | null
+    where?: ProblemPlaylistWhereInput
+    orderBy?: ProblemPlaylistOrderByWithRelationInput | ProblemPlaylistOrderByWithRelationInput[]
+    cursor?: ProblemPlaylistWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: SubmissionScalarFieldEnum | SubmissionScalarFieldEnum[]
+    distinct?: ProblemPlaylistScalarFieldEnum | ProblemPlaylistScalarFieldEnum[]
   }
 
   /**
@@ -4944,27 +4931,51 @@ export namespace Prisma {
   }
 
   /**
-   * Problem.problemsPlaylist
+   * Problem.Revision
    */
-  export type Problem$problemsPlaylistArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Problem$RevisionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ProblemPlaylist
+     * Select specific fields to fetch from the Revision
      */
-    select?: ProblemPlaylistSelect<ExtArgs> | null
+    select?: RevisionSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ProblemPlaylist
+     * Omit specific fields from the Revision
      */
-    omit?: ProblemPlaylistOmit<ExtArgs> | null
+    omit?: RevisionOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ProblemPlaylistInclude<ExtArgs> | null
-    where?: ProblemPlaylistWhereInput
-    orderBy?: ProblemPlaylistOrderByWithRelationInput | ProblemPlaylistOrderByWithRelationInput[]
-    cursor?: ProblemPlaylistWhereUniqueInput
+    include?: RevisionInclude<ExtArgs> | null
+    where?: RevisionWhereInput
+    orderBy?: RevisionOrderByWithRelationInput | RevisionOrderByWithRelationInput[]
+    cursor?: RevisionWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: ProblemPlaylistScalarFieldEnum | ProblemPlaylistScalarFieldEnum[]
+    distinct?: RevisionScalarFieldEnum | RevisionScalarFieldEnum[]
+  }
+
+  /**
+   * Problem.submission
+   */
+  export type Problem$submissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Submission
+     */
+    select?: SubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Submission
+     */
+    omit?: SubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubmissionInclude<ExtArgs> | null
+    where?: SubmissionWhereInput
+    orderBy?: SubmissionOrderByWithRelationInput | SubmissionOrderByWithRelationInput[]
+    cursor?: SubmissionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SubmissionScalarFieldEnum | SubmissionScalarFieldEnum[]
   }
 
   /**
@@ -4989,30 +5000,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DiscussionScalarFieldEnum | DiscussionScalarFieldEnum[]
-  }
-
-  /**
-   * Problem.Revision
-   */
-  export type Problem$RevisionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Revision
-     */
-    select?: RevisionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Revision
-     */
-    omit?: RevisionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RevisionInclude<ExtArgs> | null
-    where?: RevisionWhereInput
-    orderBy?: RevisionOrderByWithRelationInput | RevisionOrderByWithRelationInput[]
-    cursor?: RevisionWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: RevisionScalarFieldEnum | RevisionScalarFieldEnum[]
   }
 
   /**
@@ -8677,8 +8664,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
-    problems?: boolean | Playlist$problemsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    problems?: boolean | Playlist$problemsArgs<ExtArgs>
     _count?: boolean | PlaylistCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["playlist"]>
 
@@ -8713,8 +8700,8 @@ export namespace Prisma {
 
   export type PlaylistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["playlist"]>
   export type PlaylistInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    problems?: boolean | Playlist$problemsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    problems?: boolean | Playlist$problemsArgs<ExtArgs>
     _count?: boolean | PlaylistCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PlaylistIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8727,8 +8714,8 @@ export namespace Prisma {
   export type $PlaylistPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Playlist"
     objects: {
-      problems: Prisma.$ProblemPlaylistPayload<ExtArgs>[]
       user: Prisma.$UserPayload<ExtArgs>
+      problems: Prisma.$ProblemPlaylistPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9131,8 +9118,8 @@ export namespace Prisma {
    */
   export interface Prisma__PlaylistClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    problems<T extends Playlist$problemsArgs<ExtArgs> = {}>(args?: Subset<T, Playlist$problemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProblemPlaylistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    problems<T extends Playlist$problemsArgs<ExtArgs> = {}>(args?: Subset<T, Playlist$problemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProblemPlaylistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10836,8 +10823,8 @@ export namespace Prisma {
     problemId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     problem?: boolean | ProblemDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["revision"]>
 
   export type RevisionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10846,8 +10833,8 @@ export namespace Prisma {
     problemId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     problem?: boolean | ProblemDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["revision"]>
 
   export type RevisionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10856,8 +10843,8 @@ export namespace Prisma {
     problemId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     problem?: boolean | ProblemDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["revision"]>
 
   export type RevisionSelectScalar = {
@@ -10870,23 +10857,23 @@ export namespace Prisma {
 
   export type RevisionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "problemId" | "createdAt" | "updatedAt", ExtArgs["result"]["revision"]>
   export type RevisionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     problem?: boolean | ProblemDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type RevisionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     problem?: boolean | ProblemDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type RevisionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     problem?: boolean | ProblemDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $RevisionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Revision"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       problem: Prisma.$ProblemPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11288,8 +11275,8 @@ export namespace Prisma {
    */
   export interface Prisma__RevisionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     problem<T extends ProblemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProblemDefaultArgs<ExtArgs>>): Prisma__ProblemClient<$Result.GetResult<Prisma.$ProblemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11918,11 +11905,11 @@ export namespace Prisma {
     problemId?: boolean
     authorId?: boolean
     parentId?: boolean
-    problem?: boolean | ProblemDefaultArgs<ExtArgs>
+    likes?: boolean | Discussion$likesArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
     parent?: boolean | Discussion$parentArgs<ExtArgs>
     replies?: boolean | Discussion$repliesArgs<ExtArgs>
-    likes?: boolean | Discussion$likesArgs<ExtArgs>
+    problem?: boolean | ProblemDefaultArgs<ExtArgs>
     _count?: boolean | DiscussionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["discussion"]>
 
@@ -11934,9 +11921,9 @@ export namespace Prisma {
     problemId?: boolean
     authorId?: boolean
     parentId?: boolean
-    problem?: boolean | ProblemDefaultArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
     parent?: boolean | Discussion$parentArgs<ExtArgs>
+    problem?: boolean | ProblemDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["discussion"]>
 
   export type DiscussionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -11947,9 +11934,9 @@ export namespace Prisma {
     problemId?: boolean
     authorId?: boolean
     parentId?: boolean
-    problem?: boolean | ProblemDefaultArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
     parent?: boolean | Discussion$parentArgs<ExtArgs>
+    problem?: boolean | ProblemDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["discussion"]>
 
   export type DiscussionSelectScalar = {
@@ -11964,32 +11951,32 @@ export namespace Prisma {
 
   export type DiscussionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "createdAt" | "updatedAt" | "problemId" | "authorId" | "parentId", ExtArgs["result"]["discussion"]>
   export type DiscussionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    problem?: boolean | ProblemDefaultArgs<ExtArgs>
+    likes?: boolean | Discussion$likesArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
     parent?: boolean | Discussion$parentArgs<ExtArgs>
     replies?: boolean | Discussion$repliesArgs<ExtArgs>
-    likes?: boolean | Discussion$likesArgs<ExtArgs>
+    problem?: boolean | ProblemDefaultArgs<ExtArgs>
     _count?: boolean | DiscussionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type DiscussionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    problem?: boolean | ProblemDefaultArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
     parent?: boolean | Discussion$parentArgs<ExtArgs>
+    problem?: boolean | ProblemDefaultArgs<ExtArgs>
   }
   export type DiscussionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    problem?: boolean | ProblemDefaultArgs<ExtArgs>
     author?: boolean | UserDefaultArgs<ExtArgs>
     parent?: boolean | Discussion$parentArgs<ExtArgs>
+    problem?: boolean | ProblemDefaultArgs<ExtArgs>
   }
 
   export type $DiscussionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Discussion"
     objects: {
-      problem: Prisma.$ProblemPayload<ExtArgs>
+      likes: Prisma.$DiscussionLikePayload<ExtArgs>[]
       author: Prisma.$UserPayload<ExtArgs>
       parent: Prisma.$DiscussionPayload<ExtArgs> | null
       replies: Prisma.$DiscussionPayload<ExtArgs>[]
-      likes: Prisma.$DiscussionLikePayload<ExtArgs>[]
+      problem: Prisma.$ProblemPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -12393,11 +12380,11 @@ export namespace Prisma {
    */
   export interface Prisma__DiscussionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    problem<T extends ProblemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProblemDefaultArgs<ExtArgs>>): Prisma__ProblemClient<$Result.GetResult<Prisma.$ProblemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    likes<T extends Discussion$likesArgs<ExtArgs> = {}>(args?: Subset<T, Discussion$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscussionLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     author<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     parent<T extends Discussion$parentArgs<ExtArgs> = {}>(args?: Subset<T, Discussion$parentArgs<ExtArgs>>): Prisma__DiscussionClient<$Result.GetResult<Prisma.$DiscussionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     replies<T extends Discussion$repliesArgs<ExtArgs> = {}>(args?: Subset<T, Discussion$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscussionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    likes<T extends Discussion$likesArgs<ExtArgs> = {}>(args?: Subset<T, Discussion$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DiscussionLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    problem<T extends ProblemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProblemDefaultArgs<ExtArgs>>): Prisma__ProblemClient<$Result.GetResult<Prisma.$ProblemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12830,6 +12817,30 @@ export namespace Prisma {
   }
 
   /**
+   * Discussion.likes
+   */
+  export type Discussion$likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DiscussionLike
+     */
+    select?: DiscussionLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DiscussionLike
+     */
+    omit?: DiscussionLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DiscussionLikeInclude<ExtArgs> | null
+    where?: DiscussionLikeWhereInput
+    orderBy?: DiscussionLikeOrderByWithRelationInput | DiscussionLikeOrderByWithRelationInput[]
+    cursor?: DiscussionLikeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DiscussionLikeScalarFieldEnum | DiscussionLikeScalarFieldEnum[]
+  }
+
+  /**
    * Discussion.parent
    */
   export type Discussion$parentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12870,30 +12881,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DiscussionScalarFieldEnum | DiscussionScalarFieldEnum[]
-  }
-
-  /**
-   * Discussion.likes
-   */
-  export type Discussion$likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the DiscussionLike
-     */
-    select?: DiscussionLikeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the DiscussionLike
-     */
-    omit?: DiscussionLikeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DiscussionLikeInclude<ExtArgs> | null
-    where?: DiscussionLikeWhereInput
-    orderBy?: DiscussionLikeOrderByWithRelationInput | DiscussionLikeOrderByWithRelationInput[]
-    cursor?: DiscussionLikeWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: DiscussionLikeScalarFieldEnum | DiscussionLikeScalarFieldEnum[]
   }
 
   /**
@@ -13994,7 +13981,6 @@ export namespace Prisma {
     lastLogin: 'lastLogin',
     streakCount: 'streakCount',
     maxStreakCount: 'maxStreakCount',
-    emailVerified: 'emailVerified',
     firebaseUid: 'firebaseUid',
     authProvider: 'authProvider',
     gender: 'gender',
@@ -14262,13 +14248,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
    * Reference to a field of type 'Gender'
    */
   export type EnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender'>
@@ -14293,6 +14272,13 @@ export namespace Prisma {
    * Reference to a field of type 'Difficulty[]'
    */
   export type ListEnumDifficultyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Difficulty[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -14342,7 +14328,6 @@ export namespace Prisma {
     lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
     streakCount?: IntFilter<"User"> | number
     maxStreakCount?: IntFilter<"User"> | number
-    emailVerified?: BoolFilter<"User"> | boolean
     firebaseUid?: StringNullableFilter<"User"> | string | null
     authProvider?: StringNullableFilter<"User"> | string | null
     gender?: EnumGenderNullableFilter<"User"> | $Enums.Gender | null
@@ -14350,13 +14335,13 @@ export namespace Prisma {
     bio?: StringNullableFilter<"User"> | string | null
     githubProfile?: StringNullableFilter<"User"> | string | null
     linkedinProfile?: StringNullableFilter<"User"> | string | null
-    problems?: ProblemListRelationFilter
-    submissions?: SubmissionListRelationFilter
-    solvedProblems?: ProblemSolvedListRelationFilter
     Playlists?: PlaylistListRelationFilter
-    discussions?: DiscussionListRelationFilter
-    discussionLikes?: DiscussionLikeListRelationFilter
+    problems?: ProblemListRelationFilter
+    solvedProblems?: ProblemSolvedListRelationFilter
     Revision?: RevisionListRelationFilter
+    submissions?: SubmissionListRelationFilter
+    discussionLikes?: DiscussionLikeListRelationFilter
+    discussions?: DiscussionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -14371,7 +14356,6 @@ export namespace Prisma {
     lastLogin?: SortOrderInput | SortOrder
     streakCount?: SortOrder
     maxStreakCount?: SortOrder
-    emailVerified?: SortOrder
     firebaseUid?: SortOrderInput | SortOrder
     authProvider?: SortOrderInput | SortOrder
     gender?: SortOrderInput | SortOrder
@@ -14379,13 +14363,13 @@ export namespace Prisma {
     bio?: SortOrderInput | SortOrder
     githubProfile?: SortOrderInput | SortOrder
     linkedinProfile?: SortOrderInput | SortOrder
-    problems?: ProblemOrderByRelationAggregateInput
-    submissions?: SubmissionOrderByRelationAggregateInput
-    solvedProblems?: ProblemSolvedOrderByRelationAggregateInput
     Playlists?: PlaylistOrderByRelationAggregateInput
-    discussions?: DiscussionOrderByRelationAggregateInput
-    discussionLikes?: DiscussionLikeOrderByRelationAggregateInput
+    problems?: ProblemOrderByRelationAggregateInput
+    solvedProblems?: ProblemSolvedOrderByRelationAggregateInput
     Revision?: RevisionOrderByRelationAggregateInput
+    submissions?: SubmissionOrderByRelationAggregateInput
+    discussionLikes?: DiscussionLikeOrderByRelationAggregateInput
+    discussions?: DiscussionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -14404,20 +14388,19 @@ export namespace Prisma {
     lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
     streakCount?: IntFilter<"User"> | number
     maxStreakCount?: IntFilter<"User"> | number
-    emailVerified?: BoolFilter<"User"> | boolean
     authProvider?: StringNullableFilter<"User"> | string | null
     gender?: EnumGenderNullableFilter<"User"> | $Enums.Gender | null
     dateOfBirth?: DateTimeNullableFilter<"User"> | Date | string | null
     bio?: StringNullableFilter<"User"> | string | null
     githubProfile?: StringNullableFilter<"User"> | string | null
     linkedinProfile?: StringNullableFilter<"User"> | string | null
-    problems?: ProblemListRelationFilter
-    submissions?: SubmissionListRelationFilter
-    solvedProblems?: ProblemSolvedListRelationFilter
     Playlists?: PlaylistListRelationFilter
-    discussions?: DiscussionListRelationFilter
-    discussionLikes?: DiscussionLikeListRelationFilter
+    problems?: ProblemListRelationFilter
+    solvedProblems?: ProblemSolvedListRelationFilter
     Revision?: RevisionListRelationFilter
+    submissions?: SubmissionListRelationFilter
+    discussionLikes?: DiscussionLikeListRelationFilter
+    discussions?: DiscussionListRelationFilter
   }, "id" | "email" | "firebaseUid">
 
   export type UserOrderByWithAggregationInput = {
@@ -14432,7 +14415,6 @@ export namespace Prisma {
     lastLogin?: SortOrderInput | SortOrder
     streakCount?: SortOrder
     maxStreakCount?: SortOrder
-    emailVerified?: SortOrder
     firebaseUid?: SortOrderInput | SortOrder
     authProvider?: SortOrderInput | SortOrder
     gender?: SortOrderInput | SortOrder
@@ -14462,7 +14444,6 @@ export namespace Prisma {
     lastLogin?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     streakCount?: IntWithAggregatesFilter<"User"> | number
     maxStreakCount?: IntWithAggregatesFilter<"User"> | number
-    emailVerified?: BoolWithAggregatesFilter<"User"> | boolean
     firebaseUid?: StringNullableWithAggregatesFilter<"User"> | string | null
     authProvider?: StringNullableWithAggregatesFilter<"User"> | string | null
     gender?: EnumGenderNullableWithAggregatesFilter<"User"> | $Enums.Gender | null
@@ -14509,11 +14490,11 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Problem"> | Date | string
     updatedAt?: DateTimeFilter<"Problem"> | Date | string
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    submission?: SubmissionListRelationFilter
-    solvedBy?: ProblemSolvedListRelationFilter
     problemsPlaylist?: ProblemPlaylistListRelationFilter
-    discussions?: DiscussionListRelationFilter
+    solvedBy?: ProblemSolvedListRelationFilter
     Revision?: RevisionListRelationFilter
+    submission?: SubmissionListRelationFilter
+    discussions?: DiscussionListRelationFilter
   }
 
   export type ProblemOrderByWithRelationInput = {
@@ -14550,11 +14531,11 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
-    submission?: SubmissionOrderByRelationAggregateInput
-    solvedBy?: ProblemSolvedOrderByRelationAggregateInput
     problemsPlaylist?: ProblemPlaylistOrderByRelationAggregateInput
-    discussions?: DiscussionOrderByRelationAggregateInput
+    solvedBy?: ProblemSolvedOrderByRelationAggregateInput
     Revision?: RevisionOrderByRelationAggregateInput
+    submission?: SubmissionOrderByRelationAggregateInput
+    discussions?: DiscussionOrderByRelationAggregateInput
   }
 
   export type ProblemWhereUniqueInput = Prisma.AtLeast<{
@@ -14594,11 +14575,11 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Problem"> | Date | string
     updatedAt?: DateTimeFilter<"Problem"> | Date | string
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    submission?: SubmissionListRelationFilter
-    solvedBy?: ProblemSolvedListRelationFilter
     problemsPlaylist?: ProblemPlaylistListRelationFilter
-    discussions?: DiscussionListRelationFilter
+    solvedBy?: ProblemSolvedListRelationFilter
     Revision?: RevisionListRelationFilter
+    submission?: SubmissionListRelationFilter
+    discussions?: DiscussionListRelationFilter
   }, "id" | "leetcodeId">
 
   export type ProblemOrderByWithAggregationInput = {
@@ -14951,8 +14932,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Playlist"> | Date | string
     updatedAt?: DateTimeFilter<"Playlist"> | Date | string
     userId?: StringFilter<"Playlist"> | string
-    problems?: ProblemPlaylistListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    problems?: ProblemPlaylistListRelationFilter
   }
 
   export type PlaylistOrderByWithRelationInput = {
@@ -14962,8 +14943,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
-    problems?: ProblemPlaylistOrderByRelationAggregateInput
     user?: UserOrderByWithRelationInput
+    problems?: ProblemPlaylistOrderByRelationAggregateInput
   }
 
   export type PlaylistWhereUniqueInput = Prisma.AtLeast<{
@@ -14977,8 +14958,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Playlist"> | Date | string
     updatedAt?: DateTimeFilter<"Playlist"> | Date | string
     userId?: StringFilter<"Playlist"> | string
-    problems?: ProblemPlaylistListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    problems?: ProblemPlaylistListRelationFilter
   }, "id" | "name_userId">
 
   export type PlaylistOrderByWithAggregationInput = {
@@ -15073,8 +15054,8 @@ export namespace Prisma {
     problemId?: StringFilter<"Revision"> | string
     createdAt?: DateTimeFilter<"Revision"> | Date | string
     updatedAt?: DateTimeFilter<"Revision"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     problem?: XOR<ProblemScalarRelationFilter, ProblemWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type RevisionOrderByWithRelationInput = {
@@ -15083,8 +15064,8 @@ export namespace Prisma {
     problemId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user?: UserOrderByWithRelationInput
     problem?: ProblemOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type RevisionWhereUniqueInput = Prisma.AtLeast<{
@@ -15097,8 +15078,8 @@ export namespace Prisma {
     problemId?: StringFilter<"Revision"> | string
     createdAt?: DateTimeFilter<"Revision"> | Date | string
     updatedAt?: DateTimeFilter<"Revision"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     problem?: XOR<ProblemScalarRelationFilter, ProblemWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "userId_problemId">
 
   export type RevisionOrderByWithAggregationInput = {
@@ -15134,11 +15115,11 @@ export namespace Prisma {
     problemId?: StringFilter<"Discussion"> | string
     authorId?: StringFilter<"Discussion"> | string
     parentId?: StringNullableFilter<"Discussion"> | string | null
-    problem?: XOR<ProblemScalarRelationFilter, ProblemWhereInput>
+    likes?: DiscussionLikeListRelationFilter
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
     parent?: XOR<DiscussionNullableScalarRelationFilter, DiscussionWhereInput> | null
     replies?: DiscussionListRelationFilter
-    likes?: DiscussionLikeListRelationFilter
+    problem?: XOR<ProblemScalarRelationFilter, ProblemWhereInput>
   }
 
   export type DiscussionOrderByWithRelationInput = {
@@ -15149,11 +15130,11 @@ export namespace Prisma {
     problemId?: SortOrder
     authorId?: SortOrder
     parentId?: SortOrderInput | SortOrder
-    problem?: ProblemOrderByWithRelationInput
+    likes?: DiscussionLikeOrderByRelationAggregateInput
     author?: UserOrderByWithRelationInput
     parent?: DiscussionOrderByWithRelationInput
     replies?: DiscussionOrderByRelationAggregateInput
-    likes?: DiscussionLikeOrderByRelationAggregateInput
+    problem?: ProblemOrderByWithRelationInput
   }
 
   export type DiscussionWhereUniqueInput = Prisma.AtLeast<{
@@ -15167,11 +15148,11 @@ export namespace Prisma {
     problemId?: StringFilter<"Discussion"> | string
     authorId?: StringFilter<"Discussion"> | string
     parentId?: StringNullableFilter<"Discussion"> | string | null
-    problem?: XOR<ProblemScalarRelationFilter, ProblemWhereInput>
+    likes?: DiscussionLikeListRelationFilter
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
     parent?: XOR<DiscussionNullableScalarRelationFilter, DiscussionWhereInput> | null
     replies?: DiscussionListRelationFilter
-    likes?: DiscussionLikeListRelationFilter
+    problem?: XOR<ProblemScalarRelationFilter, ProblemWhereInput>
   }, "id">
 
   export type DiscussionOrderByWithAggregationInput = {
@@ -15266,7 +15247,6 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
-    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -15274,13 +15254,13 @@ export namespace Prisma {
     bio?: string | null
     githubProfile?: string | null
     linkedinProfile?: string | null
-    problems?: ProblemCreateNestedManyWithoutUserInput
-    submissions?: SubmissionCreateNestedManyWithoutUserInput
-    solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
     Playlists?: PlaylistCreateNestedManyWithoutUserInput
-    discussions?: DiscussionCreateNestedManyWithoutAuthorInput
-    discussionLikes?: DiscussionLikeCreateNestedManyWithoutUserInput
+    problems?: ProblemCreateNestedManyWithoutUserInput
+    solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
     Revision?: RevisionCreateNestedManyWithoutUserInput
+    submissions?: SubmissionCreateNestedManyWithoutUserInput
+    discussionLikes?: DiscussionLikeCreateNestedManyWithoutUserInput
+    discussions?: DiscussionCreateNestedManyWithoutAuthorInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -15295,7 +15275,6 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
-    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -15303,13 +15282,13 @@ export namespace Prisma {
     bio?: string | null
     githubProfile?: string | null
     linkedinProfile?: string | null
-    problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
-    submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
-    solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
     Playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
-    discussions?: DiscussionUncheckedCreateNestedManyWithoutAuthorInput
-    discussionLikes?: DiscussionLikeUncheckedCreateNestedManyWithoutUserInput
+    problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
+    solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
     Revision?: RevisionUncheckedCreateNestedManyWithoutUserInput
+    submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
+    discussionLikes?: DiscussionLikeUncheckedCreateNestedManyWithoutUserInput
+    discussions?: DiscussionUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type UserUpdateInput = {
@@ -15324,7 +15303,6 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -15332,13 +15310,13 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
-    problems?: ProblemUpdateManyWithoutUserNestedInput
-    submissions?: SubmissionUpdateManyWithoutUserNestedInput
-    solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
     Playlists?: PlaylistUpdateManyWithoutUserNestedInput
-    discussions?: DiscussionUpdateManyWithoutAuthorNestedInput
-    discussionLikes?: DiscussionLikeUpdateManyWithoutUserNestedInput
+    problems?: ProblemUpdateManyWithoutUserNestedInput
+    solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
     Revision?: RevisionUpdateManyWithoutUserNestedInput
+    submissions?: SubmissionUpdateManyWithoutUserNestedInput
+    discussionLikes?: DiscussionLikeUpdateManyWithoutUserNestedInput
+    discussions?: DiscussionUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -15353,7 +15331,6 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -15361,13 +15338,13 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
-    problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
-    submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
-    solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
     Playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
-    discussions?: DiscussionUncheckedUpdateManyWithoutAuthorNestedInput
-    discussionLikes?: DiscussionLikeUncheckedUpdateManyWithoutUserNestedInput
+    problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
+    solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
     Revision?: RevisionUncheckedUpdateManyWithoutUserNestedInput
+    submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
+    discussionLikes?: DiscussionLikeUncheckedUpdateManyWithoutUserNestedInput
+    discussions?: DiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -15382,7 +15359,6 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
-    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -15404,7 +15380,6 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -15426,7 +15401,6 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -15469,11 +15443,11 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutProblemsInput
-    submission?: SubmissionCreateNestedManyWithoutProblemInput
-    solvedBy?: ProblemSolvedCreateNestedManyWithoutProblemInput
     problemsPlaylist?: ProblemPlaylistCreateNestedManyWithoutProblemInput
-    discussions?: DiscussionCreateNestedManyWithoutProblemInput
+    solvedBy?: ProblemSolvedCreateNestedManyWithoutProblemInput
     Revision?: RevisionCreateNestedManyWithoutProblemInput
+    submission?: SubmissionCreateNestedManyWithoutProblemInput
+    discussions?: DiscussionCreateNestedManyWithoutProblemInput
   }
 
   export type ProblemUncheckedCreateInput = {
@@ -15509,11 +15483,11 @@ export namespace Prisma {
     referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
-    solvedBy?: ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput
     problemsPlaylist?: ProblemPlaylistUncheckedCreateNestedManyWithoutProblemInput
-    discussions?: DiscussionUncheckedCreateNestedManyWithoutProblemInput
+    solvedBy?: ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput
     Revision?: RevisionUncheckedCreateNestedManyWithoutProblemInput
+    submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
+    discussions?: DiscussionUncheckedCreateNestedManyWithoutProblemInput
   }
 
   export type ProblemUpdateInput = {
@@ -15549,11 +15523,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutProblemsNestedInput
-    submission?: SubmissionUpdateManyWithoutProblemNestedInput
-    solvedBy?: ProblemSolvedUpdateManyWithoutProblemNestedInput
     problemsPlaylist?: ProblemPlaylistUpdateManyWithoutProblemNestedInput
-    discussions?: DiscussionUpdateManyWithoutProblemNestedInput
+    solvedBy?: ProblemSolvedUpdateManyWithoutProblemNestedInput
     Revision?: RevisionUpdateManyWithoutProblemNestedInput
+    submission?: SubmissionUpdateManyWithoutProblemNestedInput
+    discussions?: DiscussionUpdateManyWithoutProblemNestedInput
   }
 
   export type ProblemUncheckedUpdateInput = {
@@ -15589,11 +15563,11 @@ export namespace Prisma {
     referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
-    solvedBy?: ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput
     problemsPlaylist?: ProblemPlaylistUncheckedUpdateManyWithoutProblemNestedInput
-    discussions?: DiscussionUncheckedUpdateManyWithoutProblemNestedInput
+    solvedBy?: ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput
     Revision?: RevisionUncheckedUpdateManyWithoutProblemNestedInput
+    submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
+    discussions?: DiscussionUncheckedUpdateManyWithoutProblemNestedInput
   }
 
   export type ProblemCreateManyInput = {
@@ -15992,8 +15966,8 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    problems?: ProblemPlaylistCreateNestedManyWithoutPlaylistInput
     user: UserCreateNestedOneWithoutPlaylistsInput
+    problems?: ProblemPlaylistCreateNestedManyWithoutPlaylistInput
   }
 
   export type PlaylistUncheckedCreateInput = {
@@ -16012,8 +15986,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    problems?: ProblemPlaylistUpdateManyWithoutPlaylistNestedInput
     user?: UserUpdateOneRequiredWithoutPlaylistsNestedInput
+    problems?: ProblemPlaylistUpdateManyWithoutPlaylistNestedInput
   }
 
   export type PlaylistUncheckedUpdateInput = {
@@ -16110,8 +16084,8 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutRevisionInput
     problem: ProblemCreateNestedOneWithoutRevisionInput
+    user: UserCreateNestedOneWithoutRevisionInput
   }
 
   export type RevisionUncheckedCreateInput = {
@@ -16126,8 +16100,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutRevisionNestedInput
     problem?: ProblemUpdateOneRequiredWithoutRevisionNestedInput
+    user?: UserUpdateOneRequiredWithoutRevisionNestedInput
   }
 
   export type RevisionUncheckedUpdateInput = {
@@ -16165,11 +16139,11 @@ export namespace Prisma {
     content: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    problem: ProblemCreateNestedOneWithoutDiscussionsInput
+    likes?: DiscussionLikeCreateNestedManyWithoutDiscussionInput
     author: UserCreateNestedOneWithoutDiscussionsInput
     parent?: DiscussionCreateNestedOneWithoutRepliesInput
     replies?: DiscussionCreateNestedManyWithoutParentInput
-    likes?: DiscussionLikeCreateNestedManyWithoutDiscussionInput
+    problem: ProblemCreateNestedOneWithoutDiscussionsInput
   }
 
   export type DiscussionUncheckedCreateInput = {
@@ -16180,8 +16154,8 @@ export namespace Prisma {
     problemId: string
     authorId: string
     parentId?: string | null
-    replies?: DiscussionUncheckedCreateNestedManyWithoutParentInput
     likes?: DiscussionLikeUncheckedCreateNestedManyWithoutDiscussionInput
+    replies?: DiscussionUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type DiscussionUpdateInput = {
@@ -16189,11 +16163,11 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    problem?: ProblemUpdateOneRequiredWithoutDiscussionsNestedInput
+    likes?: DiscussionLikeUpdateManyWithoutDiscussionNestedInput
     author?: UserUpdateOneRequiredWithoutDiscussionsNestedInput
     parent?: DiscussionUpdateOneWithoutRepliesNestedInput
     replies?: DiscussionUpdateManyWithoutParentNestedInput
-    likes?: DiscussionLikeUpdateManyWithoutDiscussionNestedInput
+    problem?: ProblemUpdateOneRequiredWithoutDiscussionsNestedInput
   }
 
   export type DiscussionUncheckedUpdateInput = {
@@ -16204,8 +16178,8 @@ export namespace Prisma {
     problemId?: StringFieldUpdateOperationsInput | string
     authorId?: StringFieldUpdateOperationsInput | string
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
-    replies?: DiscussionUncheckedUpdateManyWithoutParentNestedInput
     likes?: DiscussionLikeUncheckedUpdateManyWithoutDiscussionNestedInput
+    replies?: DiscussionUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type DiscussionCreateManyInput = {
@@ -16352,34 +16326,11 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type EnumGenderNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel> | null
     in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
     notIn?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
     not?: NestedEnumGenderNullableFilter<$PrismaModel> | $Enums.Gender | null
-  }
-
-  export type ProblemListRelationFilter = {
-    every?: ProblemWhereInput
-    some?: ProblemWhereInput
-    none?: ProblemWhereInput
-  }
-
-  export type SubmissionListRelationFilter = {
-    every?: SubmissionWhereInput
-    some?: SubmissionWhereInput
-    none?: SubmissionWhereInput
-  }
-
-  export type ProblemSolvedListRelationFilter = {
-    every?: ProblemSolvedWhereInput
-    some?: ProblemSolvedWhereInput
-    none?: ProblemSolvedWhereInput
   }
 
   export type PlaylistListRelationFilter = {
@@ -16388,16 +16339,16 @@ export namespace Prisma {
     none?: PlaylistWhereInput
   }
 
-  export type DiscussionListRelationFilter = {
-    every?: DiscussionWhereInput
-    some?: DiscussionWhereInput
-    none?: DiscussionWhereInput
+  export type ProblemListRelationFilter = {
+    every?: ProblemWhereInput
+    some?: ProblemWhereInput
+    none?: ProblemWhereInput
   }
 
-  export type DiscussionLikeListRelationFilter = {
-    every?: DiscussionLikeWhereInput
-    some?: DiscussionLikeWhereInput
-    none?: DiscussionLikeWhereInput
+  export type ProblemSolvedListRelationFilter = {
+    every?: ProblemSolvedWhereInput
+    some?: ProblemSolvedWhereInput
+    none?: ProblemSolvedWhereInput
   }
 
   export type RevisionListRelationFilter = {
@@ -16406,16 +16357,34 @@ export namespace Prisma {
     none?: RevisionWhereInput
   }
 
+  export type SubmissionListRelationFilter = {
+    every?: SubmissionWhereInput
+    some?: SubmissionWhereInput
+    none?: SubmissionWhereInput
+  }
+
+  export type DiscussionLikeListRelationFilter = {
+    every?: DiscussionLikeWhereInput
+    some?: DiscussionLikeWhereInput
+    none?: DiscussionLikeWhereInput
+  }
+
+  export type DiscussionListRelationFilter = {
+    every?: DiscussionWhereInput
+    some?: DiscussionWhereInput
+    none?: DiscussionWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
-  export type ProblemOrderByRelationAggregateInput = {
+  export type PlaylistOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type SubmissionOrderByRelationAggregateInput = {
+  export type ProblemOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -16423,11 +16392,11 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type PlaylistOrderByRelationAggregateInput = {
+  export type RevisionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type DiscussionOrderByRelationAggregateInput = {
+  export type SubmissionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -16435,7 +16404,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type RevisionOrderByRelationAggregateInput = {
+  export type DiscussionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -16451,7 +16420,6 @@ export namespace Prisma {
     lastLogin?: SortOrder
     streakCount?: SortOrder
     maxStreakCount?: SortOrder
-    emailVerified?: SortOrder
     firebaseUid?: SortOrder
     authProvider?: SortOrder
     gender?: SortOrder
@@ -16478,7 +16446,6 @@ export namespace Prisma {
     lastLogin?: SortOrder
     streakCount?: SortOrder
     maxStreakCount?: SortOrder
-    emailVerified?: SortOrder
     firebaseUid?: SortOrder
     authProvider?: SortOrder
     gender?: SortOrder
@@ -16500,7 +16467,6 @@ export namespace Prisma {
     lastLogin?: SortOrder
     streakCount?: SortOrder
     maxStreakCount?: SortOrder
-    emailVerified?: SortOrder
     firebaseUid?: SortOrder
     authProvider?: SortOrder
     gender?: SortOrder
@@ -16605,14 +16571,6 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type EnumGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel> | null
     in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
@@ -16639,6 +16597,11 @@ export namespace Prisma {
     in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
     notIn?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
     not?: NestedEnumDifficultyFilter<$PrismaModel> | $Enums.Difficulty
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type FloatNullableFilter<$PrismaModel = never> = {
@@ -16835,6 +16798,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumDifficultyFilter<$PrismaModel>
     _max?: NestedEnumDifficultyFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -17248,18 +17219,18 @@ export namespace Prisma {
     userId?: SortOrder
   }
 
+  export type PlaylistCreateNestedManyWithoutUserInput = {
+    create?: XOR<PlaylistCreateWithoutUserInput, PlaylistUncheckedCreateWithoutUserInput> | PlaylistCreateWithoutUserInput[] | PlaylistUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PlaylistCreateOrConnectWithoutUserInput | PlaylistCreateOrConnectWithoutUserInput[]
+    createMany?: PlaylistCreateManyUserInputEnvelope
+    connect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+  }
+
   export type ProblemCreateNestedManyWithoutUserInput = {
     create?: XOR<ProblemCreateWithoutUserInput, ProblemUncheckedCreateWithoutUserInput> | ProblemCreateWithoutUserInput[] | ProblemUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ProblemCreateOrConnectWithoutUserInput | ProblemCreateOrConnectWithoutUserInput[]
     createMany?: ProblemCreateManyUserInputEnvelope
     connect?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[]
-  }
-
-  export type SubmissionCreateNestedManyWithoutUserInput = {
-    create?: XOR<SubmissionCreateWithoutUserInput, SubmissionUncheckedCreateWithoutUserInput> | SubmissionCreateWithoutUserInput[] | SubmissionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SubmissionCreateOrConnectWithoutUserInput | SubmissionCreateOrConnectWithoutUserInput[]
-    createMany?: SubmissionCreateManyUserInputEnvelope
-    connect?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
   }
 
   export type ProblemSolvedCreateNestedManyWithoutUserInput = {
@@ -17269,18 +17240,18 @@ export namespace Prisma {
     connect?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
   }
 
-  export type PlaylistCreateNestedManyWithoutUserInput = {
-    create?: XOR<PlaylistCreateWithoutUserInput, PlaylistUncheckedCreateWithoutUserInput> | PlaylistCreateWithoutUserInput[] | PlaylistUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: PlaylistCreateOrConnectWithoutUserInput | PlaylistCreateOrConnectWithoutUserInput[]
-    createMany?: PlaylistCreateManyUserInputEnvelope
-    connect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
+  export type RevisionCreateNestedManyWithoutUserInput = {
+    create?: XOR<RevisionCreateWithoutUserInput, RevisionUncheckedCreateWithoutUserInput> | RevisionCreateWithoutUserInput[] | RevisionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RevisionCreateOrConnectWithoutUserInput | RevisionCreateOrConnectWithoutUserInput[]
+    createMany?: RevisionCreateManyUserInputEnvelope
+    connect?: RevisionWhereUniqueInput | RevisionWhereUniqueInput[]
   }
 
-  export type DiscussionCreateNestedManyWithoutAuthorInput = {
-    create?: XOR<DiscussionCreateWithoutAuthorInput, DiscussionUncheckedCreateWithoutAuthorInput> | DiscussionCreateWithoutAuthorInput[] | DiscussionUncheckedCreateWithoutAuthorInput[]
-    connectOrCreate?: DiscussionCreateOrConnectWithoutAuthorInput | DiscussionCreateOrConnectWithoutAuthorInput[]
-    createMany?: DiscussionCreateManyAuthorInputEnvelope
-    connect?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
+  export type SubmissionCreateNestedManyWithoutUserInput = {
+    create?: XOR<SubmissionCreateWithoutUserInput, SubmissionUncheckedCreateWithoutUserInput> | SubmissionCreateWithoutUserInput[] | SubmissionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SubmissionCreateOrConnectWithoutUserInput | SubmissionCreateOrConnectWithoutUserInput[]
+    createMany?: SubmissionCreateManyUserInputEnvelope
+    connect?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
   }
 
   export type DiscussionLikeCreateNestedManyWithoutUserInput = {
@@ -17290,32 +17261,11 @@ export namespace Prisma {
     connect?: DiscussionLikeWhereUniqueInput | DiscussionLikeWhereUniqueInput[]
   }
 
-  export type RevisionCreateNestedManyWithoutUserInput = {
-    create?: XOR<RevisionCreateWithoutUserInput, RevisionUncheckedCreateWithoutUserInput> | RevisionCreateWithoutUserInput[] | RevisionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: RevisionCreateOrConnectWithoutUserInput | RevisionCreateOrConnectWithoutUserInput[]
-    createMany?: RevisionCreateManyUserInputEnvelope
-    connect?: RevisionWhereUniqueInput | RevisionWhereUniqueInput[]
-  }
-
-  export type ProblemUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<ProblemCreateWithoutUserInput, ProblemUncheckedCreateWithoutUserInput> | ProblemCreateWithoutUserInput[] | ProblemUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ProblemCreateOrConnectWithoutUserInput | ProblemCreateOrConnectWithoutUserInput[]
-    createMany?: ProblemCreateManyUserInputEnvelope
-    connect?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[]
-  }
-
-  export type SubmissionUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<SubmissionCreateWithoutUserInput, SubmissionUncheckedCreateWithoutUserInput> | SubmissionCreateWithoutUserInput[] | SubmissionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SubmissionCreateOrConnectWithoutUserInput | SubmissionCreateOrConnectWithoutUserInput[]
-    createMany?: SubmissionCreateManyUserInputEnvelope
-    connect?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
-  }
-
-  export type ProblemSolvedUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<ProblemSolvedCreateWithoutUserInput, ProblemSolvedUncheckedCreateWithoutUserInput> | ProblemSolvedCreateWithoutUserInput[] | ProblemSolvedUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ProblemSolvedCreateOrConnectWithoutUserInput | ProblemSolvedCreateOrConnectWithoutUserInput[]
-    createMany?: ProblemSolvedCreateManyUserInputEnvelope
-    connect?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
+  export type DiscussionCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<DiscussionCreateWithoutAuthorInput, DiscussionUncheckedCreateWithoutAuthorInput> | DiscussionCreateWithoutAuthorInput[] | DiscussionUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: DiscussionCreateOrConnectWithoutAuthorInput | DiscussionCreateOrConnectWithoutAuthorInput[]
+    createMany?: DiscussionCreateManyAuthorInputEnvelope
+    connect?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
   }
 
   export type PlaylistUncheckedCreateNestedManyWithoutUserInput = {
@@ -17325,11 +17275,32 @@ export namespace Prisma {
     connect?: PlaylistWhereUniqueInput | PlaylistWhereUniqueInput[]
   }
 
-  export type DiscussionUncheckedCreateNestedManyWithoutAuthorInput = {
-    create?: XOR<DiscussionCreateWithoutAuthorInput, DiscussionUncheckedCreateWithoutAuthorInput> | DiscussionCreateWithoutAuthorInput[] | DiscussionUncheckedCreateWithoutAuthorInput[]
-    connectOrCreate?: DiscussionCreateOrConnectWithoutAuthorInput | DiscussionCreateOrConnectWithoutAuthorInput[]
-    createMany?: DiscussionCreateManyAuthorInputEnvelope
-    connect?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
+  export type ProblemUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ProblemCreateWithoutUserInput, ProblemUncheckedCreateWithoutUserInput> | ProblemCreateWithoutUserInput[] | ProblemUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ProblemCreateOrConnectWithoutUserInput | ProblemCreateOrConnectWithoutUserInput[]
+    createMany?: ProblemCreateManyUserInputEnvelope
+    connect?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[]
+  }
+
+  export type ProblemSolvedUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ProblemSolvedCreateWithoutUserInput, ProblemSolvedUncheckedCreateWithoutUserInput> | ProblemSolvedCreateWithoutUserInput[] | ProblemSolvedUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ProblemSolvedCreateOrConnectWithoutUserInput | ProblemSolvedCreateOrConnectWithoutUserInput[]
+    createMany?: ProblemSolvedCreateManyUserInputEnvelope
+    connect?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
+  }
+
+  export type RevisionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<RevisionCreateWithoutUserInput, RevisionUncheckedCreateWithoutUserInput> | RevisionCreateWithoutUserInput[] | RevisionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RevisionCreateOrConnectWithoutUserInput | RevisionCreateOrConnectWithoutUserInput[]
+    createMany?: RevisionCreateManyUserInputEnvelope
+    connect?: RevisionWhereUniqueInput | RevisionWhereUniqueInput[]
+  }
+
+  export type SubmissionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<SubmissionCreateWithoutUserInput, SubmissionUncheckedCreateWithoutUserInput> | SubmissionCreateWithoutUserInput[] | SubmissionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SubmissionCreateOrConnectWithoutUserInput | SubmissionCreateOrConnectWithoutUserInput[]
+    createMany?: SubmissionCreateManyUserInputEnvelope
+    connect?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
   }
 
   export type DiscussionLikeUncheckedCreateNestedManyWithoutUserInput = {
@@ -17339,11 +17310,11 @@ export namespace Prisma {
     connect?: DiscussionLikeWhereUniqueInput | DiscussionLikeWhereUniqueInput[]
   }
 
-  export type RevisionUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<RevisionCreateWithoutUserInput, RevisionUncheckedCreateWithoutUserInput> | RevisionCreateWithoutUserInput[] | RevisionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: RevisionCreateOrConnectWithoutUserInput | RevisionCreateOrConnectWithoutUserInput[]
-    createMany?: RevisionCreateManyUserInputEnvelope
-    connect?: RevisionWhereUniqueInput | RevisionWhereUniqueInput[]
+  export type DiscussionUncheckedCreateNestedManyWithoutAuthorInput = {
+    create?: XOR<DiscussionCreateWithoutAuthorInput, DiscussionUncheckedCreateWithoutAuthorInput> | DiscussionCreateWithoutAuthorInput[] | DiscussionUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: DiscussionCreateOrConnectWithoutAuthorInput | DiscussionCreateOrConnectWithoutAuthorInput[]
+    createMany?: DiscussionCreateManyAuthorInputEnvelope
+    connect?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -17374,54 +17345,8 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
   export type NullableEnumGenderFieldUpdateOperationsInput = {
     set?: $Enums.Gender | null
-  }
-
-  export type ProblemUpdateManyWithoutUserNestedInput = {
-    create?: XOR<ProblemCreateWithoutUserInput, ProblemUncheckedCreateWithoutUserInput> | ProblemCreateWithoutUserInput[] | ProblemUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ProblemCreateOrConnectWithoutUserInput | ProblemCreateOrConnectWithoutUserInput[]
-    upsert?: ProblemUpsertWithWhereUniqueWithoutUserInput | ProblemUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: ProblemCreateManyUserInputEnvelope
-    set?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[]
-    disconnect?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[]
-    delete?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[]
-    connect?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[]
-    update?: ProblemUpdateWithWhereUniqueWithoutUserInput | ProblemUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: ProblemUpdateManyWithWhereWithoutUserInput | ProblemUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: ProblemScalarWhereInput | ProblemScalarWhereInput[]
-  }
-
-  export type SubmissionUpdateManyWithoutUserNestedInput = {
-    create?: XOR<SubmissionCreateWithoutUserInput, SubmissionUncheckedCreateWithoutUserInput> | SubmissionCreateWithoutUserInput[] | SubmissionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SubmissionCreateOrConnectWithoutUserInput | SubmissionCreateOrConnectWithoutUserInput[]
-    upsert?: SubmissionUpsertWithWhereUniqueWithoutUserInput | SubmissionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: SubmissionCreateManyUserInputEnvelope
-    set?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
-    disconnect?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
-    delete?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
-    connect?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
-    update?: SubmissionUpdateWithWhereUniqueWithoutUserInput | SubmissionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: SubmissionUpdateManyWithWhereWithoutUserInput | SubmissionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: SubmissionScalarWhereInput | SubmissionScalarWhereInput[]
-  }
-
-  export type ProblemSolvedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<ProblemSolvedCreateWithoutUserInput, ProblemSolvedUncheckedCreateWithoutUserInput> | ProblemSolvedCreateWithoutUserInput[] | ProblemSolvedUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ProblemSolvedCreateOrConnectWithoutUserInput | ProblemSolvedCreateOrConnectWithoutUserInput[]
-    upsert?: ProblemSolvedUpsertWithWhereUniqueWithoutUserInput | ProblemSolvedUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: ProblemSolvedCreateManyUserInputEnvelope
-    set?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
-    disconnect?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
-    delete?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
-    connect?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
-    update?: ProblemSolvedUpdateWithWhereUniqueWithoutUserInput | ProblemSolvedUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: ProblemSolvedUpdateManyWithWhereWithoutUserInput | ProblemSolvedUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: ProblemSolvedScalarWhereInput | ProblemSolvedScalarWhereInput[]
   }
 
   export type PlaylistUpdateManyWithoutUserNestedInput = {
@@ -17438,32 +17363,32 @@ export namespace Prisma {
     deleteMany?: PlaylistScalarWhereInput | PlaylistScalarWhereInput[]
   }
 
-  export type DiscussionUpdateManyWithoutAuthorNestedInput = {
-    create?: XOR<DiscussionCreateWithoutAuthorInput, DiscussionUncheckedCreateWithoutAuthorInput> | DiscussionCreateWithoutAuthorInput[] | DiscussionUncheckedCreateWithoutAuthorInput[]
-    connectOrCreate?: DiscussionCreateOrConnectWithoutAuthorInput | DiscussionCreateOrConnectWithoutAuthorInput[]
-    upsert?: DiscussionUpsertWithWhereUniqueWithoutAuthorInput | DiscussionUpsertWithWhereUniqueWithoutAuthorInput[]
-    createMany?: DiscussionCreateManyAuthorInputEnvelope
-    set?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
-    disconnect?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
-    delete?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
-    connect?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
-    update?: DiscussionUpdateWithWhereUniqueWithoutAuthorInput | DiscussionUpdateWithWhereUniqueWithoutAuthorInput[]
-    updateMany?: DiscussionUpdateManyWithWhereWithoutAuthorInput | DiscussionUpdateManyWithWhereWithoutAuthorInput[]
-    deleteMany?: DiscussionScalarWhereInput | DiscussionScalarWhereInput[]
+  export type ProblemUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ProblemCreateWithoutUserInput, ProblemUncheckedCreateWithoutUserInput> | ProblemCreateWithoutUserInput[] | ProblemUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ProblemCreateOrConnectWithoutUserInput | ProblemCreateOrConnectWithoutUserInput[]
+    upsert?: ProblemUpsertWithWhereUniqueWithoutUserInput | ProblemUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ProblemCreateManyUserInputEnvelope
+    set?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[]
+    disconnect?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[]
+    delete?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[]
+    connect?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[]
+    update?: ProblemUpdateWithWhereUniqueWithoutUserInput | ProblemUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ProblemUpdateManyWithWhereWithoutUserInput | ProblemUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ProblemScalarWhereInput | ProblemScalarWhereInput[]
   }
 
-  export type DiscussionLikeUpdateManyWithoutUserNestedInput = {
-    create?: XOR<DiscussionLikeCreateWithoutUserInput, DiscussionLikeUncheckedCreateWithoutUserInput> | DiscussionLikeCreateWithoutUserInput[] | DiscussionLikeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DiscussionLikeCreateOrConnectWithoutUserInput | DiscussionLikeCreateOrConnectWithoutUserInput[]
-    upsert?: DiscussionLikeUpsertWithWhereUniqueWithoutUserInput | DiscussionLikeUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: DiscussionLikeCreateManyUserInputEnvelope
-    set?: DiscussionLikeWhereUniqueInput | DiscussionLikeWhereUniqueInput[]
-    disconnect?: DiscussionLikeWhereUniqueInput | DiscussionLikeWhereUniqueInput[]
-    delete?: DiscussionLikeWhereUniqueInput | DiscussionLikeWhereUniqueInput[]
-    connect?: DiscussionLikeWhereUniqueInput | DiscussionLikeWhereUniqueInput[]
-    update?: DiscussionLikeUpdateWithWhereUniqueWithoutUserInput | DiscussionLikeUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: DiscussionLikeUpdateManyWithWhereWithoutUserInput | DiscussionLikeUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: DiscussionLikeScalarWhereInput | DiscussionLikeScalarWhereInput[]
+  export type ProblemSolvedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ProblemSolvedCreateWithoutUserInput, ProblemSolvedUncheckedCreateWithoutUserInput> | ProblemSolvedCreateWithoutUserInput[] | ProblemSolvedUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ProblemSolvedCreateOrConnectWithoutUserInput | ProblemSolvedCreateOrConnectWithoutUserInput[]
+    upsert?: ProblemSolvedUpsertWithWhereUniqueWithoutUserInput | ProblemSolvedUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ProblemSolvedCreateManyUserInputEnvelope
+    set?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
+    disconnect?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
+    delete?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
+    connect?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
+    update?: ProblemSolvedUpdateWithWhereUniqueWithoutUserInput | ProblemSolvedUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ProblemSolvedUpdateManyWithWhereWithoutUserInput | ProblemSolvedUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ProblemSolvedScalarWhereInput | ProblemSolvedScalarWhereInput[]
   }
 
   export type RevisionUpdateManyWithoutUserNestedInput = {
@@ -17480,21 +17405,7 @@ export namespace Prisma {
     deleteMany?: RevisionScalarWhereInput | RevisionScalarWhereInput[]
   }
 
-  export type ProblemUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<ProblemCreateWithoutUserInput, ProblemUncheckedCreateWithoutUserInput> | ProblemCreateWithoutUserInput[] | ProblemUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ProblemCreateOrConnectWithoutUserInput | ProblemCreateOrConnectWithoutUserInput[]
-    upsert?: ProblemUpsertWithWhereUniqueWithoutUserInput | ProblemUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: ProblemCreateManyUserInputEnvelope
-    set?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[]
-    disconnect?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[]
-    delete?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[]
-    connect?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[]
-    update?: ProblemUpdateWithWhereUniqueWithoutUserInput | ProblemUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: ProblemUpdateManyWithWhereWithoutUserInput | ProblemUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: ProblemScalarWhereInput | ProblemScalarWhereInput[]
-  }
-
-  export type SubmissionUncheckedUpdateManyWithoutUserNestedInput = {
+  export type SubmissionUpdateManyWithoutUserNestedInput = {
     create?: XOR<SubmissionCreateWithoutUserInput, SubmissionUncheckedCreateWithoutUserInput> | SubmissionCreateWithoutUserInput[] | SubmissionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SubmissionCreateOrConnectWithoutUserInput | SubmissionCreateOrConnectWithoutUserInput[]
     upsert?: SubmissionUpsertWithWhereUniqueWithoutUserInput | SubmissionUpsertWithWhereUniqueWithoutUserInput[]
@@ -17508,18 +17419,32 @@ export namespace Prisma {
     deleteMany?: SubmissionScalarWhereInput | SubmissionScalarWhereInput[]
   }
 
-  export type ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<ProblemSolvedCreateWithoutUserInput, ProblemSolvedUncheckedCreateWithoutUserInput> | ProblemSolvedCreateWithoutUserInput[] | ProblemSolvedUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ProblemSolvedCreateOrConnectWithoutUserInput | ProblemSolvedCreateOrConnectWithoutUserInput[]
-    upsert?: ProblemSolvedUpsertWithWhereUniqueWithoutUserInput | ProblemSolvedUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: ProblemSolvedCreateManyUserInputEnvelope
-    set?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
-    disconnect?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
-    delete?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
-    connect?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
-    update?: ProblemSolvedUpdateWithWhereUniqueWithoutUserInput | ProblemSolvedUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: ProblemSolvedUpdateManyWithWhereWithoutUserInput | ProblemSolvedUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: ProblemSolvedScalarWhereInput | ProblemSolvedScalarWhereInput[]
+  export type DiscussionLikeUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DiscussionLikeCreateWithoutUserInput, DiscussionLikeUncheckedCreateWithoutUserInput> | DiscussionLikeCreateWithoutUserInput[] | DiscussionLikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DiscussionLikeCreateOrConnectWithoutUserInput | DiscussionLikeCreateOrConnectWithoutUserInput[]
+    upsert?: DiscussionLikeUpsertWithWhereUniqueWithoutUserInput | DiscussionLikeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DiscussionLikeCreateManyUserInputEnvelope
+    set?: DiscussionLikeWhereUniqueInput | DiscussionLikeWhereUniqueInput[]
+    disconnect?: DiscussionLikeWhereUniqueInput | DiscussionLikeWhereUniqueInput[]
+    delete?: DiscussionLikeWhereUniqueInput | DiscussionLikeWhereUniqueInput[]
+    connect?: DiscussionLikeWhereUniqueInput | DiscussionLikeWhereUniqueInput[]
+    update?: DiscussionLikeUpdateWithWhereUniqueWithoutUserInput | DiscussionLikeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DiscussionLikeUpdateManyWithWhereWithoutUserInput | DiscussionLikeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DiscussionLikeScalarWhereInput | DiscussionLikeScalarWhereInput[]
+  }
+
+  export type DiscussionUpdateManyWithoutAuthorNestedInput = {
+    create?: XOR<DiscussionCreateWithoutAuthorInput, DiscussionUncheckedCreateWithoutAuthorInput> | DiscussionCreateWithoutAuthorInput[] | DiscussionUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: DiscussionCreateOrConnectWithoutAuthorInput | DiscussionCreateOrConnectWithoutAuthorInput[]
+    upsert?: DiscussionUpsertWithWhereUniqueWithoutAuthorInput | DiscussionUpsertWithWhereUniqueWithoutAuthorInput[]
+    createMany?: DiscussionCreateManyAuthorInputEnvelope
+    set?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
+    disconnect?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
+    delete?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
+    connect?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
+    update?: DiscussionUpdateWithWhereUniqueWithoutAuthorInput | DiscussionUpdateWithWhereUniqueWithoutAuthorInput[]
+    updateMany?: DiscussionUpdateManyWithWhereWithoutAuthorInput | DiscussionUpdateManyWithWhereWithoutAuthorInput[]
+    deleteMany?: DiscussionScalarWhereInput | DiscussionScalarWhereInput[]
   }
 
   export type PlaylistUncheckedUpdateManyWithoutUserNestedInput = {
@@ -17536,18 +17461,60 @@ export namespace Prisma {
     deleteMany?: PlaylistScalarWhereInput | PlaylistScalarWhereInput[]
   }
 
-  export type DiscussionUncheckedUpdateManyWithoutAuthorNestedInput = {
-    create?: XOR<DiscussionCreateWithoutAuthorInput, DiscussionUncheckedCreateWithoutAuthorInput> | DiscussionCreateWithoutAuthorInput[] | DiscussionUncheckedCreateWithoutAuthorInput[]
-    connectOrCreate?: DiscussionCreateOrConnectWithoutAuthorInput | DiscussionCreateOrConnectWithoutAuthorInput[]
-    upsert?: DiscussionUpsertWithWhereUniqueWithoutAuthorInput | DiscussionUpsertWithWhereUniqueWithoutAuthorInput[]
-    createMany?: DiscussionCreateManyAuthorInputEnvelope
-    set?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
-    disconnect?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
-    delete?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
-    connect?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
-    update?: DiscussionUpdateWithWhereUniqueWithoutAuthorInput | DiscussionUpdateWithWhereUniqueWithoutAuthorInput[]
-    updateMany?: DiscussionUpdateManyWithWhereWithoutAuthorInput | DiscussionUpdateManyWithWhereWithoutAuthorInput[]
-    deleteMany?: DiscussionScalarWhereInput | DiscussionScalarWhereInput[]
+  export type ProblemUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ProblemCreateWithoutUserInput, ProblemUncheckedCreateWithoutUserInput> | ProblemCreateWithoutUserInput[] | ProblemUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ProblemCreateOrConnectWithoutUserInput | ProblemCreateOrConnectWithoutUserInput[]
+    upsert?: ProblemUpsertWithWhereUniqueWithoutUserInput | ProblemUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ProblemCreateManyUserInputEnvelope
+    set?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[]
+    disconnect?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[]
+    delete?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[]
+    connect?: ProblemWhereUniqueInput | ProblemWhereUniqueInput[]
+    update?: ProblemUpdateWithWhereUniqueWithoutUserInput | ProblemUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ProblemUpdateManyWithWhereWithoutUserInput | ProblemUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ProblemScalarWhereInput | ProblemScalarWhereInput[]
+  }
+
+  export type ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ProblemSolvedCreateWithoutUserInput, ProblemSolvedUncheckedCreateWithoutUserInput> | ProblemSolvedCreateWithoutUserInput[] | ProblemSolvedUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ProblemSolvedCreateOrConnectWithoutUserInput | ProblemSolvedCreateOrConnectWithoutUserInput[]
+    upsert?: ProblemSolvedUpsertWithWhereUniqueWithoutUserInput | ProblemSolvedUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ProblemSolvedCreateManyUserInputEnvelope
+    set?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
+    disconnect?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
+    delete?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
+    connect?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
+    update?: ProblemSolvedUpdateWithWhereUniqueWithoutUserInput | ProblemSolvedUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ProblemSolvedUpdateManyWithWhereWithoutUserInput | ProblemSolvedUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ProblemSolvedScalarWhereInput | ProblemSolvedScalarWhereInput[]
+  }
+
+  export type RevisionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RevisionCreateWithoutUserInput, RevisionUncheckedCreateWithoutUserInput> | RevisionCreateWithoutUserInput[] | RevisionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RevisionCreateOrConnectWithoutUserInput | RevisionCreateOrConnectWithoutUserInput[]
+    upsert?: RevisionUpsertWithWhereUniqueWithoutUserInput | RevisionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RevisionCreateManyUserInputEnvelope
+    set?: RevisionWhereUniqueInput | RevisionWhereUniqueInput[]
+    disconnect?: RevisionWhereUniqueInput | RevisionWhereUniqueInput[]
+    delete?: RevisionWhereUniqueInput | RevisionWhereUniqueInput[]
+    connect?: RevisionWhereUniqueInput | RevisionWhereUniqueInput[]
+    update?: RevisionUpdateWithWhereUniqueWithoutUserInput | RevisionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RevisionUpdateManyWithWhereWithoutUserInput | RevisionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RevisionScalarWhereInput | RevisionScalarWhereInput[]
+  }
+
+  export type SubmissionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SubmissionCreateWithoutUserInput, SubmissionUncheckedCreateWithoutUserInput> | SubmissionCreateWithoutUserInput[] | SubmissionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SubmissionCreateOrConnectWithoutUserInput | SubmissionCreateOrConnectWithoutUserInput[]
+    upsert?: SubmissionUpsertWithWhereUniqueWithoutUserInput | SubmissionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SubmissionCreateManyUserInputEnvelope
+    set?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
+    disconnect?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
+    delete?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
+    connect?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
+    update?: SubmissionUpdateWithWhereUniqueWithoutUserInput | SubmissionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SubmissionUpdateManyWithWhereWithoutUserInput | SubmissionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SubmissionScalarWhereInput | SubmissionScalarWhereInput[]
   }
 
   export type DiscussionLikeUncheckedUpdateManyWithoutUserNestedInput = {
@@ -17564,18 +17531,18 @@ export namespace Prisma {
     deleteMany?: DiscussionLikeScalarWhereInput | DiscussionLikeScalarWhereInput[]
   }
 
-  export type RevisionUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<RevisionCreateWithoutUserInput, RevisionUncheckedCreateWithoutUserInput> | RevisionCreateWithoutUserInput[] | RevisionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: RevisionCreateOrConnectWithoutUserInput | RevisionCreateOrConnectWithoutUserInput[]
-    upsert?: RevisionUpsertWithWhereUniqueWithoutUserInput | RevisionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: RevisionCreateManyUserInputEnvelope
-    set?: RevisionWhereUniqueInput | RevisionWhereUniqueInput[]
-    disconnect?: RevisionWhereUniqueInput | RevisionWhereUniqueInput[]
-    delete?: RevisionWhereUniqueInput | RevisionWhereUniqueInput[]
-    connect?: RevisionWhereUniqueInput | RevisionWhereUniqueInput[]
-    update?: RevisionUpdateWithWhereUniqueWithoutUserInput | RevisionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: RevisionUpdateManyWithWhereWithoutUserInput | RevisionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: RevisionScalarWhereInput | RevisionScalarWhereInput[]
+  export type DiscussionUncheckedUpdateManyWithoutAuthorNestedInput = {
+    create?: XOR<DiscussionCreateWithoutAuthorInput, DiscussionUncheckedCreateWithoutAuthorInput> | DiscussionCreateWithoutAuthorInput[] | DiscussionUncheckedCreateWithoutAuthorInput[]
+    connectOrCreate?: DiscussionCreateOrConnectWithoutAuthorInput | DiscussionCreateOrConnectWithoutAuthorInput[]
+    upsert?: DiscussionUpsertWithWhereUniqueWithoutAuthorInput | DiscussionUpsertWithWhereUniqueWithoutAuthorInput[]
+    createMany?: DiscussionCreateManyAuthorInputEnvelope
+    set?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
+    disconnect?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
+    delete?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
+    connect?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
+    update?: DiscussionUpdateWithWhereUniqueWithoutAuthorInput | DiscussionUpdateWithWhereUniqueWithoutAuthorInput[]
+    updateMany?: DiscussionUpdateManyWithWhereWithoutAuthorInput | DiscussionUpdateManyWithWhereWithoutAuthorInput[]
+    deleteMany?: DiscussionScalarWhereInput | DiscussionScalarWhereInput[]
   }
 
   export type ProblemCreatecompaniesInput = {
@@ -17600,11 +17567,11 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type SubmissionCreateNestedManyWithoutProblemInput = {
-    create?: XOR<SubmissionCreateWithoutProblemInput, SubmissionUncheckedCreateWithoutProblemInput> | SubmissionCreateWithoutProblemInput[] | SubmissionUncheckedCreateWithoutProblemInput[]
-    connectOrCreate?: SubmissionCreateOrConnectWithoutProblemInput | SubmissionCreateOrConnectWithoutProblemInput[]
-    createMany?: SubmissionCreateManyProblemInputEnvelope
-    connect?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
+  export type ProblemPlaylistCreateNestedManyWithoutProblemInput = {
+    create?: XOR<ProblemPlaylistCreateWithoutProblemInput, ProblemPlaylistUncheckedCreateWithoutProblemInput> | ProblemPlaylistCreateWithoutProblemInput[] | ProblemPlaylistUncheckedCreateWithoutProblemInput[]
+    connectOrCreate?: ProblemPlaylistCreateOrConnectWithoutProblemInput | ProblemPlaylistCreateOrConnectWithoutProblemInput[]
+    createMany?: ProblemPlaylistCreateManyProblemInputEnvelope
+    connect?: ProblemPlaylistWhereUniqueInput | ProblemPlaylistWhereUniqueInput[]
   }
 
   export type ProblemSolvedCreateNestedManyWithoutProblemInput = {
@@ -17614,11 +17581,18 @@ export namespace Prisma {
     connect?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
   }
 
-  export type ProblemPlaylistCreateNestedManyWithoutProblemInput = {
-    create?: XOR<ProblemPlaylistCreateWithoutProblemInput, ProblemPlaylistUncheckedCreateWithoutProblemInput> | ProblemPlaylistCreateWithoutProblemInput[] | ProblemPlaylistUncheckedCreateWithoutProblemInput[]
-    connectOrCreate?: ProblemPlaylistCreateOrConnectWithoutProblemInput | ProblemPlaylistCreateOrConnectWithoutProblemInput[]
-    createMany?: ProblemPlaylistCreateManyProblemInputEnvelope
-    connect?: ProblemPlaylistWhereUniqueInput | ProblemPlaylistWhereUniqueInput[]
+  export type RevisionCreateNestedManyWithoutProblemInput = {
+    create?: XOR<RevisionCreateWithoutProblemInput, RevisionUncheckedCreateWithoutProblemInput> | RevisionCreateWithoutProblemInput[] | RevisionUncheckedCreateWithoutProblemInput[]
+    connectOrCreate?: RevisionCreateOrConnectWithoutProblemInput | RevisionCreateOrConnectWithoutProblemInput[]
+    createMany?: RevisionCreateManyProblemInputEnvelope
+    connect?: RevisionWhereUniqueInput | RevisionWhereUniqueInput[]
+  }
+
+  export type SubmissionCreateNestedManyWithoutProblemInput = {
+    create?: XOR<SubmissionCreateWithoutProblemInput, SubmissionUncheckedCreateWithoutProblemInput> | SubmissionCreateWithoutProblemInput[] | SubmissionUncheckedCreateWithoutProblemInput[]
+    connectOrCreate?: SubmissionCreateOrConnectWithoutProblemInput | SubmissionCreateOrConnectWithoutProblemInput[]
+    createMany?: SubmissionCreateManyProblemInputEnvelope
+    connect?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
   }
 
   export type DiscussionCreateNestedManyWithoutProblemInput = {
@@ -17628,7 +17602,21 @@ export namespace Prisma {
     connect?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
   }
 
-  export type RevisionCreateNestedManyWithoutProblemInput = {
+  export type ProblemPlaylistUncheckedCreateNestedManyWithoutProblemInput = {
+    create?: XOR<ProblemPlaylistCreateWithoutProblemInput, ProblemPlaylistUncheckedCreateWithoutProblemInput> | ProblemPlaylistCreateWithoutProblemInput[] | ProblemPlaylistUncheckedCreateWithoutProblemInput[]
+    connectOrCreate?: ProblemPlaylistCreateOrConnectWithoutProblemInput | ProblemPlaylistCreateOrConnectWithoutProblemInput[]
+    createMany?: ProblemPlaylistCreateManyProblemInputEnvelope
+    connect?: ProblemPlaylistWhereUniqueInput | ProblemPlaylistWhereUniqueInput[]
+  }
+
+  export type ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput = {
+    create?: XOR<ProblemSolvedCreateWithoutProblemInput, ProblemSolvedUncheckedCreateWithoutProblemInput> | ProblemSolvedCreateWithoutProblemInput[] | ProblemSolvedUncheckedCreateWithoutProblemInput[]
+    connectOrCreate?: ProblemSolvedCreateOrConnectWithoutProblemInput | ProblemSolvedCreateOrConnectWithoutProblemInput[]
+    createMany?: ProblemSolvedCreateManyProblemInputEnvelope
+    connect?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
+  }
+
+  export type RevisionUncheckedCreateNestedManyWithoutProblemInput = {
     create?: XOR<RevisionCreateWithoutProblemInput, RevisionUncheckedCreateWithoutProblemInput> | RevisionCreateWithoutProblemInput[] | RevisionUncheckedCreateWithoutProblemInput[]
     connectOrCreate?: RevisionCreateOrConnectWithoutProblemInput | RevisionCreateOrConnectWithoutProblemInput[]
     createMany?: RevisionCreateManyProblemInputEnvelope
@@ -17642,32 +17630,11 @@ export namespace Prisma {
     connect?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
   }
 
-  export type ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput = {
-    create?: XOR<ProblemSolvedCreateWithoutProblemInput, ProblemSolvedUncheckedCreateWithoutProblemInput> | ProblemSolvedCreateWithoutProblemInput[] | ProblemSolvedUncheckedCreateWithoutProblemInput[]
-    connectOrCreate?: ProblemSolvedCreateOrConnectWithoutProblemInput | ProblemSolvedCreateOrConnectWithoutProblemInput[]
-    createMany?: ProblemSolvedCreateManyProblemInputEnvelope
-    connect?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
-  }
-
-  export type ProblemPlaylistUncheckedCreateNestedManyWithoutProblemInput = {
-    create?: XOR<ProblemPlaylistCreateWithoutProblemInput, ProblemPlaylistUncheckedCreateWithoutProblemInput> | ProblemPlaylistCreateWithoutProblemInput[] | ProblemPlaylistUncheckedCreateWithoutProblemInput[]
-    connectOrCreate?: ProblemPlaylistCreateOrConnectWithoutProblemInput | ProblemPlaylistCreateOrConnectWithoutProblemInput[]
-    createMany?: ProblemPlaylistCreateManyProblemInputEnvelope
-    connect?: ProblemPlaylistWhereUniqueInput | ProblemPlaylistWhereUniqueInput[]
-  }
-
   export type DiscussionUncheckedCreateNestedManyWithoutProblemInput = {
     create?: XOR<DiscussionCreateWithoutProblemInput, DiscussionUncheckedCreateWithoutProblemInput> | DiscussionCreateWithoutProblemInput[] | DiscussionUncheckedCreateWithoutProblemInput[]
     connectOrCreate?: DiscussionCreateOrConnectWithoutProblemInput | DiscussionCreateOrConnectWithoutProblemInput[]
     createMany?: DiscussionCreateManyProblemInputEnvelope
     connect?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
-  }
-
-  export type RevisionUncheckedCreateNestedManyWithoutProblemInput = {
-    create?: XOR<RevisionCreateWithoutProblemInput, RevisionUncheckedCreateWithoutProblemInput> | RevisionCreateWithoutProblemInput[] | RevisionUncheckedCreateWithoutProblemInput[]
-    connectOrCreate?: RevisionCreateOrConnectWithoutProblemInput | RevisionCreateOrConnectWithoutProblemInput[]
-    createMany?: RevisionCreateManyProblemInputEnvelope
-    connect?: RevisionWhereUniqueInput | RevisionWhereUniqueInput[]
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -17680,6 +17647,10 @@ export namespace Prisma {
 
   export type EnumDifficultyFieldUpdateOperationsInput = {
     set?: $Enums.Difficulty
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type NullableFloatFieldUpdateOperationsInput = {
@@ -17720,18 +17691,18 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProblemsInput, UserUpdateWithoutProblemsInput>, UserUncheckedUpdateWithoutProblemsInput>
   }
 
-  export type SubmissionUpdateManyWithoutProblemNestedInput = {
-    create?: XOR<SubmissionCreateWithoutProblemInput, SubmissionUncheckedCreateWithoutProblemInput> | SubmissionCreateWithoutProblemInput[] | SubmissionUncheckedCreateWithoutProblemInput[]
-    connectOrCreate?: SubmissionCreateOrConnectWithoutProblemInput | SubmissionCreateOrConnectWithoutProblemInput[]
-    upsert?: SubmissionUpsertWithWhereUniqueWithoutProblemInput | SubmissionUpsertWithWhereUniqueWithoutProblemInput[]
-    createMany?: SubmissionCreateManyProblemInputEnvelope
-    set?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
-    disconnect?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
-    delete?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
-    connect?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
-    update?: SubmissionUpdateWithWhereUniqueWithoutProblemInput | SubmissionUpdateWithWhereUniqueWithoutProblemInput[]
-    updateMany?: SubmissionUpdateManyWithWhereWithoutProblemInput | SubmissionUpdateManyWithWhereWithoutProblemInput[]
-    deleteMany?: SubmissionScalarWhereInput | SubmissionScalarWhereInput[]
+  export type ProblemPlaylistUpdateManyWithoutProblemNestedInput = {
+    create?: XOR<ProblemPlaylistCreateWithoutProblemInput, ProblemPlaylistUncheckedCreateWithoutProblemInput> | ProblemPlaylistCreateWithoutProblemInput[] | ProblemPlaylistUncheckedCreateWithoutProblemInput[]
+    connectOrCreate?: ProblemPlaylistCreateOrConnectWithoutProblemInput | ProblemPlaylistCreateOrConnectWithoutProblemInput[]
+    upsert?: ProblemPlaylistUpsertWithWhereUniqueWithoutProblemInput | ProblemPlaylistUpsertWithWhereUniqueWithoutProblemInput[]
+    createMany?: ProblemPlaylistCreateManyProblemInputEnvelope
+    set?: ProblemPlaylistWhereUniqueInput | ProblemPlaylistWhereUniqueInput[]
+    disconnect?: ProblemPlaylistWhereUniqueInput | ProblemPlaylistWhereUniqueInput[]
+    delete?: ProblemPlaylistWhereUniqueInput | ProblemPlaylistWhereUniqueInput[]
+    connect?: ProblemPlaylistWhereUniqueInput | ProblemPlaylistWhereUniqueInput[]
+    update?: ProblemPlaylistUpdateWithWhereUniqueWithoutProblemInput | ProblemPlaylistUpdateWithWhereUniqueWithoutProblemInput[]
+    updateMany?: ProblemPlaylistUpdateManyWithWhereWithoutProblemInput | ProblemPlaylistUpdateManyWithWhereWithoutProblemInput[]
+    deleteMany?: ProblemPlaylistScalarWhereInput | ProblemPlaylistScalarWhereInput[]
   }
 
   export type ProblemSolvedUpdateManyWithoutProblemNestedInput = {
@@ -17748,18 +17719,32 @@ export namespace Prisma {
     deleteMany?: ProblemSolvedScalarWhereInput | ProblemSolvedScalarWhereInput[]
   }
 
-  export type ProblemPlaylistUpdateManyWithoutProblemNestedInput = {
-    create?: XOR<ProblemPlaylistCreateWithoutProblemInput, ProblemPlaylistUncheckedCreateWithoutProblemInput> | ProblemPlaylistCreateWithoutProblemInput[] | ProblemPlaylistUncheckedCreateWithoutProblemInput[]
-    connectOrCreate?: ProblemPlaylistCreateOrConnectWithoutProblemInput | ProblemPlaylistCreateOrConnectWithoutProblemInput[]
-    upsert?: ProblemPlaylistUpsertWithWhereUniqueWithoutProblemInput | ProblemPlaylistUpsertWithWhereUniqueWithoutProblemInput[]
-    createMany?: ProblemPlaylistCreateManyProblemInputEnvelope
-    set?: ProblemPlaylistWhereUniqueInput | ProblemPlaylistWhereUniqueInput[]
-    disconnect?: ProblemPlaylistWhereUniqueInput | ProblemPlaylistWhereUniqueInput[]
-    delete?: ProblemPlaylistWhereUniqueInput | ProblemPlaylistWhereUniqueInput[]
-    connect?: ProblemPlaylistWhereUniqueInput | ProblemPlaylistWhereUniqueInput[]
-    update?: ProblemPlaylistUpdateWithWhereUniqueWithoutProblemInput | ProblemPlaylistUpdateWithWhereUniqueWithoutProblemInput[]
-    updateMany?: ProblemPlaylistUpdateManyWithWhereWithoutProblemInput | ProblemPlaylistUpdateManyWithWhereWithoutProblemInput[]
-    deleteMany?: ProblemPlaylistScalarWhereInput | ProblemPlaylistScalarWhereInput[]
+  export type RevisionUpdateManyWithoutProblemNestedInput = {
+    create?: XOR<RevisionCreateWithoutProblemInput, RevisionUncheckedCreateWithoutProblemInput> | RevisionCreateWithoutProblemInput[] | RevisionUncheckedCreateWithoutProblemInput[]
+    connectOrCreate?: RevisionCreateOrConnectWithoutProblemInput | RevisionCreateOrConnectWithoutProblemInput[]
+    upsert?: RevisionUpsertWithWhereUniqueWithoutProblemInput | RevisionUpsertWithWhereUniqueWithoutProblemInput[]
+    createMany?: RevisionCreateManyProblemInputEnvelope
+    set?: RevisionWhereUniqueInput | RevisionWhereUniqueInput[]
+    disconnect?: RevisionWhereUniqueInput | RevisionWhereUniqueInput[]
+    delete?: RevisionWhereUniqueInput | RevisionWhereUniqueInput[]
+    connect?: RevisionWhereUniqueInput | RevisionWhereUniqueInput[]
+    update?: RevisionUpdateWithWhereUniqueWithoutProblemInput | RevisionUpdateWithWhereUniqueWithoutProblemInput[]
+    updateMany?: RevisionUpdateManyWithWhereWithoutProblemInput | RevisionUpdateManyWithWhereWithoutProblemInput[]
+    deleteMany?: RevisionScalarWhereInput | RevisionScalarWhereInput[]
+  }
+
+  export type SubmissionUpdateManyWithoutProblemNestedInput = {
+    create?: XOR<SubmissionCreateWithoutProblemInput, SubmissionUncheckedCreateWithoutProblemInput> | SubmissionCreateWithoutProblemInput[] | SubmissionUncheckedCreateWithoutProblemInput[]
+    connectOrCreate?: SubmissionCreateOrConnectWithoutProblemInput | SubmissionCreateOrConnectWithoutProblemInput[]
+    upsert?: SubmissionUpsertWithWhereUniqueWithoutProblemInput | SubmissionUpsertWithWhereUniqueWithoutProblemInput[]
+    createMany?: SubmissionCreateManyProblemInputEnvelope
+    set?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
+    disconnect?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
+    delete?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
+    connect?: SubmissionWhereUniqueInput | SubmissionWhereUniqueInput[]
+    update?: SubmissionUpdateWithWhereUniqueWithoutProblemInput | SubmissionUpdateWithWhereUniqueWithoutProblemInput[]
+    updateMany?: SubmissionUpdateManyWithWhereWithoutProblemInput | SubmissionUpdateManyWithWhereWithoutProblemInput[]
+    deleteMany?: SubmissionScalarWhereInput | SubmissionScalarWhereInput[]
   }
 
   export type DiscussionUpdateManyWithoutProblemNestedInput = {
@@ -17776,7 +17761,35 @@ export namespace Prisma {
     deleteMany?: DiscussionScalarWhereInput | DiscussionScalarWhereInput[]
   }
 
-  export type RevisionUpdateManyWithoutProblemNestedInput = {
+  export type ProblemPlaylistUncheckedUpdateManyWithoutProblemNestedInput = {
+    create?: XOR<ProblemPlaylistCreateWithoutProblemInput, ProblemPlaylistUncheckedCreateWithoutProblemInput> | ProblemPlaylistCreateWithoutProblemInput[] | ProblemPlaylistUncheckedCreateWithoutProblemInput[]
+    connectOrCreate?: ProblemPlaylistCreateOrConnectWithoutProblemInput | ProblemPlaylistCreateOrConnectWithoutProblemInput[]
+    upsert?: ProblemPlaylistUpsertWithWhereUniqueWithoutProblemInput | ProblemPlaylistUpsertWithWhereUniqueWithoutProblemInput[]
+    createMany?: ProblemPlaylistCreateManyProblemInputEnvelope
+    set?: ProblemPlaylistWhereUniqueInput | ProblemPlaylistWhereUniqueInput[]
+    disconnect?: ProblemPlaylistWhereUniqueInput | ProblemPlaylistWhereUniqueInput[]
+    delete?: ProblemPlaylistWhereUniqueInput | ProblemPlaylistWhereUniqueInput[]
+    connect?: ProblemPlaylistWhereUniqueInput | ProblemPlaylistWhereUniqueInput[]
+    update?: ProblemPlaylistUpdateWithWhereUniqueWithoutProblemInput | ProblemPlaylistUpdateWithWhereUniqueWithoutProblemInput[]
+    updateMany?: ProblemPlaylistUpdateManyWithWhereWithoutProblemInput | ProblemPlaylistUpdateManyWithWhereWithoutProblemInput[]
+    deleteMany?: ProblemPlaylistScalarWhereInput | ProblemPlaylistScalarWhereInput[]
+  }
+
+  export type ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput = {
+    create?: XOR<ProblemSolvedCreateWithoutProblemInput, ProblemSolvedUncheckedCreateWithoutProblemInput> | ProblemSolvedCreateWithoutProblemInput[] | ProblemSolvedUncheckedCreateWithoutProblemInput[]
+    connectOrCreate?: ProblemSolvedCreateOrConnectWithoutProblemInput | ProblemSolvedCreateOrConnectWithoutProblemInput[]
+    upsert?: ProblemSolvedUpsertWithWhereUniqueWithoutProblemInput | ProblemSolvedUpsertWithWhereUniqueWithoutProblemInput[]
+    createMany?: ProblemSolvedCreateManyProblemInputEnvelope
+    set?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
+    disconnect?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
+    delete?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
+    connect?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
+    update?: ProblemSolvedUpdateWithWhereUniqueWithoutProblemInput | ProblemSolvedUpdateWithWhereUniqueWithoutProblemInput[]
+    updateMany?: ProblemSolvedUpdateManyWithWhereWithoutProblemInput | ProblemSolvedUpdateManyWithWhereWithoutProblemInput[]
+    deleteMany?: ProblemSolvedScalarWhereInput | ProblemSolvedScalarWhereInput[]
+  }
+
+  export type RevisionUncheckedUpdateManyWithoutProblemNestedInput = {
     create?: XOR<RevisionCreateWithoutProblemInput, RevisionUncheckedCreateWithoutProblemInput> | RevisionCreateWithoutProblemInput[] | RevisionUncheckedCreateWithoutProblemInput[]
     connectOrCreate?: RevisionCreateOrConnectWithoutProblemInput | RevisionCreateOrConnectWithoutProblemInput[]
     upsert?: RevisionUpsertWithWhereUniqueWithoutProblemInput | RevisionUpsertWithWhereUniqueWithoutProblemInput[]
@@ -17804,34 +17817,6 @@ export namespace Prisma {
     deleteMany?: SubmissionScalarWhereInput | SubmissionScalarWhereInput[]
   }
 
-  export type ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput = {
-    create?: XOR<ProblemSolvedCreateWithoutProblemInput, ProblemSolvedUncheckedCreateWithoutProblemInput> | ProblemSolvedCreateWithoutProblemInput[] | ProblemSolvedUncheckedCreateWithoutProblemInput[]
-    connectOrCreate?: ProblemSolvedCreateOrConnectWithoutProblemInput | ProblemSolvedCreateOrConnectWithoutProblemInput[]
-    upsert?: ProblemSolvedUpsertWithWhereUniqueWithoutProblemInput | ProblemSolvedUpsertWithWhereUniqueWithoutProblemInput[]
-    createMany?: ProblemSolvedCreateManyProblemInputEnvelope
-    set?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
-    disconnect?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
-    delete?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
-    connect?: ProblemSolvedWhereUniqueInput | ProblemSolvedWhereUniqueInput[]
-    update?: ProblemSolvedUpdateWithWhereUniqueWithoutProblemInput | ProblemSolvedUpdateWithWhereUniqueWithoutProblemInput[]
-    updateMany?: ProblemSolvedUpdateManyWithWhereWithoutProblemInput | ProblemSolvedUpdateManyWithWhereWithoutProblemInput[]
-    deleteMany?: ProblemSolvedScalarWhereInput | ProblemSolvedScalarWhereInput[]
-  }
-
-  export type ProblemPlaylistUncheckedUpdateManyWithoutProblemNestedInput = {
-    create?: XOR<ProblemPlaylistCreateWithoutProblemInput, ProblemPlaylistUncheckedCreateWithoutProblemInput> | ProblemPlaylistCreateWithoutProblemInput[] | ProblemPlaylistUncheckedCreateWithoutProblemInput[]
-    connectOrCreate?: ProblemPlaylistCreateOrConnectWithoutProblemInput | ProblemPlaylistCreateOrConnectWithoutProblemInput[]
-    upsert?: ProblemPlaylistUpsertWithWhereUniqueWithoutProblemInput | ProblemPlaylistUpsertWithWhereUniqueWithoutProblemInput[]
-    createMany?: ProblemPlaylistCreateManyProblemInputEnvelope
-    set?: ProblemPlaylistWhereUniqueInput | ProblemPlaylistWhereUniqueInput[]
-    disconnect?: ProblemPlaylistWhereUniqueInput | ProblemPlaylistWhereUniqueInput[]
-    delete?: ProblemPlaylistWhereUniqueInput | ProblemPlaylistWhereUniqueInput[]
-    connect?: ProblemPlaylistWhereUniqueInput | ProblemPlaylistWhereUniqueInput[]
-    update?: ProblemPlaylistUpdateWithWhereUniqueWithoutProblemInput | ProblemPlaylistUpdateWithWhereUniqueWithoutProblemInput[]
-    updateMany?: ProblemPlaylistUpdateManyWithWhereWithoutProblemInput | ProblemPlaylistUpdateManyWithWhereWithoutProblemInput[]
-    deleteMany?: ProblemPlaylistScalarWhereInput | ProblemPlaylistScalarWhereInput[]
-  }
-
   export type DiscussionUncheckedUpdateManyWithoutProblemNestedInput = {
     create?: XOR<DiscussionCreateWithoutProblemInput, DiscussionUncheckedCreateWithoutProblemInput> | DiscussionCreateWithoutProblemInput[] | DiscussionUncheckedCreateWithoutProblemInput[]
     connectOrCreate?: DiscussionCreateOrConnectWithoutProblemInput | DiscussionCreateOrConnectWithoutProblemInput[]
@@ -17844,20 +17829,6 @@ export namespace Prisma {
     update?: DiscussionUpdateWithWhereUniqueWithoutProblemInput | DiscussionUpdateWithWhereUniqueWithoutProblemInput[]
     updateMany?: DiscussionUpdateManyWithWhereWithoutProblemInput | DiscussionUpdateManyWithWhereWithoutProblemInput[]
     deleteMany?: DiscussionScalarWhereInput | DiscussionScalarWhereInput[]
-  }
-
-  export type RevisionUncheckedUpdateManyWithoutProblemNestedInput = {
-    create?: XOR<RevisionCreateWithoutProblemInput, RevisionUncheckedCreateWithoutProblemInput> | RevisionCreateWithoutProblemInput[] | RevisionUncheckedCreateWithoutProblemInput[]
-    connectOrCreate?: RevisionCreateOrConnectWithoutProblemInput | RevisionCreateOrConnectWithoutProblemInput[]
-    upsert?: RevisionUpsertWithWhereUniqueWithoutProblemInput | RevisionUpsertWithWhereUniqueWithoutProblemInput[]
-    createMany?: RevisionCreateManyProblemInputEnvelope
-    set?: RevisionWhereUniqueInput | RevisionWhereUniqueInput[]
-    disconnect?: RevisionWhereUniqueInput | RevisionWhereUniqueInput[]
-    delete?: RevisionWhereUniqueInput | RevisionWhereUniqueInput[]
-    connect?: RevisionWhereUniqueInput | RevisionWhereUniqueInput[]
-    update?: RevisionUpdateWithWhereUniqueWithoutProblemInput | RevisionUpdateWithWhereUniqueWithoutProblemInput[]
-    updateMany?: RevisionUpdateManyWithWhereWithoutProblemInput | RevisionUpdateManyWithWhereWithoutProblemInput[]
-    deleteMany?: RevisionScalarWhereInput | RevisionScalarWhereInput[]
   }
 
   export type ProblemCreateNestedOneWithoutSubmissionInput = {
@@ -17972,6 +17943,12 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSolvedProblemsInput, UserUpdateWithoutSolvedProblemsInput>, UserUncheckedUpdateWithoutSolvedProblemsInput>
   }
 
+  export type UserCreateNestedOneWithoutPlaylistsInput = {
+    create?: XOR<UserCreateWithoutPlaylistsInput, UserUncheckedCreateWithoutPlaylistsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPlaylistsInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type ProblemPlaylistCreateNestedManyWithoutPlaylistInput = {
     create?: XOR<ProblemPlaylistCreateWithoutPlaylistInput, ProblemPlaylistUncheckedCreateWithoutPlaylistInput> | ProblemPlaylistCreateWithoutPlaylistInput[] | ProblemPlaylistUncheckedCreateWithoutPlaylistInput[]
     connectOrCreate?: ProblemPlaylistCreateOrConnectWithoutPlaylistInput | ProblemPlaylistCreateOrConnectWithoutPlaylistInput[]
@@ -17979,17 +17956,19 @@ export namespace Prisma {
     connect?: ProblemPlaylistWhereUniqueInput | ProblemPlaylistWhereUniqueInput[]
   }
 
-  export type UserCreateNestedOneWithoutPlaylistsInput = {
-    create?: XOR<UserCreateWithoutPlaylistsInput, UserUncheckedCreateWithoutPlaylistsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutPlaylistsInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type ProblemPlaylistUncheckedCreateNestedManyWithoutPlaylistInput = {
     create?: XOR<ProblemPlaylistCreateWithoutPlaylistInput, ProblemPlaylistUncheckedCreateWithoutPlaylistInput> | ProblemPlaylistCreateWithoutPlaylistInput[] | ProblemPlaylistUncheckedCreateWithoutPlaylistInput[]
     connectOrCreate?: ProblemPlaylistCreateOrConnectWithoutPlaylistInput | ProblemPlaylistCreateOrConnectWithoutPlaylistInput[]
     createMany?: ProblemPlaylistCreateManyPlaylistInputEnvelope
     connect?: ProblemPlaylistWhereUniqueInput | ProblemPlaylistWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutPlaylistsNestedInput = {
+    create?: XOR<UserCreateWithoutPlaylistsInput, UserUncheckedCreateWithoutPlaylistsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPlaylistsInput
+    upsert?: UserUpsertWithoutPlaylistsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPlaylistsInput, UserUpdateWithoutPlaylistsInput>, UserUncheckedUpdateWithoutPlaylistsInput>
   }
 
   export type ProblemPlaylistUpdateManyWithoutPlaylistNestedInput = {
@@ -18004,14 +17983,6 @@ export namespace Prisma {
     update?: ProblemPlaylistUpdateWithWhereUniqueWithoutPlaylistInput | ProblemPlaylistUpdateWithWhereUniqueWithoutPlaylistInput[]
     updateMany?: ProblemPlaylistUpdateManyWithWhereWithoutPlaylistInput | ProblemPlaylistUpdateManyWithWhereWithoutPlaylistInput[]
     deleteMany?: ProblemPlaylistScalarWhereInput | ProblemPlaylistScalarWhereInput[]
-  }
-
-  export type UserUpdateOneRequiredWithoutPlaylistsNestedInput = {
-    create?: XOR<UserCreateWithoutPlaylistsInput, UserUncheckedCreateWithoutPlaylistsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutPlaylistsInput
-    upsert?: UserUpsertWithoutPlaylistsInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPlaylistsInput, UserUpdateWithoutPlaylistsInput>, UserUncheckedUpdateWithoutPlaylistsInput>
   }
 
   export type ProblemPlaylistUncheckedUpdateManyWithoutPlaylistNestedInput = {
@@ -18056,24 +18027,16 @@ export namespace Prisma {
     update?: XOR<XOR<ProblemUpdateToOneWithWhereWithoutProblemsPlaylistInput, ProblemUpdateWithoutProblemsPlaylistInput>, ProblemUncheckedUpdateWithoutProblemsPlaylistInput>
   }
 
-  export type UserCreateNestedOneWithoutRevisionInput = {
-    create?: XOR<UserCreateWithoutRevisionInput, UserUncheckedCreateWithoutRevisionInput>
-    connectOrCreate?: UserCreateOrConnectWithoutRevisionInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type ProblemCreateNestedOneWithoutRevisionInput = {
     create?: XOR<ProblemCreateWithoutRevisionInput, ProblemUncheckedCreateWithoutRevisionInput>
     connectOrCreate?: ProblemCreateOrConnectWithoutRevisionInput
     connect?: ProblemWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutRevisionNestedInput = {
+  export type UserCreateNestedOneWithoutRevisionInput = {
     create?: XOR<UserCreateWithoutRevisionInput, UserUncheckedCreateWithoutRevisionInput>
     connectOrCreate?: UserCreateOrConnectWithoutRevisionInput
-    upsert?: UserUpsertWithoutRevisionInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRevisionInput, UserUpdateWithoutRevisionInput>, UserUncheckedUpdateWithoutRevisionInput>
   }
 
   export type ProblemUpdateOneRequiredWithoutRevisionNestedInput = {
@@ -18084,10 +18047,19 @@ export namespace Prisma {
     update?: XOR<XOR<ProblemUpdateToOneWithWhereWithoutRevisionInput, ProblemUpdateWithoutRevisionInput>, ProblemUncheckedUpdateWithoutRevisionInput>
   }
 
-  export type ProblemCreateNestedOneWithoutDiscussionsInput = {
-    create?: XOR<ProblemCreateWithoutDiscussionsInput, ProblemUncheckedCreateWithoutDiscussionsInput>
-    connectOrCreate?: ProblemCreateOrConnectWithoutDiscussionsInput
-    connect?: ProblemWhereUniqueInput
+  export type UserUpdateOneRequiredWithoutRevisionNestedInput = {
+    create?: XOR<UserCreateWithoutRevisionInput, UserUncheckedCreateWithoutRevisionInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRevisionInput
+    upsert?: UserUpsertWithoutRevisionInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRevisionInput, UserUpdateWithoutRevisionInput>, UserUncheckedUpdateWithoutRevisionInput>
+  }
+
+  export type DiscussionLikeCreateNestedManyWithoutDiscussionInput = {
+    create?: XOR<DiscussionLikeCreateWithoutDiscussionInput, DiscussionLikeUncheckedCreateWithoutDiscussionInput> | DiscussionLikeCreateWithoutDiscussionInput[] | DiscussionLikeUncheckedCreateWithoutDiscussionInput[]
+    connectOrCreate?: DiscussionLikeCreateOrConnectWithoutDiscussionInput | DiscussionLikeCreateOrConnectWithoutDiscussionInput[]
+    createMany?: DiscussionLikeCreateManyDiscussionInputEnvelope
+    connect?: DiscussionLikeWhereUniqueInput | DiscussionLikeWhereUniqueInput[]
   }
 
   export type UserCreateNestedOneWithoutDiscussionsInput = {
@@ -18109,7 +18081,13 @@ export namespace Prisma {
     connect?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
   }
 
-  export type DiscussionLikeCreateNestedManyWithoutDiscussionInput = {
+  export type ProblemCreateNestedOneWithoutDiscussionsInput = {
+    create?: XOR<ProblemCreateWithoutDiscussionsInput, ProblemUncheckedCreateWithoutDiscussionsInput>
+    connectOrCreate?: ProblemCreateOrConnectWithoutDiscussionsInput
+    connect?: ProblemWhereUniqueInput
+  }
+
+  export type DiscussionLikeUncheckedCreateNestedManyWithoutDiscussionInput = {
     create?: XOR<DiscussionLikeCreateWithoutDiscussionInput, DiscussionLikeUncheckedCreateWithoutDiscussionInput> | DiscussionLikeCreateWithoutDiscussionInput[] | DiscussionLikeUncheckedCreateWithoutDiscussionInput[]
     connectOrCreate?: DiscussionLikeCreateOrConnectWithoutDiscussionInput | DiscussionLikeCreateOrConnectWithoutDiscussionInput[]
     createMany?: DiscussionLikeCreateManyDiscussionInputEnvelope
@@ -18123,19 +18101,18 @@ export namespace Prisma {
     connect?: DiscussionWhereUniqueInput | DiscussionWhereUniqueInput[]
   }
 
-  export type DiscussionLikeUncheckedCreateNestedManyWithoutDiscussionInput = {
+  export type DiscussionLikeUpdateManyWithoutDiscussionNestedInput = {
     create?: XOR<DiscussionLikeCreateWithoutDiscussionInput, DiscussionLikeUncheckedCreateWithoutDiscussionInput> | DiscussionLikeCreateWithoutDiscussionInput[] | DiscussionLikeUncheckedCreateWithoutDiscussionInput[]
     connectOrCreate?: DiscussionLikeCreateOrConnectWithoutDiscussionInput | DiscussionLikeCreateOrConnectWithoutDiscussionInput[]
+    upsert?: DiscussionLikeUpsertWithWhereUniqueWithoutDiscussionInput | DiscussionLikeUpsertWithWhereUniqueWithoutDiscussionInput[]
     createMany?: DiscussionLikeCreateManyDiscussionInputEnvelope
+    set?: DiscussionLikeWhereUniqueInput | DiscussionLikeWhereUniqueInput[]
+    disconnect?: DiscussionLikeWhereUniqueInput | DiscussionLikeWhereUniqueInput[]
+    delete?: DiscussionLikeWhereUniqueInput | DiscussionLikeWhereUniqueInput[]
     connect?: DiscussionLikeWhereUniqueInput | DiscussionLikeWhereUniqueInput[]
-  }
-
-  export type ProblemUpdateOneRequiredWithoutDiscussionsNestedInput = {
-    create?: XOR<ProblemCreateWithoutDiscussionsInput, ProblemUncheckedCreateWithoutDiscussionsInput>
-    connectOrCreate?: ProblemCreateOrConnectWithoutDiscussionsInput
-    upsert?: ProblemUpsertWithoutDiscussionsInput
-    connect?: ProblemWhereUniqueInput
-    update?: XOR<XOR<ProblemUpdateToOneWithWhereWithoutDiscussionsInput, ProblemUpdateWithoutDiscussionsInput>, ProblemUncheckedUpdateWithoutDiscussionsInput>
+    update?: DiscussionLikeUpdateWithWhereUniqueWithoutDiscussionInput | DiscussionLikeUpdateWithWhereUniqueWithoutDiscussionInput[]
+    updateMany?: DiscussionLikeUpdateManyWithWhereWithoutDiscussionInput | DiscussionLikeUpdateManyWithWhereWithoutDiscussionInput[]
+    deleteMany?: DiscussionLikeScalarWhereInput | DiscussionLikeScalarWhereInput[]
   }
 
   export type UserUpdateOneRequiredWithoutDiscussionsNestedInput = {
@@ -18170,7 +18147,15 @@ export namespace Prisma {
     deleteMany?: DiscussionScalarWhereInput | DiscussionScalarWhereInput[]
   }
 
-  export type DiscussionLikeUpdateManyWithoutDiscussionNestedInput = {
+  export type ProblemUpdateOneRequiredWithoutDiscussionsNestedInput = {
+    create?: XOR<ProblemCreateWithoutDiscussionsInput, ProblemUncheckedCreateWithoutDiscussionsInput>
+    connectOrCreate?: ProblemCreateOrConnectWithoutDiscussionsInput
+    upsert?: ProblemUpsertWithoutDiscussionsInput
+    connect?: ProblemWhereUniqueInput
+    update?: XOR<XOR<ProblemUpdateToOneWithWhereWithoutDiscussionsInput, ProblemUpdateWithoutDiscussionsInput>, ProblemUncheckedUpdateWithoutDiscussionsInput>
+  }
+
+  export type DiscussionLikeUncheckedUpdateManyWithoutDiscussionNestedInput = {
     create?: XOR<DiscussionLikeCreateWithoutDiscussionInput, DiscussionLikeUncheckedCreateWithoutDiscussionInput> | DiscussionLikeCreateWithoutDiscussionInput[] | DiscussionLikeUncheckedCreateWithoutDiscussionInput[]
     connectOrCreate?: DiscussionLikeCreateOrConnectWithoutDiscussionInput | DiscussionLikeCreateOrConnectWithoutDiscussionInput[]
     upsert?: DiscussionLikeUpsertWithWhereUniqueWithoutDiscussionInput | DiscussionLikeUpsertWithWhereUniqueWithoutDiscussionInput[]
@@ -18196,20 +18181,6 @@ export namespace Prisma {
     update?: DiscussionUpdateWithWhereUniqueWithoutParentInput | DiscussionUpdateWithWhereUniqueWithoutParentInput[]
     updateMany?: DiscussionUpdateManyWithWhereWithoutParentInput | DiscussionUpdateManyWithWhereWithoutParentInput[]
     deleteMany?: DiscussionScalarWhereInput | DiscussionScalarWhereInput[]
-  }
-
-  export type DiscussionLikeUncheckedUpdateManyWithoutDiscussionNestedInput = {
-    create?: XOR<DiscussionLikeCreateWithoutDiscussionInput, DiscussionLikeUncheckedCreateWithoutDiscussionInput> | DiscussionLikeCreateWithoutDiscussionInput[] | DiscussionLikeUncheckedCreateWithoutDiscussionInput[]
-    connectOrCreate?: DiscussionLikeCreateOrConnectWithoutDiscussionInput | DiscussionLikeCreateOrConnectWithoutDiscussionInput[]
-    upsert?: DiscussionLikeUpsertWithWhereUniqueWithoutDiscussionInput | DiscussionLikeUpsertWithWhereUniqueWithoutDiscussionInput[]
-    createMany?: DiscussionLikeCreateManyDiscussionInputEnvelope
-    set?: DiscussionLikeWhereUniqueInput | DiscussionLikeWhereUniqueInput[]
-    disconnect?: DiscussionLikeWhereUniqueInput | DiscussionLikeWhereUniqueInput[]
-    delete?: DiscussionLikeWhereUniqueInput | DiscussionLikeWhereUniqueInput[]
-    connect?: DiscussionLikeWhereUniqueInput | DiscussionLikeWhereUniqueInput[]
-    update?: DiscussionLikeUpdateWithWhereUniqueWithoutDiscussionInput | DiscussionLikeUpdateWithWhereUniqueWithoutDiscussionInput[]
-    updateMany?: DiscussionLikeUpdateManyWithWhereWithoutDiscussionInput | DiscussionLikeUpdateManyWithWhereWithoutDiscussionInput[]
-    deleteMany?: DiscussionLikeScalarWhereInput | DiscussionLikeScalarWhereInput[]
   }
 
   export type DiscussionCreateNestedOneWithoutLikesInput = {
@@ -18306,11 +18277,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedEnumGenderNullableFilter<$PrismaModel = never> = {
@@ -18430,14 +18396,6 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type NestedEnumGenderNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel> | null
     in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel> | null
@@ -18453,6 +18411,11 @@ export namespace Prisma {
     in?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
     notIn?: $Enums.Difficulty[] | ListEnumDifficultyFieldRefInput<$PrismaModel>
     not?: NestedEnumDifficultyFilter<$PrismaModel> | $Enums.Difficulty
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedFloatNullableFilter<$PrismaModel = never> = {
@@ -18490,6 +18453,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumDifficultyFilter<$PrismaModel>
     _max?: NestedEnumDifficultyFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -18554,6 +18525,34 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type PlaylistCreateWithoutUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    problems?: ProblemPlaylistCreateNestedManyWithoutPlaylistInput
+  }
+
+  export type PlaylistUncheckedCreateWithoutUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    problems?: ProblemPlaylistUncheckedCreateNestedManyWithoutPlaylistInput
+  }
+
+  export type PlaylistCreateOrConnectWithoutUserInput = {
+    where: PlaylistWhereUniqueInput
+    create: XOR<PlaylistCreateWithoutUserInput, PlaylistUncheckedCreateWithoutUserInput>
+  }
+
+  export type PlaylistCreateManyUserInputEnvelope = {
+    data: PlaylistCreateManyUserInput | PlaylistCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ProblemCreateWithoutUserInput = {
     id?: string
     leetcodeId?: number | null
@@ -18586,11 +18585,11 @@ export namespace Prisma {
     referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    submission?: SubmissionCreateNestedManyWithoutProblemInput
-    solvedBy?: ProblemSolvedCreateNestedManyWithoutProblemInput
     problemsPlaylist?: ProblemPlaylistCreateNestedManyWithoutProblemInput
-    discussions?: DiscussionCreateNestedManyWithoutProblemInput
+    solvedBy?: ProblemSolvedCreateNestedManyWithoutProblemInput
     Revision?: RevisionCreateNestedManyWithoutProblemInput
+    submission?: SubmissionCreateNestedManyWithoutProblemInput
+    discussions?: DiscussionCreateNestedManyWithoutProblemInput
   }
 
   export type ProblemUncheckedCreateWithoutUserInput = {
@@ -18625,11 +18624,11 @@ export namespace Prisma {
     referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
-    solvedBy?: ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput
     problemsPlaylist?: ProblemPlaylistUncheckedCreateNestedManyWithoutProblemInput
-    discussions?: DiscussionUncheckedCreateNestedManyWithoutProblemInput
+    solvedBy?: ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput
     Revision?: RevisionUncheckedCreateNestedManyWithoutProblemInput
+    submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
+    discussions?: DiscussionUncheckedCreateNestedManyWithoutProblemInput
   }
 
   export type ProblemCreateOrConnectWithoutUserInput = {
@@ -18639,6 +18638,54 @@ export namespace Prisma {
 
   export type ProblemCreateManyUserInputEnvelope = {
     data: ProblemCreateManyUserInput | ProblemCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ProblemSolvedCreateWithoutUserInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    problem: ProblemCreateNestedOneWithoutSolvedByInput
+  }
+
+  export type ProblemSolvedUncheckedCreateWithoutUserInput = {
+    id?: string
+    problemId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProblemSolvedCreateOrConnectWithoutUserInput = {
+    where: ProblemSolvedWhereUniqueInput
+    create: XOR<ProblemSolvedCreateWithoutUserInput, ProblemSolvedUncheckedCreateWithoutUserInput>
+  }
+
+  export type ProblemSolvedCreateManyUserInputEnvelope = {
+    data: ProblemSolvedCreateManyUserInput | ProblemSolvedCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RevisionCreateWithoutUserInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    problem: ProblemCreateNestedOneWithoutRevisionInput
+  }
+
+  export type RevisionUncheckedCreateWithoutUserInput = {
+    id?: string
+    problemId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RevisionCreateOrConnectWithoutUserInput = {
+    where: RevisionWhereUniqueInput
+    create: XOR<RevisionCreateWithoutUserInput, RevisionUncheckedCreateWithoutUserInput>
+  }
+
+  export type RevisionCreateManyUserInputEnvelope = {
+    data: RevisionCreateManyUserInput | RevisionCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -18686,90 +18733,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ProblemSolvedCreateWithoutUserInput = {
-    id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    problem: ProblemCreateNestedOneWithoutSolvedByInput
-  }
-
-  export type ProblemSolvedUncheckedCreateWithoutUserInput = {
-    id?: string
-    problemId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type ProblemSolvedCreateOrConnectWithoutUserInput = {
-    where: ProblemSolvedWhereUniqueInput
-    create: XOR<ProblemSolvedCreateWithoutUserInput, ProblemSolvedUncheckedCreateWithoutUserInput>
-  }
-
-  export type ProblemSolvedCreateManyUserInputEnvelope = {
-    data: ProblemSolvedCreateManyUserInput | ProblemSolvedCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type PlaylistCreateWithoutUserInput = {
-    id?: string
-    name: string
-    description?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    problems?: ProblemPlaylistCreateNestedManyWithoutPlaylistInput
-  }
-
-  export type PlaylistUncheckedCreateWithoutUserInput = {
-    id?: string
-    name: string
-    description?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    problems?: ProblemPlaylistUncheckedCreateNestedManyWithoutPlaylistInput
-  }
-
-  export type PlaylistCreateOrConnectWithoutUserInput = {
-    where: PlaylistWhereUniqueInput
-    create: XOR<PlaylistCreateWithoutUserInput, PlaylistUncheckedCreateWithoutUserInput>
-  }
-
-  export type PlaylistCreateManyUserInputEnvelope = {
-    data: PlaylistCreateManyUserInput | PlaylistCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type DiscussionCreateWithoutAuthorInput = {
-    id?: string
-    content: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    problem: ProblemCreateNestedOneWithoutDiscussionsInput
-    parent?: DiscussionCreateNestedOneWithoutRepliesInput
-    replies?: DiscussionCreateNestedManyWithoutParentInput
-    likes?: DiscussionLikeCreateNestedManyWithoutDiscussionInput
-  }
-
-  export type DiscussionUncheckedCreateWithoutAuthorInput = {
-    id?: string
-    content: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    problemId: string
-    parentId?: string | null
-    replies?: DiscussionUncheckedCreateNestedManyWithoutParentInput
-    likes?: DiscussionLikeUncheckedCreateNestedManyWithoutDiscussionInput
-  }
-
-  export type DiscussionCreateOrConnectWithoutAuthorInput = {
-    where: DiscussionWhereUniqueInput
-    create: XOR<DiscussionCreateWithoutAuthorInput, DiscussionUncheckedCreateWithoutAuthorInput>
-  }
-
-  export type DiscussionCreateManyAuthorInputEnvelope = {
-    data: DiscussionCreateManyAuthorInput | DiscussionCreateManyAuthorInput[]
-    skipDuplicates?: boolean
-  }
-
   export type DiscussionLikeCreateWithoutUserInput = {
     id?: string
     createdAt?: Date | string
@@ -18792,28 +18755,64 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type RevisionCreateWithoutUserInput = {
+  export type DiscussionCreateWithoutAuthorInput = {
     id?: string
+    content: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    problem: ProblemCreateNestedOneWithoutRevisionInput
+    likes?: DiscussionLikeCreateNestedManyWithoutDiscussionInput
+    parent?: DiscussionCreateNestedOneWithoutRepliesInput
+    replies?: DiscussionCreateNestedManyWithoutParentInput
+    problem: ProblemCreateNestedOneWithoutDiscussionsInput
   }
 
-  export type RevisionUncheckedCreateWithoutUserInput = {
+  export type DiscussionUncheckedCreateWithoutAuthorInput = {
     id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
     problemId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    parentId?: string | null
+    likes?: DiscussionLikeUncheckedCreateNestedManyWithoutDiscussionInput
+    replies?: DiscussionUncheckedCreateNestedManyWithoutParentInput
   }
 
-  export type RevisionCreateOrConnectWithoutUserInput = {
-    where: RevisionWhereUniqueInput
-    create: XOR<RevisionCreateWithoutUserInput, RevisionUncheckedCreateWithoutUserInput>
+  export type DiscussionCreateOrConnectWithoutAuthorInput = {
+    where: DiscussionWhereUniqueInput
+    create: XOR<DiscussionCreateWithoutAuthorInput, DiscussionUncheckedCreateWithoutAuthorInput>
   }
 
-  export type RevisionCreateManyUserInputEnvelope = {
-    data: RevisionCreateManyUserInput | RevisionCreateManyUserInput[]
+  export type DiscussionCreateManyAuthorInputEnvelope = {
+    data: DiscussionCreateManyAuthorInput | DiscussionCreateManyAuthorInput[]
     skipDuplicates?: boolean
+  }
+
+  export type PlaylistUpsertWithWhereUniqueWithoutUserInput = {
+    where: PlaylistWhereUniqueInput
+    update: XOR<PlaylistUpdateWithoutUserInput, PlaylistUncheckedUpdateWithoutUserInput>
+    create: XOR<PlaylistCreateWithoutUserInput, PlaylistUncheckedCreateWithoutUserInput>
+  }
+
+  export type PlaylistUpdateWithWhereUniqueWithoutUserInput = {
+    where: PlaylistWhereUniqueInput
+    data: XOR<PlaylistUpdateWithoutUserInput, PlaylistUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PlaylistUpdateManyWithWhereWithoutUserInput = {
+    where: PlaylistScalarWhereInput
+    data: XOR<PlaylistUpdateManyMutationInput, PlaylistUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PlaylistScalarWhereInput = {
+    AND?: PlaylistScalarWhereInput | PlaylistScalarWhereInput[]
+    OR?: PlaylistScalarWhereInput[]
+    NOT?: PlaylistScalarWhereInput | PlaylistScalarWhereInput[]
+    id?: StringFilter<"Playlist"> | string
+    name?: StringFilter<"Playlist"> | string
+    description?: StringNullableFilter<"Playlist"> | string | null
+    createdAt?: DateTimeFilter<"Playlist"> | Date | string
+    updatedAt?: DateTimeFilter<"Playlist"> | Date | string
+    userId?: StringFilter<"Playlist"> | string
   }
 
   export type ProblemUpsertWithWhereUniqueWithoutUserInput = {
@@ -18870,6 +18869,60 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Problem"> | Date | string
   }
 
+  export type ProblemSolvedUpsertWithWhereUniqueWithoutUserInput = {
+    where: ProblemSolvedWhereUniqueInput
+    update: XOR<ProblemSolvedUpdateWithoutUserInput, ProblemSolvedUncheckedUpdateWithoutUserInput>
+    create: XOR<ProblemSolvedCreateWithoutUserInput, ProblemSolvedUncheckedCreateWithoutUserInput>
+  }
+
+  export type ProblemSolvedUpdateWithWhereUniqueWithoutUserInput = {
+    where: ProblemSolvedWhereUniqueInput
+    data: XOR<ProblemSolvedUpdateWithoutUserInput, ProblemSolvedUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ProblemSolvedUpdateManyWithWhereWithoutUserInput = {
+    where: ProblemSolvedScalarWhereInput
+    data: XOR<ProblemSolvedUpdateManyMutationInput, ProblemSolvedUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ProblemSolvedScalarWhereInput = {
+    AND?: ProblemSolvedScalarWhereInput | ProblemSolvedScalarWhereInput[]
+    OR?: ProblemSolvedScalarWhereInput[]
+    NOT?: ProblemSolvedScalarWhereInput | ProblemSolvedScalarWhereInput[]
+    id?: StringFilter<"ProblemSolved"> | string
+    userId?: StringFilter<"ProblemSolved"> | string
+    problemId?: StringFilter<"ProblemSolved"> | string
+    createdAt?: DateTimeFilter<"ProblemSolved"> | Date | string
+    updatedAt?: DateTimeFilter<"ProblemSolved"> | Date | string
+  }
+
+  export type RevisionUpsertWithWhereUniqueWithoutUserInput = {
+    where: RevisionWhereUniqueInput
+    update: XOR<RevisionUpdateWithoutUserInput, RevisionUncheckedUpdateWithoutUserInput>
+    create: XOR<RevisionCreateWithoutUserInput, RevisionUncheckedCreateWithoutUserInput>
+  }
+
+  export type RevisionUpdateWithWhereUniqueWithoutUserInput = {
+    where: RevisionWhereUniqueInput
+    data: XOR<RevisionUpdateWithoutUserInput, RevisionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type RevisionUpdateManyWithWhereWithoutUserInput = {
+    where: RevisionScalarWhereInput
+    data: XOR<RevisionUpdateManyMutationInput, RevisionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type RevisionScalarWhereInput = {
+    AND?: RevisionScalarWhereInput | RevisionScalarWhereInput[]
+    OR?: RevisionScalarWhereInput[]
+    NOT?: RevisionScalarWhereInput | RevisionScalarWhereInput[]
+    id?: StringFilter<"Revision"> | string
+    userId?: StringFilter<"Revision"> | string
+    problemId?: StringFilter<"Revision"> | string
+    createdAt?: DateTimeFilter<"Revision"> | Date | string
+    updatedAt?: DateTimeFilter<"Revision"> | Date | string
+  }
+
   export type SubmissionUpsertWithWhereUniqueWithoutUserInput = {
     where: SubmissionWhereUniqueInput
     update: XOR<SubmissionUpdateWithoutUserInput, SubmissionUncheckedUpdateWithoutUserInput>
@@ -18906,59 +18959,30 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Submission"> | Date | string
   }
 
-  export type ProblemSolvedUpsertWithWhereUniqueWithoutUserInput = {
-    where: ProblemSolvedWhereUniqueInput
-    update: XOR<ProblemSolvedUpdateWithoutUserInput, ProblemSolvedUncheckedUpdateWithoutUserInput>
-    create: XOR<ProblemSolvedCreateWithoutUserInput, ProblemSolvedUncheckedCreateWithoutUserInput>
+  export type DiscussionLikeUpsertWithWhereUniqueWithoutUserInput = {
+    where: DiscussionLikeWhereUniqueInput
+    update: XOR<DiscussionLikeUpdateWithoutUserInput, DiscussionLikeUncheckedUpdateWithoutUserInput>
+    create: XOR<DiscussionLikeCreateWithoutUserInput, DiscussionLikeUncheckedCreateWithoutUserInput>
   }
 
-  export type ProblemSolvedUpdateWithWhereUniqueWithoutUserInput = {
-    where: ProblemSolvedWhereUniqueInput
-    data: XOR<ProblemSolvedUpdateWithoutUserInput, ProblemSolvedUncheckedUpdateWithoutUserInput>
+  export type DiscussionLikeUpdateWithWhereUniqueWithoutUserInput = {
+    where: DiscussionLikeWhereUniqueInput
+    data: XOR<DiscussionLikeUpdateWithoutUserInput, DiscussionLikeUncheckedUpdateWithoutUserInput>
   }
 
-  export type ProblemSolvedUpdateManyWithWhereWithoutUserInput = {
-    where: ProblemSolvedScalarWhereInput
-    data: XOR<ProblemSolvedUpdateManyMutationInput, ProblemSolvedUncheckedUpdateManyWithoutUserInput>
+  export type DiscussionLikeUpdateManyWithWhereWithoutUserInput = {
+    where: DiscussionLikeScalarWhereInput
+    data: XOR<DiscussionLikeUpdateManyMutationInput, DiscussionLikeUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type ProblemSolvedScalarWhereInput = {
-    AND?: ProblemSolvedScalarWhereInput | ProblemSolvedScalarWhereInput[]
-    OR?: ProblemSolvedScalarWhereInput[]
-    NOT?: ProblemSolvedScalarWhereInput | ProblemSolvedScalarWhereInput[]
-    id?: StringFilter<"ProblemSolved"> | string
-    userId?: StringFilter<"ProblemSolved"> | string
-    problemId?: StringFilter<"ProblemSolved"> | string
-    createdAt?: DateTimeFilter<"ProblemSolved"> | Date | string
-    updatedAt?: DateTimeFilter<"ProblemSolved"> | Date | string
-  }
-
-  export type PlaylistUpsertWithWhereUniqueWithoutUserInput = {
-    where: PlaylistWhereUniqueInput
-    update: XOR<PlaylistUpdateWithoutUserInput, PlaylistUncheckedUpdateWithoutUserInput>
-    create: XOR<PlaylistCreateWithoutUserInput, PlaylistUncheckedCreateWithoutUserInput>
-  }
-
-  export type PlaylistUpdateWithWhereUniqueWithoutUserInput = {
-    where: PlaylistWhereUniqueInput
-    data: XOR<PlaylistUpdateWithoutUserInput, PlaylistUncheckedUpdateWithoutUserInput>
-  }
-
-  export type PlaylistUpdateManyWithWhereWithoutUserInput = {
-    where: PlaylistScalarWhereInput
-    data: XOR<PlaylistUpdateManyMutationInput, PlaylistUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type PlaylistScalarWhereInput = {
-    AND?: PlaylistScalarWhereInput | PlaylistScalarWhereInput[]
-    OR?: PlaylistScalarWhereInput[]
-    NOT?: PlaylistScalarWhereInput | PlaylistScalarWhereInput[]
-    id?: StringFilter<"Playlist"> | string
-    name?: StringFilter<"Playlist"> | string
-    description?: StringNullableFilter<"Playlist"> | string | null
-    createdAt?: DateTimeFilter<"Playlist"> | Date | string
-    updatedAt?: DateTimeFilter<"Playlist"> | Date | string
-    userId?: StringFilter<"Playlist"> | string
+  export type DiscussionLikeScalarWhereInput = {
+    AND?: DiscussionLikeScalarWhereInput | DiscussionLikeScalarWhereInput[]
+    OR?: DiscussionLikeScalarWhereInput[]
+    NOT?: DiscussionLikeScalarWhereInput | DiscussionLikeScalarWhereInput[]
+    id?: StringFilter<"DiscussionLike"> | string
+    createdAt?: DateTimeFilter<"DiscussionLike"> | Date | string
+    discussionId?: StringFilter<"DiscussionLike"> | string
+    userId?: StringFilter<"DiscussionLike"> | string
   }
 
   export type DiscussionUpsertWithWhereUniqueWithoutAuthorInput = {
@@ -18990,59 +19014,6 @@ export namespace Prisma {
     parentId?: StringNullableFilter<"Discussion"> | string | null
   }
 
-  export type DiscussionLikeUpsertWithWhereUniqueWithoutUserInput = {
-    where: DiscussionLikeWhereUniqueInput
-    update: XOR<DiscussionLikeUpdateWithoutUserInput, DiscussionLikeUncheckedUpdateWithoutUserInput>
-    create: XOR<DiscussionLikeCreateWithoutUserInput, DiscussionLikeUncheckedCreateWithoutUserInput>
-  }
-
-  export type DiscussionLikeUpdateWithWhereUniqueWithoutUserInput = {
-    where: DiscussionLikeWhereUniqueInput
-    data: XOR<DiscussionLikeUpdateWithoutUserInput, DiscussionLikeUncheckedUpdateWithoutUserInput>
-  }
-
-  export type DiscussionLikeUpdateManyWithWhereWithoutUserInput = {
-    where: DiscussionLikeScalarWhereInput
-    data: XOR<DiscussionLikeUpdateManyMutationInput, DiscussionLikeUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type DiscussionLikeScalarWhereInput = {
-    AND?: DiscussionLikeScalarWhereInput | DiscussionLikeScalarWhereInput[]
-    OR?: DiscussionLikeScalarWhereInput[]
-    NOT?: DiscussionLikeScalarWhereInput | DiscussionLikeScalarWhereInput[]
-    id?: StringFilter<"DiscussionLike"> | string
-    createdAt?: DateTimeFilter<"DiscussionLike"> | Date | string
-    discussionId?: StringFilter<"DiscussionLike"> | string
-    userId?: StringFilter<"DiscussionLike"> | string
-  }
-
-  export type RevisionUpsertWithWhereUniqueWithoutUserInput = {
-    where: RevisionWhereUniqueInput
-    update: XOR<RevisionUpdateWithoutUserInput, RevisionUncheckedUpdateWithoutUserInput>
-    create: XOR<RevisionCreateWithoutUserInput, RevisionUncheckedCreateWithoutUserInput>
-  }
-
-  export type RevisionUpdateWithWhereUniqueWithoutUserInput = {
-    where: RevisionWhereUniqueInput
-    data: XOR<RevisionUpdateWithoutUserInput, RevisionUncheckedUpdateWithoutUserInput>
-  }
-
-  export type RevisionUpdateManyWithWhereWithoutUserInput = {
-    where: RevisionScalarWhereInput
-    data: XOR<RevisionUpdateManyMutationInput, RevisionUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type RevisionScalarWhereInput = {
-    AND?: RevisionScalarWhereInput | RevisionScalarWhereInput[]
-    OR?: RevisionScalarWhereInput[]
-    NOT?: RevisionScalarWhereInput | RevisionScalarWhereInput[]
-    id?: StringFilter<"Revision"> | string
-    userId?: StringFilter<"Revision"> | string
-    problemId?: StringFilter<"Revision"> | string
-    createdAt?: DateTimeFilter<"Revision"> | Date | string
-    updatedAt?: DateTimeFilter<"Revision"> | Date | string
-  }
-
   export type UserCreateWithoutProblemsInput = {
     id?: string
     name?: string | null
@@ -19055,7 +19026,6 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
-    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -19063,12 +19033,12 @@ export namespace Prisma {
     bio?: string | null
     githubProfile?: string | null
     linkedinProfile?: string | null
-    submissions?: SubmissionCreateNestedManyWithoutUserInput
-    solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
     Playlists?: PlaylistCreateNestedManyWithoutUserInput
-    discussions?: DiscussionCreateNestedManyWithoutAuthorInput
-    discussionLikes?: DiscussionLikeCreateNestedManyWithoutUserInput
+    solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
     Revision?: RevisionCreateNestedManyWithoutUserInput
+    submissions?: SubmissionCreateNestedManyWithoutUserInput
+    discussionLikes?: DiscussionLikeCreateNestedManyWithoutUserInput
+    discussions?: DiscussionCreateNestedManyWithoutAuthorInput
   }
 
   export type UserUncheckedCreateWithoutProblemsInput = {
@@ -19083,7 +19053,6 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
-    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -19091,17 +19060,89 @@ export namespace Prisma {
     bio?: string | null
     githubProfile?: string | null
     linkedinProfile?: string | null
-    submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
-    solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
     Playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
-    discussions?: DiscussionUncheckedCreateNestedManyWithoutAuthorInput
-    discussionLikes?: DiscussionLikeUncheckedCreateNestedManyWithoutUserInput
+    solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
     Revision?: RevisionUncheckedCreateNestedManyWithoutUserInput
+    submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
+    discussionLikes?: DiscussionLikeUncheckedCreateNestedManyWithoutUserInput
+    discussions?: DiscussionUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type UserCreateOrConnectWithoutProblemsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutProblemsInput, UserUncheckedCreateWithoutProblemsInput>
+  }
+
+  export type ProblemPlaylistCreateWithoutProblemInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    playlist: PlaylistCreateNestedOneWithoutProblemsInput
+  }
+
+  export type ProblemPlaylistUncheckedCreateWithoutProblemInput = {
+    id?: string
+    playlistId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProblemPlaylistCreateOrConnectWithoutProblemInput = {
+    where: ProblemPlaylistWhereUniqueInput
+    create: XOR<ProblemPlaylistCreateWithoutProblemInput, ProblemPlaylistUncheckedCreateWithoutProblemInput>
+  }
+
+  export type ProblemPlaylistCreateManyProblemInputEnvelope = {
+    data: ProblemPlaylistCreateManyProblemInput | ProblemPlaylistCreateManyProblemInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ProblemSolvedCreateWithoutProblemInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutSolvedProblemsInput
+  }
+
+  export type ProblemSolvedUncheckedCreateWithoutProblemInput = {
+    id?: string
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProblemSolvedCreateOrConnectWithoutProblemInput = {
+    where: ProblemSolvedWhereUniqueInput
+    create: XOR<ProblemSolvedCreateWithoutProblemInput, ProblemSolvedUncheckedCreateWithoutProblemInput>
+  }
+
+  export type ProblemSolvedCreateManyProblemInputEnvelope = {
+    data: ProblemSolvedCreateManyProblemInput | ProblemSolvedCreateManyProblemInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RevisionCreateWithoutProblemInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutRevisionInput
+  }
+
+  export type RevisionUncheckedCreateWithoutProblemInput = {
+    id?: string
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RevisionCreateOrConnectWithoutProblemInput = {
+    where: RevisionWhereUniqueInput
+    create: XOR<RevisionCreateWithoutProblemInput, RevisionUncheckedCreateWithoutProblemInput>
+  }
+
+  export type RevisionCreateManyProblemInputEnvelope = {
+    data: RevisionCreateManyProblemInput | RevisionCreateManyProblemInput[]
+    skipDuplicates?: boolean
   }
 
   export type SubmissionCreateWithoutProblemInput = {
@@ -19148,63 +19189,15 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ProblemSolvedCreateWithoutProblemInput = {
-    id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutSolvedProblemsInput
-  }
-
-  export type ProblemSolvedUncheckedCreateWithoutProblemInput = {
-    id?: string
-    userId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type ProblemSolvedCreateOrConnectWithoutProblemInput = {
-    where: ProblemSolvedWhereUniqueInput
-    create: XOR<ProblemSolvedCreateWithoutProblemInput, ProblemSolvedUncheckedCreateWithoutProblemInput>
-  }
-
-  export type ProblemSolvedCreateManyProblemInputEnvelope = {
-    data: ProblemSolvedCreateManyProblemInput | ProblemSolvedCreateManyProblemInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ProblemPlaylistCreateWithoutProblemInput = {
-    id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    playlist: PlaylistCreateNestedOneWithoutProblemsInput
-  }
-
-  export type ProblemPlaylistUncheckedCreateWithoutProblemInput = {
-    id?: string
-    playlistId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type ProblemPlaylistCreateOrConnectWithoutProblemInput = {
-    where: ProblemPlaylistWhereUniqueInput
-    create: XOR<ProblemPlaylistCreateWithoutProblemInput, ProblemPlaylistUncheckedCreateWithoutProblemInput>
-  }
-
-  export type ProblemPlaylistCreateManyProblemInputEnvelope = {
-    data: ProblemPlaylistCreateManyProblemInput | ProblemPlaylistCreateManyProblemInput[]
-    skipDuplicates?: boolean
-  }
-
   export type DiscussionCreateWithoutProblemInput = {
     id?: string
     content: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    likes?: DiscussionLikeCreateNestedManyWithoutDiscussionInput
     author: UserCreateNestedOneWithoutDiscussionsInput
     parent?: DiscussionCreateNestedOneWithoutRepliesInput
     replies?: DiscussionCreateNestedManyWithoutParentInput
-    likes?: DiscussionLikeCreateNestedManyWithoutDiscussionInput
   }
 
   export type DiscussionUncheckedCreateWithoutProblemInput = {
@@ -19214,8 +19207,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     authorId: string
     parentId?: string | null
-    replies?: DiscussionUncheckedCreateNestedManyWithoutParentInput
     likes?: DiscussionLikeUncheckedCreateNestedManyWithoutDiscussionInput
+    replies?: DiscussionUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type DiscussionCreateOrConnectWithoutProblemInput = {
@@ -19225,30 +19218,6 @@ export namespace Prisma {
 
   export type DiscussionCreateManyProblemInputEnvelope = {
     data: DiscussionCreateManyProblemInput | DiscussionCreateManyProblemInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type RevisionCreateWithoutProblemInput = {
-    id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutRevisionInput
-  }
-
-  export type RevisionUncheckedCreateWithoutProblemInput = {
-    id?: string
-    userId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type RevisionCreateOrConnectWithoutProblemInput = {
-    where: RevisionWhereUniqueInput
-    create: XOR<RevisionCreateWithoutProblemInput, RevisionUncheckedCreateWithoutProblemInput>
-  }
-
-  export type RevisionCreateManyProblemInputEnvelope = {
-    data: RevisionCreateManyProblemInput | RevisionCreateManyProblemInput[]
     skipDuplicates?: boolean
   }
 
@@ -19275,7 +19244,6 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -19283,12 +19251,12 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
-    submissions?: SubmissionUpdateManyWithoutUserNestedInput
-    solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
     Playlists?: PlaylistUpdateManyWithoutUserNestedInput
-    discussions?: DiscussionUpdateManyWithoutAuthorNestedInput
-    discussionLikes?: DiscussionLikeUpdateManyWithoutUserNestedInput
+    solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
     Revision?: RevisionUpdateManyWithoutUserNestedInput
+    submissions?: SubmissionUpdateManyWithoutUserNestedInput
+    discussionLikes?: DiscussionLikeUpdateManyWithoutUserNestedInput
+    discussions?: DiscussionUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProblemsInput = {
@@ -19303,7 +19271,6 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -19311,44 +19278,12 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
-    submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
-    solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
     Playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
-    discussions?: DiscussionUncheckedUpdateManyWithoutAuthorNestedInput
-    discussionLikes?: DiscussionLikeUncheckedUpdateManyWithoutUserNestedInput
+    solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
     Revision?: RevisionUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type SubmissionUpsertWithWhereUniqueWithoutProblemInput = {
-    where: SubmissionWhereUniqueInput
-    update: XOR<SubmissionUpdateWithoutProblemInput, SubmissionUncheckedUpdateWithoutProblemInput>
-    create: XOR<SubmissionCreateWithoutProblemInput, SubmissionUncheckedCreateWithoutProblemInput>
-  }
-
-  export type SubmissionUpdateWithWhereUniqueWithoutProblemInput = {
-    where: SubmissionWhereUniqueInput
-    data: XOR<SubmissionUpdateWithoutProblemInput, SubmissionUncheckedUpdateWithoutProblemInput>
-  }
-
-  export type SubmissionUpdateManyWithWhereWithoutProblemInput = {
-    where: SubmissionScalarWhereInput
-    data: XOR<SubmissionUpdateManyMutationInput, SubmissionUncheckedUpdateManyWithoutProblemInput>
-  }
-
-  export type ProblemSolvedUpsertWithWhereUniqueWithoutProblemInput = {
-    where: ProblemSolvedWhereUniqueInput
-    update: XOR<ProblemSolvedUpdateWithoutProblemInput, ProblemSolvedUncheckedUpdateWithoutProblemInput>
-    create: XOR<ProblemSolvedCreateWithoutProblemInput, ProblemSolvedUncheckedCreateWithoutProblemInput>
-  }
-
-  export type ProblemSolvedUpdateWithWhereUniqueWithoutProblemInput = {
-    where: ProblemSolvedWhereUniqueInput
-    data: XOR<ProblemSolvedUpdateWithoutProblemInput, ProblemSolvedUncheckedUpdateWithoutProblemInput>
-  }
-
-  export type ProblemSolvedUpdateManyWithWhereWithoutProblemInput = {
-    where: ProblemSolvedScalarWhereInput
-    data: XOR<ProblemSolvedUpdateManyMutationInput, ProblemSolvedUncheckedUpdateManyWithoutProblemInput>
+    submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
+    discussionLikes?: DiscussionLikeUncheckedUpdateManyWithoutUserNestedInput
+    discussions?: DiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type ProblemPlaylistUpsertWithWhereUniqueWithoutProblemInput = {
@@ -19378,20 +19313,20 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"ProblemPlaylist"> | Date | string
   }
 
-  export type DiscussionUpsertWithWhereUniqueWithoutProblemInput = {
-    where: DiscussionWhereUniqueInput
-    update: XOR<DiscussionUpdateWithoutProblemInput, DiscussionUncheckedUpdateWithoutProblemInput>
-    create: XOR<DiscussionCreateWithoutProblemInput, DiscussionUncheckedCreateWithoutProblemInput>
+  export type ProblemSolvedUpsertWithWhereUniqueWithoutProblemInput = {
+    where: ProblemSolvedWhereUniqueInput
+    update: XOR<ProblemSolvedUpdateWithoutProblemInput, ProblemSolvedUncheckedUpdateWithoutProblemInput>
+    create: XOR<ProblemSolvedCreateWithoutProblemInput, ProblemSolvedUncheckedCreateWithoutProblemInput>
   }
 
-  export type DiscussionUpdateWithWhereUniqueWithoutProblemInput = {
-    where: DiscussionWhereUniqueInput
-    data: XOR<DiscussionUpdateWithoutProblemInput, DiscussionUncheckedUpdateWithoutProblemInput>
+  export type ProblemSolvedUpdateWithWhereUniqueWithoutProblemInput = {
+    where: ProblemSolvedWhereUniqueInput
+    data: XOR<ProblemSolvedUpdateWithoutProblemInput, ProblemSolvedUncheckedUpdateWithoutProblemInput>
   }
 
-  export type DiscussionUpdateManyWithWhereWithoutProblemInput = {
-    where: DiscussionScalarWhereInput
-    data: XOR<DiscussionUpdateManyMutationInput, DiscussionUncheckedUpdateManyWithoutProblemInput>
+  export type ProblemSolvedUpdateManyWithWhereWithoutProblemInput = {
+    where: ProblemSolvedScalarWhereInput
+    data: XOR<ProblemSolvedUpdateManyMutationInput, ProblemSolvedUncheckedUpdateManyWithoutProblemInput>
   }
 
   export type RevisionUpsertWithWhereUniqueWithoutProblemInput = {
@@ -19408,6 +19343,38 @@ export namespace Prisma {
   export type RevisionUpdateManyWithWhereWithoutProblemInput = {
     where: RevisionScalarWhereInput
     data: XOR<RevisionUpdateManyMutationInput, RevisionUncheckedUpdateManyWithoutProblemInput>
+  }
+
+  export type SubmissionUpsertWithWhereUniqueWithoutProblemInput = {
+    where: SubmissionWhereUniqueInput
+    update: XOR<SubmissionUpdateWithoutProblemInput, SubmissionUncheckedUpdateWithoutProblemInput>
+    create: XOR<SubmissionCreateWithoutProblemInput, SubmissionUncheckedCreateWithoutProblemInput>
+  }
+
+  export type SubmissionUpdateWithWhereUniqueWithoutProblemInput = {
+    where: SubmissionWhereUniqueInput
+    data: XOR<SubmissionUpdateWithoutProblemInput, SubmissionUncheckedUpdateWithoutProblemInput>
+  }
+
+  export type SubmissionUpdateManyWithWhereWithoutProblemInput = {
+    where: SubmissionScalarWhereInput
+    data: XOR<SubmissionUpdateManyMutationInput, SubmissionUncheckedUpdateManyWithoutProblemInput>
+  }
+
+  export type DiscussionUpsertWithWhereUniqueWithoutProblemInput = {
+    where: DiscussionWhereUniqueInput
+    update: XOR<DiscussionUpdateWithoutProblemInput, DiscussionUncheckedUpdateWithoutProblemInput>
+    create: XOR<DiscussionCreateWithoutProblemInput, DiscussionUncheckedCreateWithoutProblemInput>
+  }
+
+  export type DiscussionUpdateWithWhereUniqueWithoutProblemInput = {
+    where: DiscussionWhereUniqueInput
+    data: XOR<DiscussionUpdateWithoutProblemInput, DiscussionUncheckedUpdateWithoutProblemInput>
+  }
+
+  export type DiscussionUpdateManyWithWhereWithoutProblemInput = {
+    where: DiscussionScalarWhereInput
+    data: XOR<DiscussionUpdateManyMutationInput, DiscussionUncheckedUpdateManyWithoutProblemInput>
   }
 
   export type ProblemCreateWithoutSubmissionInput = {
@@ -19443,10 +19410,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutProblemsInput
-    solvedBy?: ProblemSolvedCreateNestedManyWithoutProblemInput
     problemsPlaylist?: ProblemPlaylistCreateNestedManyWithoutProblemInput
-    discussions?: DiscussionCreateNestedManyWithoutProblemInput
+    solvedBy?: ProblemSolvedCreateNestedManyWithoutProblemInput
     Revision?: RevisionCreateNestedManyWithoutProblemInput
+    discussions?: DiscussionCreateNestedManyWithoutProblemInput
   }
 
   export type ProblemUncheckedCreateWithoutSubmissionInput = {
@@ -19482,10 +19449,10 @@ export namespace Prisma {
     referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    solvedBy?: ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput
     problemsPlaylist?: ProblemPlaylistUncheckedCreateNestedManyWithoutProblemInput
-    discussions?: DiscussionUncheckedCreateNestedManyWithoutProblemInput
+    solvedBy?: ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput
     Revision?: RevisionUncheckedCreateNestedManyWithoutProblemInput
+    discussions?: DiscussionUncheckedCreateNestedManyWithoutProblemInput
   }
 
   export type ProblemCreateOrConnectWithoutSubmissionInput = {
@@ -19505,7 +19472,6 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
-    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -19513,12 +19479,12 @@ export namespace Prisma {
     bio?: string | null
     githubProfile?: string | null
     linkedinProfile?: string | null
+    Playlists?: PlaylistCreateNestedManyWithoutUserInput
     problems?: ProblemCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
-    Playlists?: PlaylistCreateNestedManyWithoutUserInput
-    discussions?: DiscussionCreateNestedManyWithoutAuthorInput
-    discussionLikes?: DiscussionLikeCreateNestedManyWithoutUserInput
     Revision?: RevisionCreateNestedManyWithoutUserInput
+    discussionLikes?: DiscussionLikeCreateNestedManyWithoutUserInput
+    discussions?: DiscussionCreateNestedManyWithoutAuthorInput
   }
 
   export type UserUncheckedCreateWithoutSubmissionsInput = {
@@ -19533,7 +19499,6 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
-    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -19541,12 +19506,12 @@ export namespace Prisma {
     bio?: string | null
     githubProfile?: string | null
     linkedinProfile?: string | null
+    Playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
     problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
-    Playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
-    discussions?: DiscussionUncheckedCreateNestedManyWithoutAuthorInput
-    discussionLikes?: DiscussionLikeUncheckedCreateNestedManyWithoutUserInput
     Revision?: RevisionUncheckedCreateNestedManyWithoutUserInput
+    discussionLikes?: DiscussionLikeUncheckedCreateNestedManyWithoutUserInput
+    discussions?: DiscussionUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type UserCreateOrConnectWithoutSubmissionsInput = {
@@ -19638,10 +19603,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutProblemsNestedInput
-    solvedBy?: ProblemSolvedUpdateManyWithoutProblemNestedInput
     problemsPlaylist?: ProblemPlaylistUpdateManyWithoutProblemNestedInput
-    discussions?: DiscussionUpdateManyWithoutProblemNestedInput
+    solvedBy?: ProblemSolvedUpdateManyWithoutProblemNestedInput
     Revision?: RevisionUpdateManyWithoutProblemNestedInput
+    discussions?: DiscussionUpdateManyWithoutProblemNestedInput
   }
 
   export type ProblemUncheckedUpdateWithoutSubmissionInput = {
@@ -19677,10 +19642,10 @@ export namespace Prisma {
     referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    solvedBy?: ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput
     problemsPlaylist?: ProblemPlaylistUncheckedUpdateManyWithoutProblemNestedInput
-    discussions?: DiscussionUncheckedUpdateManyWithoutProblemNestedInput
+    solvedBy?: ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput
     Revision?: RevisionUncheckedUpdateManyWithoutProblemNestedInput
+    discussions?: DiscussionUncheckedUpdateManyWithoutProblemNestedInput
   }
 
   export type UserUpsertWithoutSubmissionsInput = {
@@ -19706,7 +19671,6 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -19714,12 +19678,12 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    Playlists?: PlaylistUpdateManyWithoutUserNestedInput
     problems?: ProblemUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
-    Playlists?: PlaylistUpdateManyWithoutUserNestedInput
-    discussions?: DiscussionUpdateManyWithoutAuthorNestedInput
-    discussionLikes?: DiscussionLikeUpdateManyWithoutUserNestedInput
     Revision?: RevisionUpdateManyWithoutUserNestedInput
+    discussionLikes?: DiscussionLikeUpdateManyWithoutUserNestedInput
+    discussions?: DiscussionUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubmissionsInput = {
@@ -19734,7 +19698,6 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -19742,12 +19705,12 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    Playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
-    Playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
-    discussions?: DiscussionUncheckedUpdateManyWithoutAuthorNestedInput
-    discussionLikes?: DiscussionLikeUncheckedUpdateManyWithoutUserNestedInput
     Revision?: RevisionUncheckedUpdateManyWithoutUserNestedInput
+    discussionLikes?: DiscussionLikeUncheckedUpdateManyWithoutUserNestedInput
+    discussions?: DiscussionUncheckedUpdateManyWithoutAuthorNestedInput
   }
 
   export type TestCaseResultUpsertWithWhereUniqueWithoutSubmissionInput = {
@@ -19902,10 +19865,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutProblemsInput
-    submission?: SubmissionCreateNestedManyWithoutProblemInput
     problemsPlaylist?: ProblemPlaylistCreateNestedManyWithoutProblemInput
-    discussions?: DiscussionCreateNestedManyWithoutProblemInput
     Revision?: RevisionCreateNestedManyWithoutProblemInput
+    submission?: SubmissionCreateNestedManyWithoutProblemInput
+    discussions?: DiscussionCreateNestedManyWithoutProblemInput
   }
 
   export type ProblemUncheckedCreateWithoutSolvedByInput = {
@@ -19941,10 +19904,10 @@ export namespace Prisma {
     referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
     problemsPlaylist?: ProblemPlaylistUncheckedCreateNestedManyWithoutProblemInput
-    discussions?: DiscussionUncheckedCreateNestedManyWithoutProblemInput
     Revision?: RevisionUncheckedCreateNestedManyWithoutProblemInput
+    submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
+    discussions?: DiscussionUncheckedCreateNestedManyWithoutProblemInput
   }
 
   export type ProblemCreateOrConnectWithoutSolvedByInput = {
@@ -19964,7 +19927,6 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
-    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -19972,12 +19934,12 @@ export namespace Prisma {
     bio?: string | null
     githubProfile?: string | null
     linkedinProfile?: string | null
-    problems?: ProblemCreateNestedManyWithoutUserInput
-    submissions?: SubmissionCreateNestedManyWithoutUserInput
     Playlists?: PlaylistCreateNestedManyWithoutUserInput
-    discussions?: DiscussionCreateNestedManyWithoutAuthorInput
-    discussionLikes?: DiscussionLikeCreateNestedManyWithoutUserInput
+    problems?: ProblemCreateNestedManyWithoutUserInput
     Revision?: RevisionCreateNestedManyWithoutUserInput
+    submissions?: SubmissionCreateNestedManyWithoutUserInput
+    discussionLikes?: DiscussionLikeCreateNestedManyWithoutUserInput
+    discussions?: DiscussionCreateNestedManyWithoutAuthorInput
   }
 
   export type UserUncheckedCreateWithoutSolvedProblemsInput = {
@@ -19992,7 +19954,6 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
-    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -20000,12 +19961,12 @@ export namespace Prisma {
     bio?: string | null
     githubProfile?: string | null
     linkedinProfile?: string | null
-    problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
-    submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
     Playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
-    discussions?: DiscussionUncheckedCreateNestedManyWithoutAuthorInput
-    discussionLikes?: DiscussionLikeUncheckedCreateNestedManyWithoutUserInput
+    problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
     Revision?: RevisionUncheckedCreateNestedManyWithoutUserInput
+    submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
+    discussionLikes?: DiscussionLikeUncheckedCreateNestedManyWithoutUserInput
+    discussions?: DiscussionUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type UserCreateOrConnectWithoutSolvedProblemsInput = {
@@ -20057,10 +20018,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutProblemsNestedInput
-    submission?: SubmissionUpdateManyWithoutProblemNestedInput
     problemsPlaylist?: ProblemPlaylistUpdateManyWithoutProblemNestedInput
-    discussions?: DiscussionUpdateManyWithoutProblemNestedInput
     Revision?: RevisionUpdateManyWithoutProblemNestedInput
+    submission?: SubmissionUpdateManyWithoutProblemNestedInput
+    discussions?: DiscussionUpdateManyWithoutProblemNestedInput
   }
 
   export type ProblemUncheckedUpdateWithoutSolvedByInput = {
@@ -20096,10 +20057,10 @@ export namespace Prisma {
     referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
     problemsPlaylist?: ProblemPlaylistUncheckedUpdateManyWithoutProblemNestedInput
-    discussions?: DiscussionUncheckedUpdateManyWithoutProblemNestedInput
     Revision?: RevisionUncheckedUpdateManyWithoutProblemNestedInput
+    submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
+    discussions?: DiscussionUncheckedUpdateManyWithoutProblemNestedInput
   }
 
   export type UserUpsertWithoutSolvedProblemsInput = {
@@ -20125,7 +20086,6 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -20133,12 +20093,12 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
-    problems?: ProblemUpdateManyWithoutUserNestedInput
-    submissions?: SubmissionUpdateManyWithoutUserNestedInput
     Playlists?: PlaylistUpdateManyWithoutUserNestedInput
-    discussions?: DiscussionUpdateManyWithoutAuthorNestedInput
-    discussionLikes?: DiscussionLikeUpdateManyWithoutUserNestedInput
+    problems?: ProblemUpdateManyWithoutUserNestedInput
     Revision?: RevisionUpdateManyWithoutUserNestedInput
+    submissions?: SubmissionUpdateManyWithoutUserNestedInput
+    discussionLikes?: DiscussionLikeUpdateManyWithoutUserNestedInput
+    discussions?: DiscussionUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSolvedProblemsInput = {
@@ -20153,7 +20113,6 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -20161,12 +20120,71 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
-    problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
-    submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     Playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
-    discussions?: DiscussionUncheckedUpdateManyWithoutAuthorNestedInput
-    discussionLikes?: DiscussionLikeUncheckedUpdateManyWithoutUserNestedInput
+    problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
     Revision?: RevisionUncheckedUpdateManyWithoutUserNestedInput
+    submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
+    discussionLikes?: DiscussionLikeUncheckedUpdateManyWithoutUserNestedInput
+    discussions?: DiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type UserCreateWithoutPlaylistsInput = {
+    id?: string
+    name?: string | null
+    email: string
+    image?: string | null
+    role?: $Enums.Role
+    password: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLogin?: Date | string | null
+    streakCount?: number
+    maxStreakCount?: number
+    firebaseUid?: string | null
+    authProvider?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    bio?: string | null
+    githubProfile?: string | null
+    linkedinProfile?: string | null
+    problems?: ProblemCreateNestedManyWithoutUserInput
+    solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
+    Revision?: RevisionCreateNestedManyWithoutUserInput
+    submissions?: SubmissionCreateNestedManyWithoutUserInput
+    discussionLikes?: DiscussionLikeCreateNestedManyWithoutUserInput
+    discussions?: DiscussionCreateNestedManyWithoutAuthorInput
+  }
+
+  export type UserUncheckedCreateWithoutPlaylistsInput = {
+    id?: string
+    name?: string | null
+    email: string
+    image?: string | null
+    role?: $Enums.Role
+    password: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLogin?: Date | string | null
+    streakCount?: number
+    maxStreakCount?: number
+    firebaseUid?: string | null
+    authProvider?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    bio?: string | null
+    githubProfile?: string | null
+    linkedinProfile?: string | null
+    problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
+    solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
+    Revision?: RevisionUncheckedCreateNestedManyWithoutUserInput
+    submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
+    discussionLikes?: DiscussionLikeUncheckedCreateNestedManyWithoutUserInput
+    discussions?: DiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  }
+
+  export type UserCreateOrConnectWithoutPlaylistsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPlaylistsInput, UserUncheckedCreateWithoutPlaylistsInput>
   }
 
   export type ProblemPlaylistCreateWithoutPlaylistInput = {
@@ -20193,83 +20211,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UserCreateWithoutPlaylistsInput = {
-    id?: string
-    name?: string | null
-    email: string
-    image?: string | null
-    role?: $Enums.Role
-    password: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    lastLogin?: Date | string | null
-    streakCount?: number
-    maxStreakCount?: number
-    emailVerified?: boolean
-    firebaseUid?: string | null
-    authProvider?: string | null
-    gender?: $Enums.Gender | null
-    dateOfBirth?: Date | string | null
-    bio?: string | null
-    githubProfile?: string | null
-    linkedinProfile?: string | null
-    problems?: ProblemCreateNestedManyWithoutUserInput
-    submissions?: SubmissionCreateNestedManyWithoutUserInput
-    solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
-    discussions?: DiscussionCreateNestedManyWithoutAuthorInput
-    discussionLikes?: DiscussionLikeCreateNestedManyWithoutUserInput
-    Revision?: RevisionCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutPlaylistsInput = {
-    id?: string
-    name?: string | null
-    email: string
-    image?: string | null
-    role?: $Enums.Role
-    password: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    lastLogin?: Date | string | null
-    streakCount?: number
-    maxStreakCount?: number
-    emailVerified?: boolean
-    firebaseUid?: string | null
-    authProvider?: string | null
-    gender?: $Enums.Gender | null
-    dateOfBirth?: Date | string | null
-    bio?: string | null
-    githubProfile?: string | null
-    linkedinProfile?: string | null
-    problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
-    submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
-    solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
-    discussions?: DiscussionUncheckedCreateNestedManyWithoutAuthorInput
-    discussionLikes?: DiscussionLikeUncheckedCreateNestedManyWithoutUserInput
-    Revision?: RevisionUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutPlaylistsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutPlaylistsInput, UserUncheckedCreateWithoutPlaylistsInput>
-  }
-
-  export type ProblemPlaylistUpsertWithWhereUniqueWithoutPlaylistInput = {
-    where: ProblemPlaylistWhereUniqueInput
-    update: XOR<ProblemPlaylistUpdateWithoutPlaylistInput, ProblemPlaylistUncheckedUpdateWithoutPlaylistInput>
-    create: XOR<ProblemPlaylistCreateWithoutPlaylistInput, ProblemPlaylistUncheckedCreateWithoutPlaylistInput>
-  }
-
-  export type ProblemPlaylistUpdateWithWhereUniqueWithoutPlaylistInput = {
-    where: ProblemPlaylistWhereUniqueInput
-    data: XOR<ProblemPlaylistUpdateWithoutPlaylistInput, ProblemPlaylistUncheckedUpdateWithoutPlaylistInput>
-  }
-
-  export type ProblemPlaylistUpdateManyWithWhereWithoutPlaylistInput = {
-    where: ProblemPlaylistScalarWhereInput
-    data: XOR<ProblemPlaylistUpdateManyMutationInput, ProblemPlaylistUncheckedUpdateManyWithoutPlaylistInput>
-  }
-
   export type UserUpsertWithoutPlaylistsInput = {
     update: XOR<UserUpdateWithoutPlaylistsInput, UserUncheckedUpdateWithoutPlaylistsInput>
     create: XOR<UserCreateWithoutPlaylistsInput, UserUncheckedCreateWithoutPlaylistsInput>
@@ -20293,7 +20234,6 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -20302,11 +20242,11 @@ export namespace Prisma {
     githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUpdateManyWithoutUserNestedInput
-    submissions?: SubmissionUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
-    discussions?: DiscussionUpdateManyWithoutAuthorNestedInput
-    discussionLikes?: DiscussionLikeUpdateManyWithoutUserNestedInput
     Revision?: RevisionUpdateManyWithoutUserNestedInput
+    submissions?: SubmissionUpdateManyWithoutUserNestedInput
+    discussionLikes?: DiscussionLikeUpdateManyWithoutUserNestedInput
+    discussions?: DiscussionUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPlaylistsInput = {
@@ -20321,7 +20261,6 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -20330,11 +20269,27 @@ export namespace Prisma {
     githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
     problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
-    submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
     solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
-    discussions?: DiscussionUncheckedUpdateManyWithoutAuthorNestedInput
-    discussionLikes?: DiscussionLikeUncheckedUpdateManyWithoutUserNestedInput
     Revision?: RevisionUncheckedUpdateManyWithoutUserNestedInput
+    submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
+    discussionLikes?: DiscussionLikeUncheckedUpdateManyWithoutUserNestedInput
+    discussions?: DiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type ProblemPlaylistUpsertWithWhereUniqueWithoutPlaylistInput = {
+    where: ProblemPlaylistWhereUniqueInput
+    update: XOR<ProblemPlaylistUpdateWithoutPlaylistInput, ProblemPlaylistUncheckedUpdateWithoutPlaylistInput>
+    create: XOR<ProblemPlaylistCreateWithoutPlaylistInput, ProblemPlaylistUncheckedCreateWithoutPlaylistInput>
+  }
+
+  export type ProblemPlaylistUpdateWithWhereUniqueWithoutPlaylistInput = {
+    where: ProblemPlaylistWhereUniqueInput
+    data: XOR<ProblemPlaylistUpdateWithoutPlaylistInput, ProblemPlaylistUncheckedUpdateWithoutPlaylistInput>
+  }
+
+  export type ProblemPlaylistUpdateManyWithWhereWithoutPlaylistInput = {
+    where: ProblemPlaylistScalarWhereInput
+    data: XOR<ProblemPlaylistUpdateManyMutationInput, ProblemPlaylistUncheckedUpdateManyWithoutPlaylistInput>
   }
 
   export type PlaylistCreateWithoutProblemsInput = {
@@ -20393,10 +20348,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutProblemsInput
-    submission?: SubmissionCreateNestedManyWithoutProblemInput
     solvedBy?: ProblemSolvedCreateNestedManyWithoutProblemInput
-    discussions?: DiscussionCreateNestedManyWithoutProblemInput
     Revision?: RevisionCreateNestedManyWithoutProblemInput
+    submission?: SubmissionCreateNestedManyWithoutProblemInput
+    discussions?: DiscussionCreateNestedManyWithoutProblemInput
   }
 
   export type ProblemUncheckedCreateWithoutProblemsPlaylistInput = {
@@ -20432,10 +20387,10 @@ export namespace Prisma {
     referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
     solvedBy?: ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput
-    discussions?: DiscussionUncheckedCreateNestedManyWithoutProblemInput
     Revision?: RevisionUncheckedCreateNestedManyWithoutProblemInput
+    submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
+    discussions?: DiscussionUncheckedCreateNestedManyWithoutProblemInput
   }
 
   export type ProblemCreateOrConnectWithoutProblemsPlaylistInput = {
@@ -20516,10 +20471,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutProblemsNestedInput
-    submission?: SubmissionUpdateManyWithoutProblemNestedInput
     solvedBy?: ProblemSolvedUpdateManyWithoutProblemNestedInput
-    discussions?: DiscussionUpdateManyWithoutProblemNestedInput
     Revision?: RevisionUpdateManyWithoutProblemNestedInput
+    submission?: SubmissionUpdateManyWithoutProblemNestedInput
+    discussions?: DiscussionUpdateManyWithoutProblemNestedInput
   }
 
   export type ProblemUncheckedUpdateWithoutProblemsPlaylistInput = {
@@ -20555,71 +20510,10 @@ export namespace Prisma {
     referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
     solvedBy?: ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput
-    discussions?: DiscussionUncheckedUpdateManyWithoutProblemNestedInput
     Revision?: RevisionUncheckedUpdateManyWithoutProblemNestedInput
-  }
-
-  export type UserCreateWithoutRevisionInput = {
-    id?: string
-    name?: string | null
-    email: string
-    image?: string | null
-    role?: $Enums.Role
-    password: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    lastLogin?: Date | string | null
-    streakCount?: number
-    maxStreakCount?: number
-    emailVerified?: boolean
-    firebaseUid?: string | null
-    authProvider?: string | null
-    gender?: $Enums.Gender | null
-    dateOfBirth?: Date | string | null
-    bio?: string | null
-    githubProfile?: string | null
-    linkedinProfile?: string | null
-    problems?: ProblemCreateNestedManyWithoutUserInput
-    submissions?: SubmissionCreateNestedManyWithoutUserInput
-    solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
-    Playlists?: PlaylistCreateNestedManyWithoutUserInput
-    discussions?: DiscussionCreateNestedManyWithoutAuthorInput
-    discussionLikes?: DiscussionLikeCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutRevisionInput = {
-    id?: string
-    name?: string | null
-    email: string
-    image?: string | null
-    role?: $Enums.Role
-    password: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    lastLogin?: Date | string | null
-    streakCount?: number
-    maxStreakCount?: number
-    emailVerified?: boolean
-    firebaseUid?: string | null
-    authProvider?: string | null
-    gender?: $Enums.Gender | null
-    dateOfBirth?: Date | string | null
-    bio?: string | null
-    githubProfile?: string | null
-    linkedinProfile?: string | null
-    problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
-    submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
-    solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
-    Playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
-    discussions?: DiscussionUncheckedCreateNestedManyWithoutAuthorInput
-    discussionLikes?: DiscussionLikeUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutRevisionInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutRevisionInput, UserUncheckedCreateWithoutRevisionInput>
+    submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
+    discussions?: DiscussionUncheckedUpdateManyWithoutProblemNestedInput
   }
 
   export type ProblemCreateWithoutRevisionInput = {
@@ -20655,9 +20549,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutProblemsInput
-    submission?: SubmissionCreateNestedManyWithoutProblemInput
-    solvedBy?: ProblemSolvedCreateNestedManyWithoutProblemInput
     problemsPlaylist?: ProblemPlaylistCreateNestedManyWithoutProblemInput
+    solvedBy?: ProblemSolvedCreateNestedManyWithoutProblemInput
+    submission?: SubmissionCreateNestedManyWithoutProblemInput
     discussions?: DiscussionCreateNestedManyWithoutProblemInput
   }
 
@@ -20694,9 +20588,9 @@ export namespace Prisma {
     referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
-    solvedBy?: ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput
     problemsPlaylist?: ProblemPlaylistUncheckedCreateNestedManyWithoutProblemInput
+    solvedBy?: ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput
+    submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
     discussions?: DiscussionUncheckedCreateNestedManyWithoutProblemInput
   }
 
@@ -20705,71 +20599,63 @@ export namespace Prisma {
     create: XOR<ProblemCreateWithoutRevisionInput, ProblemUncheckedCreateWithoutRevisionInput>
   }
 
-  export type UserUpsertWithoutRevisionInput = {
-    update: XOR<UserUpdateWithoutRevisionInput, UserUncheckedUpdateWithoutRevisionInput>
+  export type UserCreateWithoutRevisionInput = {
+    id?: string
+    name?: string | null
+    email: string
+    image?: string | null
+    role?: $Enums.Role
+    password: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLogin?: Date | string | null
+    streakCount?: number
+    maxStreakCount?: number
+    firebaseUid?: string | null
+    authProvider?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    bio?: string | null
+    githubProfile?: string | null
+    linkedinProfile?: string | null
+    Playlists?: PlaylistCreateNestedManyWithoutUserInput
+    problems?: ProblemCreateNestedManyWithoutUserInput
+    solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
+    submissions?: SubmissionCreateNestedManyWithoutUserInput
+    discussionLikes?: DiscussionLikeCreateNestedManyWithoutUserInput
+    discussions?: DiscussionCreateNestedManyWithoutAuthorInput
+  }
+
+  export type UserUncheckedCreateWithoutRevisionInput = {
+    id?: string
+    name?: string | null
+    email: string
+    image?: string | null
+    role?: $Enums.Role
+    password: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLogin?: Date | string | null
+    streakCount?: number
+    maxStreakCount?: number
+    firebaseUid?: string | null
+    authProvider?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    bio?: string | null
+    githubProfile?: string | null
+    linkedinProfile?: string | null
+    Playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
+    problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
+    solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
+    submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
+    discussionLikes?: DiscussionLikeUncheckedCreateNestedManyWithoutUserInput
+    discussions?: DiscussionUncheckedCreateNestedManyWithoutAuthorInput
+  }
+
+  export type UserCreateOrConnectWithoutRevisionInput = {
+    where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutRevisionInput, UserUncheckedCreateWithoutRevisionInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutRevisionInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutRevisionInput, UserUncheckedUpdateWithoutRevisionInput>
-  }
-
-  export type UserUpdateWithoutRevisionInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    password?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    streakCount?: IntFieldUpdateOperationsInput | number
-    maxStreakCount?: IntFieldUpdateOperationsInput | number
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
-    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
-    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
-    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
-    problems?: ProblemUpdateManyWithoutUserNestedInput
-    submissions?: SubmissionUpdateManyWithoutUserNestedInput
-    solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
-    Playlists?: PlaylistUpdateManyWithoutUserNestedInput
-    discussions?: DiscussionUpdateManyWithoutAuthorNestedInput
-    discussionLikes?: DiscussionLikeUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutRevisionInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    password?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    streakCount?: IntFieldUpdateOperationsInput | number
-    maxStreakCount?: IntFieldUpdateOperationsInput | number
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
-    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
-    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
-    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
-    problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
-    submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
-    solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
-    Playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
-    discussions?: DiscussionUncheckedUpdateManyWithoutAuthorNestedInput
-    discussionLikes?: DiscussionLikeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProblemUpsertWithoutRevisionInput = {
@@ -20816,9 +20702,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutProblemsNestedInput
-    submission?: SubmissionUpdateManyWithoutProblemNestedInput
-    solvedBy?: ProblemSolvedUpdateManyWithoutProblemNestedInput
     problemsPlaylist?: ProblemPlaylistUpdateManyWithoutProblemNestedInput
+    solvedBy?: ProblemSolvedUpdateManyWithoutProblemNestedInput
+    submission?: SubmissionUpdateManyWithoutProblemNestedInput
     discussions?: DiscussionUpdateManyWithoutProblemNestedInput
   }
 
@@ -20855,10 +20741,215 @@ export namespace Prisma {
     referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
-    solvedBy?: ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput
     problemsPlaylist?: ProblemPlaylistUncheckedUpdateManyWithoutProblemNestedInput
+    solvedBy?: ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput
+    submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
     discussions?: DiscussionUncheckedUpdateManyWithoutProblemNestedInput
+  }
+
+  export type UserUpsertWithoutRevisionInput = {
+    update: XOR<UserUpdateWithoutRevisionInput, UserUncheckedUpdateWithoutRevisionInput>
+    create: XOR<UserCreateWithoutRevisionInput, UserUncheckedCreateWithoutRevisionInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutRevisionInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutRevisionInput, UserUncheckedUpdateWithoutRevisionInput>
+  }
+
+  export type UserUpdateWithoutRevisionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    streakCount?: IntFieldUpdateOperationsInput | number
+    maxStreakCount?: IntFieldUpdateOperationsInput | number
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    Playlists?: PlaylistUpdateManyWithoutUserNestedInput
+    problems?: ProblemUpdateManyWithoutUserNestedInput
+    solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
+    submissions?: SubmissionUpdateManyWithoutUserNestedInput
+    discussionLikes?: DiscussionLikeUpdateManyWithoutUserNestedInput
+    discussions?: DiscussionUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutRevisionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    streakCount?: IntFieldUpdateOperationsInput | number
+    maxStreakCount?: IntFieldUpdateOperationsInput | number
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    Playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
+    problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
+    solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
+    submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
+    discussionLikes?: DiscussionLikeUncheckedUpdateManyWithoutUserNestedInput
+    discussions?: DiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type DiscussionLikeCreateWithoutDiscussionInput = {
+    id?: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutDiscussionLikesInput
+  }
+
+  export type DiscussionLikeUncheckedCreateWithoutDiscussionInput = {
+    id?: string
+    createdAt?: Date | string
+    userId: string
+  }
+
+  export type DiscussionLikeCreateOrConnectWithoutDiscussionInput = {
+    where: DiscussionLikeWhereUniqueInput
+    create: XOR<DiscussionLikeCreateWithoutDiscussionInput, DiscussionLikeUncheckedCreateWithoutDiscussionInput>
+  }
+
+  export type DiscussionLikeCreateManyDiscussionInputEnvelope = {
+    data: DiscussionLikeCreateManyDiscussionInput | DiscussionLikeCreateManyDiscussionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserCreateWithoutDiscussionsInput = {
+    id?: string
+    name?: string | null
+    email: string
+    image?: string | null
+    role?: $Enums.Role
+    password: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLogin?: Date | string | null
+    streakCount?: number
+    maxStreakCount?: number
+    firebaseUid?: string | null
+    authProvider?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    bio?: string | null
+    githubProfile?: string | null
+    linkedinProfile?: string | null
+    Playlists?: PlaylistCreateNestedManyWithoutUserInput
+    problems?: ProblemCreateNestedManyWithoutUserInput
+    solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
+    Revision?: RevisionCreateNestedManyWithoutUserInput
+    submissions?: SubmissionCreateNestedManyWithoutUserInput
+    discussionLikes?: DiscussionLikeCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutDiscussionsInput = {
+    id?: string
+    name?: string | null
+    email: string
+    image?: string | null
+    role?: $Enums.Role
+    password: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLogin?: Date | string | null
+    streakCount?: number
+    maxStreakCount?: number
+    firebaseUid?: string | null
+    authProvider?: string | null
+    gender?: $Enums.Gender | null
+    dateOfBirth?: Date | string | null
+    bio?: string | null
+    githubProfile?: string | null
+    linkedinProfile?: string | null
+    Playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
+    problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
+    solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
+    Revision?: RevisionUncheckedCreateNestedManyWithoutUserInput
+    submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
+    discussionLikes?: DiscussionLikeUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutDiscussionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDiscussionsInput, UserUncheckedCreateWithoutDiscussionsInput>
+  }
+
+  export type DiscussionCreateWithoutRepliesInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    likes?: DiscussionLikeCreateNestedManyWithoutDiscussionInput
+    author: UserCreateNestedOneWithoutDiscussionsInput
+    parent?: DiscussionCreateNestedOneWithoutRepliesInput
+    problem: ProblemCreateNestedOneWithoutDiscussionsInput
+  }
+
+  export type DiscussionUncheckedCreateWithoutRepliesInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    problemId: string
+    authorId: string
+    parentId?: string | null
+    likes?: DiscussionLikeUncheckedCreateNestedManyWithoutDiscussionInput
+  }
+
+  export type DiscussionCreateOrConnectWithoutRepliesInput = {
+    where: DiscussionWhereUniqueInput
+    create: XOR<DiscussionCreateWithoutRepliesInput, DiscussionUncheckedCreateWithoutRepliesInput>
+  }
+
+  export type DiscussionCreateWithoutParentInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    likes?: DiscussionLikeCreateNestedManyWithoutDiscussionInput
+    author: UserCreateNestedOneWithoutDiscussionsInput
+    replies?: DiscussionCreateNestedManyWithoutParentInput
+    problem: ProblemCreateNestedOneWithoutDiscussionsInput
+  }
+
+  export type DiscussionUncheckedCreateWithoutParentInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    problemId: string
+    authorId: string
+    likes?: DiscussionLikeUncheckedCreateNestedManyWithoutDiscussionInput
+    replies?: DiscussionUncheckedCreateNestedManyWithoutParentInput
+  }
+
+  export type DiscussionCreateOrConnectWithoutParentInput = {
+    where: DiscussionWhereUniqueInput
+    create: XOR<DiscussionCreateWithoutParentInput, DiscussionUncheckedCreateWithoutParentInput>
+  }
+
+  export type DiscussionCreateManyParentInputEnvelope = {
+    data: DiscussionCreateManyParentInput | DiscussionCreateManyParentInput[]
+    skipDuplicates?: boolean
   }
 
   export type ProblemCreateWithoutDiscussionsInput = {
@@ -20894,10 +20985,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutProblemsInput
-    submission?: SubmissionCreateNestedManyWithoutProblemInput
-    solvedBy?: ProblemSolvedCreateNestedManyWithoutProblemInput
     problemsPlaylist?: ProblemPlaylistCreateNestedManyWithoutProblemInput
+    solvedBy?: ProblemSolvedCreateNestedManyWithoutProblemInput
     Revision?: RevisionCreateNestedManyWithoutProblemInput
+    submission?: SubmissionCreateNestedManyWithoutProblemInput
   }
 
   export type ProblemUncheckedCreateWithoutDiscussionsInput = {
@@ -20933,10 +21024,10 @@ export namespace Prisma {
     referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
-    submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
-    solvedBy?: ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput
     problemsPlaylist?: ProblemPlaylistUncheckedCreateNestedManyWithoutProblemInput
+    solvedBy?: ProblemSolvedUncheckedCreateNestedManyWithoutProblemInput
     Revision?: RevisionUncheckedCreateNestedManyWithoutProblemInput
+    submission?: SubmissionUncheckedCreateNestedManyWithoutProblemInput
   }
 
   export type ProblemCreateOrConnectWithoutDiscussionsInput = {
@@ -20944,146 +21035,134 @@ export namespace Prisma {
     create: XOR<ProblemCreateWithoutDiscussionsInput, ProblemUncheckedCreateWithoutDiscussionsInput>
   }
 
-  export type UserCreateWithoutDiscussionsInput = {
-    id?: string
-    name?: string | null
-    email: string
-    image?: string | null
-    role?: $Enums.Role
-    password: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    lastLogin?: Date | string | null
-    streakCount?: number
-    maxStreakCount?: number
-    emailVerified?: boolean
-    firebaseUid?: string | null
-    authProvider?: string | null
-    gender?: $Enums.Gender | null
-    dateOfBirth?: Date | string | null
-    bio?: string | null
-    githubProfile?: string | null
-    linkedinProfile?: string | null
-    problems?: ProblemCreateNestedManyWithoutUserInput
-    submissions?: SubmissionCreateNestedManyWithoutUserInput
-    solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
-    Playlists?: PlaylistCreateNestedManyWithoutUserInput
-    discussionLikes?: DiscussionLikeCreateNestedManyWithoutUserInput
-    Revision?: RevisionCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutDiscussionsInput = {
-    id?: string
-    name?: string | null
-    email: string
-    image?: string | null
-    role?: $Enums.Role
-    password: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    lastLogin?: Date | string | null
-    streakCount?: number
-    maxStreakCount?: number
-    emailVerified?: boolean
-    firebaseUid?: string | null
-    authProvider?: string | null
-    gender?: $Enums.Gender | null
-    dateOfBirth?: Date | string | null
-    bio?: string | null
-    githubProfile?: string | null
-    linkedinProfile?: string | null
-    problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
-    submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
-    solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
-    Playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
-    discussionLikes?: DiscussionLikeUncheckedCreateNestedManyWithoutUserInput
-    Revision?: RevisionUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutDiscussionsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutDiscussionsInput, UserUncheckedCreateWithoutDiscussionsInput>
-  }
-
-  export type DiscussionCreateWithoutRepliesInput = {
-    id?: string
-    content: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    problem: ProblemCreateNestedOneWithoutDiscussionsInput
-    author: UserCreateNestedOneWithoutDiscussionsInput
-    parent?: DiscussionCreateNestedOneWithoutRepliesInput
-    likes?: DiscussionLikeCreateNestedManyWithoutDiscussionInput
-  }
-
-  export type DiscussionUncheckedCreateWithoutRepliesInput = {
-    id?: string
-    content: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    problemId: string
-    authorId: string
-    parentId?: string | null
-    likes?: DiscussionLikeUncheckedCreateNestedManyWithoutDiscussionInput
-  }
-
-  export type DiscussionCreateOrConnectWithoutRepliesInput = {
-    where: DiscussionWhereUniqueInput
-    create: XOR<DiscussionCreateWithoutRepliesInput, DiscussionUncheckedCreateWithoutRepliesInput>
-  }
-
-  export type DiscussionCreateWithoutParentInput = {
-    id?: string
-    content: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    problem: ProblemCreateNestedOneWithoutDiscussionsInput
-    author: UserCreateNestedOneWithoutDiscussionsInput
-    replies?: DiscussionCreateNestedManyWithoutParentInput
-    likes?: DiscussionLikeCreateNestedManyWithoutDiscussionInput
-  }
-
-  export type DiscussionUncheckedCreateWithoutParentInput = {
-    id?: string
-    content: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    problemId: string
-    authorId: string
-    replies?: DiscussionUncheckedCreateNestedManyWithoutParentInput
-    likes?: DiscussionLikeUncheckedCreateNestedManyWithoutDiscussionInput
-  }
-
-  export type DiscussionCreateOrConnectWithoutParentInput = {
-    where: DiscussionWhereUniqueInput
-    create: XOR<DiscussionCreateWithoutParentInput, DiscussionUncheckedCreateWithoutParentInput>
-  }
-
-  export type DiscussionCreateManyParentInputEnvelope = {
-    data: DiscussionCreateManyParentInput | DiscussionCreateManyParentInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type DiscussionLikeCreateWithoutDiscussionInput = {
-    id?: string
-    createdAt?: Date | string
-    user: UserCreateNestedOneWithoutDiscussionLikesInput
-  }
-
-  export type DiscussionLikeUncheckedCreateWithoutDiscussionInput = {
-    id?: string
-    createdAt?: Date | string
-    userId: string
-  }
-
-  export type DiscussionLikeCreateOrConnectWithoutDiscussionInput = {
+  export type DiscussionLikeUpsertWithWhereUniqueWithoutDiscussionInput = {
     where: DiscussionLikeWhereUniqueInput
+    update: XOR<DiscussionLikeUpdateWithoutDiscussionInput, DiscussionLikeUncheckedUpdateWithoutDiscussionInput>
     create: XOR<DiscussionLikeCreateWithoutDiscussionInput, DiscussionLikeUncheckedCreateWithoutDiscussionInput>
   }
 
-  export type DiscussionLikeCreateManyDiscussionInputEnvelope = {
-    data: DiscussionLikeCreateManyDiscussionInput | DiscussionLikeCreateManyDiscussionInput[]
-    skipDuplicates?: boolean
+  export type DiscussionLikeUpdateWithWhereUniqueWithoutDiscussionInput = {
+    where: DiscussionLikeWhereUniqueInput
+    data: XOR<DiscussionLikeUpdateWithoutDiscussionInput, DiscussionLikeUncheckedUpdateWithoutDiscussionInput>
+  }
+
+  export type DiscussionLikeUpdateManyWithWhereWithoutDiscussionInput = {
+    where: DiscussionLikeScalarWhereInput
+    data: XOR<DiscussionLikeUpdateManyMutationInput, DiscussionLikeUncheckedUpdateManyWithoutDiscussionInput>
+  }
+
+  export type UserUpsertWithoutDiscussionsInput = {
+    update: XOR<UserUpdateWithoutDiscussionsInput, UserUncheckedUpdateWithoutDiscussionsInput>
+    create: XOR<UserCreateWithoutDiscussionsInput, UserUncheckedCreateWithoutDiscussionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDiscussionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDiscussionsInput, UserUncheckedUpdateWithoutDiscussionsInput>
+  }
+
+  export type UserUpdateWithoutDiscussionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    streakCount?: IntFieldUpdateOperationsInput | number
+    maxStreakCount?: IntFieldUpdateOperationsInput | number
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    Playlists?: PlaylistUpdateManyWithoutUserNestedInput
+    problems?: ProblemUpdateManyWithoutUserNestedInput
+    solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
+    Revision?: RevisionUpdateManyWithoutUserNestedInput
+    submissions?: SubmissionUpdateManyWithoutUserNestedInput
+    discussionLikes?: DiscussionLikeUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDiscussionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    streakCount?: IntFieldUpdateOperationsInput | number
+    maxStreakCount?: IntFieldUpdateOperationsInput | number
+    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
+    Playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
+    problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
+    solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
+    Revision?: RevisionUncheckedUpdateManyWithoutUserNestedInput
+    submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
+    discussionLikes?: DiscussionLikeUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type DiscussionUpsertWithoutRepliesInput = {
+    update: XOR<DiscussionUpdateWithoutRepliesInput, DiscussionUncheckedUpdateWithoutRepliesInput>
+    create: XOR<DiscussionCreateWithoutRepliesInput, DiscussionUncheckedCreateWithoutRepliesInput>
+    where?: DiscussionWhereInput
+  }
+
+  export type DiscussionUpdateToOneWithWhereWithoutRepliesInput = {
+    where?: DiscussionWhereInput
+    data: XOR<DiscussionUpdateWithoutRepliesInput, DiscussionUncheckedUpdateWithoutRepliesInput>
+  }
+
+  export type DiscussionUpdateWithoutRepliesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likes?: DiscussionLikeUpdateManyWithoutDiscussionNestedInput
+    author?: UserUpdateOneRequiredWithoutDiscussionsNestedInput
+    parent?: DiscussionUpdateOneWithoutRepliesNestedInput
+    problem?: ProblemUpdateOneRequiredWithoutDiscussionsNestedInput
+  }
+
+  export type DiscussionUncheckedUpdateWithoutRepliesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    problemId?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    likes?: DiscussionLikeUncheckedUpdateManyWithoutDiscussionNestedInput
+  }
+
+  export type DiscussionUpsertWithWhereUniqueWithoutParentInput = {
+    where: DiscussionWhereUniqueInput
+    update: XOR<DiscussionUpdateWithoutParentInput, DiscussionUncheckedUpdateWithoutParentInput>
+    create: XOR<DiscussionCreateWithoutParentInput, DiscussionUncheckedCreateWithoutParentInput>
+  }
+
+  export type DiscussionUpdateWithWhereUniqueWithoutParentInput = {
+    where: DiscussionWhereUniqueInput
+    data: XOR<DiscussionUpdateWithoutParentInput, DiscussionUncheckedUpdateWithoutParentInput>
+  }
+
+  export type DiscussionUpdateManyWithWhereWithoutParentInput = {
+    where: DiscussionScalarWhereInput
+    data: XOR<DiscussionUpdateManyMutationInput, DiscussionUncheckedUpdateManyWithoutParentInput>
   }
 
   export type ProblemUpsertWithoutDiscussionsInput = {
@@ -21130,10 +21209,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutProblemsNestedInput
-    submission?: SubmissionUpdateManyWithoutProblemNestedInput
-    solvedBy?: ProblemSolvedUpdateManyWithoutProblemNestedInput
     problemsPlaylist?: ProblemPlaylistUpdateManyWithoutProblemNestedInput
+    solvedBy?: ProblemSolvedUpdateManyWithoutProblemNestedInput
     Revision?: RevisionUpdateManyWithoutProblemNestedInput
+    submission?: SubmissionUpdateManyWithoutProblemNestedInput
   }
 
   export type ProblemUncheckedUpdateWithoutDiscussionsInput = {
@@ -21169,142 +21248,10 @@ export namespace Prisma {
     referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
-    solvedBy?: ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput
     problemsPlaylist?: ProblemPlaylistUncheckedUpdateManyWithoutProblemNestedInput
+    solvedBy?: ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput
     Revision?: RevisionUncheckedUpdateManyWithoutProblemNestedInput
-  }
-
-  export type UserUpsertWithoutDiscussionsInput = {
-    update: XOR<UserUpdateWithoutDiscussionsInput, UserUncheckedUpdateWithoutDiscussionsInput>
-    create: XOR<UserCreateWithoutDiscussionsInput, UserUncheckedCreateWithoutDiscussionsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutDiscussionsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutDiscussionsInput, UserUncheckedUpdateWithoutDiscussionsInput>
-  }
-
-  export type UserUpdateWithoutDiscussionsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    password?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    streakCount?: IntFieldUpdateOperationsInput | number
-    maxStreakCount?: IntFieldUpdateOperationsInput | number
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
-    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
-    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
-    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
-    problems?: ProblemUpdateManyWithoutUserNestedInput
-    submissions?: SubmissionUpdateManyWithoutUserNestedInput
-    solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
-    Playlists?: PlaylistUpdateManyWithoutUserNestedInput
-    discussionLikes?: DiscussionLikeUpdateManyWithoutUserNestedInput
-    Revision?: RevisionUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutDiscussionsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    password?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    streakCount?: IntFieldUpdateOperationsInput | number
-    maxStreakCount?: IntFieldUpdateOperationsInput | number
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
-    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
-    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
-    linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
-    problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
-    submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
-    solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
-    Playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
-    discussionLikes?: DiscussionLikeUncheckedUpdateManyWithoutUserNestedInput
-    Revision?: RevisionUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type DiscussionUpsertWithoutRepliesInput = {
-    update: XOR<DiscussionUpdateWithoutRepliesInput, DiscussionUncheckedUpdateWithoutRepliesInput>
-    create: XOR<DiscussionCreateWithoutRepliesInput, DiscussionUncheckedCreateWithoutRepliesInput>
-    where?: DiscussionWhereInput
-  }
-
-  export type DiscussionUpdateToOneWithWhereWithoutRepliesInput = {
-    where?: DiscussionWhereInput
-    data: XOR<DiscussionUpdateWithoutRepliesInput, DiscussionUncheckedUpdateWithoutRepliesInput>
-  }
-
-  export type DiscussionUpdateWithoutRepliesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    problem?: ProblemUpdateOneRequiredWithoutDiscussionsNestedInput
-    author?: UserUpdateOneRequiredWithoutDiscussionsNestedInput
-    parent?: DiscussionUpdateOneWithoutRepliesNestedInput
-    likes?: DiscussionLikeUpdateManyWithoutDiscussionNestedInput
-  }
-
-  export type DiscussionUncheckedUpdateWithoutRepliesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    problemId?: StringFieldUpdateOperationsInput | string
-    authorId?: StringFieldUpdateOperationsInput | string
-    parentId?: NullableStringFieldUpdateOperationsInput | string | null
-    likes?: DiscussionLikeUncheckedUpdateManyWithoutDiscussionNestedInput
-  }
-
-  export type DiscussionUpsertWithWhereUniqueWithoutParentInput = {
-    where: DiscussionWhereUniqueInput
-    update: XOR<DiscussionUpdateWithoutParentInput, DiscussionUncheckedUpdateWithoutParentInput>
-    create: XOR<DiscussionCreateWithoutParentInput, DiscussionUncheckedCreateWithoutParentInput>
-  }
-
-  export type DiscussionUpdateWithWhereUniqueWithoutParentInput = {
-    where: DiscussionWhereUniqueInput
-    data: XOR<DiscussionUpdateWithoutParentInput, DiscussionUncheckedUpdateWithoutParentInput>
-  }
-
-  export type DiscussionUpdateManyWithWhereWithoutParentInput = {
-    where: DiscussionScalarWhereInput
-    data: XOR<DiscussionUpdateManyMutationInput, DiscussionUncheckedUpdateManyWithoutParentInput>
-  }
-
-  export type DiscussionLikeUpsertWithWhereUniqueWithoutDiscussionInput = {
-    where: DiscussionLikeWhereUniqueInput
-    update: XOR<DiscussionLikeUpdateWithoutDiscussionInput, DiscussionLikeUncheckedUpdateWithoutDiscussionInput>
-    create: XOR<DiscussionLikeCreateWithoutDiscussionInput, DiscussionLikeUncheckedCreateWithoutDiscussionInput>
-  }
-
-  export type DiscussionLikeUpdateWithWhereUniqueWithoutDiscussionInput = {
-    where: DiscussionLikeWhereUniqueInput
-    data: XOR<DiscussionLikeUpdateWithoutDiscussionInput, DiscussionLikeUncheckedUpdateWithoutDiscussionInput>
-  }
-
-  export type DiscussionLikeUpdateManyWithWhereWithoutDiscussionInput = {
-    where: DiscussionLikeScalarWhereInput
-    data: XOR<DiscussionLikeUpdateManyMutationInput, DiscussionLikeUncheckedUpdateManyWithoutDiscussionInput>
+    submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
   }
 
   export type DiscussionCreateWithoutLikesInput = {
@@ -21312,10 +21259,10 @@ export namespace Prisma {
     content: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    problem: ProblemCreateNestedOneWithoutDiscussionsInput
     author: UserCreateNestedOneWithoutDiscussionsInput
     parent?: DiscussionCreateNestedOneWithoutRepliesInput
     replies?: DiscussionCreateNestedManyWithoutParentInput
+    problem: ProblemCreateNestedOneWithoutDiscussionsInput
   }
 
   export type DiscussionUncheckedCreateWithoutLikesInput = {
@@ -21346,7 +21293,6 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
-    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -21354,12 +21300,12 @@ export namespace Prisma {
     bio?: string | null
     githubProfile?: string | null
     linkedinProfile?: string | null
-    problems?: ProblemCreateNestedManyWithoutUserInput
-    submissions?: SubmissionCreateNestedManyWithoutUserInput
-    solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
     Playlists?: PlaylistCreateNestedManyWithoutUserInput
-    discussions?: DiscussionCreateNestedManyWithoutAuthorInput
+    problems?: ProblemCreateNestedManyWithoutUserInput
+    solvedProblems?: ProblemSolvedCreateNestedManyWithoutUserInput
     Revision?: RevisionCreateNestedManyWithoutUserInput
+    submissions?: SubmissionCreateNestedManyWithoutUserInput
+    discussions?: DiscussionCreateNestedManyWithoutAuthorInput
   }
 
   export type UserUncheckedCreateWithoutDiscussionLikesInput = {
@@ -21374,7 +21320,6 @@ export namespace Prisma {
     lastLogin?: Date | string | null
     streakCount?: number
     maxStreakCount?: number
-    emailVerified?: boolean
     firebaseUid?: string | null
     authProvider?: string | null
     gender?: $Enums.Gender | null
@@ -21382,12 +21327,12 @@ export namespace Prisma {
     bio?: string | null
     githubProfile?: string | null
     linkedinProfile?: string | null
-    problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
-    submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
-    solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
     Playlists?: PlaylistUncheckedCreateNestedManyWithoutUserInput
-    discussions?: DiscussionUncheckedCreateNestedManyWithoutAuthorInput
+    problems?: ProblemUncheckedCreateNestedManyWithoutUserInput
+    solvedProblems?: ProblemSolvedUncheckedCreateNestedManyWithoutUserInput
     Revision?: RevisionUncheckedCreateNestedManyWithoutUserInput
+    submissions?: SubmissionUncheckedCreateNestedManyWithoutUserInput
+    discussions?: DiscussionUncheckedCreateNestedManyWithoutAuthorInput
   }
 
   export type UserCreateOrConnectWithoutDiscussionLikesInput = {
@@ -21411,10 +21356,10 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    problem?: ProblemUpdateOneRequiredWithoutDiscussionsNestedInput
     author?: UserUpdateOneRequiredWithoutDiscussionsNestedInput
     parent?: DiscussionUpdateOneWithoutRepliesNestedInput
     replies?: DiscussionUpdateManyWithoutParentNestedInput
+    problem?: ProblemUpdateOneRequiredWithoutDiscussionsNestedInput
   }
 
   export type DiscussionUncheckedUpdateWithoutLikesInput = {
@@ -21451,7 +21396,6 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -21459,12 +21403,12 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
-    problems?: ProblemUpdateManyWithoutUserNestedInput
-    submissions?: SubmissionUpdateManyWithoutUserNestedInput
-    solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
     Playlists?: PlaylistUpdateManyWithoutUserNestedInput
-    discussions?: DiscussionUpdateManyWithoutAuthorNestedInput
+    problems?: ProblemUpdateManyWithoutUserNestedInput
+    solvedProblems?: ProblemSolvedUpdateManyWithoutUserNestedInput
     Revision?: RevisionUpdateManyWithoutUserNestedInput
+    submissions?: SubmissionUpdateManyWithoutUserNestedInput
+    discussions?: DiscussionUpdateManyWithoutAuthorNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDiscussionLikesInput = {
@@ -21479,7 +21423,6 @@ export namespace Prisma {
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     streakCount?: IntFieldUpdateOperationsInput | number
     maxStreakCount?: IntFieldUpdateOperationsInput | number
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     firebaseUid?: NullableStringFieldUpdateOperationsInput | string | null
     authProvider?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -21487,12 +21430,20 @@ export namespace Prisma {
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     githubProfile?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinProfile?: NullableStringFieldUpdateOperationsInput | string | null
-    problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
-    submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
-    solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
     Playlists?: PlaylistUncheckedUpdateManyWithoutUserNestedInput
-    discussions?: DiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+    problems?: ProblemUncheckedUpdateManyWithoutUserNestedInput
+    solvedProblems?: ProblemSolvedUncheckedUpdateManyWithoutUserNestedInput
     Revision?: RevisionUncheckedUpdateManyWithoutUserNestedInput
+    submissions?: SubmissionUncheckedUpdateManyWithoutUserNestedInput
+    discussions?: DiscussionUncheckedUpdateManyWithoutAuthorNestedInput
+  }
+
+  export type PlaylistCreateManyUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type ProblemCreateManyUserInput = {
@@ -21529,6 +21480,20 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type ProblemSolvedCreateManyUserInput = {
+    id?: string
+    problemId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RevisionCreateManyUserInput = {
+    id?: string
+    problemId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type SubmissionCreateManyUserInput = {
     id?: string
     problemId: string
@@ -21545,19 +21510,10 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type ProblemSolvedCreateManyUserInput = {
+  export type DiscussionLikeCreateManyUserInput = {
     id?: string
-    problemId: string
     createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type PlaylistCreateManyUserInput = {
-    id?: string
-    name: string
-    description?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    discussionId: string
   }
 
   export type DiscussionCreateManyAuthorInput = {
@@ -21569,17 +21525,30 @@ export namespace Prisma {
     parentId?: string | null
   }
 
-  export type DiscussionLikeCreateManyUserInput = {
-    id?: string
-    createdAt?: Date | string
-    discussionId: string
+  export type PlaylistUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    problems?: ProblemPlaylistUpdateManyWithoutPlaylistNestedInput
   }
 
-  export type RevisionCreateManyUserInput = {
-    id?: string
-    problemId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+  export type PlaylistUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    problems?: ProblemPlaylistUncheckedUpdateManyWithoutPlaylistNestedInput
+  }
+
+  export type PlaylistUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProblemUpdateWithoutUserInput = {
@@ -21614,11 +21583,11 @@ export namespace Prisma {
     referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    submission?: SubmissionUpdateManyWithoutProblemNestedInput
-    solvedBy?: ProblemSolvedUpdateManyWithoutProblemNestedInput
     problemsPlaylist?: ProblemPlaylistUpdateManyWithoutProblemNestedInput
-    discussions?: DiscussionUpdateManyWithoutProblemNestedInput
+    solvedBy?: ProblemSolvedUpdateManyWithoutProblemNestedInput
     Revision?: RevisionUpdateManyWithoutProblemNestedInput
+    submission?: SubmissionUpdateManyWithoutProblemNestedInput
+    discussions?: DiscussionUpdateManyWithoutProblemNestedInput
   }
 
   export type ProblemUncheckedUpdateWithoutUserInput = {
@@ -21653,11 +21622,11 @@ export namespace Prisma {
     referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
-    solvedBy?: ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput
     problemsPlaylist?: ProblemPlaylistUncheckedUpdateManyWithoutProblemNestedInput
-    discussions?: DiscussionUncheckedUpdateManyWithoutProblemNestedInput
+    solvedBy?: ProblemSolvedUncheckedUpdateManyWithoutProblemNestedInput
     Revision?: RevisionUncheckedUpdateManyWithoutProblemNestedInput
+    submission?: SubmissionUncheckedUpdateManyWithoutProblemNestedInput
+    discussions?: DiscussionUncheckedUpdateManyWithoutProblemNestedInput
   }
 
   export type ProblemUncheckedUpdateManyWithoutUserInput = {
@@ -21690,6 +21659,48 @@ export namespace Prisma {
     testcases?: NullableJsonNullValueInput | InputJsonValue
     codeSnippets?: NullableJsonNullValueInput | InputJsonValue
     referenceSolutions?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProblemSolvedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    problem?: ProblemUpdateOneRequiredWithoutSolvedByNestedInput
+  }
+
+  export type ProblemSolvedUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    problemId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProblemSolvedUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    problemId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RevisionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    problem?: ProblemUpdateOneRequiredWithoutRevisionNestedInput
+  }
+
+  export type RevisionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    problemId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RevisionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    problemId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -21744,84 +21755,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ProblemSolvedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    problem?: ProblemUpdateOneRequiredWithoutSolvedByNestedInput
-  }
-
-  export type ProblemSolvedUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    problemId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ProblemSolvedUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    problemId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type PlaylistUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    problems?: ProblemPlaylistUpdateManyWithoutPlaylistNestedInput
-  }
-
-  export type PlaylistUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    problems?: ProblemPlaylistUncheckedUpdateManyWithoutPlaylistNestedInput
-  }
-
-  export type PlaylistUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type DiscussionUpdateWithoutAuthorInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    problem?: ProblemUpdateOneRequiredWithoutDiscussionsNestedInput
-    parent?: DiscussionUpdateOneWithoutRepliesNestedInput
-    replies?: DiscussionUpdateManyWithoutParentNestedInput
-    likes?: DiscussionLikeUpdateManyWithoutDiscussionNestedInput
-  }
-
-  export type DiscussionUncheckedUpdateWithoutAuthorInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    problemId?: StringFieldUpdateOperationsInput | string
-    parentId?: NullableStringFieldUpdateOperationsInput | string | null
-    replies?: DiscussionUncheckedUpdateManyWithoutParentNestedInput
-    likes?: DiscussionLikeUncheckedUpdateManyWithoutDiscussionNestedInput
-  }
-
-  export type DiscussionUncheckedUpdateManyWithoutAuthorInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    problemId?: StringFieldUpdateOperationsInput | string
-    parentId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
   export type DiscussionLikeUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21840,25 +21773,56 @@ export namespace Prisma {
     discussionId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type RevisionUpdateWithoutUserInput = {
+  export type DiscussionUpdateWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    problem?: ProblemUpdateOneRequiredWithoutRevisionNestedInput
+    likes?: DiscussionLikeUpdateManyWithoutDiscussionNestedInput
+    parent?: DiscussionUpdateOneWithoutRepliesNestedInput
+    replies?: DiscussionUpdateManyWithoutParentNestedInput
+    problem?: ProblemUpdateOneRequiredWithoutDiscussionsNestedInput
   }
 
-  export type RevisionUncheckedUpdateWithoutUserInput = {
+  export type DiscussionUncheckedUpdateWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
-    problemId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    problemId?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    likes?: DiscussionLikeUncheckedUpdateManyWithoutDiscussionNestedInput
+    replies?: DiscussionUncheckedUpdateManyWithoutParentNestedInput
   }
 
-  export type RevisionUncheckedUpdateManyWithoutUserInput = {
+  export type DiscussionUncheckedUpdateManyWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
-    problemId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    problemId?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProblemPlaylistCreateManyProblemInput = {
+    id?: string
+    playlistId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProblemSolvedCreateManyProblemInput = {
+    id?: string
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RevisionCreateManyProblemInput = {
+    id?: string
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type SubmissionCreateManyProblemInput = {
@@ -21877,20 +21841,6 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type ProblemSolvedCreateManyProblemInput = {
-    id?: string
-    userId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type ProblemPlaylistCreateManyProblemInput = {
-    id?: string
-    playlistId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
   export type DiscussionCreateManyProblemInput = {
     id?: string
     content: string
@@ -21900,11 +21850,67 @@ export namespace Prisma {
     parentId?: string | null
   }
 
-  export type RevisionCreateManyProblemInput = {
-    id?: string
-    userId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+  export type ProblemPlaylistUpdateWithoutProblemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    playlist?: PlaylistUpdateOneRequiredWithoutProblemsNestedInput
+  }
+
+  export type ProblemPlaylistUncheckedUpdateWithoutProblemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    playlistId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProblemPlaylistUncheckedUpdateManyWithoutProblemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    playlistId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProblemSolvedUpdateWithoutProblemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutSolvedProblemsNestedInput
+  }
+
+  export type ProblemSolvedUncheckedUpdateWithoutProblemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProblemSolvedUncheckedUpdateManyWithoutProblemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RevisionUpdateWithoutProblemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutRevisionNestedInput
+  }
+
+  export type RevisionUncheckedUpdateWithoutProblemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RevisionUncheckedUpdateManyWithoutProblemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SubmissionUpdateWithoutProblemInput = {
@@ -21957,57 +21963,15 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ProblemSolvedUpdateWithoutProblemInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutSolvedProblemsNestedInput
-  }
-
-  export type ProblemSolvedUncheckedUpdateWithoutProblemInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ProblemSolvedUncheckedUpdateManyWithoutProblemInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ProblemPlaylistUpdateWithoutProblemInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    playlist?: PlaylistUpdateOneRequiredWithoutProblemsNestedInput
-  }
-
-  export type ProblemPlaylistUncheckedUpdateWithoutProblemInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    playlistId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ProblemPlaylistUncheckedUpdateManyWithoutProblemInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    playlistId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type DiscussionUpdateWithoutProblemInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likes?: DiscussionLikeUpdateManyWithoutDiscussionNestedInput
     author?: UserUpdateOneRequiredWithoutDiscussionsNestedInput
     parent?: DiscussionUpdateOneWithoutRepliesNestedInput
     replies?: DiscussionUpdateManyWithoutParentNestedInput
-    likes?: DiscussionLikeUpdateManyWithoutDiscussionNestedInput
   }
 
   export type DiscussionUncheckedUpdateWithoutProblemInput = {
@@ -22017,8 +21981,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     authorId?: StringFieldUpdateOperationsInput | string
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
-    replies?: DiscussionUncheckedUpdateManyWithoutParentNestedInput
     likes?: DiscussionLikeUncheckedUpdateManyWithoutDiscussionNestedInput
+    replies?: DiscussionUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type DiscussionUncheckedUpdateManyWithoutProblemInput = {
@@ -22028,27 +21992,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     authorId?: StringFieldUpdateOperationsInput | string
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type RevisionUpdateWithoutProblemInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutRevisionNestedInput
-  }
-
-  export type RevisionUncheckedUpdateWithoutProblemInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type RevisionUncheckedUpdateManyWithoutProblemInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TestCaseResultCreateManySubmissionInput = {
@@ -22139,6 +22082,12 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DiscussionLikeCreateManyDiscussionInput = {
+    id?: string
+    createdAt?: Date | string
+    userId: string
+  }
+
   export type DiscussionCreateManyParentInput = {
     id?: string
     content: string
@@ -22146,43 +22095,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     problemId: string
     authorId: string
-  }
-
-  export type DiscussionLikeCreateManyDiscussionInput = {
-    id?: string
-    createdAt?: Date | string
-    userId: string
-  }
-
-  export type DiscussionUpdateWithoutParentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    problem?: ProblemUpdateOneRequiredWithoutDiscussionsNestedInput
-    author?: UserUpdateOneRequiredWithoutDiscussionsNestedInput
-    replies?: DiscussionUpdateManyWithoutParentNestedInput
-    likes?: DiscussionLikeUpdateManyWithoutDiscussionNestedInput
-  }
-
-  export type DiscussionUncheckedUpdateWithoutParentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    problemId?: StringFieldUpdateOperationsInput | string
-    authorId?: StringFieldUpdateOperationsInput | string
-    replies?: DiscussionUncheckedUpdateManyWithoutParentNestedInput
-    likes?: DiscussionLikeUncheckedUpdateManyWithoutDiscussionNestedInput
-  }
-
-  export type DiscussionUncheckedUpdateManyWithoutParentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    problemId?: StringFieldUpdateOperationsInput | string
-    authorId?: StringFieldUpdateOperationsInput | string
   }
 
   export type DiscussionLikeUpdateWithoutDiscussionInput = {
@@ -22201,6 +22113,37 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DiscussionUpdateWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likes?: DiscussionLikeUpdateManyWithoutDiscussionNestedInput
+    author?: UserUpdateOneRequiredWithoutDiscussionsNestedInput
+    replies?: DiscussionUpdateManyWithoutParentNestedInput
+    problem?: ProblemUpdateOneRequiredWithoutDiscussionsNestedInput
+  }
+
+  export type DiscussionUncheckedUpdateWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    problemId?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
+    likes?: DiscussionLikeUncheckedUpdateManyWithoutDiscussionNestedInput
+    replies?: DiscussionUncheckedUpdateManyWithoutParentNestedInput
+  }
+
+  export type DiscussionUncheckedUpdateManyWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    problemId?: StringFieldUpdateOperationsInput | string
+    authorId?: StringFieldUpdateOperationsInput | string
   }
 
 

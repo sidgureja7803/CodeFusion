@@ -89,7 +89,6 @@ export const authMiddleware = async (req, res, next) => {
           createdAt: true,
           updatedAt: true,
           lastLogin: true,
-          emailVerified: true,
         },
       });
 
@@ -241,11 +240,7 @@ export const validateSession = async (req, res, next) => {
     // This could involve checking a sessions table in the database
     
     // Validate user account status
-    const currentUser = await db.user.findUnique({
-      where: { id: user.id },
-      select: { emailVerified: true }
-    });
-
+    // All users are considered active by default
     // Account is active if we got here
 
     next();

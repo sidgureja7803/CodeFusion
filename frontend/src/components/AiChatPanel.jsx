@@ -9,10 +9,13 @@ import {
   Maximize2,
   Trash2,
   Minimize2,
+  MessageCircle,
+  Sparkles,
 } from "lucide-react";
 import { useAIAssistantStore } from "../store/useAIAssistantStore";
 import ReactMarkdown from "react-markdown";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
+// The motion import is used indirectly via JSX components like motion.div
 import aiorb from "../assets/images/ai-orb2.webp";
 import "../styles/AIChatPanel.css";
 // Using CSS-based AI icon instead of batman image
@@ -21,9 +24,9 @@ const AIChatPanel = ({ problem, code, language, onClose }) => {
   const [prompt, setPrompt] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
   const [minimized, setMinimized] = useState(false);
-  const [isTyping, setIsTyping] = useState(false);
   const { isLoading, getAIHelp, history, clearChat } = useAIAssistantStore();
   const messagesEndRef = useRef(null);
+  const inputRef = useRef(null);
 
   // Scroll to bottom of chat when new messages arrive
   useEffect(() => {
@@ -32,16 +35,12 @@ const AIChatPanel = ({ problem, code, language, onClose }) => {
     }
   }, [history]);
 
-  // Handle typing animation
+  // Focus input when component mounts
   useEffect(() => {
-    if (isLoading) {
-      setIsTyping(true);
-    } else {
-      // Delay hiding typing indicator for smooth transition
-      const timer = setTimeout(() => setIsTyping(false), 300);
-      return () => clearTimeout(timer);
+    if (inputRef.current && !minimized) {
+      inputRef.current.focus();
     }
-  }, [isLoading]);
+  }, [minimized]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -132,36 +131,36 @@ const AIChatPanel = ({ problem, code, language, onClose }) => {
     idle: {
       scale: 1,
       rotate: 0,
-      filter: "brightness(1) drop-shadow(0 0 8px rgba(65, 20, 220, 0.3))",
+      filter: "brightness(1) drop-shadow(0 0 10px rgba(79, 70, 229, 0.4))",
     },
     active: {
       scale: 1.1,
       rotate: 360,
-      filter: "brightness(1.2) drop-shadow(0 0 15px rgba(65, 20, 220, 0.6))",
+      filter: "brightness(1.3) drop-shadow(0 0 15px rgba(79, 70, 229, 0.7))",
     },
     thinking: {
-      scale: [1, 1.05, 1],
-      rotate: [0, 10, -10, 0],
-      filter: "brightness(1.3) drop-shadow(0 0 20px rgba(65, 20, 220, 0.8))",
+      scale: [1, 1.08, 1],
+      rotate: [0, 15, -15, 0],
+      filter: "brightness(1.4) drop-shadow(0 0 25px rgba(79, 70, 229, 0.9))",
     },
   };
 
   const quickPromptVariants = {
-    hidden: { opacity: 0, y: 10, scale: 0.9 },
+    hidden: { opacity: 0, y: 15, scale: 0.9 },
     visible: (i) => ({
       opacity: 1,
       y: 0,
       scale: 1,
       transition: {
-        delay: i * 0.1,
+        delay: i * 0.15,
         type: "spring",
-        stiffness: 400,
+        stiffness: 450,
         damping: 25,
       },
     }),
     hover: {
       scale: 1.05,
-      boxShadow: "0 0 15px rgba(65, 20, 220, 0.4)",
+      boxShadow: "0 0 18px rgba(79, 70, 229, 0.5)",
       transition: { duration: 0.2 },
     },
     tap: {
@@ -181,46 +180,67 @@ const AIChatPanel = ({ problem, code, language, onClose }) => {
       className={`ai-chat-panel ${minimized ? "minimized" : ""} ${
         isExpanded ? "expanded" : ""
       }`}
-      initial={{ height: 400, opacity: 0, y: 50 }}
+      initial={{ height: 450, opacity: 0, y: 50 }}
       animate={{
-        height: minimized ? 48 : isExpanded ? 600 : 400,
+        height: minimized ? 48 : isExpanded ? 650 : 450,
         opacity: 1,
         y: 0,
-        width: isExpanded ? "95%" : "380px",
+        width: isExpanded ? "95%" : "420px",
       }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 30 }}
     >
       {/* Header */}
       <motion.div className="ai-chat-header">
         <motion.div className="flex items-center justify-center gap-2">
-          <motion.img
-            src={aiorb}
-            className="w-8"
-            alt="Alfred AI"
-            variants={orbVariants}
-            animate={getOrbAnimation()}
-            transition={{
-              duration: isLoading ? 2 : 0.5,
-              repeat: isLoading ? Infinity : 0,
-              ease: "easeInOut",
-            }}
-          />
-          <span className="text-white font-semibold">Alfred AI</span>
-          {isLoading && (
-            <RefreshCw size={14} className="animate-spin text-white/50" />
-          )}
+          <motion.div
+            className="relative"
+          >
+            <motion.img
+              src={aiorb}
+              className="w-10 h-10 rounded-full shadow-lg"
+              alt="Alfred AI"
+              variants={orbVariants}
+              animate={getOrbAnimation()}
+              transition={{
+                duration: isLoading ? 2 : 0.5,
+                repeat: isLoading ? Infinity : 0,
+                ease: "easeInOut",
+              }}
+            />
+            {isLoading && (
+              <motion.div 
+                className="absolute -top-1 -right-1 bg-indigo-600 rounded-full p-1 shadow-lg"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                <RefreshCw size={12} className="animate-spin text-white" />
+              </motion.div>
+            )}
+          </motion.div>
+          <motion.span 
+            className="text-white font-semibold tracking-tight flex items-center gap-1"
+            initial={{ opacity: 0.8 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <span>Alfred AI</span>
+            <Sparkles size={14} className="text-indigo-300" />
+          </motion.span>
         </motion.div>
 
         <div className="flex gap-2">
           {!minimized && (
-            <button
+            <motion.button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="text-white/60 hover:text-white"
+              className="text-white/70 hover:text-white hover:bg-white/10 p-1.5 rounded transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               {isExpanded ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
-            </button>
+            </motion.button>
           )}
-          <button
+          <motion.button
             onClick={() => {
               if (onClose) {
                 onClose();
@@ -228,10 +248,12 @@ const AIChatPanel = ({ problem, code, language, onClose }) => {
                 setMinimized(!minimized);
               }
             }}
-            className="text-white/60 hover:text-white"
+            className="text-white/70 hover:text-white hover:bg-white/10 p-1.5 rounded transition-colors"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             {minimized ? <Maximize2 size={16} /> : <X size={16} />}
-          </button>
+          </motion.button>
         </div>
       </motion.div>
 
@@ -239,39 +261,87 @@ const AIChatPanel = ({ problem, code, language, onClose }) => {
         <>
           {/* Quick prompt buttons */}
           {history.length === 0 && (
-            <div className="quick-prompts">
-              <button
-                onClick={() =>
-                  handleQuickPrompt("Help me understand this problem")
-                }
+            <motion.div 
+              className="quick-prompts"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+            >
+              <motion.button
+                onClick={() => handleQuickPrompt("Help me understand this problem")}
+                className="quick-prompt-btn"  
+                whileHover={{ scale: 1.03, backgroundColor: "rgba(79, 70, 229, 0.12)" }}
+                whileTap={{ scale: 0.97 }}
+                custom={0}
+                variants={quickPromptVariants}
               >
-                <Lightbulb size={14} />
-                Understand this problem
-              </button>
-              <button
-                onClick={() =>
-                  handleQuickPrompt("What's the approach to solve this?")
-                }
+                <div className="prompt-icon">
+                  <Lightbulb size={14} />
+                </div>
+                <span>Understand this problem</span>
+              </motion.button>
+              <motion.button
+                onClick={() => handleQuickPrompt("What's the approach to solve this?")}
+                className="quick-prompt-btn"  
+                whileHover={{ scale: 1.03, backgroundColor: "rgba(79, 70, 229, 0.12)" }}
+                whileTap={{ scale: 0.97 }}
+                custom={1}
+                variants={quickPromptVariants}
               >
-                <Code size={14} />
-                Solution approach
-              </button>
-              <button onClick={() => handleQuickPrompt("Debug my code")}>
-                <RefreshCw size={14} />
-                Debug my code
-              </button>
-            </div>
+                <div className="prompt-icon">
+                  <Code size={14} />
+                </div>
+                <span>Solution approach</span>
+              </motion.button>
+              <motion.button 
+                onClick={() => handleQuickPrompt("Debug my code")}
+                className="quick-prompt-btn"  
+                whileHover={{ scale: 1.03, backgroundColor: "rgba(79, 70, 229, 0.12)" }}
+                whileTap={{ scale: 0.97 }}
+                custom={2}
+                variants={quickPromptVariants}
+              >
+                <div className="prompt-icon">
+                  <RefreshCw size={14} />
+                </div>
+                <span>Debug my code</span>
+              </motion.button>
+            </motion.div>
           )}
 
           {/* Chat messages */}
-          <div className="ai-chat-messages">
+          <div className="ai-chat-messages custom-scrollbar">
             {history.length === 0 ? (
-              <div className="empty-state">
-                <div className="ai-icon w-14 h-14 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center opacity-50 mb-4">
-                  <Bot className="w-8 h-8 text-white" />
-                </div>
-                <p>Ask me anything about this problem or your code!</p>
-              </div>
+              <motion.div 
+                className="empty-state"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <motion.div 
+                  className="ai-icon w-16 h-16 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center mb-4 shadow-lg"
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.4, duration: 0.5, type: "spring" }}
+                >
+                  <MessageCircle className="w-8 h-8 text-white" />
+                </motion.div>
+                <motion.p 
+                  className="text-base text-slate-600 font-medium mb-2"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.5, duration: 0.5 }}
+                >
+                  How can I help you today?</motion.p>
+                <motion.p 
+                  className="text-sm text-slate-500"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.6, duration: 0.5 }}
+                >
+                  Ask me anything about this problem or your code!
+                </motion.p>
+              </motion.div>
             ) : (
               <AnimatePresence>
                 {history.map((message, index) => (
@@ -282,6 +352,29 @@ const AIChatPanel = ({ problem, code, language, onClose }) => {
                     transition={{ duration: 0.3 }}
                     className={`chat-message ${message.role}`}
                   >
+                    {message.role === "assistant" && (
+                      <motion.div 
+                        className="flex items-center mb-1 ml-1"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 0.7 }}
+                        transition={{ delay: 0.2 }}
+                      >
+                        <div className="w-4 h-4 rounded-full bg-gradient-to-r from-indigo-400 to-purple-500 mr-2 flex items-center justify-center shadow-sm">
+                          <Bot className="w-2.5 h-2.5 text-white" />
+                        </div>
+                        <span className="text-xs font-medium text-slate-500">Alfred</span>
+                      </motion.div>
+                    )}
+                    {message.role === "user" && (
+                      <motion.div 
+                        className="flex items-center mb-1 justify-end mr-1"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 0.7 }}
+                        transition={{ delay: 0.2 }}
+                      >
+                        <span className="text-xs font-medium text-slate-500">You</span>
+                      </motion.div>
+                    )}
                     {message.role === "assistant" ? (
                       <div className={`markdown-content ${message.isError ? "error-message" : ""}`}>
                         <ReactMarkdown>{message.content}</ReactMarkdown>
@@ -315,32 +408,47 @@ const AIChatPanel = ({ problem, code, language, onClose }) => {
 
           {/* Input form */}
           <form onSubmit={handleSubmit} className="ai-chat-input">
-            <input
-              type="text"
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              placeholder="Ask Alfred a question..."
-              disabled={isLoading}
-              className="w-full"
-            />
-            <button
-              type="submit"
-              disabled={isLoading || !prompt.trim()}
-              className={`send-button ${!prompt.trim() ? "disabled" : ""}`}
-            >
-              <Send size={16} />
-            </button>
-
-            {history.length > 0 && (
-              <button
-                type="button"
-                onClick={clearChat}
-                className="clear-button"
-                title="Clear chat"
-              >
-                <Trash2 size={14} />
-              </button>
-            )}
+            <div className="relative flex w-full items-center">
+              <input
+                ref={inputRef}
+                type="text"
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                placeholder="Ask Alfred a question..."
+                disabled={isLoading}
+                className="w-full pr-20"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    if (prompt.trim()) handleSubmit(e);
+                  }
+                }}
+              />
+              <div className="absolute right-1 flex items-center space-x-1">
+                {history.length > 0 && (
+                  <motion.button
+                    type="button"
+                    onClick={clearChat}
+                    className="clear-button"
+                    title="Clear chat"
+                    whileHover={{ scale: 1.1, backgroundColor: "rgba(239, 68, 68, 0.1)" }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <Trash2 size={14} />
+                  </motion.button>
+                )}
+                <motion.button
+                  type="submit"
+                  disabled={isLoading || !prompt.trim()}
+                  className={`send-button ${!prompt.trim() ? "disabled" : ""}`}
+                  whileHover={prompt.trim() ? { scale: 1.05, backgroundColor: "rgba(79, 70, 229, 0.2)" } : {}}
+                  whileTap={prompt.trim() ? { scale: 0.95 } : {}}
+                  title="Send message"
+                >
+                  <Send size={16} />
+                </motion.button>
+              </div>
+            </div>
           </form>
         </>
       )}

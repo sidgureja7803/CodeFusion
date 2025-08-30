@@ -132,7 +132,6 @@ exports.Prisma.UserScalarFieldEnum = {
   lastLogin: 'lastLogin',
   streakCount: 'streakCount',
   maxStreakCount: 'maxStreakCount',
-  emailVerified: 'emailVerified',
   firebaseUid: 'firebaseUid',
   authProvider: 'authProvider',
   gender: 'gender',
