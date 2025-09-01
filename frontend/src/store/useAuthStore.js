@@ -7,6 +7,9 @@ export const useAuthStore = create((set) => ({
   isLoggingIn: false,
   isCheckingAuth: false,
   isSigningUp: false,
+  // Token fallback for environments where cookies don't work
+  authToken: null,
+  tokenExpiry: null,
 
   // Wake up backend (for Render deployment)
   wakeUpBackend: async () => {
@@ -27,6 +30,16 @@ export const useAuthStore = create((set) => ({
       // Try to wake up backend first
       await useAuthStore.getState().wakeUpBackend();
       
+      // Check for token fallback first (if cookies failed)
+      const { authToken, tokenExpiry } = useAuthStore.getState();
+      const isTokenValid = authToken && tokenExpiry && Date.now() < tokenExpiry;
+      
+      // If we have a valid token in memory, use it
+      if (isTokenValid) {
+        console.log("🔑 Using stored token for auth");
+        axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
+      }
+      
       try {
         const response = await axiosInstance.get("/auth/me");
         set({ authUser: response.data.user });
@@ -35,13 +48,28 @@ export const useAuthStore = create((set) => ({
       } catch (authError) {
         // If we get a token expired error, try to refresh the token
         if (authError.response?.status === 401 && 
-            authError.response?.data?.code === "TOKEN_EXPIRED") {
+            (authError.response?.data?.code === "TOKEN_EXPIRED" || 
+             authError.response?.data?.code === "UNAUTHORIZED")) {
           console.log("🔄 Token expired, attempting to refresh...");
           
           try {
             // Try to refresh the token
             const refreshResponse = await axiosInstance.post("/auth/refresh");
             console.log("✅ Token refreshed successfully");
+            
+            // Check for auth token in refresh response
+            if (refreshResponse.data.auth?.token) {
+              console.log("🔄 Updated token fallback");
+              // Update stored token
+              set({ 
+                authToken: refreshResponse.data.auth.token,
+                tokenExpiry: Date.now() + (7 * 24 * 60 * 60 * 1000) // 7 days
+              });
+              
+              // Update authorization header
+              axiosInstance.defaults.headers.common['Authorization'] = 
+                `Bearer ${refreshResponse.data.auth.token}`;
+            }
             
             // Retry the original auth check with the new token
             const retryResponse = await axiosInstance.get("/auth/me");
@@ -50,7 +78,9 @@ export const useAuthStore = create((set) => ({
             return true;
           } catch (refreshError) {
             console.error("❌ Failed to refresh token:", refreshError.message);
-            set({ authUser: null });
+            // Clear token and auth state
+            set({ authUser: null, authToken: null, tokenExpiry: null });
+            delete axiosInstance.defaults.headers.common['Authorization'];
             throw refreshError;
           }
         } else {
@@ -150,6 +180,19 @@ export const useAuthStore = create((set) => ({
       const response = await axiosInstance.post("/auth/login", data);
       console.log("Login response:", response.data);
 
+      // Check for auth token in response (fallback for cookie issues)
+      if (response.data.auth?.token) {
+        console.log("🔑 Using token fallback mechanism");
+        // Store token in memory (not persistent)
+        set({ 
+          authToken: response.data.auth.token,
+          tokenExpiry: Date.now() + (7 * 24 * 60 * 60 * 1000) // 7 days
+        });
+        
+        // Setup authorization header for future requests
+        axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${response.data.auth.token}`;
+      }
+
       // Enhanced login success popup with username
       const userName = response.data.user?.name || 'User';
       Toast.success(
@@ -207,12 +250,17 @@ export const useAuthStore = create((set) => ({
   logout: async () => {
     try {
       await axiosInstance.post("/auth/logout");
-      set({ authUser: null });
+      // Clear all auth state including token fallback
+      set({ authUser: null, authToken: null, tokenExpiry: null });
+      // Remove Authorization header
+      delete axiosInstance.defaults.headers.common['Authorization'];
       Toast.success("Logout successful", "See you later!", 3000);
     } catch (error) {
       console.error("Error logging out:", error);
       // Even if logout fails on backend, clear the frontend state
-      set({ authUser: null });
+      set({ authUser: null, authToken: null, tokenExpiry: null });
+      // Remove Authorization header
+      delete axiosInstance.defaults.headers.common['Authorization'];
       Toast.warning("Logged out locally", "Session cleared", 3000);
     }
   },

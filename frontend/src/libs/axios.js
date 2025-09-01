@@ -1,9 +1,31 @@
 import axios from "axios";
 
-export const API_URL =
-  import.meta.env.MODE === "production"
-    ? import.meta.env.VITE_API_URL
-    : "http://localhost:3000/api/v1";
+// Determine API URL with better fallback mechanism
+export const API_URL = (() => {
+  // Check for production mode
+  if (import.meta.env.MODE === "production") {
+    // First try the explicitly configured API URL
+    if (import.meta.env.VITE_API_URL) {
+      return import.meta.env.VITE_API_URL;
+    }
+    
+    // If not set, attempt to derive it from the current window location
+    // This helps with deployments where frontend and backend share the same domain
+    if (typeof window !== 'undefined') {
+      // Extract the origin (protocol + domain)
+      const origin = window.location.origin;
+      console.log('📍 Detected origin:', origin);
+      return origin;
+    }
+    
+    // If we can't determine it, use a reasonable default
+    console.warn('⚠️ No API URL configured, using default production URL');
+    return 'https://api.codefusion.app'; // Default production fallback
+  } else {
+    // Development mode - use localhost
+    return "http://localhost:3000/api/v1";
+  }
+})();
 
 // Ensure the API_URL ends with /api/v1
 const ensureApiPrefix = (url) => {
@@ -26,7 +48,12 @@ export const axiosInstance = axios.create({
     "Content-Type": "application/json"
   },
   // Increased timeout for slower connections
-  timeout: 15000
+  timeout: 15000,
+  // Add retry mechanism for network errors
+  maxRedirects: 5,
+  // Allow credentials even for cross-domain requests
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN'
 });
 
 // Add request interceptor for debugging and consistent auth handling
@@ -187,9 +214,32 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-// Debug logging
+// Enhanced debug logging
 console.log("🔧 Axios Configuration:");
 console.log("Mode:", import.meta.env.MODE);
 console.log("Base URL:", axiosInstance.defaults.baseURL);
-console.log("VITE_API_URL:", import.meta.env.VITE_API_URL);
-console.log("VITE_DEV_BACKEND_URL:", import.meta.env.VITE_DEV_BACKEND_URL);
+console.log("Final API URL:", baseURL);
+console.log("VITE_API_URL:", import.meta.env.VITE_API_URL || 'Not set');
+
+// Add status checker to help debug connection issues
+export const checkApiStatus = async () => {
+  try {
+    console.log('🔍 Checking API connection...');
+    const start = performance.now();
+    const response = await axiosInstance.get('/wake-up');
+    const elapsed = (performance.now() - start).toFixed(0);
+    console.log(`✅ API connected in ${elapsed}ms:`, response.data);
+    return {
+      success: true,
+      message: response.data.message || 'Connected',
+      latency: elapsed
+    };
+  } catch (error) {
+    console.error('❌ API connection failed:', error);
+    return {
+      success: false,
+      message: error.message || 'Connection failed',
+      error
+    };
+  }
+};

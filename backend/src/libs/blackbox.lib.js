@@ -3,14 +3,14 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// Get API key from environment variables - try AIMLAPI_GPT5 as fallback
-const apiKey = process.env.NOVITA_API_KEY || process.env.AIMLAPI_GPT5;
+// Get API key from environment variables - using AIMLAPI_GPT5 exclusively
+const apiKey = process.env.AIMLAPI_GPT5;
 
 // Check if API key is available at startup
 if (!apiKey) {
-  console.error("⚠️ WARNING: Neither NOVITA_API_KEY nor AIMLAPI_GPT5 is configured in environment variables");
+  console.error("⚠️ WARNING: AIMLAPI_GPT5 is not configured in environment variables");
 } else {
-  console.log(`🔑 Using API key from ${process.env.NOVITA_API_KEY ? 'NOVITA_API_KEY' : 'AIMLAPI_GPT5'}`);
+  console.log(`🔑 Using API key from AIMLAPI_GPT5`);
 }
 
 // OpenAI API configuration
@@ -29,7 +29,7 @@ export const generateAIResponse = async (prompt, context) => {
   try {
     // Check if API key is available
     if (!apiKey) {
-      throw new Error("No API key available - check NOVITA_API_KEY or AIMLAPI_GPT5 in environment variables");
+      throw new Error("No API key available - check AIMLAPI_GPT5 in environment variables");
     }
     
     console.log("🤖 AI: Generating response for prompt:", prompt.substring(0, 50) + "...");
@@ -81,7 +81,7 @@ ${
     
     // More specific error messages
     if (error.message.includes('401')) {
-      throw new Error("Invalid API key - please check your NOVITA_API_KEY environment variable");
+      throw new Error("Invalid API key - please check your AIMLAPI_GPT5 environment variable");
     } else if (error.message.includes('429')) {
       throw new Error("API rate limit exceeded - please try again later");
     } else if (error.message.includes('503') || error.message.includes('502')) {
@@ -102,7 +102,7 @@ export const explainCode = async (code, language) => {
   try {
     // Check if API key is available
     if (!apiKey) {
-      throw new Error("NOVITA_API_KEY is not configured in environment variables");
+      throw new Error("AIMLAPI_GPT5 is not configured in environment variables");
     }
 
     console.log("Making API call to OpenAI for code explanation...");
@@ -132,7 +132,7 @@ export const explainCode = async (code, language) => {
     
     // More specific error messages
     if (error.message.includes('401')) {
-      throw new Error("Invalid API key - please check your NOVITA_API_KEY environment variable");
+      throw new Error("Invalid API key - please check your AIMLAPI_GPT5 environment variable");
     } else if (error.message.includes('429')) {
       throw new Error("API rate limit exceeded - please try again later");
     } else {
@@ -156,7 +156,7 @@ export const generateProblem = async (options) => {
 
     // Check if API key is available
     if (!apiKey) {
-      throw new Error("NOVITA_API_KEY is not configured in environment variables");
+      throw new Error("AIMLAPI_GPT5 is not configured in environment variables");
     }
 
     console.log("Making API call to OpenAI for problem generation...");

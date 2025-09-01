@@ -18,7 +18,19 @@ import {
   Award,
   Calendar,
   BookOpen,
-  Bookmark
+  Bookmark,
+  ChevronRight,
+  BarChart3,
+  LineChart,
+  Activity,
+  Star,
+  Code,
+  Brain,
+  Trophy,
+  LayoutGrid,
+  Cpu,
+  Flame,
+  RefreshCw
 } from "lucide-react";
 
 const getGreeting = () => {
@@ -74,13 +86,36 @@ export const Dashboard = () => {
   const { getProblems, problems, isProblemsLoading } = useProblemStore();
   const { createPlaylist } = usePlaylistStore();
   const { authUser } = useAuthStore();
-  const [isCreatePlaylistModalOpen, setIsCreatePlaylistModalOpen] =
-    useState(false);
-  const [currentDateTime, setCurrentDateTime] = useState(
-    getFormattedDateTime()
-  );
+  const [isCreatePlaylistModalOpen, setIsCreatePlaylistModalOpen] = useState(false);
+  const [currentDateTime, setCurrentDateTime] = useState(getFormattedDateTime());
+  const [activeTab, setActiveTab] = useState('problems'); // For tab navigation
+  const [animationComplete, setAnimationComplete] = useState(false); // Track initial animation
   const navigate = useNavigate();
   const sectionRef = useRef(null);
+  const statsRef = useRef(null);
+  
+  // Animation configuration
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { 
+        staggerChildren: 0.12,
+        delayChildren: 0.3,
+        when: "beforeChildren",
+        duration: 0.8
+      } 
+    }
+  };
+  
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { 
+      y: 0, 
+      opacity: 1,
+      transition: { type: "spring", stiffness: 100 }
+    }
+  };
 
   useEffect(() => {
     // Update the datetime every minute
@@ -110,9 +145,39 @@ export const Dashboard = () => {
     };
   }, []);
 
+  // Track scroll position for parallax effects
+  useEffect(() => {
+    const handleScroll = () => {
+      if (statsRef.current) {
+        const scrollY = window.scrollY;
+        const element = statsRef.current;
+        const speed = 0.05;
+        element.style.transform = `translateY(${scrollY * speed}px)`;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Mark animation as complete after initial load
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAnimationComplete(true);
+    }, 1500);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
   useEffect(() => {
     getProblems();
   }, [getProblems]);
+  
+  // Calculate problem stats and user progress
+  const completedCount = problems.filter(p => p.submissionStatus === 'ACCEPTED').length;
+  const attemptedCount = problems.filter(p => p.submissions?.length > 0).length;
+  const completionRate = totalProblems > 0 ? Math.round((completedCount / totalProblems) * 100) : 0;
+  const streakCount = authUser?.streak || 0;
 
   const handleCreatePlaylist = async (playlistData) => {
     const result = await createPlaylist(playlistData);
@@ -123,6 +188,42 @@ export const Dashboard = () => {
     getProblems();
   };
 
+  // Calculate problem statistics
+  const easyProblems = problems.filter(p => p.difficulty === 'EASY').length;
+  const mediumProblems = problems.filter(p => p.difficulty === 'MEDIUM').length;
+  const hardProblems = problems.filter(p => p.difficulty === 'HARD').length;
+  const totalProblems = problems.length;
+  
+  // Create analytics data
+  const analyticsData = [
+    { id: 'total', label: 'Total Problems', value: totalProblems, color: 'blue', icon: <Code className="w-5 h-5" /> },
+    { id: 'completed', label: 'Completed', value: completedCount, color: 'green', icon: <Trophy className="w-5 h-5" /> },
+    { id: 'attempted', label: 'Attempted', value: attemptedCount, color: 'amber', icon: <Target className="w-5 h-5" /> },
+    { id: 'streak', label: 'Day Streak', value: streakCount, color: 'purple', icon: <Flame className="w-5 h-5" /> },
+  ];
+  
+  // Create skill breakdown data
+  const skillBreakdown = [
+    { skill: 'Problem Solving', progress: 75, color: 'blue' },
+    { skill: 'Data Structures', progress: 65, color: 'indigo' },
+    { skill: 'Algorithms', progress: 80, color: 'violet' },
+    { skill: 'System Design', progress: 50, color: 'emerald' },
+  ];
+
+  // Recent activity data (mock data)
+  const recentActivity = [
+    { type: 'solved', problem: 'Two Sum', difficulty: 'EASY', time: '2 hours ago' },
+    { type: 'attempted', problem: 'Merge Intervals', difficulty: 'MEDIUM', time: '1 day ago' },
+    { type: 'reviewed', problem: 'Valid Parentheses', difficulty: 'EASY', time: '3 days ago' },
+  ];
+  
+  // Recommendations based on user history (mock data)
+  const recommendations = [
+    { id: 'rec1', title: 'Linked List Cycle', difficulty: 'EASY', tag: 'Linked Lists' },
+    { id: 'rec2', title: 'Binary Tree Level Order Traversal', difficulty: 'MEDIUM', tag: 'Trees' },
+    { id: 'rec3', title: 'Word Search', difficulty: 'MEDIUM', tag: 'Backtracking' },
+  ];
+
   if (isProblemsLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
@@ -130,11 +231,6 @@ export const Dashboard = () => {
       </div>
     );
   }
-
-  const easyProblems = problems.filter(p => p.difficulty === 'EASY').length;
-  const mediumProblems = problems.filter(p => p.difficulty === 'MEDIUM').length;
-  const hardProblems = problems.filter(p => p.difficulty === 'HARD').length;
-  const totalProblems = problems.length;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/40 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 font-['Inter'] relative overflow-hidden" ref={sectionRef}>

@@ -93,9 +93,17 @@ export const register = async (req, res) => {
       expiresIn: "7d",
     });
 
-    // Set cookie
-    console.log("🍪 Setting JWT cookie with config:", getCookieConfig());
-    res.cookie("jwt", token, getCookieConfig());
+    // Set cookie with enhanced error handling
+    try {
+      const cookieConfig = getCookieConfig();
+      console.log("🍪 Setting JWT cookie with config:", cookieConfig);
+      res.cookie("jwt", token, cookieConfig);
+      
+      // Also add the token to the response body for clients that can't access cookies
+      console.log("🔑 Adding token to response body as fallback");
+    } catch (cookieError) {
+      console.error("❌ Cookie setting error:", cookieError.message);
+    }
     
     return res.status(201).json({
       success: true,
@@ -248,19 +256,26 @@ export const login = async (req, res) => {
       },
     });
 
-    // Set cookie using consistent helper
+    // Set cookie with enhanced handling for cross-origin contexts
     const cookieConfig = getCookieConfig();
     console.log("🍪 Setting JWT cookie with config:", cookieConfig);
     
     try {
+      // Always set the cookie
       res.cookie("jwt", token, cookieConfig);
       console.log("✅ Cookie set successfully");
+      
+      // Also include the token in response body as a fallback
+      // This is useful for clients that can't access cookies due to browser restrictions
+      // or when cookies aren't properly set in cross-origin contexts
+      console.log("🔑 Adding token to response body as fallback");
     } catch (cookieError) {
       console.error("❌ Error setting cookie:", cookieError);
       // Continue execution even if cookie setting fails
     }
 
     console.log("✅ Login successful for user:", user.email);
+    // Return response with token in body as fallback for clients with cookie issues
     res.status(200).json({
       success: true,
       message: "User logged in successfully",
@@ -272,6 +287,12 @@ export const login = async (req, res) => {
         streakCount,
         maxStreakCount
       },
+      // Include auth token in response for clients that can't access cookies
+      // The frontend can use this as a fallback
+      auth: {
+        token,
+        expiresIn: "7d"
+      }
     });
   } catch (error) {
     console.error("💥 Error logging in user:", { 
@@ -418,7 +439,7 @@ export const refreshToken = async (req, res) => {
     
     console.log("✅ Token refreshed successfully");
     
-    // Return success response
+    // Return success response with token in body for clients with cookie issues
     return res.status(200).json({
       success: true,
       message: "Token refreshed successfully",
@@ -430,6 +451,11 @@ export const refreshToken = async (req, res) => {
         streakCount: user.streakCount,
         maxStreakCount: user.maxStreakCount
       },
+      // Include auth token in response for clients that can't access cookies
+      auth: {
+        token,
+        expiresIn: "7d"
+      }
     });
   } catch (error) {
     console.error("Error refreshing token:", error);

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useParams, Link, useLocation, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
 import Editor from "@monaco-editor/react";
 import {
   Play,
@@ -677,7 +676,7 @@ function solution() {
                       : "bg-gradient-to-r from-red-100 to-rose-100 dark:from-red-900/40 dark:to-rose-900/40 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800/70 shadow-red-200/20 dark:shadow-red-900/30"
                   }`}
                 >
-                  <span className="w-2 h-2 rounded-full ${problem.difficulty === "EASY" ? "bg-green-500" : problem.difficulty === "MEDIUM" ? "bg-yellow-500" : "bg-red-500"}"></span>
+                  <span className={`w-2 h-2 rounded-full ${problem.difficulty === "EASY" ? "bg-green-500" : problem.difficulty === "MEDIUM" ? "bg-yellow-500" : "bg-red-500"}`}></span>
                   {problem.difficulty}
                 </span>
               </div>
@@ -811,104 +810,153 @@ function solution() {
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
           <div className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-3xl rounded-3xl shadow-2xl shadow-purple-300/30 dark:shadow-purple-900/40 border border-purple-300/40 dark:border-purple-600/50 overflow-hidden transform hover:scale-[1.01] transition-all duration-500">
             <div className="border-b border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900">
-              <div className="flex overflow-x-auto">
+              <div className="flex overflow-x-auto gap-1 px-1 pt-1 custom-scrollbar">
                 <button
-                  className={`flex items-center gap-2 px-6 py-4 font-medium transition-all duration-300 whitespace-nowrap border-b-2 ${
+                  className={`flex items-center gap-2 px-5 py-3 font-medium transition-all duration-300 whitespace-nowrap rounded-t-xl ${
                     activeTab === "description" 
-                      ? "text-purple-600 dark:text-purple-400 border-purple-600 dark:border-purple-400 bg-white dark:bg-slate-800 shadow-sm" 
-                      : "text-slate-600 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 border-transparent hover:bg-white/50 dark:hover:bg-slate-800/50"
+                      ? "text-purple-600 dark:text-purple-400 border-b-2 border-purple-600 dark:border-purple-400 bg-white dark:bg-slate-800 shadow-md" 
+                      : "text-slate-600 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-white/80 dark:hover:bg-slate-800/80"
                   }`}
                   onClick={() => setActiveTab("description")}
                 >
-                  <FileText className="w-4 h-4" />
+                  <div className={`p-1.5 rounded-md transition-all duration-300 ${activeTab === "description" ? "bg-purple-100 dark:bg-purple-900/30" : "bg-slate-100 dark:bg-slate-700"}`}>
+                    <FileText className={`w-4 h-4 ${activeTab === "description" ? "text-purple-600 dark:text-purple-400" : "text-slate-600 dark:text-slate-400"}`} />
+                  </div>
                   <span className="hidden sm:inline">Description</span>
                 </button>
                 <button
-                  className={`flex items-center gap-2 px-6 py-4 font-medium transition-all duration-300 whitespace-nowrap border-b-2 ${
+                  className={`flex items-center gap-2 px-5 py-3 font-medium transition-all duration-300 whitespace-nowrap rounded-t-xl ${
                     activeTab === "submissions" 
-                      ? "text-purple-600 dark:text-purple-400 border-purple-600 dark:border-purple-400 bg-white dark:bg-slate-800 shadow-sm" 
-                      : "text-slate-600 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 border-transparent hover:bg-white/50 dark:hover:bg-slate-800/50"
+                      ? "text-purple-600 dark:text-purple-400 border-b-2 border-purple-600 dark:border-purple-400 bg-white dark:bg-slate-800 shadow-md" 
+                      : "text-slate-600 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-white/80 dark:hover:bg-slate-800/80"
                   }`}
                   onClick={() => setActiveTab("submissions")}
                 >
-                  <Code2 className="w-4 h-4" />
+                  <div className={`p-1.5 rounded-md transition-all duration-300 ${activeTab === "submissions" ? "bg-purple-100 dark:bg-purple-900/30" : "bg-slate-100 dark:bg-slate-700"}`}>
+                    <Code2 className={`w-4 h-4 ${activeTab === "submissions" ? "text-purple-600 dark:text-purple-400" : "text-slate-600 dark:text-slate-400"}`} />
+                  </div>
                   <span className="hidden sm:inline">Submissions</span>
+                  {submissions?.length > 0 && (
+                    <span className="ml-1.5 px-1.5 py-0.5 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-xs font-semibold rounded-full">
+                      {submissions.length}
+                    </span>
+                  )}
                 </button>
                 <button
-                  className={`flex items-center gap-2 px-6 py-4 font-medium transition-all duration-300 whitespace-nowrap border-b-2 ${
+                  className={`flex items-center gap-2 px-5 py-3 font-medium transition-all duration-300 whitespace-nowrap rounded-t-xl ${
                     activeTab === "discussion" 
-                      ? "text-purple-600 dark:text-purple-400 border-purple-600 dark:border-purple-400 bg-white dark:bg-slate-800 shadow-sm" 
-                      : "text-slate-600 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 border-transparent hover:bg-white/50 dark:hover:bg-slate-800/50"
+                      ? "text-purple-600 dark:text-purple-400 border-b-2 border-purple-600 dark:border-purple-400 bg-white dark:bg-slate-800 shadow-md" 
+                      : "text-slate-600 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-white/80 dark:hover:bg-slate-800/80"
                   }`}
                   onClick={() => setActiveTab("discussion")}
                 >
-                  <MessageSquare className="w-4 h-4" />
+                  <div className={`p-1.5 rounded-md transition-all duration-300 ${activeTab === "discussion" ? "bg-purple-100 dark:bg-purple-900/30" : "bg-slate-100 dark:bg-slate-700"}`}>
+                    <MessageSquare className={`w-4 h-4 ${activeTab === "discussion" ? "text-purple-600 dark:text-purple-400" : "text-slate-600 dark:text-slate-400"}`} />
+                  </div>
                   <span className="hidden sm:inline">Discussion</span>
                 </button>
                 <button
-                  className={`flex items-center gap-2 px-6 py-4 font-medium transition-all duration-300 whitespace-nowrap border-b-2 ${
+                  className={`flex items-center gap-2 px-5 py-3 font-medium transition-all duration-300 whitespace-nowrap rounded-t-xl ${
                     activeTab === "hints" 
-                      ? "text-purple-600 dark:text-purple-400 border-purple-600 dark:border-purple-400 bg-white dark:bg-slate-800 shadow-sm" 
-                      : "text-slate-600 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 border-transparent hover:bg-white/50 dark:hover:bg-slate-800/50"
+                      ? "text-purple-600 dark:text-purple-400 border-b-2 border-purple-600 dark:border-purple-400 bg-white dark:bg-slate-800 shadow-md" 
+                      : "text-slate-600 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-white/80 dark:hover:bg-slate-800/80"
                   }`}
                   onClick={() => setActiveTab("hints")}
                 >
-                  <Lightbulb className="w-4 h-4" />
+                  <div className={`p-1.5 rounded-md transition-all duration-300 ${activeTab === "hints" ? "bg-purple-100 dark:bg-purple-900/30" : "bg-slate-100 dark:bg-slate-700"}`}>
+                    <Lightbulb className={`w-4 h-4 ${activeTab === "hints" ? "text-purple-600 dark:text-purple-400" : "text-slate-600 dark:text-slate-400"}`} />
+                  </div>
                   <span className="hidden sm:inline">Hints</span>
                 </button>
               </div>
             </div>
 
-            <div className="p-6 max-h-[70vh] overflow-y-auto custom-scrollbar">{renderTabContent()}</div>
+            <div className="p-6 max-h-[70vh] overflow-y-auto custom-scrollbar scrollbar-thin relative">
+              <div className="animate-fadeIn transition-all duration-300">
+                {renderTabContent()}
+              </div>
+              <div className="absolute top-0 left-0 w-full h-8 bg-gradient-to-b from-white dark:from-slate-800 to-transparent pointer-events-none"></div>
+              <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-white dark:from-slate-800 to-transparent pointer-events-none"></div>
+            </div>
           </div>
 
-          <div className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-3xl rounded-3xl shadow-2xl shadow-purple-300/30 dark:shadow-purple-900/40 border border-purple-300/40 dark:border-purple-600/50 overflow-hidden transform hover:scale-[1.01] transition-all duration-500">
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
+          <div className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-3xl rounded-3xl shadow-2xl shadow-blue-300/30 dark:shadow-blue-900/40 border border-blue-300/40 dark:border-blue-600/50 overflow-hidden transform hover:scale-[1.01] transition-all duration-500">
+            {/* Editor Header */}
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-900 border-b border-blue-200 dark:border-slate-700 p-4">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  <Terminal className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-                  <span className="text-xl font-bold text-slate-800 dark:text-slate-200">Code Editor</span>
+                  <div className="p-2 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg shadow-lg shadow-blue-300/30 dark:shadow-blue-900/40">
+                    <Terminal className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                      Code Editor
+                    </h3>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">Write, test, and submit your solution</p>
+                  </div>
                 </div>
-                <select
-                  className="px-4 py-2 bg-gradient-to-r from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-800 border border-slate-300 dark:border-slate-600 rounded-xl text-slate-700 dark:text-slate-300 font-medium focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent shadow-sm"
-                  value={selectedLanguage}
-                  onChange={handleLanguageChange}
-                >
-                  {problem?.codeSnippets && Object.keys(problem.codeSnippets).length > 0 ? (
-                    Object.keys(problem.codeSnippets).map((lang) => (
-                      <option key={lang} value={lang}>
-                        {lang
-                          .toLowerCase()
-                          .split("_")
-                          .map(
-                            (word) => word.charAt(0).toUpperCase() + word.slice(1)
-                          )
-                          .join(" ")}
-                      </option>
-                    ))
-                  ) : (
-                    <>
-                      <option value="JAVASCRIPT">JavaScript</option>
-                      <option value="PYTHON">Python</option>
-                      <option value="JAVA">Java</option>
-                      <option value="CPP">C++</option>
-                      <option value="C">C</option>
-                    </>
-                  )}
-                </select>
+                
+                <div className="flex items-center">
+                  <div className="relative group">
+                    <select
+                      className="appearance-none pl-4 pr-10 py-2.5 bg-white dark:bg-slate-800 border-2 border-blue-300/50 dark:border-blue-700/50 rounded-xl text-slate-700 dark:text-slate-300 font-medium focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-300/50 dark:focus:ring-blue-700/50 shadow-md transition-all duration-300"
+                      value={selectedLanguage}
+                      onChange={handleLanguageChange}
+                    >
+                      {problem?.codeSnippets && Object.keys(problem.codeSnippets).length > 0 ? (
+                        Object.keys(problem.codeSnippets).map((lang) => (
+                          <option key={lang} value={lang}>
+                            {lang
+                              .toLowerCase()
+                              .split("_")
+                              .map(
+                                (word) => word.charAt(0).toUpperCase() + word.slice(1)
+                              )
+                              .join(" ")}
+                          </option>
+                        ))
+                      ) : (
+                        <>
+                          <option value="JAVASCRIPT">JavaScript</option>
+                          <option value="PYTHON">Python</option>
+                          <option value="JAVA">Java</option>
+                          <option value="CPP">C++</option>
+                          <option value="C">C</option>
+                        </>
+                      )}
+                    </select>
+                    <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-blue-600 dark:text-blue-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-y-0.5 transition-transform">
+                        <path d="m6 9 6 6 6-6"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
               </div>
+            </div>
+            
+            <div className="p-6">
 
               {/* Show notification when user's previous code is loaded */}
               {userSolvedCode && (
-                <div className="bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 border border-emerald-200 dark:border-emerald-800 p-3 rounded-lg flex items-center justify-between mb-4">
+                <div className="bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 border-l-4 border-emerald-400 dark:border-emerald-600 border-y border-r border-emerald-200 dark:border-emerald-800/50 p-4 rounded-lg flex items-center justify-between mb-4 shadow-sm">
                   <div className="flex items-center gap-2">
-                    <span className="text-emerald-600 dark:text-emerald-400 text-sm">✓</span>
-                    <span className="text-sm text-emerald-700 dark:text-emerald-300 font-medium">
-                      Your previous solution loaded
-                    </span>
+                    <div className="flex items-center justify-center w-6 h-6 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 rounded-full">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M20 6L9 17l-5-5"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <span className="text-sm text-emerald-700 dark:text-emerald-300 font-medium">
+                        Your previous solution loaded
+                      </span>
+                      <p className="text-xs text-emerald-600/70 dark:text-emerald-400/70 mt-0.5">
+                        You can continue where you left off
+                      </p>
+                    </div>
                   </div>
                   <button
-                    className="px-3 py-1 text-xs bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 rounded-md hover:bg-emerald-200 dark:hover:bg-emerald-900/60 transition-colors"
+                    className="px-3 py-1.5 text-xs bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 rounded-md hover:bg-emerald-200 dark:hover:bg-emerald-900/60 transition-all duration-300 hover:shadow-md border border-emerald-200 dark:border-emerald-800/50 font-medium"
                     onClick={resetToTemplate}
                     title="Reset to template code"
                   >
@@ -919,15 +967,22 @@ function solution() {
 
               {/* Collaboration banner */}
               {isCollaborative && (
-                <div className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 border border-blue-200 dark:border-blue-800 p-3 rounded-lg flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <UserPlus className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                    <span className="text-sm text-blue-700 dark:text-blue-300 font-medium">
-                      Collaborative Mode Active
-                    </span>
+                <div className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 border-l-4 border-blue-400 dark:border-blue-600 border-y border-r border-blue-200 dark:border-blue-800/50 p-4 rounded-lg flex items-center justify-between mb-4 shadow-sm">
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center justify-center w-8 h-8 bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 rounded-full shadow-inner">
+                      <UserPlus className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <span className="text-sm text-blue-700 dark:text-blue-300 font-medium">
+                        Collaborative Mode Active
+                      </span>
+                      <p className="text-xs text-blue-600/70 dark:text-blue-400/70 mt-0.5">
+                        Real-time collaboration enabled
+                      </p>
+                    </div>
                   </div>
                   <button
-                    className="flex items-center gap-1 px-3 py-1 text-xs bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-md hover:bg-blue-200 dark:hover:bg-blue-900/60 transition-colors"
+                    className="flex items-center gap-2 px-4 py-1.5 text-xs bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-md hover:bg-blue-200 dark:hover:bg-blue-900/60 transition-all duration-300 hover:shadow-md border border-blue-200 dark:border-blue-800/50 font-medium"
                     onClick={copyCollaborationLink}
                     title="Copy collaboration link"
                   >
@@ -937,7 +992,19 @@ function solution() {
                 </div>
               )}
 
-              <div className="h-[500px] w-full flex flex-col rounded-xl overflow-hidden border border-slate-300 dark:border-slate-600 shadow-lg">
+              {/* Editor container with enhanced styling */}
+              <div className="h-[500px] w-full flex flex-col rounded-xl overflow-hidden border border-slate-300 dark:border-slate-600 shadow-lg bg-white dark:bg-slate-900 relative group">
+                {/* Code editor toolbar */}
+                <div className="absolute top-0 left-0 right-0 h-8 bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 flex items-center px-3 z-10 opacity-80 group-hover:opacity-100 transition-opacity">
+                  <div className="flex space-x-1.5">
+                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  </div>
+                  <div className="ml-4 text-xs text-slate-500 dark:text-slate-400 font-mono">
+                    {selectedLanguage.toLowerCase()}
+                  </div>
+                </div>
                 {isCollaborative ? (
                   <RoomProvider
                     id={sessionId}
@@ -960,8 +1027,8 @@ function solution() {
                     />
                   </RoomProvider>
                 ) : (
-                  <div className="flex flex-col h-full">
-                    <div className="flex-1">
+                  <div className="flex flex-col h-full pt-8"> {/* Add padding-top to account for the toolbar */}
+                    <div className="flex-1 relative">
                       <Editor
                         height="100%"
                         language={selectedLanguage.toLowerCase()}
@@ -970,65 +1037,87 @@ function solution() {
                         onChange={(value) => setCode(value || "")}
                         onMount={handleNonCollabEditorMount}
                         options={{
-                          minimap: { enabled: false },
+                          minimap: { enabled: true },
                           fontSize: 14,
                           lineNumbers: "on",
                           automaticLayout: true,
                           scrollBeyondLastLine: false,
                           fontFamily: "JetBrains Mono, Monaco, 'Courier New', monospace",
                           fontLigatures: true,
+                          cursorBlinking: "smooth",
+                          cursorSmoothCaretAnimation: true,
+                          roundedSelection: true,
+                          smoothScrolling: true,
+                          padding: { top: 10 },
+                          renderLineHighlight: "all",
                         }}
                       />
+                      {/* Subtle gradient overlay to enhance editor appearance */}
+                      <div className="absolute inset-0 pointer-events-none rounded-xl overflow-hidden">
+                        <div className="absolute top-0 left-0 right-0 h-5 bg-gradient-to-b from-white/20 to-transparent dark:from-black/20 to-transparent z-10"></div>
+                        <div className="absolute bottom-0 left-0 right-0 h-5 bg-gradient-to-t from-white/20 to-transparent dark:from-black/20 to-transparent z-10"></div>
+                      </div>
                     </div>
                   </div>
                 )}
               </div>
 
-              <div className="mt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+              {/* Action buttons with enhanced design */}
+              <div className="mt-8 space-y-4">
+                {/* Main action buttons */}
                 <div className="flex flex-col sm:flex-row w-full gap-4">
                   <button
-                    className="w-full sm:flex-1 flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:from-blue-600 hover:via-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                    className="w-full sm:flex-1 flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:from-blue-600 hover:via-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:translate-y-[-2px] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                     onClick={handleRunCode}
                     disabled={isExecuting || isSubmitting}
                   >
                     {isExecuting ? (
                       <>
                         <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white"></div>
-                        Running...
+                        <span className="relative">
+                          <span className="animate-pulse">Running</span>...
+                        </span>
                       </>
                     ) : (
                       <>
-                        <Play className="w-5 h-5" />
-                        Run Code
+                        <div className="p-1.5 bg-blue-700/50 rounded-full">
+                          <Play className="w-4 h-4" />
+                        </div>
+                        <span>Run Code</span>
                       </>
                     )}
                   </button>
                   <button
-                    className="w-full sm:flex-1 flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-700 hover:from-emerald-600 hover:via-emerald-700 hover:to-emerald-800 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                    className="w-full sm:flex-1 flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-emerald-500 via-emerald-600 to-emerald-700 hover:from-emerald-600 hover:via-emerald-700 hover:to-emerald-800 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:translate-y-[-2px] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                     onClick={handleSubmitSolution}
                     disabled={isExecuting || isSubmitting}
                   >
                     {isSubmitting ? (
                       <>
                         <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white"></div>
-                        Submitting...
+                        <span className="relative">
+                          <span className="animate-pulse">Submitting</span>...
+                        </span>
                       </>
                     ) : (
                       <>
-                        <Code2 className="w-5 h-5" />
-                        Submit Solution
+                        <div className="p-1.5 bg-emerald-700/50 rounded-full">
+                          <Code2 className="w-4 h-4" />
+                        </div>
+                        <span>Submit Solution</span>
                       </>
                     )}
                   </button>
                 </div>
                 
-                <div className="flex gap-2">
+                {/* Secondary action buttons */}
+                <div className="flex justify-end gap-2">
                   <button 
                     onClick={() => resetToTemplate()}
-                    className="p-2 rounded-lg bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 transition-all"
+                    className="p-2.5 rounded-lg bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-800/80 hover:from-slate-100 hover:to-slate-200 dark:hover:from-slate-700 dark:hover:to-slate-700/80 text-slate-700 dark:text-slate-300 transition-all duration-300 shadow-md hover:shadow-lg border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600"
                     title="Reset to template code"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M3 2v6h6"></path>
                       <path d="M3 13a9 9 0 1 0 3-7.7L3 8"></path>
                     </svg>
@@ -1038,16 +1127,16 @@ function solution() {
                     onClick={() => {
                       // Copy code to clipboard
                       navigator.clipboard.writeText(code).then(() => {
-                        Toast.success("Code copied to clipboard!");
+                        Toast.success("Code copied to clipboard!", "Copy Success", 2000);
                       }).catch(err => {
-                        Toast.error("Failed to copy code");
+                        Toast.error("Failed to copy code", "Copy Error", 2000);
                         console.error("Copy failed:", err);
                       });
                     }}
-                    className="p-2 rounded-lg bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 transition-all"
+                    className="p-2.5 rounded-lg bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-800/80 hover:from-slate-100 hover:to-slate-200 dark:hover:from-slate-700 dark:hover:to-slate-700/80 text-slate-700 dark:text-slate-300 transition-all duration-300 shadow-md hover:shadow-lg border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600"
                     title="Copy code to clipboard"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                       <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                     </svg>
@@ -1061,17 +1150,19 @@ function solution() {
 
       <div className="max-w-7xl mx-auto px-6 pb-6">
         {submission && (
-          <div className="bg-gradient-to-br from-white/95 to-blue-50/90 dark:from-slate-800/95 dark:to-blue-900/90 backdrop-blur-3xl rounded-3xl shadow-2xl border border-blue-300/50 dark:border-blue-600/50">
-            <div className="p-6">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent flex items-center gap-2">
-                  <Terminal className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+          <div className="animate-fadeIn bg-gradient-to-br from-white/95 to-blue-50/90 dark:from-slate-800/95 dark:to-blue-900/90 backdrop-blur-3xl rounded-3xl shadow-2xl border border-blue-300/50 dark:border-blue-600/50 transform hover:shadow-blue-300/40 dark:hover:shadow-blue-900/50 transition-all duration-300">
+            <div className="border-b border-blue-200/70 dark:border-blue-700/70 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 py-3 px-5 rounded-t-3xl">
+              <div className="flex justify-between items-center">
+                <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent flex items-center gap-2.5">
+                  <div className="p-1.5 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg shadow-lg shadow-blue-300/20 dark:shadow-blue-900/30">
+                    <Terminal className="w-5 h-5 text-white" />
+                  </div>
                   Execution Results
                 </h3>
                 <div className="flex gap-2">
                   <button
                     onClick={() => setExecution({ submission: null })}
-                    className="p-2 rounded-lg bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 transition-all"
+                    className="p-2 rounded-lg bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 transition-all duration-300 hover:rotate-90 hover:scale-110 shadow-sm hover:shadow-md border border-slate-300/50 dark:border-slate-600/50"
                     title="Clear results"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -1079,9 +1170,43 @@ function solution() {
                       <path d="M6 6l12 12"></path>
                     </svg>
                   </button>
+                  <button
+                    onClick={() => {
+                      const resultText = document.querySelector('.execution-results-container').innerText;
+                      navigator.clipboard.writeText(resultText).then(() => {
+                        Toast.success("Results copied to clipboard!", "Copy Success", 2000);
+                      }).catch(err => {
+                        Toast.error("Failed to copy results", "Copy Error", 2000);
+                        console.error("Copy failed:", err);
+                      });
+                    }}
+                    className="p-2 rounded-lg bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 transition-all duration-300 hover:scale-110 shadow-sm hover:shadow-md border border-slate-300/50 dark:border-slate-600/50"
+                    title="Copy results to clipboard"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                  </button>
                 </div>
               </div>
-              <Submission submission={submission} />
+              
+              {submission.is_submission && (
+                <div className="mt-2 flex items-center gap-2">
+                  <span className={`px-3 py-1 text-xs font-semibold rounded-full ${submission.status === "Accepted" ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" : "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400"}`}>
+                    {submission.status}
+                  </span>
+                  <span className="text-xs text-slate-500 dark:text-slate-400">
+                    Submitted {new Date(submission.timestamp).toLocaleString()}
+                  </span>
+                </div>
+              )}
+            </div>
+            
+            <div className="p-5 execution-results-container">
+              <div className="bg-white/70 dark:bg-slate-800/70 border border-blue-200/50 dark:border-blue-800/50 rounded-xl overflow-hidden shadow-inner">
+                <Submission submission={submission} />
+              </div>
             </div>
           </div>
         )}

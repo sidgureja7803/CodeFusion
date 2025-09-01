@@ -15,7 +15,7 @@ import firebaseAuthRoutes from "./routes/firebase-auth.routes.js";
 import dsaSheetsRoutes from "./routes/dsasheets.routes.js";
 import { connectDatabase, disconnectDatabase } from "./libs/db.js";
 import { setUserContext } from "./middleware/rls.middleware.js";
-import { configureCors } from "./middleware/cors.middleware.js";
+import { configureCors, authDebugMiddleware } from "./middleware/cors.middleware.js";
 
 dotenv.config();
 
@@ -33,6 +33,9 @@ app.use((req, res, next) => {
   console.log(`📝 ${req.method} ${req.path} - Origin: ${req.headers.origin || 'No origin'} - ${new Date().toISOString()}`);
   next();
 });
+
+// Add auth debugging middleware specifically for auth routes
+app.use('/api/v1/auth', authDebugMiddleware);
 app.use(express.urlencoded({ extended: true }));
 
 // Add RLS middleware to set user context for database operations
@@ -44,13 +47,30 @@ app.get("/", (req, res) => {
   res.send("Can y'all crack the code ? 🃏");
 });
 
-// Wake-up endpoint for Render deployment
+// Wake-up endpoint for Render deployment with enhanced diagnostics
 app.get("/api/v1/wake-up", (req, res) => {
+  const diagnostics = {
+    timestamp: new Date().toISOString(),
+    nodeEnv: process.env.NODE_ENV || 'development',
+    cors: {
+      allowedOrigins: process.env.FRONTEND_URL || 'default origins',
+      cookieConfig: {
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+      }
+    },
+    headers: {
+      origin: req.headers.origin || 'none',
+      referer: req.headers.referer || 'none'
+    }
+  };
+  
   res.status(200).json({
     success: true,
     message: "Backend is awake!",
-    timestamp: new Date().toISOString(),
-    status: "active"
+    timestamp: diagnostics.timestamp,
+    status: "active",
+    diagnostics
   });
 });
 
@@ -83,7 +103,7 @@ const startServer = async () => {
     const server = app.listen(PORT, () => {
       console.log(`🌟 CodeFusion Server is running on port ${PORT}`);
       console.log(`🔗 Frontend URL: ${process.env.FRONTEND_URL || "http://localhost:5173"}`);
-      console.log(`🤖 AI Provider: AIMLAPI.COM (GPT-5)`);
+      console.log(`🤖 AI Provider: AIMLAPI.COM (GPT-5) - Using exclusively AIMLAPI_GPT5 configuration`);
       console.log("✅ All systems ready!");
     });
 
