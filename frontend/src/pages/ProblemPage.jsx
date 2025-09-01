@@ -618,34 +618,34 @@ function solution() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/40 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 font-['Inter'] relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/40 dark:from-slate-900 dark:via-slate-800/90 dark:to-slate-900 font-['Inter'] relative overflow-hidden pb-10">
       {/* Premium animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Main gradient orbs */}
-        <div className="absolute -top-64 -right-64 w-128 h-128 bg-gradient-to-br from-blue-500/12 via-indigo-500/12 to-purple-500/12 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-64 -left-64 w-128 h-128 bg-gradient-to-br from-emerald-500/12 via-cyan-500/12 to-blue-500/12 rounded-full blur-3xl animate-pulse"></div>
+        {/* Enhanced gradient orbs with better animations */}
+        <div className="absolute -top-64 -right-64 w-128 h-128 bg-gradient-to-br from-blue-500/15 via-indigo-500/15 to-purple-500/15 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s' }}></div>
+        <div className="absolute -bottom-64 -left-64 w-128 h-128 bg-gradient-to-br from-emerald-500/15 via-cyan-500/15 to-blue-500/15 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '10s' }}></div>
         
-        {/* Secondary accent orbs */}
-        <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-gradient-to-br from-violet-400/8 to-purple-400/8 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-cyan-400/8 to-blue-400/8 rounded-full blur-3xl animate-pulse"></div>
+        {/* Enhanced secondary accent orbs */}
+        <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-gradient-to-br from-violet-400/10 to-purple-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '7s' }}></div>
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-cyan-400/10 to-blue-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '9s' }}></div>
         
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.02)_1px,transparent_1px)] bg-[size:64px_64px] dark:bg-[linear-gradient(rgba(199,210,254,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(199,210,254,0.015)_1px,transparent_1px)]"></div>
+        {/* Improved grid pattern overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:64px_64px] dark:bg-[linear-gradient(rgba(199,210,254,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(199,210,254,0.02)_1px,transparent_1px)]"></div>
       </div>
       <DebugAIPanel />
-      <nav className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200/60 dark:border-slate-700/60 px-6 py-4 sticky top-0 z-50 shadow-xl shadow-slate-200/40 dark:shadow-slate-900/40">
+      <nav className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200/60 dark:border-slate-700/60 px-6 py-4 sticky top-0 z-50 shadow-xl shadow-slate-200/40 dark:shadow-slate-900/40 transition-all duration-300">
         <div className="max-w-7xl mx-auto">
           {/* Main header row */}
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4">
               <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: 1.03, y: -1 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={() => {
                   console.log("Back button clicked, navigating to dashboard");
                   navigate("/dashboard", { replace: true });
                 }}
-                className="group flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-slate-100 to-slate-200 dark:from-slate-700/50 dark:to-slate-800/50 text-slate-700 dark:text-slate-200 hover:from-blue-100 hover:to-indigo-100 dark:hover:from-blue-800/40 dark:hover:to-indigo-800/40 rounded-xl transition-all duration-300 font-semibold shadow-lg shadow-slate-200/40 hover:shadow-xl hover:shadow-blue-300/30 border border-slate-300/50 dark:border-slate-600/50"
+                className="group flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-slate-100 to-slate-200 dark:from-slate-700/50 dark:to-slate-800/50 text-slate-700 dark:text-slate-200 hover:from-blue-100 hover:to-indigo-100 dark:hover:from-blue-800/40 dark:hover:to-indigo-800/40 rounded-xl transition-all duration-300 font-semibold shadow-lg shadow-slate-200/40 hover:shadow-xl hover:shadow-blue-300/30 border border-slate-300/50 dark:border-slate-600/50 hover:border-blue-300 dark:hover:border-blue-600/50"
                 title="Go to Dashboard"
               >
                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" />
@@ -653,10 +653,10 @@ function solution() {
               </motion.button>
               <Link
                 to="/dashboard"
-                className="flex items-center gap-3 text-slate-800 dark:text-slate-200 hover:text-purple-600 dark:hover:text-purple-400 transition-colors font-semibold"
+                className="flex items-center gap-3 text-slate-800 dark:text-slate-200 hover:text-purple-600 dark:hover:text-purple-400 transition-all duration-300 transform hover:scale-[1.02] font-semibold"
               >
-                <img src={logo} className="w-10 h-10" alt="CodeFusion" />
-                <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                <img src={logo} className="w-10 h-10 drop-shadow-lg" alt="CodeFusion" />
+                <span className="text-2xl font-extrabold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent drop-shadow">
                   CodeFusion
                 </span>
               </Link>
@@ -665,18 +665,19 @@ function solution() {
             {/* Problem title and difficulty - for medium+ screens */}
             {problem && (
               <div className="hidden md:flex items-center gap-4">
-                <h1 className="text-xl font-bold text-slate-800 dark:text-slate-200">
+                <h1 className="text-xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 dark:from-slate-200 dark:to-slate-400 bg-clip-text text-transparent transition-all duration-300">
                   {problem.title}
                 </h1>
                 <span
-                  className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                  className={`px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1.5 shadow-sm ${
                     problem.difficulty === "EASY"
-                      ? "bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800/50"
+                      ? "bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/40 dark:to-emerald-900/40 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800/70 shadow-green-200/20 dark:shadow-green-900/30"
                       : problem.difficulty === "MEDIUM"
-                      ? "bg-gradient-to-r from-yellow-100 to-amber-100 dark:from-yellow-900/30 dark:to-amber-900/30 text-yellow-700 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-800/50"
-                      : "bg-gradient-to-r from-red-100 to-rose-100 dark:from-red-900/30 dark:to-rose-900/30 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800/50"
+                      ? "bg-gradient-to-r from-yellow-100 to-amber-100 dark:from-yellow-900/40 dark:to-amber-900/40 text-yellow-700 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-800/70 shadow-amber-200/20 dark:shadow-amber-900/30"
+                      : "bg-gradient-to-r from-red-100 to-rose-100 dark:from-red-900/40 dark:to-rose-900/40 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800/70 shadow-red-200/20 dark:shadow-red-900/30"
                   }`}
                 >
+                  <span className="w-2 h-2 rounded-full ${problem.difficulty === "EASY" ? "bg-green-500" : problem.difficulty === "MEDIUM" ? "bg-yellow-500" : "bg-red-500"}"></span>
                   {problem.difficulty}
                 </span>
               </div>
@@ -686,14 +687,15 @@ function solution() {
             {problem && (
               <div className="md:hidden flex items-center">
                 <span
-                  className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                  className={`px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-sm ${
                     problem.difficulty === "EASY"
-                      ? "bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 border border-green-200"
+                      ? "bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/40 dark:to-emerald-900/40 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800/70 shadow-green-200/20 dark:shadow-green-900/30"
                       : problem.difficulty === "MEDIUM"
-                      ? "bg-gradient-to-r from-yellow-100 to-amber-100 text-yellow-700 border border-yellow-200"
-                      : "bg-gradient-to-r from-red-100 to-rose-100 text-red-700 border border-red-200"
+                      ? "bg-gradient-to-r from-yellow-100 to-amber-100 dark:from-yellow-900/40 dark:to-amber-900/40 text-yellow-700 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-800/70 shadow-amber-200/20 dark:shadow-amber-900/30"
+                      : "bg-gradient-to-r from-red-100 to-rose-100 dark:from-red-900/40 dark:to-rose-900/40 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800/70 shadow-red-200/20 dark:shadow-red-900/30"
                   }`}
                 >
+                  <span className={`w-2 h-2 rounded-full ${problem.difficulty === "EASY" ? "bg-green-500" : problem.difficulty === "MEDIUM" ? "bg-yellow-500" : "bg-red-500"}`}></span>
                   {problem.difficulty}
                 </span>
               </div>
@@ -703,7 +705,7 @@ function solution() {
           {/* Show problem title on small screens */}
           {problem && (
             <div className="md:hidden mt-2 mb-3">
-              <h1 className="text-xl font-bold text-slate-800 dark:text-slate-200">
+              <h1 className="text-xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 dark:from-slate-200 dark:to-slate-400 bg-clip-text text-transparent transition-all duration-300">
                 {problem.title}
               </h1>
             </div>
@@ -714,8 +716,8 @@ function solution() {
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               {/* Problem stats */}
               <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600 dark:text-slate-400">
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-800/80 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
-                  <Clock className="w-4 h-4 text-slate-500 dark:text-slate-400" />
+                <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-800/80 rounded-lg border border-slate-200 dark:border-slate-700 shadow-md transition-all duration-300 hover:shadow-lg hover:border-blue-200 dark:hover:border-blue-800/60">
+                  <Clock className="w-4 h-4 text-blue-500 dark:text-blue-400" />
                   <span>
                     Updated{" "}
                     {new Date(problem?.createdAt).toLocaleString("en-US", {
@@ -725,13 +727,13 @@ function solution() {
                     })}
                   </span>
                 </div>
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-800/80 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
-                  <Users className="w-4 h-4 text-slate-500 dark:text-slate-400" />
-                  <span>{submissionCount || 0} Submissions</span>
+                <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-800/80 rounded-lg border border-slate-200 dark:border-slate-700 shadow-md transition-all duration-300 hover:shadow-lg hover:border-purple-200 dark:hover:border-purple-800/60">
+                  <Users className="w-4 h-4 text-purple-500 dark:text-purple-400" />
+                  <span className="font-medium">{submissionCount || 0} Submissions</span>
                 </div>
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-800/80 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
-                  <ThumbsUp className="w-4 h-4 text-slate-500 dark:text-slate-400" />
-                  <span>
+                <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-800/80 rounded-lg border border-slate-200 dark:border-slate-700 shadow-md transition-all duration-300 hover:shadow-lg hover:border-emerald-200 dark:hover:border-emerald-800/60">
+                  <ThumbsUp className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
+                  <span className="font-medium">
                     {submissions && submissions.length > 0
                       ? `${successRate}% Success Rate`
                       : "No attempts yet"}
