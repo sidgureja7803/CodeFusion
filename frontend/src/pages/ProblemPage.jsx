@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useParams, Link, useLocation, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import Editor from "@monaco-editor/react";
 import {
   Play,

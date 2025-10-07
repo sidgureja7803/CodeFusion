@@ -173,6 +173,12 @@ export const Dashboard = () => {
     getProblems();
   }, [getProblems]);
   
+  // Calculate problem statistics first
+  const easyProblems = problems.filter(p => p.difficulty === 'EASY').length;
+  const mediumProblems = problems.filter(p => p.difficulty === 'MEDIUM').length;
+  const hardProblems = problems.filter(p => p.difficulty === 'HARD').length;
+  const totalProblems = problems.length;
+  
   // Calculate problem stats and user progress
   const completedCount = problems.filter(p => p.submissionStatus === 'ACCEPTED').length;
   const attemptedCount = problems.filter(p => p.submissions?.length > 0).length;
@@ -187,12 +193,6 @@ export const Dashboard = () => {
     // Refresh the problems list after deletion
     getProblems();
   };
-
-  // Calculate problem statistics
-  const easyProblems = problems.filter(p => p.difficulty === 'EASY').length;
-  const mediumProblems = problems.filter(p => p.difficulty === 'MEDIUM').length;
-  const hardProblems = problems.filter(p => p.difficulty === 'HARD').length;
-  const totalProblems = problems.length;
   
   // Create analytics data
   const analyticsData = [
