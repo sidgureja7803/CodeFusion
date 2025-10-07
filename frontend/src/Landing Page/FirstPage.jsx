@@ -100,7 +100,7 @@ export const FirstPage = () => {
         <div className="absolute bottom-40 right-[30%] w-[250px] h-[250px] bg-[#9333ea]/20 rounded-full blur-[100px] opacity-20"></div>
       </div>
 
-      <div className="container mx-auto max-w-7xl px-4 relative z-10 pt-20 lg:pt-24 h-screen flex flex-col items-center justify-center">
+      <div className="container mx-auto max-w-7xl px-4 relative z-10 pt-24 md:pt-28 lg:pt-32 h-screen flex flex-col items-center justify-center">
         {/* Floating Badges */}
         <motion.div 
           className="absolute top-24 right-10 md:right-28 hidden md:block"

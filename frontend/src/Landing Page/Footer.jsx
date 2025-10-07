@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 // eslint-disable-next-line no-unused-vars
 import { motion, useInView, useAnimation } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Github, Linkedin, Twitter, Instagram, Mail, MessageCircle, BookOpen, ArrowUpRight } from "lucide-react";
 
 export const Footer = () => {
@@ -142,18 +143,58 @@ export const Footer = () => {
             <div className="text-center md:text-left">
               <h3 className="text-white font-semibold mb-5 text-lg">Company</h3>
               <ul className="space-y-3">
-                {["About Us", "Careers", "Contact", "Privacy Policy"].map((item) => (
-                  <li key={item}>
-                    <motion.a
-                      href={`#${item.toLowerCase().replace(/\s/g, "-")}`}
-                      className="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm flex items-center gap-1 group"
+                <li>
+                  <motion.a
+                    href="#about"
+                    className="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm flex items-center gap-1 group"
+                    whileHover={{ color: "#ffffff" }}
+                  >
+                    About Us
+                    <ArrowUpRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
+                  </motion.a>
+                </li>
+                <li>
+                  <motion.a
+                    href="#careers"
+                    className="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm flex items-center gap-1 group"
+                    whileHover={{ color: "#ffffff" }}
+                  >
+                    Careers
+                    <ArrowUpRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
+                  </motion.a>
+                </li>
+                <li>
+                  <motion.a
+                    href="#contact"
+                    className="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm flex items-center gap-1 group"
+                    whileHover={{ color: "#ffffff" }}
+                  >
+                    Contact
+                    <ArrowUpRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
+                  </motion.a>
+                </li>
+                <li>
+                  <Link to="/privacy-policy">
+                    <motion.span
+                      className="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm flex items-center gap-1 group cursor-pointer"
                       whileHover={{ color: "#ffffff" }}
                     >
-                      {item}
+                      Privacy Policy
                       <ArrowUpRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
-                    </motion.a>
-                  </li>
-                ))}
+                    </motion.span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/terms-of-service">
+                    <motion.span
+                      className="text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 text-sm flex items-center gap-1 group cursor-pointer"
+                      whileHover={{ color: "#ffffff" }}
+                    >
+                      Terms of Service
+                      <ArrowUpRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
+                    </motion.span>
+                  </Link>
+                </li>
               </ul>
             </div>
 
@@ -219,9 +260,9 @@ export const Footer = () => {
             </div>
             
             <div className="flex items-center gap-2">
-              <a href="#privacy" className="text-sm text-gray-500 hover:text-gray-300 transition-colors duration-200">Privacy</a>
+              <Link to="/privacy-policy" className="text-sm text-gray-500 hover:text-gray-300 transition-colors duration-200">Privacy</Link>
               <span className="text-gray-700">•</span>
-              <a href="#terms" className="text-sm text-gray-500 hover:text-gray-300 transition-colors duration-200">Terms</a>
+              <Link to="/terms-of-service" className="text-sm text-gray-500 hover:text-gray-300 transition-colors duration-200">Terms</Link>
               <span className="text-gray-700">•</span>
               <a href="#cookies" className="text-sm text-gray-500 hover:text-gray-300 transition-colors duration-200">Cookies</a>
             </div>

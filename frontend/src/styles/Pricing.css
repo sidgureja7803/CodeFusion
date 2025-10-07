@@ -1,49 +1,138 @@
+/* Pricing Card Styles */
 .pricing-card {
-  height: 105%;
+  position: relative;
+  height: auto;
+  min-height: 100%;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.pricing-card:nth-child(2)::after {
+.pricing-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 1.5rem;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(147, 51, 234, 0.3));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
   opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
-.pricing-card:nth-child(2):hover::after {
-  opacity: 0;
-  filter: blur(10px);
-  transform: rotate(90deg) translateX(-50px);
+.pricing-card:hover::before {
+  opacity: 1;
 }
 
+.pricing-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(59, 130, 246, 0.2);
+}
+
+/* Popular Badge Styling */
 .badge {
   position: absolute;
-  width: 220px;
+  width: auto;
+  min-width: 180px;
   text-align: center;
-  top: 0px;
-  padding: 2px 0px;
-  font-size: 0.9em;
-  color: #e4e4e4b1;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 24px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #ffffff;
   background: linear-gradient(
-    90deg,
-    rgba(242, 255, 0, 0.15),
-    rgba(255, 222, 0, 0.25)
+    135deg,
+    rgba(59, 130, 246, 0.9),
+    rgba(147, 51, 234, 0.9)
   );
-  border: 2px solid rgba(141, 141, 141, 0.26);
-  border-left: 3px solid rgba(141, 141, 141, 0.16);
-  border-right: 3px solid rgba(141, 141, 141, 0.16);
-  box-shadow: inset 5px -5px 8px rgba(251, 255, 30, 0.6),
-    0 0 12px rgba(251, 255, 30, 0.3);
-  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
   transition: all 0.3s ease;
 }
 
-.card:nth-child(2):hover .badge {
-  box-shadow: inset 7px -7px 12px rgba(251, 255, 30, 0.6),
-    0 0 18px rgba(251, 255, 11, 0.44);
+.pricing-card:hover .badge {
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  transform: translateX(-50%) scale(1.05);
 }
 
+/* Feature List Styling */
+.pricing-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  transition: all 0.2s ease;
+}
+
+.pricing-feature-item:hover {
+  transform: translateX(4px);
+}
+
+/* Price Animation */
+.pricing-amount {
+  transition: all 0.3s ease;
+}
+
+.pricing-card:hover .pricing-amount {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #60a5fa, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Button Styles */
+.pricing-cta-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.pricing-cta-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.pricing-cta-button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   .pricing-card {
-    height: 100%;
+    height: auto;
+    margin-bottom: 2rem;
   }
+  
+  .pricing-card:hover {
+    transform: translateY(-4px) scale(1.01);
+  }
+  
   .badge {
-    width: 150px;
+    min-width: 140px;
+    padding: 6px 16px;
+    font-size: 0.75rem;
+  }
+}
+
+/* Dark mode enhancements */
+@media (prefers-color-scheme: dark) {
+  .pricing-card {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%);
   }
 }

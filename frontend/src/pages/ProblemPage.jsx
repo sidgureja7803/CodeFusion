@@ -655,7 +655,7 @@ function solution() {
                 to="/dashboard"
                 className="flex items-center gap-3 text-slate-800 dark:text-slate-200 hover:text-purple-600 dark:hover:text-purple-400 transition-all duration-300 transform hover:scale-[1.02] font-semibold"
               >
-                <img src={logo} className="w-10 h-10 drop-shadow-lg" alt="CodeFusion" />
+                {/* <img src={logo} className="w-10 h-10 drop-shadow-lg" alt="CodeFusion" /> */}
                 <span className="text-2xl font-extrabold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent drop-shadow">
                   CodeFusion
                 </span>
@@ -757,7 +757,7 @@ function solution() {
                     className="w-5 h-5 brightness-125"
                     alt=""
                   />
-                  <span>AI Assistant</span>
+                  <span>Fusion AI</span>
                 </button>
 
                 {/* Collaboration toggle button */}

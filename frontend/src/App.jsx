@@ -27,6 +27,8 @@ import DSASheets from "./pages/DSASheets";
 import DSASheetDetail from "./pages/DSASheetDetail";
 import { useThemeStore } from "./store/useThemeStore";
 import TestAuth from "./pages/TestAuth";
+import { PrivacyPolicy } from "./pages/PrivacyPolicy";
+import { TermsOfService } from "./pages/TermsOfService";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
@@ -221,6 +223,9 @@ function AppRoutes() {
         </Route>
         {/* Debug route for testing authentication */}
         <Route path="/test-auth" element={<TestAuth />} />
+        {/* Legal pages */}
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>

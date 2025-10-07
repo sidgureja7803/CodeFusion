@@ -197,7 +197,7 @@ const AIChatPanel = ({ problem, code, language, onClose }) => {
             <motion.img
               src={aiorb}
               className="w-10 h-10 rounded-full shadow-lg"
-              alt="Alfred AI"
+              alt="Fusion AI"
               variants={orbVariants}
               animate={getOrbAnimation()}
               transition={{
@@ -223,7 +223,7 @@ const AIChatPanel = ({ problem, code, language, onClose }) => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
           >
-            <span>Alfred AI</span>
+            <span>Fusion AI</span>
             <Sparkles size={14} className="text-indigo-300" />
           </motion.span>
         </motion.div>
@@ -361,7 +361,7 @@ const AIChatPanel = ({ problem, code, language, onClose }) => {
                         <div className="w-4 h-4 rounded-full bg-gradient-to-r from-indigo-400 to-purple-500 mr-2 flex items-center justify-center shadow-sm">
                           <Bot className="w-2.5 h-2.5 text-white" />
                         </div>
-                        <span className="text-xs font-medium text-slate-500">Alfred</span>
+                        <span className="text-xs font-medium text-slate-500">Fusion AI</span>
                       </motion.div>
                     )}
                     {message.role === "user" && (
@@ -413,7 +413,7 @@ const AIChatPanel = ({ problem, code, language, onClose }) => {
                 type="text"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                placeholder="Ask Alfred a question..."
+                placeholder="Ask Fusion AI a question..."
                 disabled={isLoading}
                 className="w-full pr-20"
                 onKeyDown={(e) => {

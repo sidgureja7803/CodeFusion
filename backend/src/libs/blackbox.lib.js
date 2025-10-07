@@ -3,23 +3,20 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// Get API key from environment variables - try multiple options with fallbacks
-const apiKey = process.env.AIMLAPI_GPT5 || process.env.OPENAI_API_KEY || process.env.NOVITA_API_KEY;
+// Get API key from environment variables - using AIMLAPI_GPT5 exclusively
+const apiKey = process.env.AIMLAPI_GPT5;
 
 // Check if API key is available at startup
 if (!apiKey) {
-  console.error("⚠️ WARNING: No API key found in environment variables");
-  console.error("Please set AIMLAPI_GPT5, OPENAI_API_KEY or NOVITA_API_KEY");
+  console.error("⚠️ WARNING: AIMLAPI_GPT5 is not configured in environment variables");
 } else {
-  const keySource = process.env.AIMLAPI_GPT5 ? "AIMLAPI_GPT5" : 
-                   process.env.OPENAI_API_KEY ? "OPENAI_API_KEY" : "NOVITA_API_KEY";
-  console.log(`🔑 Using API key from ${keySource}`);
+  console.log(`🔑 Using API key from AIMLAPI_GPT5`);
 }
 
-// OpenAI API configuration
+// API configuration using AIMLAPI
 const openai = new OpenAI({
   apiKey: apiKey,
-  // Use default OpenAI endpoint
+  baseURL: 'https://api.aimlapi.com/v1',
 });
 
 /**
@@ -70,7 +67,7 @@ ${
         { role: "system", content: systemPrompt },
         { role: "user", content: userPrompt },
       ],
-      model: "gpt-3.5-turbo", // Use GPT-3.5 Turbo as default model
+      model: "openai/gpt-5-2025-08-07", // Use AIMLAPI's GPT-5 model
       stream: false,
       temperature: 0.5, // Balanced between creativity and accuracy
       max_tokens: 1024, // Reasonable response length
@@ -121,7 +118,7 @@ export const explainCode = async (code, language) => {
           content: `Explain this ${language} code step by step:\n\`\`\`${language.toLowerCase()}\n${code}\n\`\`\``,
         },
       ],
-      model: "gpt-3.5-turbo",
+      model: "openai/gpt-5-2025-08-07", // Use AIMLAPI's GPT-5 model
       stream: false,
       temperature: 0.3, // More factual for explanations
       max_tokens: 1024,
@@ -229,7 +226,7 @@ export const generateProblem = async (options) => {
           `,
         },
       ],
-      model: "gpt-3.5-turbo",
+      model: "openai/gpt-5-2025-08-07", // Use AIMLAPI's GPT-5 model
       stream: false,
       temperature: 0.7,
       max_tokens: 3000,
