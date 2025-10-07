@@ -1,0 +1,98 @@
+/* LeetCode-inspired Theme Variables */
+
+:root {
+  /* Light Theme (Default) */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f7f9fa;
+  --card-bg: #ffffff;
+  --navbar-bg: #ffffff;
+  --text-primary: #262626;
+  --text-secondary: #595959;
+  --text-tertiary: #8c8c8c;
+  --border-color: #e8e8e8;
+  --button-primary-bg: #1a90ff;
+  --button-primary-text: #ffffff;
+  --button-primary-border: #1a90ff;
+  --button-primary-hover-bg: #0070cc;
+  --button-secondary-bg: #ffffff;
+  --button-secondary-text: #595959;
+  --button-secondary-border: #d9d9d9;
+  --button-secondary-hover-bg: #f5f5f5;
+  --difficulty-easy: #00af9b;
+  --difficulty-medium: #ffb800;
+  --difficulty-hard: #ff2d55;
+  --tag-bg: #f2f7ff;
+  --tag-text: #3c8cff;
+  --tag-border: #d4e6ff;
+  --pfp-text: #262626;
+  --pfp-gradient: rgba(255, 255, 255, 0.1);
+  --table-header-bg: #f7f9fa;
+  --table-row-hover: #f5f5f5;
+  --scrollbar-track: #f1f1f1;
+  --scrollbar-thumb: #c1c1c1;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --bg-primary: #121212;
+  --bg-secondary: #1a1a1a;
+  --card-bg: #1a1a1a;
+  --navbar-bg: #1a1a1a;
+  --text-primary: #e6e6e6;
+  --text-secondary: #b3b3b3;
+  --text-tertiary: #808080;
+  --border-color: #333333;
+  --button-primary-bg: #1a90ff;
+  --button-primary-text: #ffffff;
+  --button-primary-border: #1a90ff;
+  --button-primary-hover-bg: #0070cc;
+  --button-secondary-bg: #2c2c2c;
+  --button-secondary-text: #e6e6e6;
+  --button-secondary-border: #404040;
+  --button-secondary-hover-bg: #383838;
+  --difficulty-easy: #00af9b;
+  --difficulty-medium: #ffb800;
+  --difficulty-hard: #ff2d55;
+  --tag-bg: #2c3e50;
+  --tag-text: #5cbbff;
+  --tag-border: #3c5473;
+  --pfp-text: #e6e6e6;
+  --pfp-gradient: rgba(255, 255, 255, 0.05);
+  --table-header-bg: #1a1a1a;
+  --table-row-hover: #2c2c2c;
+  --scrollbar-track: #1a1a1a;
+  --scrollbar-thumb: #444444;
+}
+
+/* Transitions for theme switching */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Leetcode-style fonts */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+}
+
+/* LeetCode-style scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}

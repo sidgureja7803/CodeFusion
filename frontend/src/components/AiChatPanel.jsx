@@ -14,8 +14,7 @@ import {
 } from "lucide-react";
 import { useAIAssistantStore } from "../store/useAIAssistantStore";
 import ReactMarkdown from "react-markdown";
-import { AnimatePresence } from "framer-motion";
-// The motion import is used indirectly via JSX components like motion.div
+import { motion, AnimatePresence } from "framer-motion";
 import aiorb from "../assets/images/ai-orb2.webp";
 import "../styles/AIChatPanel.css";
 // Using CSS-based AI icon instead of batman image

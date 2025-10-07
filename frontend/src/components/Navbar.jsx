@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Code2, LogOut, User, Settings } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
+import { useThemeStore } from "../store/useThemeStore";
+import ThemeToggle from "./ThemeToggle";
 import gsap from "gsap";
 
 export const Navbar = () => {
@@ -96,6 +98,9 @@ export const Navbar = () => {
 
           {/* User Menu */}
           <div className="flex items-center space-x-4">
+            {/* Theme Toggle */}
+            <ThemeToggle />
+            
             {user && (
               <>
                 {/* User Info */}

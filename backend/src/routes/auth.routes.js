@@ -1,6 +1,7 @@
 import express from "express";
 import { register, login, logout, me, updateProfile, refreshToken } from "../controllers/auth.controller.js";
-import { authMiddleware } from "../middleware/auth.middleware.compatible.js";
+import { authMiddleware } from "../middleware/auth.middleware.js";
+import { verifyEmail, resendVerificationOTP } from "../services/otpService.js";
 
 const authRoutes = express.Router();
 
@@ -17,6 +18,8 @@ authRoutes.get("/me", authMiddleware, me);
 
 authRoutes.put("/profile", authMiddleware, updateProfile);
 
-// OTP verification routes removed
+// OTP verification routes
+authRoutes.post("/verify-email", verifyEmail);
+authRoutes.post("/resend-otp", resendVerificationOTP);
 
 export default authRoutes;

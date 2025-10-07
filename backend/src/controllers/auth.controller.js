@@ -4,6 +4,7 @@ import { Role } from "../generated/prisma/index.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { getCookieConfig } from "../middleware/cors.middleware.js";
+import { generateOTP, sendVerificationEmail } from "../services/otpService.js";
 dotenv.config();
 
 export const register = async (req, res) => {
@@ -61,7 +62,6 @@ export const register = async (req, res) => {
     console.log("👤 Creating user...");
     
     // Explicitly define the fields we want to create to avoid schema mismatch issues
-    // Don't include emailVerified field that might be causing problems
     console.log("Creating user with explicit fields...");
     
     const newUser = await db.user.create({
@@ -71,7 +71,8 @@ export const register = async (req, res) => {
         password: hashedPassword,
         role: Role.USER,
         streakCount: 0,
-        maxStreakCount: 0
+        maxStreakCount: 0,
+        emailVerified: false // Explicitly set emailVerified to false
       },
       // Select only fields we know exist in the database
       select: {
@@ -81,11 +82,24 @@ export const register = async (req, res) => {
         role: true,
         streakCount: true,
         maxStreakCount: true,
+        emailVerified: true,
         createdAt: true
       }
     });
     
     console.log("✅ User created with ID:", newUser.id);
+    
+    // Generate and send OTP for email verification
+    console.log("📧 Generating OTP for email verification...");
+    const otp = generateOTP(email);
+    const emailSent = await sendVerificationEmail(email, name, otp);
+    
+    if (emailSent) {
+      console.log("✅ Verification email sent successfully");
+    } else {
+      console.log("⚠️ Failed to send verification email, but continuing registration");
+    }
+    
     console.log("🎉 Registration successful!");
     
     // Generate JWT token for immediate login after signup
@@ -107,13 +121,15 @@ export const register = async (req, res) => {
     
     return res.status(201).json({
       success: true,
-      message: "User registered successfully.",
+      message: "User registered successfully. Please check your email for verification code.",
       user: {
         id: newUser.id,
         name: newUser.name,
         email: newUser.email,
         role: newUser.role,
+        emailVerified: newUser.emailVerified
       },
+      requiresVerification: true
     });
 
   } catch (error) {
@@ -200,7 +216,16 @@ export const login = async (req, res) => {
       });
     }
 
-    // No email verification check needed - all users can log in directly
+    // Check if email is verified
+    if (!user.emailVerified) {
+      console.log("⚠️ Email not verified for user:", user.email);
+      return res.status(403).json({
+        success: false,
+        message: "Email not verified. Please verify your email before logging in.",
+        code: "EMAIL_NOT_VERIFIED",
+        email: user.email
+      });
+    }
 
     console.log("✅ Email verified, generating token...");
     // Generate JWT token
