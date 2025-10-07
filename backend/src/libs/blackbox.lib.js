@@ -3,14 +3,17 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// Get API key from environment variables - using AIMLAPI_GPT5 exclusively
-const apiKey = process.env.AIMLAPI_GPT5;
+// Get API key from environment variables - try multiple options with fallbacks
+const apiKey = process.env.AIMLAPI_GPT5 || process.env.OPENAI_API_KEY || process.env.NOVITA_API_KEY;
 
 // Check if API key is available at startup
 if (!apiKey) {
-  console.error("⚠️ WARNING: AIMLAPI_GPT5 is not configured in environment variables");
+  console.error("⚠️ WARNING: No API key found in environment variables");
+  console.error("Please set AIMLAPI_GPT5, OPENAI_API_KEY or NOVITA_API_KEY");
 } else {
-  console.log(`🔑 Using API key from AIMLAPI_GPT5`);
+  const keySource = process.env.AIMLAPI_GPT5 ? "AIMLAPI_GPT5" : 
+                   process.env.OPENAI_API_KEY ? "OPENAI_API_KEY" : "NOVITA_API_KEY";
+  console.log(`🔑 Using API key from ${keySource}`);
 }
 
 // OpenAI API configuration

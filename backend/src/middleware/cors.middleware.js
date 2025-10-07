@@ -116,6 +116,12 @@ export const getCookieConfig = (isProduction = process.env.NODE_ENV === 'product
     path: '/'
   };
   
+  // In development mode, make cookies work with localhost
+  if (!isProduction) {
+    // Remove secure requirement for local development
+    config.secure = false;
+  }
+  
   // Log cookie config for debugging
   console.log(`🍪 Cookie config: ${JSON.stringify(config)}`);
   

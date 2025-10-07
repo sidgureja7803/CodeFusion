@@ -1,8 +1,6 @@
 import React from 'react';
 
-const FirebaseDebugPanel = () => {
-  // This component has been removed as requested
-  return null;
-};
+// Completely removed component as requested
+const FirebaseDebugPanel = () => null;
 
 export default FirebaseDebugPanel;
