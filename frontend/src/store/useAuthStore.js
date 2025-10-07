@@ -228,6 +228,14 @@ export const useAuthStore = create((set) => ({
       set({ authUser: response.data.user });
     } catch (error) {
       console.error("Error logging in:", error);
+      
+      // Check if it's an email verification error and throw with proper data
+      if (error.response?.data?.code === "EMAIL_NOT_VERIFIED") {
+        // Preserve the error response data for the component to handle
+        const enhancedError = new Error(error.response.data.message);
+        enhancedError.response = error.response;
+        throw enhancedError;
+      }
 
       // Handle specific login errors with appropriate toast notifications
       let errorMessage = "Login failed. Please try again.";

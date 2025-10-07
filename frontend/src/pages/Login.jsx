@@ -75,7 +75,24 @@ export const Login = () => {
       toast.success("Welcome back to CodeFusion!");
       navigate("/dashboard");
     } catch (error) {
-      toast.error(error.message || "Login failed. Please try again.");
+      // Check if it's an email verification error
+      if (error.response?.data?.code === "EMAIL_NOT_VERIFIED") {
+        const email = error.response?.data?.email || formData.email;
+        const otpSent = error.response?.data?.otpSent;
+        
+        if (otpSent) {
+          toast.success("New verification code sent! Redirecting...");
+        } else {
+          toast.error("Email not verified. Redirecting to verification page...");
+        }
+        
+        // Redirect to verification page with email and flag
+        setTimeout(() => {
+          navigate("/verify-email", { state: { email, fromLogin: true } });
+        }, 1500);
+      } else {
+        toast.error(error.response?.data?.message || error.message || "Login failed. Please try again.");
+      }
     } finally {
       setIsLoading(false);
     }

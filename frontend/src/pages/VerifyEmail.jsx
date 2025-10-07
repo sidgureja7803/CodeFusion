@@ -162,11 +162,18 @@ export const VerifyEmail = () => {
               Verify Your Email
             </h1>
             <p className="text-slate-600 dark:text-slate-400 text-sm">
-              We've sent a verification code to
+              {location.state?.fromLogin 
+                ? "A new verification code has been sent to"
+                : "We've sent a verification code to"}
             </p>
             <p className="text-blue-600 dark:text-blue-400 font-medium text-sm mt-1">
               {email}
             </p>
+            {location.state?.fromLogin && (
+              <p className="text-amber-600 dark:text-amber-400 text-xs mt-2 max-w-sm mx-auto">
+                ⚠️ Your email wasn't verified during signup. Please verify to access your account.
+              </p>
+            )}
           </div>
 
           {/* Verification Form */}

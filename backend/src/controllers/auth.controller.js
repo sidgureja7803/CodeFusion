@@ -216,14 +216,28 @@ export const login = async (req, res) => {
       });
     }
 
-    // Check if email is verified
+    // Check if email is verified - if not, send a new OTP
     if (!user.emailVerified) {
       console.log("⚠️ Email not verified for user:", user.email);
+      
+      // Generate and send a new OTP
+      console.log("📧 Generating new OTP for unverified user...");
+      const otp = generateOTP(user.email);
+      const emailSent = await sendVerificationEmail(user.email, user.name, otp);
+      
+      if (emailSent) {
+        console.log("✅ New verification email sent successfully");
+      } else {
+        console.log("⚠️ Failed to send verification email, but continuing with response");
+      }
+      
       return res.status(403).json({
         success: false,
-        message: "Email not verified. Please verify your email before logging in.",
+        message: "Email not verified. We've sent a new verification code to your email.",
         code: "EMAIL_NOT_VERIFIED",
-        email: user.email
+        email: user.email,
+        requiresVerification: true,
+        otpSent: emailSent
       });
     }
 
