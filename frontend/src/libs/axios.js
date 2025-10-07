@@ -20,7 +20,7 @@ export const API_URL = (() => {
     
     // If we can't determine it, use a reasonable default
     console.warn('⚠️ No API URL configured, using default production URL');
-    return 'https://api.codefusion.app'; // Default production fallback
+    return 'https://code-fuison.live'; // Default production fallback
   } else {
     // Development mode - use localhost
     return "http://localhost:3000/api/v1";
