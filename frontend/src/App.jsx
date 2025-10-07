@@ -29,6 +29,7 @@ import { useThemeStore } from "./store/useThemeStore";
 import TestAuth from "./pages/TestAuth";
 import { PrivacyPolicy } from "./pages/PrivacyPolicy";
 import { TermsOfService } from "./pages/TermsOfService";
+import { VerifyEmail } from "./pages/VerifyEmail";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
@@ -147,6 +148,7 @@ function AppRoutes() {
             )
           }
         />
+        <Route path="/verify-email" element={<VerifyEmail />} />
         <Route
           path="/dashboard"
           element={

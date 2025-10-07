@@ -128,12 +128,36 @@ export const useAuthStore = create((set) => ({
       
       const response = await axiosInstance.post("/auth/register", data);
       console.log("Sign up response:", response.data);
+      
+      // Check if email verification is required
+      if (response.data.requiresVerification) {
+        console.log("📧 Email verification required");
+        Toast.success(
+          "Account created! Please check your email for verification code.",
+          "Verification Required",
+          5000
+        );
+        
+        // Return the response so the component can handle navigation
+        return {
+          requiresVerification: true,
+          email: data.email,
+          user: response.data.user
+        };
+      }
+      
+      // If no verification required, set the user
       set({ authUser: response.data.user });
       Toast.success(
         "Account created successfully!",
         "Welcome to CodeFusion!",
         4000
       );
+      
+      return {
+        requiresVerification: false,
+        user: response.data.user
+      };
     } catch (error) {
       console.error("Error signing up:", error);
 
