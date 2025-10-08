@@ -48,14 +48,35 @@ export const sendVerificationEmail = async (email, name, otp) => {
     
     // Check for environment variables
     if (process.env.EMAIL_HOST && process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+      const port = parseInt(process.env.EMAIL_PORT || '587');
+      const secure = process.env.EMAIL_SECURE === 'true';
+      
+      console.log("📧 Email config:", {
+        host: process.env.EMAIL_HOST,
+        port: port,
+        secure: secure,
+        user: process.env.EMAIL_USER.substring(0, 5) + "***"
+      });
+      
       transportConfig = {
         host: process.env.EMAIL_HOST,
-        port: parseInt(process.env.EMAIL_PORT || '587'),
-        secure: process.env.EMAIL_SECURE === 'true',
+        port: port,
+        secure: secure, // true for 465, false for other ports
+        requireTLS: !secure, // Use STARTTLS for non-secure ports
         auth: {
           user: process.env.EMAIL_USER,
           pass: process.env.EMAIL_PASS,
         },
+        tls: {
+          // Don't fail on invalid certs (for development)
+          rejectUnauthorized: false,
+          // Explicitly specify TLS version
+          minVersion: 'TLSv1.2',
+        },
+        // Increase timeout for slow connections
+        connectionTimeout: 10000,
+        greetingTimeout: 10000,
+        socketTimeout: 10000,
       };
     } else {
       // Use Ethereal for development if no email config

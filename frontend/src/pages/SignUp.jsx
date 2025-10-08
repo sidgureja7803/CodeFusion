@@ -166,7 +166,13 @@ export const SignUp = () => {
       // Check if email verification is required
       if (response?.requiresVerification) {
         toast.success("Account created! Please check your email for verification code.");
-        navigate("/verify-email", { state: { email: formData.email.trim() } });
+        // Pass both email and password to the verification page for auto-login after verification
+        navigate("/verify-email", { 
+          state: { 
+            email: formData.email.trim(),
+            password: formData.password // Pass password for auto-login
+          } 
+        });
       } else {
         toast.success("Welcome to CodeFusion! Let's start coding together!");
         navigate("/dashboard");

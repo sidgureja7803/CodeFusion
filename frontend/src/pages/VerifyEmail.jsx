@@ -102,14 +102,36 @@ export const VerifyEmail = () => {
     setIsLoading(true);
 
     try {
-      const response = await axiosInstance.post("/auth/verify-email", {
+      // Step 1: Verify the email
+      const verifyResponse = await axiosInstance.post("/auth/verify-email", {
         email,
         otp: otpCode,
       });
 
-      if (response.data.success) {
-        toast.success("Email verified successfully! You can now log in.");
-        navigate("/login");
+      if (verifyResponse.data.success) {
+        toast.success("Email verified successfully!");
+        
+        try {
+          // Step 2: Auto login the user
+          const loginResponse = await axiosInstance.post("/auth/login", {
+            email,
+            password: location.state?.password, // Use password if available from registration
+          });
+          
+          if (loginResponse.data.success) {
+            toast.success(`Welcome to CodeFusion, ${loginResponse.data.user?.name || 'User'}!`);
+            navigate("/dashboard"); // Go directly to dashboard
+          } else {
+            // If auto-login fails but verification succeeded
+            toast.success("Email verified! Please log in with your credentials.");
+            navigate("/login");
+          }
+        } catch (loginError) {
+          // If auto-login fails but verification succeeded
+          console.log("Auto-login failed after verification:", loginError);
+          toast.success("Email verified! Please log in with your credentials.");
+          navigate("/login");
+        }
       }
     } catch (error) {
       console.error("Verification error:", error);
