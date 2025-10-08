@@ -86,9 +86,15 @@ export const Login = () => {
           toast.error("Email not verified. Redirecting to verification page...");
         }
         
-        // Redirect to verification page with email and flag
+        // Redirect to verification page with email, password and flag
         setTimeout(() => {
-          navigate("/verify-email", { state: { email, fromLogin: true } });
+          navigate("/verify-email", { 
+            state: { 
+              email, 
+              password: formData.password, // Pass password for auto-login after verification
+              fromLogin: true 
+            } 
+          });
         }, 1500);
       } else {
         toast.error(error.response?.data?.message || error.message || "Login failed. Please try again.");
