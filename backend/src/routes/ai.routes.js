@@ -4,7 +4,7 @@ import {
   getCodeExplanation,
   generateAIProblem,
 } from "../controllers/ai.controller.js";
-import { authMiddleware } from "../middleware/auth.middleware.compatible.js";
+import { authMiddleware } from "../middleware/auth.middleware.js";
 
 const aiAssistantRoutes = express.Router();
 
