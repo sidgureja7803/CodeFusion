@@ -246,17 +246,41 @@ export const verifyEmail = async (req, res) => {
     }
     
     // Update user as verified
-    await db.user.update({
+    const updatedUser = await db.user.update({
       where: { email: emailLower },
-      data: { emailVerified: true }
+      data: { 
+        emailVerified: true,
+        lastLogin: new Date() // Update last login time
+      }
     });
     
     // Remove OTP from store
     otpStore.delete(emailLower);
     
+    // Generate JWT token for automatic login
+    const jwt = require('jsonwebtoken');
+    const { getCookieConfig } = require('../middleware/cors.middleware.js');
+    
+    const token = jwt.sign(
+      { id: updatedUser.id, email: updatedUser.email, role: updatedUser.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+    
+    // Set cookie with JWT token
+    res.cookie("jwt", token, getCookieConfig());
+    
     return res.status(200).json({
       success: true,
-      message: 'Email verified successfully'
+      message: 'Email verified successfully',
+      token: token,
+      user: {
+        id: updatedUser.id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        role: updatedUser.role,
+        emailVerified: true
+      }
     });
     
   } catch (error) {

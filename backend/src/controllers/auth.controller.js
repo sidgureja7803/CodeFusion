@@ -189,6 +189,7 @@ export const login = async (req, res) => {
         name: true,
         password: true,
         role: true,
+        emailVerified: true, // Make sure we select emailVerified field
         lastLogin: true,
         streakCount: true,
         maxStreakCount: true

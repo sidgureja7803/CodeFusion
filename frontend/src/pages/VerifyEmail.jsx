@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Mail, CheckCircle, ArrowRight, RotateCw, Code2 } from "lucide-react";
+import { Mail, CheckCircle, ArrowRight, RotateCw, AlertTriangle } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { axiosInstance } from "../libs/axios";
+import { useAuthStore } from "../store/useAuthStore";
 import gsap from "gsap";
+import "../styles/VerifyEmail.css"; // Import the dedicated CSS file
 
 export const VerifyEmail = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
@@ -16,24 +18,44 @@ export const VerifyEmail = () => {
   const pageRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const email = location.state?.email || "";
+  const [emailAddress, setEmailAddress] = useState(location.state?.email || localStorage.getItem('pendingVerificationEmail') || "");
+  
+  // Get auth store functions
+  const { authUser, setAuthUser } = useAuthStore(state => ({
+    authUser: state.authUser,
+    setAuthUser: (user) => state.set({ authUser: user })
+  }));
 
+  // Handle direct access to verify-email page
   useEffect(() => {
-    if (!email) {
-      toast.error("No email provided. Please sign up first.");
-      navigate("/sign-up");
+    // If no email in state, show form to enter email manually
+    if (!emailAddress) {
+      // Check if there's an email in localStorage as fallback
+      const savedEmail = localStorage.getItem('pendingVerificationEmail');
+      
+      if (savedEmail) {
+        // Use email from localStorage
+        console.log("Using email from localStorage:", savedEmail);
+        setEmailAddress(savedEmail);
+      } else {
+        // Redirect to signup if no email available
+        toast.error("No email provided. Please sign up first.");
+        navigate("/sign-up");
+      }
+    } else {
+      // Save email to localStorage for potential page refresh
+      localStorage.setItem('pendingVerificationEmail', emailAddress);
     }
-  }, [email, navigate]);
+  }, [emailAddress, navigate]);
 
+  // Simple fade-in animation without GSAP
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(".verify-form",
-        { opacity: 0, y: 40, scale: 0.9 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.8, delay: 0.2, ease: "power2.out" }
-      );
-    }, pageRef);
-
-    return () => ctx.revert();
+    // No GSAP animations to avoid errors
+    const formElement = document.querySelector('.verify-form');
+    if (formElement) {
+      formElement.style.opacity = "1";
+      formElement.style.transform = "translateY(0)";
+    }
   }, []);
 
   useEffect(() => {
@@ -102,34 +124,43 @@ export const VerifyEmail = () => {
     setIsLoading(true);
 
     try {
-      // Step 1: Verify the email
+      // Verify the email - the backend now handles login automatically
       const verifyResponse = await axiosInstance.post("/auth/verify-email", {
-        email,
+        email: emailAddress,
         otp: otpCode,
       });
 
       if (verifyResponse.data.success) {
-        toast.success("Email verified successfully!");
+        // The backend now returns token and user data directly
+        const { token, user } = verifyResponse.data;
         
-        try {
-          // Step 2: Auto login the user
-          const loginResponse = await axiosInstance.post("/auth/login", {
-            email,
-            password: location.state?.password, // Use password if available from registration
+        if (user) {
+          // Update auth store with user data
+          setAuthUser(user);
+          
+          // Store token in auth store if cookies aren't working
+          useAuthStore.setState({ 
+            authToken: token,
+            tokenExpiry: Date.now() + (7 * 24 * 60 * 60 * 1000) // 7 days
           });
           
-          if (loginResponse.data.success) {
-            toast.success(`Welcome to CodeFusion, ${loginResponse.data.user?.name || 'User'}!`);
-            navigate("/dashboard"); // Go directly to dashboard
-          } else {
-            // If auto-login fails but verification succeeded
-            toast.success("Email verified! Please log in with your credentials.");
-            navigate("/login");
-          }
-        } catch (loginError) {
-          // If auto-login fails but verification succeeded
-          console.log("Auto-login failed after verification:", loginError);
-          toast.success("Email verified! Please log in with your credentials.");
+          // Set Authorization header for future requests
+          axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+          
+          // Show a success message with the user's name
+          toast.success(`✅ Email verified successfully! Welcome to CodeFusion, ${user.name || 'User'}!`, {
+            duration: 5000,
+            icon: '🎉'
+          });
+          
+          // Add a small delay for better UX - let the user see the success message
+          setTimeout(() => {
+            // Navigate to dashboard
+            navigate("/dashboard");
+          }, 1500);
+        } else {
+          // Fallback if no user data returned
+          toast.success("✅ Email verified successfully! You can now log in.");
           navigate("/login");
         }
       }
@@ -148,7 +179,7 @@ export const VerifyEmail = () => {
     setIsResending(true);
 
     try {
-      const response = await axiosInstance.post("/auth/resend-otp", { email });
+      const response = await axiosInstance.post("/auth/resend-otp", { email: emailAddress });
 
       if (response.data.success) {
         toast.success("New verification code sent to your email!");
@@ -167,61 +198,72 @@ export const VerifyEmail = () => {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900" ref={pageRef}>
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDYwIDAgTCAwIDAgMCA2MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDEwMCwgMTAwLCAxMDAsIDAuMDUpIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30"></div>
-
-      {/* Content */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-8">
-        <div className="verify-form w-full max-w-md">
-          {/* Logo and Header */}
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl mb-4">
-              <Mail className="w-8 h-8 text-white" />
+    <div className="verify-email-container" ref={pageRef}>
+      <div className="verify-form">
+        {/* Card */}
+        <div className="verify-card">
+          {/* Header */}
+          <div className="verify-header">
+            <div className="verify-icon">
+              <Mail size={24} />
             </div>
-
-            <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-2">
-              Verify Your Email
-            </h1>
-            <p className="text-slate-600 dark:text-slate-400 text-sm">
-              {location.state?.fromLogin 
-                ? "A new verification code has been sent to"
-                : "We've sent a verification code to"}
-            </p>
-            <p className="text-blue-600 dark:text-blue-400 font-medium text-sm mt-1">
-              {email}
-            </p>
-            {location.state?.fromLogin && (
-              <p className="text-amber-600 dark:text-amber-400 text-xs mt-2 max-w-sm mx-auto">
-                ⚠️ Your email wasn't verified during signup. Please verify to access your account.
-              </p>
+            <h1 className="verify-title">Verify Your Email</h1>
+            
+            {emailAddress ? (
+              <>
+                <p className="verify-subtitle">
+                  {location.state?.fromLogin 
+                    ? "A new verification code has been sent to"
+                    : "We've sent a verification code to"}
+                </p>
+                <p className="verify-email">{emailAddress}</p>
+                
+                {location.state?.fromLogin && (
+                  <div className="verify-warning">
+                    <AlertTriangle size={16} />
+                    <span>Your email wasn't verified during signup. Please verify to access your account.</span>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="email-input-container">
+                <p className="verify-subtitle">Enter your email to receive a verification code</p>
+                <input
+                  type="email"
+                  value={emailAddress}
+                  onChange={(e) => setEmailAddress(e.target.value)}
+                  placeholder="your.email@example.com"
+                  className="email-input"
+                />
+                <button 
+                  className="send-code-button"
+                  onClick={handleResend}
+                  disabled={!emailAddress || isResending}
+                >
+                  {isResending ? "Sending..." : "Send Code"}
+                </button>
+              </div>
             )}
           </div>
 
-          {/* Verification Form */}
-          <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-lg rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-8">
+          {/* Form - Only show when email is provided */}
+          {emailAddress && (
             <form onSubmit={handleSubmit}>
-              {/* OTP Input */}
-              <div className="mb-8">
-                <label className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-4 block text-center">
-                  Enter 6-digit code
-                </label>
-                <div className="flex gap-2 justify-center" onPaste={handlePaste}>
-                  {otp.map((digit, index) => (
-                    <input
-                      key={index}
-                      ref={(el) => (inputRefs.current[index] = el)}
-                      type="text"
-                      inputMode="numeric"
-                      maxLength="1"
-                      value={digit}
-                      onChange={(e) => handleChange(index, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(index, e)}
-                      className="w-12 h-14 text-center text-xl font-bold bg-slate-50 dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-lg text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                      disabled={isLoading}
-                    />
-                  ))}
-                </div>
+              <div className="otp-input-container">
+                {otp.map((digit, index) => (
+                  <input
+                    key={index}
+                    ref={(el) => (inputRefs.current[index] = el)}
+                    type="text"
+                    inputMode="numeric"
+                    maxLength="1"
+                    value={digit}
+                    onChange={(e) => handleChange(index, e.target.value)}
+                    onKeyDown={(e) => handleKeyDown(index, e)}
+                    className="otp-input"
+                    disabled={isLoading}
+                  />
+                ))}
               </div>
 
               {/* Submit Button */}
@@ -230,7 +272,7 @@ export const VerifyEmail = () => {
                 disabled={isLoading || otp.join("").length !== 6}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+                className="verify-button"
               >
                 {isLoading ? (
                   <>
@@ -245,42 +287,42 @@ export const VerifyEmail = () => {
                 )}
               </motion.button>
             </form>
+          )}
 
-            {/* Resend Code */}
-            <div className="mt-6 text-center">
+          {/* Resend Code - Only show when email is provided */}
+          {emailAddress && (
+            <div className="resend-container">
               {canResend ? (
                 <button
                   onClick={handleResend}
                   disabled={isResending}
-                  className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium text-sm transition-colors disabled:opacity-50"
+                  className="resend-button"
                 >
                   {isResending ? "Sending..." : "Resend verification code"}
                 </button>
               ) : (
-                <p className="text-slate-500 dark:text-slate-400 text-sm">
+                <p className="resend-timer">
                   Resend code in {timer}s
                 </p>
               )}
             </div>
+          )}
 
-            {/* Help Text */}
-            <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-              <p className="text-xs text-blue-800 dark:text-blue-300 text-center">
-                💡 Check your spam folder if you don't see the email. The code expires in 10 minutes.
-              </p>
-            </div>
-          </div>
-
-          {/* Back to Login */}
-          <div className="mt-6 text-center">
-            <button
-              onClick={() => navigate("/sign-up")}
-              className="text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 text-sm transition-colors"
-            >
-              ← Back to Sign Up
-            </button>
+          {/* Help Text */}
+          <div className="help-box">
+            <p className="help-text">
+              💡 Check your spam folder if you don't see the email. The code expires in 10 minutes.
+            </p>
           </div>
         </div>
+
+        {/* Back to Login */}
+        <button
+          onClick={() => navigate("/sign-up")}
+          className="back-button"
+        >
+          ← Back to Sign Up
+        </button>
       </div>
     </div>
   );

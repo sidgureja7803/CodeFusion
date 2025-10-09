@@ -1,5 +1,5 @@
-import OpenAI from "openai";
 import dotenv from "dotenv";
+import fetch from "node-fetch"; // Using node-fetch for compatibility
 
 dotenv.config();
 
@@ -10,14 +10,8 @@ const apiKey = process.env.AIMLAPI_GPT5;
 if (!apiKey) {
   console.error("⚠️ WARNING: AIMLAPI_GPT5 is not configured in environment variables");
 } else {
-  console.log(`🔑 Using API key from AIMLAPI_GPT5`);
+  console.log(`🔑 Using API key from AIMLAPI_GPT5: ${apiKey.substring(0, 5)}...`);
 }
-
-// API configuration using AIMLAPI
-const openai = new OpenAI({
-  apiKey: apiKey,
-  baseURL: 'https://api.aimlapi.com/v1',
-});
 
 /**
  * Generate an AI response for code assistance
@@ -50,31 +44,40 @@ Current problem: ${problem?.title || "Unknown problem"}
 Difficulty: ${problem?.difficulty || "Unknown"}
 Language: ${language || "JavaScript"}`;
 
-    // Create a detailed user prompt
-    const userPrompt = `
-${prompt}
+    // Create a detailed user prompt with context
+    const fullPrompt = `${systemPrompt}\n\n${prompt}\n\n${
+      userCode
+        ? `Here's my current code:\n\`\`\`${language?.toLowerCase() || 'javascript'}\n${userCode}\n\`\`\``
+        : ""
+    }`;
 
-${
-  userCode
-    ? `Here's my current code:\n\`\`\`${language.toLowerCase()}\n${userCode}\n\`\`\``
-    : ""
-}
-`;
-
-    console.log("Making API call to OpenAI...");
-    const completion = await openai.chat.completions.create({
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: userPrompt },
-      ],
-      model: "openai/gpt-5-2025-08-07", // Use AIMLAPI's GPT-5 model
-      stream: false,
-      temperature: 0.5, // Balanced between creativity and accuracy
-      max_tokens: 1024, // Reasonable response length
+    console.log("Making API call to AIMLAPI...");
+    
+    // Use fetch API with the correct AIMLAPI endpoint
+    const response = await fetch('https://api.aimlapi.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'openai/gpt-5-2025-08-07',
+        messages: [
+          { role: 'user', content: fullPrompt }
+        ]
+      }),
     });
 
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`API request failed with status ${response.status}: ${errorText}`);
+    }
+
+    const data = await response.json();
     console.log("API call successful");
-    return completion.choices[0].message.content;
+    
+    // Extract the response text from the AIMLAPI response format
+    return data.choices[0].message.content;
   } catch (error) {
     console.error("Error generating AI response:", error.message);
     console.error("Full error:", error);
@@ -105,27 +108,41 @@ export const explainCode = async (code, language) => {
       throw new Error("AIMLAPI_GPT5 is not configured in environment variables");
     }
 
-    console.log("Making API call to OpenAI for code explanation...");
-    const completion = await openai.chat.completions.create({
-      messages: [
-        {
-          role: "system",
-          content:
-            "You are an expert programming tutor. Explain code clearly and concisely using markdown formatting.",
-        },
-        {
-          role: "user",
-          content: `Explain this ${language} code step by step:\n\`\`\`${language.toLowerCase()}\n${code}\n\`\`\``,
-        },
-      ],
-      model: "openai/gpt-5-2025-08-07", // Use AIMLAPI's GPT-5 model
-      stream: false,
-      temperature: 0.3, // More factual for explanations
-      max_tokens: 1024,
+    // Create a prompt for code explanation
+    const prompt = `You are an expert programming tutor. Explain this ${language} code step by step:
+\`\`\`${language?.toLowerCase() || 'javascript'}
+${code}
+\`\`\`
+
+Please provide a clear and concise explanation using markdown formatting.`;
+
+    console.log("Making API call to AIMLAPI for code explanation...");
+    
+    // Use fetch API with the correct AIMLAPI endpoint
+    const response = await fetch('https://api.aimlapi.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'openai/gpt-5-2025-08-07',
+        messages: [
+          { role: 'user', content: prompt }
+        ]
+      }),
     });
 
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`API request failed with status ${response.status}: ${errorText}`);
+    }
+
+    const data = await response.json();
     console.log("Code explanation API call successful");
-    return completion.choices[0].message.content;
+    
+    // Extract the response text from the AIMLAPI response format
+    return data.choices[0].message.content;
   } catch (error) {
     console.error("Error explaining code:", error.message);
     console.error("Full error:", error);
@@ -159,83 +176,86 @@ export const generateProblem = async (options) => {
       throw new Error("AIMLAPI_GPT5 is not configured in environment variables");
     }
 
-    console.log("Making API call to OpenAI for problem generation...");
-    const completion = await openai.chat.completions.create({
-      messages: [
-        {
-          role: "system",
-          content:
-            "You are an expert competitive programming problem designer. Create complete problems with clear descriptions, constraints, examples, and solutions.",
-        },
-        {
-          role: "user",
-          content: `
-            Create a complete competitive programming problem about ${topic} with the following specifications:
+    // Create a prompt for problem generation
+    const prompt = `You are an expert competitive programming problem designer. Create a complete competitive programming problem about ${topic} with the following specifications:
             
-            Difficulty: ${difficulty || "EASY"}
-            Category/Tags: ${category || ""}
-            ${
-              additionalRequirements
-                ? `Additional requirements: ${additionalRequirements}`
-                : ""
-            }
+Difficulty: ${difficulty || "EASY"}
+Category/Tags: ${category || ""}
+${additionalRequirements ? `Additional requirements: ${additionalRequirements}` : ""}
             
-            The problem should include:
-            1. A clear, concise title
-            2. A detailed description explaining the problem
-            3. Input/output specifications and constraints
-            4. Example test cases with explanations
-            5. At least 3 test cases with input and expected output
-            6. Helpful hints for solving the problem (optional)
-            7. An editorial explaining the solution approach
+The problem should include:
+1. A clear, concise title
+2. A detailed description explaining the problem
+3. Input/output specifications and constraints
+4. Example test cases with explanations
+5. At least 3 test cases with input and expected output
+6. Helpful hints for solving the problem (optional)
+7. An editorial explaining the solution approach
             
-            For each supported language (JavaScript, Python, and Java):
-            - Provide starter code templates with appropriate function signatures
-            - Include complete reference solutions that pass all test cases
-            - Include example inputs and outputs formatted for that language
+For each supported language (JavaScript, Python, and Java):
+- Provide starter code templates with appropriate function signatures
+- Include complete reference solutions that pass all test cases
+- Include example inputs and outputs formatted for that language
             
-            Return the result as a valid JSON object with the structure:
-            {
-              "title": "Problem Title",
-              "description": "Detailed problem description",
-              "difficulty": "EASY/MEDIUM/HARD",
-              "tags": ["tag1", "tag2"],
-              "constraints": "Input constraints description",
-              "hints": "Helpful hints",
-              "editorial": "Solution approach explanation",
-              "testcases": [
-                { "input": "test input 1", "output": "expected output 1" },
-                { "input": "test input 2", "output": "expected output 2" }
-              ],
-              "examples": {
-                "JAVASCRIPT": { "input": "js input format", "output": "js output", "explanation": "explanation" },
-                "PYTHON": { "input": "python input format", "output": "python output", "explanation": "explanation" },
-                "JAVA": { "input": "java input format", "output": "java output", "explanation": "explanation" }
-              },
-              "codeSnippets": {
-                "JAVASCRIPT": "// JS starter code",
-                "PYTHON": "# Python starter code",
-                "JAVA": "// Java starter code"
-              },
-              "referenceSolutions": {
-                "JAVASCRIPT": "// JS solution",
-                "PYTHON": "# Python solution",
-                "JAVA": "// Java solution"
-              }
-            }
-          `,
-        },
-      ],
-      model: "openai/gpt-5-2025-08-07", // Use AIMLAPI's GPT-5 model
-      stream: false,
-      temperature: 0.7,
-      max_tokens: 3000,
+Return the result as a valid JSON object with the structure:
+{
+  "title": "Problem Title",
+  "description": "Detailed problem description",
+  "difficulty": "EASY/MEDIUM/HARD",
+  "tags": ["tag1", "tag2"],
+  "constraints": "Input constraints description",
+  "hints": "Helpful hints",
+  "editorial": "Solution approach explanation",
+  "testcases": [
+    { "input": "test input 1", "output": "expected output 1" },
+    { "input": "test input 2", "output": "expected output 2" }
+  ],
+  "examples": {
+    "JAVASCRIPT": { "input": "js input format", "output": "js output", "explanation": "explanation" },
+    "PYTHON": { "input": "python input format", "output": "python output", "explanation": "explanation" },
+    "JAVA": { "input": "java input format", "output": "java output", "explanation": "explanation" }
+  },
+  "codeSnippets": {
+    "JAVASCRIPT": "// JS starter code",
+    "PYTHON": "# Python starter code",
+    "JAVA": "// Java starter code"
+  },
+  "referenceSolutions": {
+    "JAVASCRIPT": "// JS solution",
+    "PYTHON": "# Python solution",
+    "JAVA": "// Java solution"
+  }
+}`;
+
+    console.log("Making API call to AIMLAPI for problem generation...");
+    
+    // Use fetch API with the correct AIMLAPI endpoint
+    const response = await fetch('https://api.aimlapi.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'openai/gpt-5-2025-08-07',
+        messages: [
+          { role: 'user', content: prompt }
+        ]
+      }),
     });
 
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`API request failed with status ${response.status}: ${errorText}`);
+    }
+
+    const data = await response.json();
+    console.log("Problem generation API call successful");
+    
     // Parse and validate the response
     let problemData;
     try {
-      const content = completion.choices[0].message.content;
+      const content = data.choices[0].message.content;
       // Extract JSON from response (in case it's wrapped in markdown code blocks)
       const jsonMatch = content.match(/```json\s*([\s\S]*?)\s*```/) || 
                         content.match(/```\s*([\s\S]*?)\s*```/) || 

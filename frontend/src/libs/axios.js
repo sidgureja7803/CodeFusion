@@ -23,6 +23,7 @@ export const API_URL = (() => {
     return 'https://code-fuison.live'; // Default production fallback
   } else {
     // Development mode - use localhost
+    // Make sure port matches the backend port (3000)
     return "http://localhost:3000/api/v1";
   }
 })();

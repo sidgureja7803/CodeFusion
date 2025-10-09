@@ -239,20 +239,16 @@ const AIChatPanel = ({ problem, code, language, onClose }) => {
               {isExpanded ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
             </motion.button>
           )}
-          <motion.button
-            onClick={() => {
-              if (onClose) {
-                onClose();
-              } else {
-                setMinimized(!minimized);
-              }
-            }}
-            className="text-white/70 hover:text-white hover:bg-white/10 p-1.5 rounded transition-colors"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {minimized ? <Maximize2 size={16} /> : <X size={16} />}
-          </motion.button>
+          {onClose && (
+            <motion.button
+              onClick={onClose}
+              className="text-white/70 hover:text-white hover:bg-white/10 p-1.5 rounded transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <X size={16} />
+            </motion.button>
+          )}
         </div>
       </motion.div>
 
