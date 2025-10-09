@@ -1,50 +1,98 @@
-import { PrismaClient } from "../generated/prisma/index.js";
+import pkg from '@prisma/client';
+const { PrismaClient } = pkg;
+import dotenv from "dotenv";
 
-const globalForPrisma = globalThis;
+dotenv.config();
 
-export const db = globalForPrisma.prisma || new PrismaClient({
-  log: ['query', 'info', 'warn', 'error'],
-});
-
-if (process.env.NODE_ENV !== "production") {
-  globalForPrisma.prisma = db;
+// Check if DATABASE_URL is defined
+if (!process.env.DATABASE_URL) {
+  console.error("❌ DATABASE_URL is not defined in environment variables");
+  console.error("Please check your .env file and make sure DATABASE_URL is properly set");
 }
 
-// Test database connection
-export const connectDatabase = async () => {
+// Create a new Prisma client instance
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: process.env.DATABASE_URL || "postgresql://postgres:postgres@localhost:5432/postgres",
+    },
+  },
+  // Add error logging
+  log: [
+    {
+      emit: "event",
+      level: "query",
+    },
+    {
+      emit: "stdout",
+      level: "error",
+    },
+    {
+      emit: "stdout",
+      level: "info",
+    },
+    {
+      emit: "stdout",
+      level: "warn",
+    },
+  ],
+});
+
+// Log database connection issues
+prisma.$on("error", (e) => {
+  console.error("❌ Prisma Error:", e);
+});
+
+// Connect to the database with retry logic
+export const connectDatabase = async (retries = 5, delay = 5000) => {
   try {
-    await db.$connect();
-    console.log("🗄️  Database connected successfully!");
-    console.log("📊 Database URL:", process.env.DATABASE_URL?.replace(/:[^:@]*@/, ':****@')); // Hide password
+    console.log("🔄 Connecting to database...");
     
-    // Test a simple query to ensure everything works
-    const userCount = await db.user.count();
-    console.log(`👥 Total users in database: ${userCount}`);
+    // Attempt to connect to the database
+    await prisma.$connect();
     
+    console.log("✅ Database connected successfully");
     return true;
   } catch (error) {
-    console.error("❌ Database connection failed:");
-    console.error(error.message);
+    console.error(`❌ Database connection failed: ${error.message}`);
     
-    // Additional error handling for common PostgreSQL connection issues
-    if (error.message.includes('ECONNREFUSED')) {
-      console.error("💡 Tip: Make sure your PostgreSQL server is running");
-    } else if (error.message.includes('password authentication failed')) {
-      console.error("💡 Tip: Check your PostgreSQL username and password");
-    } else if (error.message.includes('database does not exist')) {
-      console.error("💡 Tip: Create the database first using 'createdb' or pgAdmin");
+    // Check if we should retry
+    if (retries > 0) {
+      console.log(`⏳ Retrying in ${delay / 1000} seconds... (${retries} attempts left)`);
+      
+      // Wait for the specified delay
+      await new Promise((resolve) => setTimeout(resolve, delay));
+      
+      // Retry connection
+      return connectDatabase(retries - 1, delay);
+    } else {
+      console.error("❌ Maximum retry attempts reached. Could not connect to database.");
+      
+      // Log database URL for debugging (with password redacted)
+      const dbUrlForLogging = process.env.DATABASE_URL 
+        ? process.env.DATABASE_URL.replace(/\/\/[^:]+:[^@]+@/, "//[REDACTED]:[REDACTED]@")
+        : "undefined";
+      
+      console.error(`Database URL: ${dbUrlForLogging}`);
+      
+      // Return false to indicate connection failure
+      return false;
     }
-    
+  }
+};
+
+// Disconnect from the database
+export const disconnectDatabase = async () => {
+  try {
+    await prisma.$disconnect();
+    console.log("✅ Database disconnected successfully");
+    return true;
+  } catch (error) {
+    console.error(`❌ Database disconnection failed: ${error.message}`);
     return false;
   }
 };
 
-// Graceful shutdown
-export const disconnectDatabase = async () => {
-  try {
-    await db.$disconnect();
-    console.log("🔌 Database disconnected successfully!");
-  } catch (error) {
-    console.error("❌ Error disconnecting from database:", error.message);
-  }
-};
+// Export the Prisma client instance
+export default prisma;
+export { prisma as db };

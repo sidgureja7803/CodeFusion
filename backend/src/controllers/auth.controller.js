@@ -1,10 +1,15 @@
 import bcrypt from "bcryptjs";
 import { db } from "../libs/db.js";
-import { Role } from "../generated/prisma/index.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { getCookieConfig } from "../middleware/cors.middleware.js";
 import { generateOTP, sendVerificationEmail } from "../services/otpService.js";
+
+// Define Role enum to match the schema
+const Role = {
+  ADMIN: "ADMIN",
+  USER: "USER"
+};
 dotenv.config();
 
 export const register = async (req, res) => {
