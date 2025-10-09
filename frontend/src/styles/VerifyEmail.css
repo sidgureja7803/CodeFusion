@@ -20,6 +20,11 @@
   transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth transition */
 }
 
+.verify-form.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .verify-card {
   background-color: var(--card-bg, #ffffff);
   border-radius: 12px;

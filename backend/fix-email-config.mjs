@@ -1,7 +1,16 @@
 // Fix email configuration script
-const fs = require('fs');
-const path = require('path');
-require('dotenv').config();
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import dotenv from 'dotenv';
+import nodemailer from 'nodemailer';
+
+// Get directory name in ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+dotenv.config();
 
 async function fixEmailConfig() {
   console.log('🔧 Fixing email configuration...');
@@ -53,7 +62,6 @@ async function fixEmailConfig() {
     
     // Create Ethereal account as fallback
     console.log('\n🔄 Creating Ethereal test account as fallback...');
-    const nodemailer = require('nodemailer');
     const testAccount = await nodemailer.createTestAccount();
     
     console.log('✅ Ethereal test account created:');

@@ -1,14 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
 import { Mail, CheckCircle, ArrowRight, RotateCw, AlertTriangle } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { axiosInstance } from "../libs/axios";
 import { useAuthStore } from "../store/useAuthStore";
-import gsap from "gsap";
+import ErrorBoundary from "../components/ErrorBoundary";
 import "../styles/VerifyEmail.css"; // Import the dedicated CSS file
 
+// Wrap component with ErrorBoundary
 export const VerifyEmail = () => {
+  return (
+    <ErrorBoundary>
+      <VerifyEmailContent />
+    </ErrorBoundary>
+  );
+};
+
+// Main component content
+const VerifyEmailContent = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [isLoading, setIsLoading] = useState(false);
   const [isResending, setIsResending] = useState(false);
@@ -48,14 +57,17 @@ export const VerifyEmail = () => {
     }
   }, [emailAddress, navigate]);
 
-  // Simple fade-in animation without GSAP
+  // Simple fade-in animation with CSS only
   useEffect(() => {
-    // No GSAP animations to avoid errors
-    const formElement = document.querySelector('.verify-form');
-    if (formElement) {
-      formElement.style.opacity = "1";
-      formElement.style.transform = "translateY(0)";
-    }
+    // Use a timeout to ensure the component is mounted
+    const timer = setTimeout(() => {
+      const formElement = document.querySelector('.verify-form');
+      if (formElement) {
+        formElement.classList.add('visible');
+      }
+    }, 100);
+    
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -267,11 +279,9 @@ export const VerifyEmail = () => {
               </div>
 
               {/* Submit Button */}
-              <motion.button
+              <button
                 type="submit"
                 disabled={isLoading || otp.join("").length !== 6}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
                 className="verify-button"
               >
                 {isLoading ? (
@@ -285,7 +295,7 @@ export const VerifyEmail = () => {
                     Verify Email
                   </>
                 )}
-              </motion.button>
+              </button>
             </form>
           )}
 

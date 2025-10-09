@@ -1,5 +1,5 @@
+import fetch from "node-fetch";
 import dotenv from "dotenv";
-import fetch from "node-fetch"; // Using node-fetch for compatibility
 
 dotenv.config();
 
@@ -8,7 +8,8 @@ const apiKey = process.env.AIMLAPI_GPT5;
 
 // Check if API key is available at startup
 if (!apiKey) {
-  console.error("⚠️ WARNING: AIMLAPI_GPT5 is not configured in environment variables");
+  console.warn("⚠️ WARNING: AIMLAPI_GPT5 is not configured in environment variables");
+  console.log("ℹ️ AI features will not be available");
 } else {
   console.log(`🔑 Using API key from AIMLAPI_GPT5: ${apiKey.substring(0, 5)}...`);
 }
