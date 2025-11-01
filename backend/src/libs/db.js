@@ -1,5 +1,4 @@
-import pkg from '@prisma/client';
-const { PrismaClient } = pkg;
+import { PrismaClient } from '../../src/generated/prisma/index.js';
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -11,32 +10,40 @@ if (!process.env.DATABASE_URL) {
 }
 
 // Create a new Prisma client instance
-const prisma = new PrismaClient({
-  datasources: {
-    db: {
-      url: process.env.DATABASE_URL || "postgresql://postgres:postgres@localhost:5432/postgres",
+let prisma;
+
+try {
+  prisma = new PrismaClient({
+    datasources: {
+      db: {
+        url: process.env.DATABASE_URL || "postgresql://postgres:postgres@localhost:5432/postgres",
+      },
     },
-  },
-  // Add error logging
-  log: [
-    {
-      emit: "event",
-      level: "query",
-    },
-    {
-      emit: "stdout",
-      level: "error",
-    },
-    {
-      emit: "stdout",
-      level: "info",
-    },
-    {
-      emit: "stdout",
-      level: "warn",
-    },
-  ],
-});
+    // Add error logging
+    log: [
+      {
+        emit: "event",
+        level: "query",
+      },
+      {
+        emit: "stdout",
+        level: "error",
+      },
+      {
+        emit: "stdout",
+        level: "info",
+      },
+      {
+        emit: "stdout",
+        level: "warn",
+      },
+    ],
+  });
+  console.log("✅ Prisma client initialized successfully");
+} catch (error) {
+  console.error("❌ Failed to initialize Prisma client:", error);
+  process.exit(1);
+}
 
 // Log database connection issues
 prisma.$on("error", (e) => {
@@ -95,4 +102,4 @@ export const disconnectDatabase = async () => {
 
 // Export the Prisma client instance
 export default prisma;
-export { prisma as db };
+export const db = prisma;
