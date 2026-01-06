@@ -3,8 +3,8 @@ import { axiosInstance } from "../libs/axios";
 import { Toast } from "../store/useToastStore";
 import { Loader } from "./Loader";
 import "../styles/AIProblemGeneratorModal.css";
-import aiOrb from "../assets/images/ai-orb.webp";
 import { motion, AnimatePresence } from "framer-motion";
+import { Sparkles } from "lucide-react";
 
 const AIProblemGeneratorModal = ({ isOpen, onClose, onProblemGenerated }) => {
   const [topic, setTopic] = useState("");
@@ -101,7 +101,9 @@ const AIProblemGeneratorModal = ({ isOpen, onClose, onProblemGenerated }) => {
 
             <div className="flex justify-between items-center mb-2">
               <h2 className="text-xl flex items-center gap-2 neue-med">
-                <img className="w-14" src={aiOrb} alt="" />
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white shadow-lg">
+                  <Sparkles size={20} />
+                </div>
                 AI Problem Generator
               </h2>
 

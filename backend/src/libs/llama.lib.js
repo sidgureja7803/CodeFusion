@@ -58,13 +58,30 @@ ${
 }
 `;
 
-    // Combine system and user prompts for Gemini
-    const fullPrompt = `${systemPrompt}\n\n${userPrompt}`;
-
     console.log(`Making API call to Gemini using model: ${model}...`);
     
-    const geminiModel = genAI.getGenerativeModel({ model: model });
-    const result = await geminiModel.generateContent(fullPrompt);
+    // Initialize Gemini model with proper configuration
+    const geminiModel = genAI.getGenerativeModel({ 
+      model: model,
+      // Gemini models have "thinking" enabled by default
+      // This allows the model to reason before responding
+    });
+    
+    // Generate content with system instruction and user prompt
+    const result = await geminiModel.generateContent({
+      contents: [
+        {
+          role: "user",
+          parts: [{ text: `${systemPrompt}\n\n${userPrompt}` }]
+        }
+      ],
+      generationConfig: {
+        temperature: 0.7,
+        maxOutputTokens: 1024,
+        // thinkingConfig: { thinkingBudget: 0 } // Uncomment to disable thinking
+      }
+    });
+    
     const response = await result.response;
     const text = response.text();
 
@@ -100,17 +117,34 @@ export const explainCode = async (code, language) => {
       throw new Error("No Gemini API key configured - check GEMINI_API_KEY environment variable");
     }
 
-    const prompt = `You are an expert programming tutor. Explain code clearly and concisely using markdown formatting.
+    console.log(`Making API call to Gemini for code explanation using model: ${model}...`);
+    
+    // Initialize Gemini model with proper configuration
+    const geminiModel = genAI.getGenerativeModel({ 
+      model: model,
+    });
+    
+    // Generate content with proper structure
+    const result = await geminiModel.generateContent({
+      contents: [
+        {
+          role: "user",
+          parts: [{ 
+            text: `You are an expert programming tutor. Explain code clearly and concisely using markdown formatting.
 
 Explain this ${language} code step by step:
 \`\`\`${language?.toLowerCase() || 'javascript'}
 ${code}
-\`\`\``;
-
-    console.log(`Making API call to Gemini for code explanation using model: ${model}...`);
+\`\`\`` 
+          }]
+        }
+      ],
+      generationConfig: {
+        temperature: 0.5,
+        maxOutputTokens: 1024,
+      }
+    });
     
-    const geminiModel = genAI.getGenerativeModel({ model: model });
-    const result = await geminiModel.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
 
@@ -431,17 +465,25 @@ public class Main {
     Double check that all solutions output exactly the expected format for each test case.`;
 
     const systemMessage = "You are an AI that generates LeetCode-style DSA problems. Return your response strictly as JSON with keys. Do not include markdown, explanations, or comments. Only output valid JSON.";
-    const fullPrompt = `${systemMessage}\n\n${prompt}`;
 
     const geminiModel = genAI.getGenerativeModel({ 
       model: model,
+    });
+    
+    const result = await geminiModel.generateContent({
+      contents: [
+        {
+          role: "user",
+          parts: [{ text: `${systemMessage}\n\n${prompt}` }]
+        }
+      ],
       generationConfig: {
         temperature: 0.7,
         maxOutputTokens: 4000,
+        // responseMimeType: "application/json" // Uncomment for JSON mode if supported
       }
     });
     
-    const result = await geminiModel.generateContent(fullPrompt);
     const completion = {
       choices: [
         {

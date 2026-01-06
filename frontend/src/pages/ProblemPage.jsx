@@ -22,7 +22,6 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import logo from "../assets/images/logo2.png";
-import aiorb from "../assets/images/ai-orb2.webp";
 import Switch from "../components/Switch.jsx";
 import Toolbar from "../components/Toolbar";
 
@@ -752,11 +751,9 @@ function solution() {
                   }`}
                   onClick={() => setShowAiChat(!showAiChat)}
                 >
-                  <img
-                    src={aiorb}
-                    className="w-5 h-5 brightness-125"
-                    alt=""
-                  />
+                  <div className="w-5 h-5 flex items-center justify-center text-sm">
+                    🤖
+                  </div>
                   <span>Fusion AI</span>
                 </button>
 

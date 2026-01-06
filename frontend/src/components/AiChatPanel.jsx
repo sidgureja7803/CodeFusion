@@ -15,9 +15,7 @@ import {
 import { useAIAssistantStore } from "../store/useAIAssistantStore";
 import ReactMarkdown from "react-markdown";
 import { motion, AnimatePresence } from "framer-motion";
-import aiorb from "../assets/images/ai-orb2.webp";
 import "../styles/AIChatPanel.css";
-// Using CSS-based AI icon instead of batman image
 
 const AIChatPanel = ({ problem, code, language, onClose }) => {
   const [prompt, setPrompt] = useState("");
@@ -194,10 +192,8 @@ const AIChatPanel = ({ problem, code, language, onClose }) => {
           <motion.div
             className="relative"
           >
-            <motion.img
-              src={aiorb}
-              className="w-10 h-10 rounded-full shadow-lg"
-              alt="Fusion AI"
+            <motion.div
+              className="w-10 h-10 rounded-full shadow-lg bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white text-xl"
               variants={orbVariants}
               animate={getOrbAnimation()}
               transition={{
@@ -205,7 +201,9 @@ const AIChatPanel = ({ problem, code, language, onClose }) => {
                 repeat: isLoading ? Infinity : 0,
                 ease: "easeInOut",
               }}
-            />
+            >
+              🤖
+            </motion.div>
             {isLoading && (
               <motion.div 
                 className="absolute -top-1 -right-1 bg-indigo-600 rounded-full p-1 shadow-lg"

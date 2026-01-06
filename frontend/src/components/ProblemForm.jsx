@@ -22,9 +22,6 @@ import {
   Download,
 } from "lucide-react";
 import "../styles/ProblemForm.css";
-import aiBat from "../assets/images/ai-bat.png";
-import aiorb from "../assets/images/ai-orb.webp";
-import aiorb2 from "../assets/images/ai-orb2.webp";
 
 const problemSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters"),
@@ -799,11 +796,9 @@ const ProblemForm = ({ isEditing = false, problemData = null }) => {
               className=" relative ai-btn"
               onClick={() => setIsAIModalOpen(true)}
             >
-              <img
-                className="w-12 absolute left-0 brightness-125 ai-logo"
-                src={aiorb}
-                alt=""
-              />
+              <div className="w-12 h-12 absolute left-0 flex items-center justify-center text-3xl ai-logo">
+                🤖
+              </div>
               <span className="ml-8">AI [Experimental]</span>
             </button> */}
           </div>
