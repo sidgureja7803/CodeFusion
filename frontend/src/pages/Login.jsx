@@ -105,18 +105,18 @@ export const Login = () => {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900" ref={pageRef}>
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-orange-50 via-white to-yellow-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900" ref={pageRef}>
       {/* Background Pattern */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDYwIDAgTCAwIDAgMCA2MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDEwMCwgMTAwLCAxMDAsIDAuMDUpIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30"></div>
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDYwIDAgTCAwIDAgMCA2MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwgMTYwLCAwLCAwLjA1KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-40"></div>
       
       {/* Floating Elements */}
-      <div className="floating-code absolute top-20 left-16 text-purple-400/10 dark:text-purple-400/20 text-2xl font-mono">
+      <div className="floating-code absolute top-20 left-16 text-orange-400/15 dark:text-orange-400/20 text-2xl font-mono">
         {"</>"}
       </div>
-      <div className="floating-code absolute top-32 right-20 text-blue-400/10 dark:text-blue-400/20 text-xl font-mono">
+      <div className="floating-code absolute top-32 right-20 text-yellow-400/15 dark:text-yellow-400/20 text-xl font-mono">
         {"{}"}
       </div>
-      <div className="floating-code absolute bottom-32 left-20 text-emerald-400/10 dark:text-emerald-400/20 text-lg font-mono">
+      <div className="floating-code absolute bottom-32 left-20 text-orange-500/15 dark:text-orange-400/20 text-lg font-mono">
         {"()"}
       </div>
 
@@ -131,18 +131,18 @@ export const Login = () => {
           {/* Logo and Header */}
           <div className="text-center mb-8">
             <motion.div
-              className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl mb-4"
-              whileHover={{ scale: 1.05 }}
+              className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-2xl mb-4 shadow-lg"
+              whileHover={{ scale: 1.05, rotate: 5 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <Code2 className="w-6 h-6 text-white" />
+              <Code2 className="w-7 h-7 text-white" />
             </motion.div>
             
-            <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-2">
-              Welcome Back
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-slate-200 mb-2">
+              Welcome Back! 👋
             </h1>
-            <p className="text-slate-600 dark:text-slate-400 text-sm">
-              Sign in to continue your coding journey with CodeFusion
+            <p className="text-gray-600 dark:text-slate-400">
+              Continue your coding journey
             </p>
           </div>
 
@@ -163,7 +163,7 @@ export const Login = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-800 dark:text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                    className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-800 dark:text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                     placeholder="Enter your email"
                     required
                   />
@@ -180,7 +180,7 @@ export const Login = () => {
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
-                    className="w-full pl-10 pr-12 py-2.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-800 dark:text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                    className="w-full pl-10 pr-12 py-2.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-800 dark:text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
                     placeholder="Enter your password"
                     required
                   />
@@ -198,7 +198,7 @@ export const Login = () => {
               <div className="text-right">
                 <Link
                   to="/forgot-password"
-                  className="text-sm text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors"
+                  className="text-sm text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 font-semibold transition-colors"
                 >
                   Forgot password?
                 </Link>
@@ -208,7 +208,7 @@ export const Login = () => {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-2.5 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                className="w-full py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-bold hover:from-orange-600 hover:to-orange-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
               >
                 {isLoading ? (
                   <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -224,13 +224,13 @@ export const Login = () => {
 
           {/* Sign Up Link */}
           <div className="text-center mt-6">
-            <p className="text-slate-600 dark:text-slate-400 text-sm">
+            <p className="text-slate-600 dark:text-slate-400">
               Don't have an account?{" "}
               <Link
                 to="/sign-up"
-                className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-semibold transition-colors"
+                className="text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 font-bold transition-colors"
               >
-                Sign up for free
+                Sign up for free →
               </Link>
             </p>
           </div>

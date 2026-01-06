@@ -3,15 +3,15 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// Get API key from environment variables - using AIMLAPI_GPT5 exclusively
-const apiKey = process.env.AIMLAPI_GPT5;
+// Get API key from environment variables - using Perplexity API
+const apiKey = process.env.PERPLEXITY_API_KEY;
 
 // Check if API key is available at startup
 if (!apiKey) {
-  console.warn("⚠️ WARNING: AIMLAPI_GPT5 is not configured in environment variables");
+  console.warn("⚠️ WARNING: PERPLEXITY_API_KEY is not configured in environment variables");
   console.log("ℹ️ AI features will not be available");
 } else {
-  console.log(`🔑 Using API key from AIMLAPI_GPT5: ${apiKey.substring(0, 5)}...`);
+  console.log(`🔑 Using API key from PERPLEXITY_API_KEY: ${apiKey.substring(0, 5)}...`);
 }
 
 /**
@@ -24,9 +24,9 @@ export const generateAIResponse = async (prompt, context) => {
   try {
     // Check if API key is available
     if (!apiKey) {
-      throw new Error("No API key available - check AIMLAPI_GPT5 in environment variables");
+      throw new Error("No API key available - check PERPLEXITY_API_KEY in environment variables");
     }
-    
+
     console.log("🤖 AI: Generating response for prompt:", prompt.substring(0, 50) + "...");
 
     const { problem, userCode, language } = context;
@@ -45,26 +45,20 @@ Current problem: ${problem?.title || "Unknown problem"}
 Difficulty: ${problem?.difficulty || "Unknown"}
 Language: ${language || "JavaScript"}`;
 
-    // Create a detailed user prompt with context
-    const fullPrompt = `${systemPrompt}\n\n${prompt}\n\n${
-      userCode
-        ? `Here's my current code:\n\`\`\`${language?.toLowerCase() || 'javascript'}\n${userCode}\n\`\`\``
-        : ""
-    }`;
+    console.log("Making API call to Perplexity...");
 
-    console.log("Making API call to AIMLAPI...");
-    
-    // Use fetch API with the correct AIMLAPI endpoint
-    const response = await fetch('https://api.aimlapi.com/v1/chat/completions', {
+    // Use fetch API with Perplexity endpoint
+    const response = await fetch('https://api.perplexity.ai/chat/completions', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'openai/gpt-5-2025-08-07',
+        model: 'llama-3.1-sonar-large-128k-online',
         messages: [
-          { role: 'user', content: fullPrompt }
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: `${prompt}\n\n${userCode ? `Here's my current code:\n\`\`\`${language?.toLowerCase() || 'javascript'}\n${userCode}\n\`\`\`` : ""}` }
         ]
       }),
     });
@@ -76,16 +70,16 @@ Language: ${language || "JavaScript"}`;
 
     const data = await response.json();
     console.log("API call successful");
-    
-    // Extract the response text from the AIMLAPI response format
+
+    // Extract the response text from Perplexity response format
     return data.choices[0].message.content;
   } catch (error) {
     console.error("Error generating AI response:", error.message);
     console.error("Full error:", error);
-    
+
     // More specific error messages
     if (error.message.includes('401')) {
-      throw new Error("Invalid API key - please check your AIMLAPI_GPT5 environment variable");
+      throw new Error("Invalid API key - please check your PERPLEXITY_API_KEY environment variable");
     } else if (error.message.includes('429')) {
       throw new Error("API rate limit exceeded - please try again later");
     } else if (error.message.includes('503') || error.message.includes('502')) {
@@ -106,7 +100,7 @@ export const explainCode = async (code, language) => {
   try {
     // Check if API key is available
     if (!apiKey) {
-      throw new Error("AIMLAPI_GPT5 is not configured in environment variables");
+      throw new Error("PERPLEXITY_API_KEY is not configured in environment variables");
     }
 
     // Create a prompt for code explanation
@@ -117,17 +111,17 @@ ${code}
 
 Please provide a clear and concise explanation using markdown formatting.`;
 
-    console.log("Making API call to AIMLAPI for code explanation...");
-    
-    // Use fetch API with the correct AIMLAPI endpoint
-    const response = await fetch('https://api.aimlapi.com/v1/chat/completions', {
+    console.log("Making API call to Perplexity for code explanation...");
+
+    // Use fetch API with Perplexity endpoint
+    const response = await fetch('https://api.perplexity.ai/chat/completions', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'openai/gpt-5-2025-08-07',
+        model: 'llama-3.1-sonar-large-128k-online',
         messages: [
           { role: 'user', content: prompt }
         ]
@@ -141,16 +135,16 @@ Please provide a clear and concise explanation using markdown formatting.`;
 
     const data = await response.json();
     console.log("Code explanation API call successful");
-    
-    // Extract the response text from the AIMLAPI response format
+
+    // Extract the response text from Perplexity response format
     return data.choices[0].message.content;
   } catch (error) {
     console.error("Error explaining code:", error.message);
     console.error("Full error:", error);
-    
+
     // More specific error messages
     if (error.message.includes('401')) {
-      throw new Error("Invalid API key - please check your AIMLAPI_GPT5 environment variable");
+      throw new Error("Invalid API key - please check your PERPLEXITY_API_KEY environment variable");
     } else if (error.message.includes('429')) {
       throw new Error("API rate limit exceeded - please try again later");
     } else {
@@ -174,7 +168,7 @@ export const generateProblem = async (options) => {
 
     // Check if API key is available
     if (!apiKey) {
-      throw new Error("AIMLAPI_GPT5 is not configured in environment variables");
+      throw new Error("PERPLEXITY_API_KEY is not configured in environment variables");
     }
 
     // Create a prompt for problem generation
@@ -228,17 +222,17 @@ Return the result as a valid JSON object with the structure:
   }
 }`;
 
-    console.log("Making API call to AIMLAPI for problem generation...");
-    
-    // Use fetch API with the correct AIMLAPI endpoint
-    const response = await fetch('https://api.aimlapi.com/v1/chat/completions', {
+    console.log("Making API call to Perplexity for problem generation...");
+
+    // Use fetch API with Perplexity endpoint
+    const response = await fetch('https://api.perplexity.ai/chat/completions', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'openai/gpt-5-2025-08-07',
+        model: 'llama-3.1-sonar-large-128k-online',
         messages: [
           { role: 'user', content: prompt }
         ]
@@ -252,19 +246,19 @@ Return the result as a valid JSON object with the structure:
 
     const data = await response.json();
     console.log("Problem generation API call successful");
-    
+
     // Parse and validate the response
     let problemData;
     try {
       const content = data.choices[0].message.content;
       // Extract JSON from response (in case it's wrapped in markdown code blocks)
-      const jsonMatch = content.match(/```json\s*([\s\S]*?)\s*```/) || 
-                        content.match(/```\s*([\s\S]*?)\s*```/) || 
-                        [null, content];
-      
+      const jsonMatch = content.match(/```json\s*([\s\S]*?)\s*```/) ||
+        content.match(/```\s*([\s\S]*?)\s*```/) ||
+        [null, content];
+
       const jsonContent = jsonMatch[1] || content;
       problemData = JSON.parse(jsonContent);
-      
+
       // Validate required fields
       const requiredFields = ['title', 'description', 'difficulty', 'testcases'];
       for (const field of requiredFields) {
@@ -272,7 +266,7 @@ Return the result as a valid JSON object with the structure:
           throw new Error(`Missing required field: ${field}`);
         }
       }
-      
+
     } catch (error) {
       console.error("Error parsing problem data:", error);
       throw new Error(`Invalid problem data format: ${error.message}`);

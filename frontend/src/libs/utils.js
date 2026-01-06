@@ -14,6 +14,8 @@ export function getLanguageId(language) {
     PYTHON: 71,
     JAVASCRIPT: 63,
     JAVA: 62,
+    CPP: 54,
+    C: 50,
   };
   return languageMap[language.toUpperCase()];
 }

@@ -1,13 +1,23 @@
 import { PrismaClient } from '../../src/generated/prisma/index.js';
+import { neon } from '@neondatabase/serverless';
 import dotenv from "dotenv";
 
 dotenv.config();
+
+// Neon Database Configuration
+// For Neon, set these environment variables:
+// DATABASE_URL: Your Neon pooled connection string (for queries)
+// DIRECT_URL: Your Neon direct connection string (for migrations)
 
 // Check if DATABASE_URL is defined
 if (!process.env.DATABASE_URL) {
   console.error("❌ DATABASE_URL is not defined in environment variables");
   console.error("Please check your .env file and make sure DATABASE_URL is properly set");
+  console.error("For Neon Database, you need both DATABASE_URL and DIRECT_URL");
 }
+
+// Initialize Neon SQL client for direct queries (if needed)
+export const sql = neon(process.env.DATABASE_URL);
 
 // Create a new Prisma client instance
 let prisma;

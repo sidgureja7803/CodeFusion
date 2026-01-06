@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { axiosInstance } from "../libs/axios.js";
+import { executeCodeWithTestCases, getLanguageName } from "../libs/rapidapi.js";
 import { Toast } from "./useToastStore";
 
 export const useExecutionStore = create((set, get) => ({
@@ -54,73 +55,102 @@ export const useExecutionStore = create((set, get) => ({
         isSubmitting: saveSubmission ? true : false,
       });
 
-      const requestData = {
+      // Execute code directly via RapidAPI
+      const executionResult = await executeCodeWithTestCases(
         source_code,
         languageId,
         stdin,
-        expectedOutput,
-        problemId,
-        saveSubmission,
-      };
+        expectedOutput
+      );
 
-      console.log("Request data:", requestData);
+      console.log("⚡ Code Execution: Results received:", executionResult);
 
-      const res = await axiosInstance.post("/execution", requestData);
-      
-      console.log("⚡ Code Execution: Response received:", res.data);
+      // If saveSubmission is true, save to backend
+      if (saveSubmission) {
+        try {
+          const submissionData = {
+            problemId,
+            sourceCode: { code: source_code },
+            language: getLanguageName(languageId),
+            status: executionResult.status,
+            testCases: executionResult.results,
+          };
 
-      set({ submission: res.data.submission });
-
-      const message = res.data.message || (saveSubmission ? "Solution submitted successfully!" : "Code executed successfully!");
-      Toast.success(message);
-      
-      return res.data; // Return the response data
+          const res = await axiosInstance.post("/submission/save", submissionData);
+          
+          console.log("⚡ Submission saved:", res.data);
+          
+          set({ submission: res.data.submission });
+          
+          Toast.success("Solution submitted successfully!");
+          
+          return {
+            success: true,
+            message: "Solution submitted successfully!",
+            submission: res.data.submission,
+            results: executionResult.results,
+          };
+        } catch (saveError) {
+          console.error("Error saving submission:", saveError);
+          Toast.error("Code executed but failed to save submission");
+          
+          // Return execution results even if save failed
+          return {
+            success: false,
+            message: "Code executed but failed to save submission",
+            submission: {
+              status: executionResult.status,
+              testCases: executionResult.results,
+            },
+            results: executionResult.results,
+          };
+        }
+      } else {
+        // Just return execution results without saving
+        set({ 
+          submission: {
+            status: executionResult.status,
+            testCases: executionResult.results,
+          }
+        });
+        
+        Toast.success("Code executed successfully!");
+        
+        return {
+          success: true,
+          message: "Code executed successfully!",
+          submission: {
+            status: executionResult.status,
+            testCases: executionResult.results,
+          },
+          results: executionResult.results,
+        };
+      }
     } catch (error) {
       console.error("⚡ Code Execution Error:", error);
       console.error("Error details:", {
         message: error.message,
-        response: error.response?.data,
-        status: error.response?.status,
-        statusText: error.response?.statusText,
       });
 
       let errorMessage = saveSubmission ? "Error submitting solution" : "Error executing code";
       let shouldRetry = false;
       
-      if (error.response?.status === 401) {
-        errorMessage = "Please log in to execute code";
-        // Don't auto-retry auth errors
-      } else if (error.response?.status === 403) {
-        errorMessage = "You don't have permission to execute this code";
-        // Don't auto-retry permission errors
-      } else if (error.response?.status === 400) {
-        // Bad request errors
-        if (error.response?.data?.error) {
-          errorMessage = error.response.data.error;
-        } else if (error.response?.data?.message) {
-          errorMessage = error.response.data.message;
-        }
-      } else if (error.response?.status === 429) {
-        errorMessage = "Too many requests. Please try again later.";
-        // Don't auto-retry rate limit errors
-      } else if (error.response?.status === 500) {
-        errorMessage = "Code execution service is temporarily unavailable";
+      if (error.message?.includes("RapidAPI credentials")) {
+        errorMessage = "RapidAPI is not configured. Please check your environment variables.";
+      } else if (error.message?.includes("timed out")) {
+        errorMessage = "Code execution timed out. Your code might be taking too long to execute.";
+      } else if (error.message?.includes("Failed to submit code")) {
+        errorMessage = "Failed to submit code to execution service";
         shouldRetry = true;
-      } else if (error.response?.status === 502 || error.response?.status === 503 || error.response?.status === 504) {
-        errorMessage = "Service temporarily unavailable. Please try again in a moment.";
+      } else if (error.message?.includes("Failed to get results")) {
+        errorMessage = "Failed to get execution results";
         shouldRetry = true;
-      } else if (error.code === 'ECONNABORTED') {
-        errorMessage = "Connection timed out. Your code might be taking too long to execute.";
-      } else if (error.response?.data?.error) {
-        errorMessage = error.response.data.error;
-      } else if (error.response?.data?.message) {
-        errorMessage = error.response.data.message;
       } else if (!error.response && error.message) {
-        errorMessage = "Network error. Please check your internet connection.";
+        errorMessage = error.message || "Network error. Please check your internet connection.";
         shouldRetry = true;
       }
 
-      // Show toast with retry option for server/network errors
+      // Show toast with retry option for retryable errors
       if (shouldRetry) {
         Toast.error(errorMessage, "Error", 5000, {
           action: {

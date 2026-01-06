@@ -9,12 +9,26 @@ export const getJudge0LanguageId = (language) => {
   return languageMap[language.toUpperCase()];
 };
 
+// RapidAPI configuration
+const getRapidAPIHeaders = () => {
+  return {
+    'Content-Type': 'application/json',
+    'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
+    'X-RapidAPI-Host': process.env.RAPIDAPI_HOST || 'judge0-ce.p.rapidapi.com',
+  };
+};
+
+const RAPIDAPI_BASE_URL = `https://${process.env.RAPIDAPI_HOST || 'judge0-ce.p.rapidapi.com'}`;
+
 export const submitBatch = async (submissions) => {
   try {
     const { data } = await axios.post(
-      `${process.env.JUDGE0_API_URL}/submissions/batch?base64_encoded=false`,
+      `${RAPIDAPI_BASE_URL}/submissions/batch?base64_encoded=false`,
       {
         submissions,
+      },
+      {
+        headers: getRapidAPIHeaders(),
       }
     );
 
@@ -22,6 +36,10 @@ export const submitBatch = async (submissions) => {
     return data; // returns the tokens for the submissions
   } catch (error) {
     console.error("Error submitting batch to Judge0:", error.message);
+    if (error.response) {
+      console.error("Response data:", error.response.data);
+      console.error("Response status:", error.response.status);
+    }
     throw new Error(`Failed to submit code to Judge0: ${error.message}`);
   }
 };
@@ -29,12 +47,13 @@ export const submitBatch = async (submissions) => {
 export const pollBatchResults = async (tokens) => {
   while (true) {
     const { data } = await axios.get(
-      `${process.env.JUDGE0_API_URL}/submissions/batch`,
+      `${RAPIDAPI_BASE_URL}/submissions/batch`,
       {
         params: {
           tokens: tokens.join(","),
           base64_encoded: false,
-        }
+        },
+        headers: getRapidAPIHeaders(),
       }
     );
 

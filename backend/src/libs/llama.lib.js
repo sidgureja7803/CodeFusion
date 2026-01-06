@@ -1,24 +1,22 @@
-import OpenAI from "openai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-// Use fallback mechanism to support multiple API providers
-const apiKey = process.env.OPENAI_API_KEY || process.env.NOVITA_API_KEY;
-const baseURL = process.env.OPENAI_BASE_URL; // Only use if custom endpoint is needed
-const model = process.env.OPENAI_MODEL || "gpt-3.5-turbo"; // Default to GPT-3.5
+// Use Gemini API key from environment
+const apiKey = process.env.GEMINI_API_KEY;
+const model = process.env.GEMINI_MODEL || "gemini-1.5-flash"; // Default to Gemini 1.5 Flash
 
 // Log API configuration for debugging
 console.log("AI Integration Configuration:");
-console.log(`- API Key Available: ${!!apiKey}`);
-console.log(`- Using custom base URL: ${!!baseURL}`);
+console.log(`- Gemini API Key Available: ${!!apiKey}`);
 console.log(`- Using model: ${model}`);
 
-const openaiConfig = baseURL
-  ? { baseURL, apiKey }
-  : { apiKey };
-
-const openai = new OpenAI(openaiConfig);
+// Initialize Gemini AI
+let genAI = null;
+if (apiKey) {
+  genAI = new GoogleGenerativeAI(apiKey);
+}
 
 /**
  * Generate an AI response for code assistance
@@ -29,8 +27,8 @@ const openai = new OpenAI(openaiConfig);
 export const generateAIResponse = async (prompt, context) => {
   try {
     // Check if API key is available
-    if (!apiKey) {
-      throw new Error("No OpenAI API key configured - check OPENAI_API_KEY or NOVITA_API_KEY environment variable");
+    if (!apiKey || !genAI) {
+      throw new Error("No Gemini API key configured - check GEMINI_API_KEY environment variable");
     }
 
     const { problem, userCode, language } = context;
@@ -60,56 +58,29 @@ ${
 }
 `;
 
-    console.log(`Making API call to OpenAI using model: ${model}...`);
-    
-    try {
-      const completion = await openai.chat.completions.create({
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: userPrompt },
-        ],
-        model: model,
-        stream: false,
-        temperature: 0.7,
-        max_tokens: 1024,
-      });
+    // Combine system and user prompts for Gemini
+    const fullPrompt = `${systemPrompt}\n\n${userPrompt}`;
 
-      console.log("API call successful");
-      return completion.choices[0].message.content;
-    } catch (apiError) {
-      console.error("OpenAI API error:", apiError.message);
-      
-      // Try fallback to gpt-3.5-turbo if using a different model
-      if (model !== "gpt-3.5-turbo") {
-        console.log("Attempting fallback to gpt-3.5-turbo model...");
-        const fallbackCompletion = await openai.chat.completions.create({
-          messages: [
-            { role: "system", content: systemPrompt },
-            { role: "user", content: userPrompt },
-          ],
-          model: "gpt-3.5-turbo",
-          stream: false,
-          temperature: 0.7,
-          max_tokens: 1024,
-        });
-        
-        console.log("Fallback API call successful");
-        return fallbackCompletion.choices[0].message.content;
-      } else {
-        throw apiError;
-      }
-    }
+    console.log(`Making API call to Gemini using model: ${model}...`);
+    
+    const geminiModel = genAI.getGenerativeModel({ model: model });
+    const result = await geminiModel.generateContent(fullPrompt);
+    const response = await result.response;
+    const text = response.text();
+
+    console.log("Gemini API call successful");
+    return text;
   } catch (error) {
     console.error("Error generating AI response:", error.message);
     console.error("Full error:", error);
     
     // More specific error messages
-    if (error.message.includes('401') || error.message.includes('403')) {
-      throw new Error("Invalid API key - please check your API key environment variables");
-    } else if (error.message.includes('429')) {
+    if (error.message.includes('401') || error.message.includes('403') || error.message.includes('API_KEY_INVALID')) {
+      throw new Error("Invalid Gemini API key - please check your GEMINI_API_KEY environment variable");
+    } else if (error.message.includes('429') || error.message.includes('RESOURCE_EXHAUSTED')) {
       throw new Error("API rate limit exceeded - please try again later");
-    } else if (error.message.includes('503') || error.message.includes('502')) {
-      throw new Error("AI service is temporarily unavailable");
+    } else if (error.message.includes('503') || error.message.includes('502') || error.message.includes('UNAVAILABLE')) {
+      throw new Error("Gemini AI service is temporarily unavailable");
     } else {
       throw new Error(`Failed to generate AI response: ${error.message}`);
     }
@@ -125,73 +96,37 @@ ${
 export const explainCode = async (code, language) => {
   try {
     // Check if API key is available
-    if (!apiKey) {
-      throw new Error("No OpenAI API key configured - check environment variables");
+    if (!apiKey || !genAI) {
+      throw new Error("No Gemini API key configured - check GEMINI_API_KEY environment variable");
     }
 
-    console.log(`Making API call to OpenAI for code explanation using model: ${model}...`);
-    try {
-      const completion = await openai.chat.completions.create({
-        messages: [
-          {
-            role: "system",
-            content:
-              "You are an expert programming tutor. Explain code clearly and concisely using markdown formatting.",
-          },
-          {
-            role: "user",
-            content: `Explain this ${language} code step by step:\n\`\`\`${language?.toLowerCase() || 'javascript'}\n${code}\n\`\`\``,
-          },
-        ],
-        model: model,
-        stream: false,
-        temperature: 0.5,
-        max_tokens: 1024,
-      });
+    const prompt = `You are an expert programming tutor. Explain code clearly and concisely using markdown formatting.
 
-      console.log("Code explanation API call successful");
-      return completion.choices[0].message.content;
-    } catch (apiError) {
-      console.error("OpenAI API error during code explanation:", apiError.message);
-      
-      // Try fallback to gpt-3.5-turbo if using a different model
-      if (model !== "gpt-3.5-turbo") {
-        console.log("Attempting fallback to gpt-3.5-turbo model for code explanation...");
-        const fallbackCompletion = await openai.chat.completions.create({
-          messages: [
-            {
-              role: "system",
-              content:
-                "You are an expert programming tutor. Explain code clearly and concisely using markdown formatting.",
-            },
-            {
-              role: "user",
-              content: `Explain this ${language} code step by step:\n\`\`\`${language?.toLowerCase() || 'javascript'}\n${code}\n\`\`\``,
-            },
-          ],
-          model: "gpt-3.5-turbo",
-          stream: false,
-          temperature: 0.5,
-          max_tokens: 1024,
-        });
-        
-        console.log("Fallback code explanation API call successful");
-        return fallbackCompletion.choices[0].message.content;
-      } else {
-        throw apiError;
-      }
-    }
+Explain this ${language} code step by step:
+\`\`\`${language?.toLowerCase() || 'javascript'}
+${code}
+\`\`\``;
+
+    console.log(`Making API call to Gemini for code explanation using model: ${model}...`);
+    
+    const geminiModel = genAI.getGenerativeModel({ model: model });
+    const result = await geminiModel.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+
+    console.log("Code explanation API call successful");
+    return text;
   } catch (error) {
     console.error("Error explaining code:", error.message);
     console.error("Full error:", error);
     
     // More specific error messages
-    if (error.message.includes('401') || error.message.includes('403')) {
-      throw new Error("Invalid API key - please check your API key environment variables");
-    } else if (error.message.includes('429')) {
+    if (error.message.includes('401') || error.message.includes('403') || error.message.includes('API_KEY_INVALID')) {
+      throw new Error("Invalid Gemini API key - please check your GEMINI_API_KEY environment variable");
+    } else if (error.message.includes('429') || error.message.includes('RESOURCE_EXHAUSTED')) {
       throw new Error("API rate limit exceeded - please try again later");
-    } else if (error.message.includes('503') || error.message.includes('502')) {
-      throw new Error("AI service is temporarily unavailable");
+    } else if (error.message.includes('503') || error.message.includes('502') || error.message.includes('UNAVAILABLE')) {
+      throw new Error("Gemini AI service is temporarily unavailable");
     } else {
       throw new Error(`Failed to generate code explanation: ${error.message}`);
     }
@@ -495,23 +430,27 @@ public class Main {
     Ensure all reference solutions are thoroughly tested against the test cases before including them.
     Double check that all solutions output exactly the expected format for each test case.`;
 
-    const completion = await openai.chat.completions.create({
-      messages: [
-        {
-          role: "system",
-          content:
-            "You are an AI that generates LeetCode-style DSA problems. Return your response strictly as JSON with keys. Do not include markdown, explanations, or comments. Only output valid JSON.",
-        },
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
+    const systemMessage = "You are an AI that generates LeetCode-style DSA problems. Return your response strictly as JSON with keys. Do not include markdown, explanations, or comments. Only output valid JSON.";
+    const fullPrompt = `${systemMessage}\n\n${prompt}`;
+
+    const geminiModel = genAI.getGenerativeModel({ 
       model: model,
-      stream: false,
-      temperature: 0.7,
-      max_tokens: 4000,
+      generationConfig: {
+        temperature: 0.7,
+        maxOutputTokens: 4000,
+      }
     });
+    
+    const result = await geminiModel.generateContent(fullPrompt);
+    const completion = {
+      choices: [
+        {
+          message: {
+            content: result.response.text()
+          }
+        }
+      ]
+    };
 
     try {
       // Log the raw response for debugging

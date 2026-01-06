@@ -1,40 +1,60 @@
 # 🚀 CodeFusion
 
-**CodeFusion** is a modern, LeetCode-like collaborative coding platform where users can solve problems, run code with Judge0, get AI-powered help (powered by GPT-5), and collaborate in real-time with Liveblocks. The platform features a professional, animated UI using GSAP and Framer Motion for a world-class user experience.
-
-This project was built for the **Co-Creating with GPT-5** hackathon organized by [lablab.ai](https://lablab.ai/event/co-creating-with-gpt-5).
+**CodeFusion** is a modern, LeetCode-like collaborative coding platform where users can solve problems, run code with Judge0, get AI-powered help (powered by Google Gemini), and collaborate in real-time with Liveblocks. The platform features a clean, minimal UI for an intuitive user experience.
 
 ## ✨ Features
 
 - **Code Execution:** Run code with the robust **Judge0 API**.
-- **AI Assistance:** Get help from **GPT-5**, OpenAI's most advanced model yet, for problem understanding, solution approach, and debugging.
+- **AI Assistance:** Get help from **Google Gemini**, for problem understanding, solution approach, and debugging.
 - **Real-time Collaboration:** Work together live, see each other's cursors, and share sessions with **Liveblocks**.
 - **Submission History:** Visualize your coding activity, just like GitHub/LeetCode.
-- **Professional UI:** Modern, animated interface using **GSAP** and **Framer Motion** for smooth transitions and delightful effects.
+- **Minimal UI:** Clean, simple interface for an intuitive coding experience.
 - **Collaboration:** Share a URL and code together in real time.
 - **History:** Track your submissions and progress over time.
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** React.js, GSAP, Framer Motion, Tailwind CSS
+- **Frontend:** React.js, Tailwind CSS
 - **Backend:** Node.js, Express.js
-- **Database:** PostgreSQL (via Prisma)
+- **Database:** Neon PostgreSQL (via Prisma)
 - **Code Execution:** Judge0 API
-- **AI Model:** GPT-5 via OpenAI API
+- **AI Model:** Google Gemini API
 - **Real-time Collaboration:** Liveblocks API
 - **Authentication:** Firebase
 
 ## 🔑 Environment Variables
 
-You must set up environment variables for both frontend and backend. See `.env.sample` files in each directory for all required variables.
+You must set up environment variables for both frontend and backend. 
 
-### Frontend `.env.sample`
+### Backend Environment Variables
+
+For detailed setup instructions, see [backend/SETUP.md](backend/SETUP.md)
+
+**Required:**
+```env
+# Neon Database (Get from https://console.neon.tech/)
+DATABASE_URL="postgresql://..."  # Pooled connection
+DIRECT_URL="postgresql://..."    # Direct connection for migrations
+
+# Gemini AI (Get from https://makersuite.google.com/app/apikey)
+GEMINI_API_KEY="your-api-key"
+GEMINI_MODEL="gemini-1.5-flash"
+
+# Server
+PORT=5000
+JWT_SECRET="your-jwt-secret"
+
+# Firebase Auth
+FIREBASE_PROJECT_ID=""
+FIREBASE_PRIVATE_KEY=""
+FIREBASE_CLIENT_EMAIL=""
 ```
+
+### Frontend Environment Variables
+
+```env
 VITE_API_URL=
 VITE_DEV_BACKEND_URL=
-VITE_JUDGE0_API_URL=
-VITE_JUDGE0_API_KEY=
-VITE_AIMLAPI_GPT5=
 VITE_LIVEBLOCKS_PUBLIC_KEY=
 VITE_FIREBASE_API_KEY=
 VITE_FIREBASE_AUTH_DOMAIN=
@@ -42,22 +62,6 @@ VITE_FIREBASE_PROJECT_ID=
 VITE_FIREBASE_STORAGE_BUCKET=
 VITE_FIREBASE_MESSAGING_SENDER_ID=
 VITE_FIREBASE_APP_ID=
-VITE_FIREBASE_MEASUREMENT_ID=
-```
-
-### Backend `.env.sample`
-```
-DATABASE_URL=
-JWT_SECRET=
-FRONTEND_URL=
-NODE_ENV=development
-JUDGE0_API_URL=
-JUDGE0_API_KEY=
-FIREBASE_PROJECT_ID=
-FIREBASE_PRIVATE_KEY_ID=
-FIREBASE_PRIVATE_KEY=
-FIREBASE_CLIENT_EMAIL=
-FIREBASE_CLIENT_ID=
 ```
 
 ## 🚀 Getting Started
@@ -90,14 +94,11 @@ FIREBASE_CLIENT_ID=
 5. **Open your browser**
    - Go to your frontend URL (e.g., `http://localhost:3000`) to use CodeFusion!
 
-## 💡 UI/UX & Animations
+## 💡 UI/UX
 
-- The landing page and all major sections use **GSAP** and **Framer Motion** for:
-  - Animated backgrounds and gradients
-  - Smooth card and section transitions
-  - Floating and parallax effects
-  - Professional, modern fonts and color schemes
-- All animations are performance-optimized and responsive.
+- Clean, minimal design focused on functionality
+- Responsive layout with Tailwind CSS
+- Intuitive navigation and user experience
 
 ## 🤝 Contributing
 
