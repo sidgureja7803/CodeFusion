@@ -8,7 +8,7 @@ export const API_URL = (() => {
     if (import.meta.env.VITE_API_URL) {
       return import.meta.env.VITE_API_URL;
     }
-    
+
     // If not set, attempt to derive it from the current window location
     // This helps with deployments where frontend and backend share the same domain
     if (typeof window !== 'undefined') {
@@ -17,14 +17,14 @@ export const API_URL = (() => {
       console.log('📍 Detected origin:', origin);
       return origin;
     }
-    
+
     // If we can't determine it, use a reasonable default
     console.warn('⚠️ No API URL configured, using default production URL');
     return 'https://code-fuison.live'; // Default production fallback
   } else {
     // Development mode - use localhost
-    // Make sure port matches the backend port (3000)
-    return "http://localhost:3000/api/v1";
+    // Make sure port matches the backend port (3001)
+    return "http://localhost:3001/api/v1";
   }
 })();
 
@@ -65,20 +65,20 @@ axiosInstance.interceptors.request.use(
     if (headersToLog.Authorization) {
       headersToLog.Authorization = 'Bearer [hidden]';
     }
-    
-    console.log(`🚀 [API] ${config.method?.toUpperCase()} ${config.url}`, { 
+
+    console.log(`🚀 [API] ${config.method?.toUpperCase()} ${config.url}`, {
       headers: headersToLog,
       withCredentials: config.withCredentials
     });
-    
+
     // Special handling for AI requests - ensure they always go through even with token issues
     if (config.url?.startsWith('/ai/')) {
       console.log('🤖 AI request detected - ensuring token persistence');
-      
+
       // For AI endpoints, specifically mark that this request shouldn't auto-redirect to login
       config._isAiRequest = true;
     }
-    
+
     return config;
   },
   error => {
@@ -99,13 +99,13 @@ const processQueue = (error, token = null) => {
       prom.resolve(token);
     }
   });
-  
+
   failedQueue = [];
 };
 
 axiosInstance.interceptors.response.use(
   response => {
-    console.log(`✅ [API] Response from ${response.config.url}:`, { 
+    console.log(`✅ [API] Response from ${response.config.url}:`, {
       status: response.status,
       statusText: response.statusText,
       headers: response.headers,
@@ -114,15 +114,15 @@ axiosInstance.interceptors.response.use(
   },
   async error => {
     const originalRequest = error.config;
-    
+
     // Special handling for AI requests with auth errors
     if (error.response && error.response.status === 401 && originalRequest._isAiRequest) {
       console.log("🤖 AI request encountered auth error - attempting to handle gracefully");
-      
+
       // For AI requests, attempt to refresh token but don't redirect to login if it fails
       if (!originalRequest._aiRetried) {
         originalRequest._aiRetried = true;
-        
+
         try {
           console.log("🔄 Attempting to refresh token for AI request");
           await axiosInstance.post("/auth/refresh");
@@ -130,7 +130,7 @@ axiosInstance.interceptors.response.use(
           return axiosInstance(originalRequest);
         } catch (refreshErr) {
           console.error("❌ Token refresh failed for AI request, proceeding with error", refreshErr);
-          
+
           // Create a more friendly error object for AI requests
           const aiError = new Error("Authentication required for AI assistant");
           aiError.response = {
@@ -143,11 +143,11 @@ axiosInstance.interceptors.response.use(
           return Promise.reject(aiError);
         }
       }
-      
+
       // If we already tried refreshing for this AI request, just return the error
       return Promise.reject(error);
     }
-    
+
     // Handle token expired errors for non-AI requests
     else if (error.response && error.response.status === 401 && error.response.data.code === "TOKEN_EXPIRED" && !originalRequest._retry) {
       if (isRefreshing) {
@@ -172,25 +172,25 @@ axiosInstance.interceptors.response.use(
         console.log("🔄 Attempting to refresh token");
         await axiosInstance.post("/auth/refresh");
         console.log("✅ Token refreshed successfully");
-        
+
         // Process queued requests
         processQueue(null);
-        
+
         // Retry the original request
         return axiosInstance(originalRequest);
       } catch (refreshError) {
         // If refresh fails, process queue with error
         processQueue(refreshError);
-        
+
         // Handle refresh failure - redirect to login
         console.error("❌ Failed to refresh token, redirect to login page");
-        
+
         // Clear login state
         if (window.location.pathname !== "/login" && window.location.pathname !== "/signup") {
           console.log("🔀 Redirecting to login page");
           window.location.href = "/login";
         }
-        
+
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;

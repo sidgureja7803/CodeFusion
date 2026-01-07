@@ -7,6 +7,7 @@ import problemRoutes from "./routes/problem.routes.js";
 import submissionRoutes from "./routes/submission.routes.js";
 import aiRoutes from "./routes/ai.routes.js";
 import liveblocksRoutes from "./routes/liveblocks.route.js";
+import firebaseAuthRoutes from "./routes/firebase-auth.routes.js";
 import cookieParser from "cookie-parser";
 import { configureCors } from "./middleware/cors.middleware.js";
 
@@ -15,7 +16,7 @@ dotenv.config();
 
 // Create Express app
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 // Apply middleware
 app.use(express.json());
@@ -28,6 +29,7 @@ app.use("/api/v1/problems", problemRoutes);
 app.use("/api/v1/submissions", submissionRoutes);
 app.use("/api/v1/ai", aiRoutes);
 app.use("/api/v1/liveblocks", liveblocksRoutes);
+app.use("/api/v1/firebase-auth", firebaseAuthRoutes);
 
 // Health check endpoint
 app.get("/api/v1/health", (req, res) => {
@@ -49,7 +51,7 @@ const startServer = async () => {
 
     // Connect to the database with retry logic
     const dbConnected = await connectDatabase();
-    
+
     if (!dbConnected) {
       console.warn("⚠️ Server running with limited functionality due to database connection issues");
       console.log("📝 API endpoints that don't require database access will still work");

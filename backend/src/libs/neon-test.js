@@ -18,8 +18,8 @@ const requestHandler = async (req, res) => {
   }
 };
 
-http.createServer(requestHandler).listen(3000, () => {
-  console.log("Server running at http://localhost:3000");
+http.createServer(requestHandler).listen(3001, () => {
+  console.log("Server running at http://localhost:3001");
   console.log("Testing Neon connection...");
 });
 

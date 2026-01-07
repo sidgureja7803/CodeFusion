@@ -23,7 +23,7 @@ export const firebaseLogin = async (req, res) => {
 
     // Get additional user info from Firebase
     const firebaseUser = await getFirebaseUser(uid);
-    
+
     // Extract provider info
     const providerData = firebaseUser.providerData[0];
     const providerId = provider || providerData?.providerId || 'google.com';
@@ -69,10 +69,10 @@ export const firebaseLogin = async (req, res) => {
 
     // Generate JWT token
     const token = jwt.sign(
-      { 
-        id: user.id, 
+      {
+        id: user.id,
         email: user.email,
-        firebaseUid: uid 
+        firebaseUid: uid
       },
       process.env.JWT_SECRET,
       { expiresIn: '7d' }
@@ -101,11 +101,29 @@ export const firebaseLogin = async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Firebase login error:', error);
-    return res.status(500).json({
+    console.error('🔥 Firebase login error:', error);
+    console.error('Error details:', {
+      message: error.message,
+      code: error.code,
+      stack: error.stack?.split('\n')[0]
+    });
+
+    // Return more specific error messages
+    let errorMessage = 'Authentication failed';
+    let statusCode = 500;
+
+    if (error.message?.includes('Invalid Firebase token')) {
+      errorMessage = 'Invalid or expired Firebase authentication token';
+      statusCode = 401;
+    } else if (error.message?.includes('Missing Firebase credentials')) {
+      errorMessage = 'Server configuration error: Firebase not properly configured';
+      statusCode = 503;
+    }
+
+    return res.status(statusCode).json({
       success: false,
-      message: 'Authentication failed',
-      error: error.message,
+      message: errorMessage,
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined,
     });
   }
 };

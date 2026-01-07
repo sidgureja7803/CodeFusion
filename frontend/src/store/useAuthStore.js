@@ -29,17 +29,17 @@ export const useAuthStore = create((set) => ({
     try {
       // Try to wake up backend first
       await useAuthStore.getState().wakeUpBackend();
-      
+
       // Check for token fallback first (if cookies failed)
       const { authToken, tokenExpiry } = useAuthStore.getState();
       const isTokenValid = authToken && tokenExpiry && Date.now() < tokenExpiry;
-      
+
       // If we have a valid token in memory, use it
       if (isTokenValid) {
         console.log("🔑 Using stored token for auth");
         axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
       }
-      
+
       try {
         const response = await axiosInstance.get("/auth/me");
         set({ authUser: response.data.user });
@@ -47,30 +47,30 @@ export const useAuthStore = create((set) => ({
         return true;
       } catch (authError) {
         // If we get a token expired error, try to refresh the token
-        if (authError.response?.status === 401 && 
-            (authError.response?.data?.code === "TOKEN_EXPIRED" || 
-             authError.response?.data?.code === "UNAUTHORIZED")) {
+        if (authError.response?.status === 401 &&
+          (authError.response?.data?.code === "TOKEN_EXPIRED" ||
+            authError.response?.data?.code === "UNAUTHORIZED")) {
           console.log("🔄 Token expired, attempting to refresh...");
-          
+
           try {
             // Try to refresh the token
             const refreshResponse = await axiosInstance.post("/auth/refresh");
             console.log("✅ Token refreshed successfully");
-            
+
             // Check for auth token in refresh response
             if (refreshResponse.data.auth?.token) {
               console.log("🔄 Updated token fallback");
               // Update stored token
-              set({ 
+              set({
                 authToken: refreshResponse.data.auth.token,
                 tokenExpiry: Date.now() + (7 * 24 * 60 * 60 * 1000) // 7 days
               });
-              
+
               // Update authorization header
-              axiosInstance.defaults.headers.common['Authorization'] = 
+              axiosInstance.defaults.headers.common['Authorization'] =
                 `Bearer ${refreshResponse.data.auth.token}`;
             }
-            
+
             // Retry the original auth check with the new token
             const retryResponse = await axiosInstance.get("/auth/me");
             set({ authUser: retryResponse.data.user });
@@ -90,13 +90,13 @@ export const useAuthStore = create((set) => ({
       }
     } catch (error) {
       console.error("Error checking authentication:", error);
-      
+
       // Enhance error message based on specific error conditions
       if (error.response) {
         // Server responded with error
         const status = error.response.status;
         const data = error.response.data;
-        
+
         if (status === 401) {
           console.log("👤 Authentication required: User not logged in");
           error.friendlyMessage = 'You need to log in to continue.';
@@ -112,7 +112,7 @@ export const useAuthStore = create((set) => ({
         // Request setup error
         error.friendlyMessage = 'An unexpected error occurred. Please try again.';
       }
-      
+
       set({ authUser: null });
       throw error;
     } finally {
@@ -125,10 +125,10 @@ export const useAuthStore = create((set) => ({
     try {
       // Wake up backend before signup
       await useAuthStore.getState().wakeUpBackend();
-      
+
       const response = await axiosInstance.post("/auth/register", data);
       console.log("Sign up response:", response.data);
-      
+
       // Check if email verification is required
       if (response.data.requiresVerification) {
         console.log("📧 Email verification required");
@@ -137,7 +137,7 @@ export const useAuthStore = create((set) => ({
           "Verification Required",
           5000
         );
-        
+
         // Return the response so the component can handle navigation
         return {
           requiresVerification: true,
@@ -145,7 +145,7 @@ export const useAuthStore = create((set) => ({
           user: response.data.user
         };
       }
-      
+
       // If no verification required, set the user
       set({ authUser: response.data.user });
       Toast.success(
@@ -153,7 +153,7 @@ export const useAuthStore = create((set) => ({
         "Welcome to CodeFusion!",
         4000
       );
-      
+
       return {
         requiresVerification: false,
         user: response.data.user
@@ -164,13 +164,13 @@ export const useAuthStore = create((set) => ({
       // Handle specific signup errors
       let errorMessage = "Sign up failed. Please try again.";
       let errorTitle = "Sign Up Error";
-      
+
       if (error.response) {
         const status = error.response.status;
         const serverMessage = error.response.data?.message;
-        
-        if (status === 400 && (serverMessage?.toLowerCase().includes('already exists') || 
-            serverMessage?.toLowerCase().includes('email already exists'))) {
+
+        if (status === 400 && (serverMessage?.toLowerCase().includes('already exists') ||
+          serverMessage?.toLowerCase().includes('email already exists'))) {
           errorMessage = "This email address is already registered. Please sign in instead.";
           errorTitle = "Account Already Exists";
         } else if (status === 500) {
@@ -183,10 +183,10 @@ export const useAuthStore = create((set) => ({
         errorMessage = "Cannot connect to server. Please check your internet connection.";
         errorTitle = "Connection Error";
       }
-      
+
       // Add friendly message property that components can use
       error.friendlyMessage = errorMessage;
-      
+
       Toast.error(errorMessage, errorTitle, 5000);
 
       throw error;
@@ -200,7 +200,7 @@ export const useAuthStore = create((set) => ({
     try {
       // Wake up backend before login
       await useAuthStore.getState().wakeUpBackend();
-      
+
       const response = await axiosInstance.post("/auth/login", data);
       console.log("Login response:", response.data);
 
@@ -208,11 +208,11 @@ export const useAuthStore = create((set) => ({
       if (response.data.auth?.token) {
         console.log("🔑 Using token fallback mechanism");
         // Store token in memory (not persistent)
-        set({ 
+        set({
           authToken: response.data.auth.token,
           tokenExpiry: Date.now() + (7 * 24 * 60 * 60 * 1000) // 7 days
         });
-        
+
         // Setup authorization header for future requests
         axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${response.data.auth.token}`;
       }
@@ -228,7 +228,7 @@ export const useAuthStore = create((set) => ({
       set({ authUser: response.data.user });
     } catch (error) {
       console.error("Error logging in:", error);
-      
+
       // Check if it's an email verification error and throw with proper data
       if (error.response?.data?.code === "EMAIL_NOT_VERIFIED") {
         // Preserve the error response data for the component to handle
@@ -268,7 +268,7 @@ export const useAuthStore = create((set) => ({
       } else if (error.response?.data?.message) {
         errorMessage = error.response.data.message;
       }
-      
+
       // Add friendly message property that components can use
       error.friendlyMessage = errorMessage;
 
@@ -286,14 +286,14 @@ export const useAuthStore = create((set) => ({
       set({ authUser: null, authToken: null, tokenExpiry: null });
       // Remove Authorization header
       delete axiosInstance.defaults.headers.common['Authorization'];
-      Toast.success("Logout successful", "See you later!", 3000);
+      Toast.success("Logout successful", "See you later!", 3001);
     } catch (error) {
       console.error("Error logging out:", error);
       // Even if logout fails on backend, clear the frontend state
       set({ authUser: null, authToken: null, tokenExpiry: null });
       // Remove Authorization header
       delete axiosInstance.defaults.headers.common['Authorization'];
-      Toast.warning("Logged out locally", "Session cleared", 3000);
+      Toast.warning("Logged out locally", "Session cleared", 3001);
     }
   },
 }));

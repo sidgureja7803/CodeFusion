@@ -92,7 +92,7 @@ VITE_FIREBASE_APP_ID=
    npm start
    ```
 5. **Open your browser**
-   - Go to your frontend URL (e.g., `http://localhost:3000`) to use CodeFusion!
+   - Go to your frontend URL (e.g., `http://localhost:7000`) to use CodeFusion!
 
 ## 💡 UI/UX
 
