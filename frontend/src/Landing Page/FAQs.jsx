@@ -33,23 +33,23 @@ export const FAQs = () => {
   ];
 
   return (
-    <div id="faqs" className="py-24 bg-gradient-to-b from-white to-orange-50">
+    <div id="faqs" className="py-24 bg-gradient-to-b from-white to-orange-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
       <div className="container mx-auto max-w-5xl px-4">
         <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
-          <p className="text-xl text-gray-600">Everything you need to know</p>
+          <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-4">Frequently Asked Questions</h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300">Everything you need to know</p>
         </div>
 
         <div className="space-y-5">
           {faqs.map((faq, index) => (
-            <div key={index} className="p-8 bg-white border-2 border-gray-200 rounded-2xl hover:border-orange-300 transition-all hover:shadow-md">
+            <div key={index} className="p-8 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-2xl hover:border-orange-300 dark:hover:border-orange-600 transition-all hover:shadow-md">
               <div className="flex items-start gap-4">
                 <span className="text-3xl flex-shrink-0">{faq.emoji}</span>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                     {faq.question}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{faq.answer}</p>
                 </div>
               </div>
             </div>

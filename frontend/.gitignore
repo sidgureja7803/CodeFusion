@@ -1,10 +1,18 @@
 # Node modules
 node_modules/
 
-# Environment files
+# Environment files - DO NOT COMMIT
 .env
 .env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
 .env.*.local
+*.env
+*.env.*
 
 # Logs
 npm-debug.log*

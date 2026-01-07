@@ -112,10 +112,11 @@
   src: url(./assets/fonts/NeueMontreal-Regular.otf);
 }
 
-@font-face {
+/* Commented out due to font loading issues - can be re-enabled if font file is fixed */
+/* @font-face {
   font-family: Libre Baskerville;
   src: url(./assets/fonts/LibreBaskerville-Italic.ttf);
-}
+} */
 
 @font-face {
   font-family: Nulshock;
@@ -148,14 +149,16 @@
 }
 
 .italic {
-  font-family: Libre Baskerville;
+  font-family: Georgia, 'Times New Roman', serif; /* Fallback to system serif fonts */
+  font-style: italic;
 }
 
 ::selection {
-  background-color: #f9f9f9;
-  color: #101010;
+  background-color: #f97316;
+  color: #ffffff;
 }
 
+/* Scrollbar styles - dark mode */
 ::-webkit-scrollbar {
   width: 8px;
   background-color: #1b1b1b;
@@ -166,14 +169,36 @@
 }
 
 ::-webkit-scrollbar-button {
-  background: #860000;
+  background: #ea580c;
   height: 16px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ae0000;
+  background: #f97316;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #860000;
+  background: #ea580c;
+}
+
+/* Scrollbar styles - light mode */
+.light ::-webkit-scrollbar {
+  background-color: #f3f4f6;
+}
+
+.light ::-webkit-scrollbar-track {
+  background: #f3f4f6;
+}
+
+.light ::-webkit-scrollbar-button {
+  background: #f97316;
+}
+
+.light ::-webkit-scrollbar-thumb {
+  background: #fb923c;
+}
+
+.light ::-webkit-scrollbar-thumb:hover {
+  background: #f97316;
 }

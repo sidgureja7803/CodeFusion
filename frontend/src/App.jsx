@@ -41,11 +41,11 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 function AppRoutes() {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
   const location = useLocation();
-  const { initializeTheme } = useThemeStore();
+  // Theme is auto-initialized by the store on import
   const appRef = useRef(null);
 
   useEffect(() => {
-    initializeTheme();
+    // Theme is already initialized automatically by the store
     
     // Initialize GSAP animations safely with proper error handling
     try {
@@ -83,7 +83,7 @@ function AppRoutes() {
     } catch (err) {
       console.error("GSAP initialization error:", err);
     }
-  }, [initializeTheme, location.pathname]);
+  }, [location.pathname]);
 
   useEffect(() => {
     checkAuth();

@@ -1,6 +1,6 @@
 export const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-16">
+    <footer className="bg-gray-900 dark:bg-black text-white py-16 transition-colors duration-300">
       <div className="container mx-auto max-w-7xl px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
           <div>
@@ -47,14 +47,14 @@ export const Footer = () => {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-gray-800">
+        <div className="pt-8 border-t border-gray-800 dark:border-gray-700">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-400">
+            <p className="text-gray-400 dark:text-gray-500">
               © 2026 CodeFusion. All rights reserved. Made with ❤️ for coders.
             </p>
             <div className="flex gap-2">
-              <span className="bg-gray-800 px-3 py-1 rounded-full text-sm text-gray-400">Powered by Gemini AI</span>
-              <span className="bg-gray-800 px-3 py-1 rounded-full text-sm text-gray-400">Neon Database</span>
+              <span className="bg-gray-800 dark:bg-gray-900 px-3 py-1 rounded-full text-sm text-gray-400 dark:text-gray-500">Powered by Gemini AI</span>
+              <span className="bg-gray-800 dark:bg-gray-900 px-3 py-1 rounded-full text-sm text-gray-400 dark:text-gray-500">Neon Database</span>
             </div>
           </div>
         </div>

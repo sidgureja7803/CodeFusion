@@ -1,7 +1,4 @@
-# Node modules
-node_modules/
-
-# Environment files - DO NOT COMMIT
+# Environment files - DO NOT COMMIT TO GITHUB
 .env
 .env.local
 .env.development
@@ -14,12 +11,9 @@ node_modules/
 *.env
 *.env.*
 
-# Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+# Node modules
+node_modules/
+**/node_modules/
 
 # Build output
 dist/
@@ -29,31 +23,37 @@ build/
 out/
 coverage/
 
-# Dependency directories
-jspm_packages/
-
-# Temporary files
-*.tmp
-*.swp
-*.swo
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
 # OS-specific files
 .DS_Store
 Thumbs.db
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 
 # IDE-specific files
 .vscode/
 .idea/
 *.sublime-workspace
 *.sublime-project
+*.swp
+*.swo
+*.tmp
 
-# TypeScript build info
+# TypeScript
 *.tsbuildinfo
 
-# Optional lock files (uncomment if you don’t want to push them)
+# Optional lock files (uncomment if you don't want to push them)
 # package-lock.json
 # yarn.lock
 # pnpm-lock.yaml
 
-# Misc
-*.log

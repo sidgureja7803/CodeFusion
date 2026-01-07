@@ -1,57 +1,71 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
+/**
+ * Theme Store - Manages dark/light mode across the application
+ * Uses localStorage to persist theme preference
+ */
 export const useThemeStore = create(
   persist(
-    (set, get) => ({
-      theme: "light", // changed default theme to light
-      availableThemes: ["light", "dark"],
-
-      setTheme: (newTheme) => {
-        set({ theme: newTheme });
-
-        // Apply theme to document
-        document.documentElement.setAttribute("data-theme", newTheme);
-
-        // Add/remove dark class based on theme for Tailwind dark mode
-        if (newTheme === "dark") {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
+    (set) => ({
+      // Default to dark mode
+      theme: 'dark',
+      
+      /**
+       * Toggle between dark and light mode
+       */
+      toggleTheme: () => set((state) => {
+        const newTheme = state.theme === 'dark' ? 'light' : 'dark';
+        
+        // Update document class for Tailwind dark mode
+        if (typeof document !== 'undefined') {
+          document.documentElement.classList.remove('dark', 'light');
+          document.documentElement.classList.add(newTheme);
+          // Also set data-theme attribute for CSS variables
+          document.documentElement.setAttribute('data-theme', newTheme);
         }
-      },
-
-      toggleTheme: () => {
-        const { theme, availableThemes } = get();
-        const currentIndex = availableThemes.indexOf(theme);
-        const nextIndex = (currentIndex + 1) % availableThemes.length;
-        const newTheme = availableThemes[nextIndex];
-
-        set({ theme: newTheme });
-        document.documentElement.setAttribute("data-theme", newTheme);
-
-        // Add/remove dark class based on theme for Tailwind dark mode
-        if (newTheme === "dark") {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
+        
+        return { theme: newTheme };
+      }),
+      
+      /**
+       * Set specific theme (dark or light)
+       * @param {string} theme - 'dark' or 'light'
+       */
+      setTheme: (theme) => set(() => {
+        if (typeof document !== 'undefined') {
+          document.documentElement.classList.remove('dark', 'light');
+          document.documentElement.classList.add(theme);
+          // Also set data-theme attribute for CSS variables
+          document.documentElement.setAttribute('data-theme', theme);
         }
-      },
-
-      initializeTheme: () => {
-        const { theme } = get();
-        document.documentElement.setAttribute("data-theme", theme);
-
-        // Add this missing part - Initialize dark class for Tailwind
-        if (theme === "dark") {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
+        return { theme };
+      }),
+      
+      /**
+       * Get current theme
+       */
+      isDark: () => {
+        const state = useThemeStore.getState();
+        return state.theme === 'dark';
       },
     }),
     {
-      name: "arkham-theme-storage",
+      name: 'codefusion-theme', // localStorage key
+      onRehydrateStorage: () => (state) => {
+        // Apply theme on initial load
+        if (state && typeof document !== 'undefined') {
+          document.documentElement.classList.add(state.theme);
+          document.documentElement.setAttribute('data-theme', state.theme);
+        }
+      },
     }
   )
 );
+
+// Initialize theme on app load
+if (typeof window !== 'undefined') {
+  const initialState = useThemeStore.getState();
+  document.documentElement.classList.add(initialState.theme);
+  document.documentElement.setAttribute('data-theme', initialState.theme);
+}

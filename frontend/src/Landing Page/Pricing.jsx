@@ -3,43 +3,43 @@ import { Check, Zap } from "lucide-react";
 
 export const Pricing = () => {
   return (
-    <div id="pricing" className="py-24 bg-white">
+    <div id="pricing" className="py-24 bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="container mx-auto max-w-7xl px-4">
         <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold text-gray-900 mb-4">Simple, Transparent Pricing</h2>
-          <p className="text-xl text-gray-600">Start for free, upgrade when you're ready</p>
+          <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-4">Simple, Transparent Pricing</h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300">Start for free, upgrade when you're ready</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          <div className="p-10 bg-white border-2 border-gray-200 rounded-3xl hover:border-gray-300 transition-all hover:shadow-lg">
+          <div className="p-10 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-3xl hover:border-gray-300 dark:hover:border-gray-600 transition-all hover:shadow-lg">
             <div className="mb-6">
-              <h3 className="text-3xl font-bold text-gray-900 mb-2">Free</h3>
-              <p className="text-gray-600">Perfect for getting started</p>
+              <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Free</h3>
+              <p className="text-gray-600 dark:text-gray-400">Perfect for getting started</p>
             </div>
             <p className="mb-8">
-              <span className="text-6xl font-bold text-gray-900">$0</span>
-              <span className="text-xl text-gray-600 ml-2">/month</span>
+              <span className="text-6xl font-bold text-gray-900 dark:text-white">$0</span>
+              <span className="text-xl text-gray-600 dark:text-gray-400 ml-2">/month</span>
             </p>
             <ul className="space-y-4 mb-10">
               <li className="flex items-start gap-3">
-                <Check className="text-green-600 flex-shrink-0 mt-1" size={20} />
-                <span className="text-gray-700">Access to all coding problems</span>
+                <Check className="text-green-600 dark:text-green-400 flex-shrink-0 mt-1" size={20} />
+                <span className="text-gray-700 dark:text-gray-300">Access to all coding problems</span>
               </li>
               <li className="flex items-start gap-3">
-                <Check className="text-green-600 flex-shrink-0 mt-1" size={20} />
-                <span className="text-gray-700">Code execution in 40+ languages</span>
+                <Check className="text-green-600 dark:text-green-400 flex-shrink-0 mt-1" size={20} />
+                <span className="text-gray-700 dark:text-gray-300">Code execution in 40+ languages</span>
               </li>
               <li className="flex items-start gap-3">
-                <Check className="text-green-600 flex-shrink-0 mt-1" size={20} />
-                <span className="text-gray-700">Basic AI assistance</span>
+                <Check className="text-green-600 dark:text-green-400 flex-shrink-0 mt-1" size={20} />
+                <span className="text-gray-700 dark:text-gray-300">Basic AI assistance</span>
               </li>
               <li className="flex items-start gap-3">
-                <Check className="text-green-600 flex-shrink-0 mt-1" size={20} />
-                <span className="text-gray-700">Community discussions</span>
+                <Check className="text-green-600 dark:text-green-400 flex-shrink-0 mt-1" size={20} />
+                <span className="text-gray-700 dark:text-gray-300">Community discussions</span>
               </li>
             </ul>
             <Link to="/sign-up">
-              <button className="w-full px-8 py-4 bg-white text-gray-900 border-2 border-gray-300 rounded-xl font-semibold hover:bg-gray-50 transition-all">
+              <button className="w-full px-8 py-4 bg-white dark:bg-gray-700 text-gray-900 dark:text-white border-2 border-gray-300 dark:border-gray-600 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-gray-600 transition-all">
                 Get Started Free
               </button>
             </Link>
