@@ -2,7 +2,7 @@ import {
   generateAIResponse,
   explainCode,
   generateProblem,
-} from "../libs/blackbox.lib.js";
+} from "../libs/llama.lib.js";
 import { db } from "../libs/db.js";
 
 export const getAIHelp = async (req, res) => {
@@ -10,13 +10,13 @@ export const getAIHelp = async (req, res) => {
     // Log more details about the user making the request
     console.log("📝 AI Help Request from user:", req.loggedInUser?.id);
     console.log("📧 User email:", req.loggedInUser?.email);
-    
+
     // Check if token refresh is recommended (from auth middleware)
     const needsRefresh = res.getHeader('X-Token-Refresh-Required');
     if (needsRefresh) {
       console.log("⚠️ Token refresh recommended for this user");
     }
-    
+
     const { prompt, problemId, code, language } = req.body;
 
     if (!prompt) {
@@ -26,7 +26,7 @@ export const getAIHelp = async (req, res) => {
         message: "Prompt is required",
       });
     }
-    
+
     console.log("✅ AI Help: Valid prompt received, length:", prompt.length);
 
     // Get problem details if problemId is provided
@@ -43,7 +43,7 @@ export const getAIHelp = async (req, res) => {
         userCode: code,
         language,
       });
-      
+
       console.log("✅ AI Help: Response generated successfully, length:", aiResponse?.length);
 
       return res.status(200).json({
@@ -53,11 +53,11 @@ export const getAIHelp = async (req, res) => {
       });
     } catch (aiError) {
       console.error("❌ AI Service Error:", aiError.message);
-      
+
       // Try fallback response for API errors
-      if (aiError.message.includes("API key") || 
-          aiError.message.includes("401") || 
-          aiError.message.includes("403")) {
+      if (aiError.message.includes("API key") ||
+        aiError.message.includes("401") ||
+        aiError.message.includes("403")) {
         return res.status(500).json({
           success: false,
           message: "AI service authentication failed. Please check API configuration.",
