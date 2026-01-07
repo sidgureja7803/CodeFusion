@@ -30,5 +30,5 @@ services:
         sync: false
       - key: LIVEBLOCKS_SECRET_KEY
         sync: false
-      - key: PERPLEXITY_API_KEY
+      - key: GEMINI_API_KEY
         sync: false
