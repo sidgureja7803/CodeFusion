@@ -3,6 +3,9 @@ generator client {
   output   = "../src/generated/prisma"
 }
 
+// Neon Database Configuration
+// DATABASE_URL: Connection pooling URL (recommended for serverless)
+// DIRECT_URL: Direct database connection URL (for migrations)
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
