@@ -303,7 +303,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/siddhantgureja/Desktop/Resume/CodeFusion/backend/src/generated/prisma",
+      "value": "/Users/siddhantgureja/Desktop/CodeFusion/backend/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -317,7 +317,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/siddhantgureja/Desktop/Resume/CodeFusion/backend/prisma/schema.prisma",
+    "sourceFilePath": "/Users/siddhantgureja/Desktop/CodeFusion/backend/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -331,6 +331,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
