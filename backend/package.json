@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "build": "prisma generate",
+    "build": "npx prisma generate",
     "test": "echo \"Error: no test specified\" && exit 1",
     "populate-leetcode": "node src/scripts/populate_leetcode_problems.js",
     "populate-leetcode-force": "node src/scripts/populate_leetcode_problems.js --force",
@@ -37,9 +37,7 @@
     "mongoose": "^8.15.2",
     "node-fetch": "^2.7.0",
     "nodemailer": "^7.0.5",
-    "nodemon": "^3.1.11"
-  },
-  "devDependencies": {
+    "nodemon": "^3.1.11",
     "prisma": "^6.14.0"
   }
 }
