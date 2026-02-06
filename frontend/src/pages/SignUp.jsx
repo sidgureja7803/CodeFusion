@@ -1,41 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Eye, EyeOff, Mail, Lock, User, Code2, ArrowRight, CheckCircle, AlertCircle, Check, X, Github } from "lucide-react";
-import { useAuthStore } from "../store/useAuthStore";
+import React, { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import { Code2 } from "lucide-react";
 import SocialLoginButtons from "../components/SocialLoginButtons";
-import { toast } from "react-hot-toast";
 import gsap from "gsap";
 
 export const SignUp = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const [isLoading, setIsLoading] = useState(false);
-  const [passwordStrength, setPasswordStrength] = useState({
-    score: 0,
-    feedback: [],
-    isValid: false
-  });
   const pageRef = useRef(null);
-  const navigate = useNavigate();
-  const { signUp } = useAuthStore();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Animated background gradient
-      gsap.to(".signup-bg", {
-        backgroundPosition: "200% 200%",
-        duration: 25,
-        repeat: -1,
-        yoyo: true,
-        ease: "none"
-      });
-
       // Floating code elements animation
       gsap.to(".floating-code", {
         y: -20,
@@ -69,164 +42,6 @@ export const SignUp = () => {
     return () => ctx.revert();
   }, []);
 
-  // Password strength validation
-  const validatePassword = (password) => {
-    const checks = [
-      { test: password.length >= 8, message: "At least 8 characters" },
-      { test: /[A-Z]/.test(password), message: "One uppercase letter" },
-      { test: /[a-z]/.test(password), message: "One lowercase letter" },
-      { test: /\d/.test(password), message: "One number" },
-      { test: /[!@#$%^&*(),.?":{}|<>]/.test(password), message: "One special character" },
-    ];
-
-    const passedChecks = checks.filter(check => check.test);
-    const score = passedChecks.length;
-    const isValid = score >= 4; // At least 4 out of 5 criteria
-
-    return {
-      score,
-      feedback: checks,
-      isValid,
-      strength: score <= 2 ? 'weak' : score <= 3 ? 'medium' : score <= 4 ? 'good' : 'strong'
-    };
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-
-    // Validate password strength in real-time
-    if (name === 'password') {
-      setPasswordStrength(validatePassword(value));
-    }
-  };
-
-  const [errorState, setErrorState] = useState({
-    visible: false,
-    message: '',
-    type: '' // 'email', 'server', 'validation'
-  });
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    // Reset error state
-    setErrorState({ visible: false, message: '', type: '' });
-    
-    // Validation checks
-    if (!formData.name.trim()) {
-      setErrorState({
-        visible: true,
-        message: "Please enter your full name!",
-        type: 'validation'
-      });
-      toast.error("Please enter your full name!");
-      return;
-    }
-
-    if (!formData.email.trim()) {
-      setErrorState({
-        visible: true,
-        message: "Please enter your email address!",
-        type: 'email'
-      });
-      toast.error("Please enter your email address!");
-      return;
-    }
-
-    if (!passwordStrength.isValid) {
-      setErrorState({
-        visible: true,
-        message: "Please create a stronger password that meets the requirements.",
-        type: 'validation'
-      });
-      toast.error("Please create a stronger password!");
-      return;
-    }
-
-    if (formData.password !== formData.confirmPassword) {
-      setErrorState({
-        visible: true,
-        message: "Passwords don't match! Please check and try again.",
-        type: 'validation'
-      });
-      toast.error("Passwords don't match!");
-      return;
-    }
-
-    setIsLoading(true);
-
-    try {
-      const response = await signUp({
-        name: formData.name.trim(),
-        email: formData.email.trim(),
-        password: formData.password,
-      });
-      
-      // Check if email verification is required
-      if (response?.requiresVerification) {
-        toast.success("Account created! Please check your email for verification code.");
-        // Pass both email and password to the verification page for auto-login after verification
-        navigate("/verify-email", { 
-          state: { 
-            email: formData.email.trim(),
-            password: formData.password // Pass password for auto-login
-          } 
-        });
-      } else {
-        toast.success("Welcome to CodeFusion! Let's start coding together!");
-        navigate("/dashboard");
-      }
-    } catch (error) {
-      console.error("Signup error:", error);
-      let errorMessage = error.response?.data?.message || error.message || "Sign up failed. Please try again.";
-      let errorType = 'server';
-      
-      // Handle specific error cases
-      if (errorMessage.toLowerCase().includes('already exists') || 
-          errorMessage.toLowerCase().includes('email already exists')) {
-        errorMessage = "This email address is already registered. Please sign in instead.";
-        errorType = 'email';
-      } else if (error.response?.status === 500) {
-        errorMessage = "Server error occurred. Please try again later.";
-      } else if (error.message === "Network Error") {
-        errorMessage = "Cannot connect to server. Please check your internet connection.";
-      }
-      
-      setErrorState({
-        visible: true,
-        message: errorMessage,
-        type: errorType
-      });
-      
-      toast.error(errorMessage, {
-        duration: 5000 // Show error for longer
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const getStrengthColor = (strength) => {
-    switch (strength) {
-      case 'weak': return 'text-red-400';
-      case 'medium': return 'text-yellow-400';
-      case 'good': return 'text-blue-400';
-      case 'strong': return 'text-green-400';
-      default: return 'text-gray-400';
-    }
-  };
-
-  const getStrengthBgColor = (strength) => {
-    switch (strength) {
-      case 'weak': return 'bg-red-500';
-      case 'medium': return 'bg-yellow-500';
-      case 'good': return 'bg-blue-500';
-      case 'strong': return 'bg-green-500';
-      default: return 'bg-gray-500';
-    }
-  };
-
   return (
     <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-orange-50 via-white to-yellow-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900" ref={pageRef}>
       {/* Background Pattern */}
@@ -256,194 +71,36 @@ export const SignUp = () => {
             </div>
             
             <h1 className="text-3xl font-bold text-gray-900 dark:text-slate-200 mb-2">
-              Join CodeFusion
+              Join CodeFusion 🚀
             </h1>
             <p className="text-gray-600 dark:text-slate-400">
-              Start your coding journey today 🚀
+              Start your coding journey today
             </p>
           </div>
 
           {/* Main Form Container */}
-          <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-lg rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-6">
+          <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-lg rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-8">
+            {/* Info Message */}
+            <div className="mb-6 text-center">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Create your account with
+              </p>
+            </div>
+
             {/* Social Login Buttons */}
             <SocialLoginButtons />
 
-            {/* Divider */}
-            <div className="relative mb-6">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-slate-200 dark:border-slate-600"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-3 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-medium">or</span>
-              </div>
-            </div>
-
-            {/* Sign Up Form */}
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Name Field */}
-              <div className="space-y-1">
-                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Full Name</label>
-                <div className="relative">
-                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-800 dark:text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
-                    placeholder="Enter your full name"
-                    required
-                  />
-                </div>
-              </div>
-
-              {/* Email Field */}
-              <div className="space-y-1">
-                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Email</label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className={`w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-700 border ${errorState.visible && errorState.type === 'email' ? 'border-red-500 dark:border-red-500' : 'border-slate-200 dark:border-slate-600'} rounded-lg text-slate-800 dark:text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 ${errorState.visible && errorState.type === 'email' ? 'focus:ring-red-500' : 'focus:ring-orange-500'} focus:border-transparent transition-all`}
-                    placeholder="Enter your email"
-                    required
-                  />
-                </div>
-                {errorState.visible && errorState.type === 'email' && (
-                  <div className="flex items-center gap-2 mt-1 text-red-500 text-sm">
-                    <AlertCircle className="w-4 h-4" />
-                    <span>{errorState.message}</span>
-                  </div>
-                )}
-              </div>
-
-              {/* Password Field */}
-              <div className="space-y-1">
-                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Password</label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    className="w-full pl-10 pr-12 py-2.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-800 dark:text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
-                    placeholder="Create a strong password"
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
-                  >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  </button>
-                </div>
-                
-                {/* Password Strength Indicator */}
-                {formData.password && (
-                  <div className="mt-2 space-y-2">
-                    <div className="flex items-center gap-2">
-                      <div className="flex-1 bg-slate-200 dark:bg-slate-600 rounded-full h-1.5">
-                        <div 
-                          className={`h-1.5 rounded-full transition-all duration-300 ${getStrengthBgColor(passwordStrength.strength)}`}
-                          style={{ width: `${(passwordStrength.score / 5) * 100}%` }}
-                        ></div>
-                      </div>
-                      <span className={`text-xs font-medium ${getStrengthColor(passwordStrength.strength)}`}>
-                        {passwordStrength.strength.charAt(0).toUpperCase() + passwordStrength.strength.slice(1)}
-                      </span>
-                    </div>
-                    
-                    <div className="grid grid-cols-1 gap-1">
-                      {passwordStrength.feedback.slice(0, 3).map((check, index) => (
-                        <div key={index} className="flex items-center gap-2 text-xs">
-                          {check.test ? (
-                            <Check className="w-3 h-3 text-green-500" />
-                          ) : (
-                            <X className="w-3 h-3 text-slate-400" />
-                          )}
-                          <span className={check.test ? 'text-green-600 dark:text-green-400' : 'text-slate-500 dark:text-slate-400'}>
-                            {check.message}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Confirm Password Field */}
-              <div className="space-y-1">
-                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Confirm Password</label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
-                  <input
-                    type={showConfirmPassword ? "text" : "password"}
-                    name="confirmPassword"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    className="w-full pl-10 pr-12 py-2.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-800 dark:text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
-                    placeholder="Confirm your password"
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
-                  >
-                    {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  </button>
-                </div>
-                {formData.confirmPassword && formData.password !== formData.confirmPassword && (
-                  <div className="flex items-center gap-2 text-xs text-red-500 mt-1">
-                    <AlertCircle className="w-3 h-3" />
-                    <span>Passwords don't match</span>
-                  </div>
-                )}
-              </div>
-
-              {/* Error Message Display */}
-              {errorState.visible && errorState.type === 'server' && (
-                <div className="p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg">
-                  <div className="flex items-center gap-2 text-red-600 dark:text-red-400">
-                    <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                    <span className="font-medium">{errorState.message}</span>
-                  </div>
-                </div>
-              )}
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={isLoading || !passwordStrength.isValid || formData.password !== formData.confirmPassword}
-                className="w-full py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-bold hover:from-orange-600 hover:to-orange-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
-              >
-                {isLoading ? (
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                ) : (
-                  <>
-                    Create Account
-                    <ArrowRight className="w-4 h-4" />
-                  </>
-                )}
-              </button>
-
-              {/* Terms */}
-              <p className="text-xs text-slate-500 dark:text-slate-400 text-center">
-                By creating an account, you agree to our{" "}
-                <Link to="/terms" className="text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 font-semibold">
-                  Terms of Service
-                </Link>{" "}
-                and{" "}
-                <Link to="/privacy" className="text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 font-semibold">
-                  Privacy Policy
-                </Link>
-              </p>
-            </form>
+            {/* Terms */}
+            <p className="text-xs text-slate-500 dark:text-slate-400 text-center mt-6">
+              By creating an account, you agree to our{" "}
+              <Link to="/terms" className="text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 font-semibold">
+                Terms of Service
+              </Link>{" "}
+              and{" "}
+              <Link to="/privacy" className="text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 font-semibold">
+                Privacy Policy
+              </Link>
+            </p>
           </div>
 
           {/* Sign In Link */}

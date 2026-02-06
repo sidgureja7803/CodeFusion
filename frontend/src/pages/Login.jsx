@@ -1,34 +1,15 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import React, { useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Eye, EyeOff, Mail, Lock, Code2, ArrowRight } from "lucide-react";
-import { useAuthStore } from "../store/useAuthStore";
+import { Code2 } from "lucide-react";
 import SocialLoginButtons from "../components/SocialLoginButtons";
-import { toast } from "react-hot-toast";
 import gsap from "gsap";
 
 export const Login = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-  const [isLoading, setIsLoading] = useState(false);
   const pageRef = useRef(null);
-  const navigate = useNavigate();
-  const { login } = useAuthStore();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Animated background gradient
-      gsap.to(".login-bg", {
-        backgroundPosition: "200% 200%",
-        duration: 20,
-        repeat: -1,
-        yoyo: true,
-        ease: "none"
-      });
-
       // Floating code elements animation
       gsap.to(".floating-code", {
         y: -15,
@@ -61,48 +42,6 @@ export const Login = () => {
 
     return () => ctx.revert();
   }, []);
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      await login(formData);
-      toast.success("Welcome back to CodeFusion!");
-      navigate("/dashboard");
-    } catch (error) {
-      // Check if it's an email verification error
-      if (error.response?.data?.code === "EMAIL_NOT_VERIFIED") {
-        const email = error.response?.data?.email || formData.email;
-        const otpSent = error.response?.data?.otpSent;
-        
-        if (otpSent) {
-          toast.success("New verification code sent! Redirecting...");
-        } else {
-          toast.error("Email not verified. Redirecting to verification page...");
-        }
-        
-        // Redirect to verification page with email, password and flag
-        setTimeout(() => {
-          navigate("/verify-email", { 
-            state: { 
-              email, 
-              password: formData.password, // Pass password for auto-login after verification
-              fromLogin: true 
-            } 
-          });
-        }, 1500);
-      } else {
-        toast.error(error.response?.data?.message || error.message || "Login failed. Please try again.");
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-orange-50 via-white to-yellow-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900" ref={pageRef}>
@@ -147,79 +86,16 @@ export const Login = () => {
           </div>
 
           {/* Main Form Container */}
-          <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-lg rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-6">
+          <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-lg rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-8">
+            {/* Info Message */}
+            <div className="mb-6 text-center">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Sign in with your preferred account
+              </p>
+            </div>
+
             {/* Social Login Buttons */}
             <SocialLoginButtons />
-
-            {/* Login Form */}
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Email Field */}
-              <div className="space-y-1">
-                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Email</label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-800 dark:text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
-                    placeholder="Enter your email"
-                    required
-                  />
-                </div>
-              </div>
-
-              {/* Password Field */}
-              <div className="space-y-1">
-                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Password</label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    className="w-full pl-10 pr-12 py-2.5 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-800 dark:text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
-                    placeholder="Enter your password"
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
-                  >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  </button>
-                </div>
-              </div>
-
-              {/* Forgot Password */}
-              <div className="text-right">
-                <Link
-                  to="/forgot-password"
-                  className="text-sm text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 font-semibold transition-colors"
-                >
-                  Forgot password?
-                </Link>
-              </div>
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="w-full py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-bold hover:from-orange-600 hover:to-orange-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
-              >
-                {isLoading ? (
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                ) : (
-                  <>
-                    Sign In
-                    <ArrowRight className="w-4 h-4" />
-                  </>
-                )}
-              </button>
-            </form>
           </div>
 
           {/* Sign Up Link */}
