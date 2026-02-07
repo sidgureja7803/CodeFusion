@@ -15,6 +15,7 @@ import Playlists from "./pages/Playlists";
 import Profile from "./pages/Profile";
 import { Analytics } from "@vercel/analytics/react";
 import { useAuthStore } from "./store/useAuthStore";
+import { useFirebaseAuthStore } from "./store/useFirebaseAuthStore";
 import ToastContainer from "./components/ToastContainer";
 import "./input.css";
 import AdminRoute from "./components/AdminRoute";
@@ -40,9 +41,15 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 // Separate component to handle location and auth state
 function AppRoutes() {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
+  const { handleRedirectResult } = useFirebaseAuthStore();
   const location = useLocation();
   // Theme is auto-initialized by the store on import
   const appRef = useRef(null);
+
+  // Handle Firebase redirect result on app initialization
+  useEffect(() => {
+    handleRedirectResult();
+  }, [handleRedirectResult]);
 
   useEffect(() => {
     // Theme is already initialized automatically by the store

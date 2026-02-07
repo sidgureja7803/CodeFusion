@@ -1,11 +1,40 @@
 import { create } from 'zustand';
-import { signInWithGoogle, signInWithGithub, signOut } from '../libs/firebase';
+import { signInWithGoogle, signInWithGithub, signOut, handleRedirectResult } from '../libs/firebase';
 import { axiosInstance } from '../libs/axios';
 import { Toast } from './useToastStore';
 
 export const useFirebaseAuthStore = create((set, get) => ({
   isLoading: false,
   error: null,
+
+  // Handle redirect result (call on app initialization)
+  handleRedirectResult: async () => {
+    try {
+      const result = await handleRedirectResult();
+      if (result && result.idToken) {
+        console.log('🔍 Processing redirect result...');
+        set({ isLoading: true });
+
+        // Send token to backend
+        const response = await axiosInstance.post('/firebase-auth/login', {
+          idToken: result.idToken,
+          provider: result.provider
+        });
+
+        if (response.data.success) {
+          Toast.success('Successfully signed in!');
+          window.location.href = '/dashboard';
+        }
+      }
+    } catch (error) {
+      console.error('Redirect result error:', error);
+      const errorMessage = error.response?.data?.message || error.message || 'Failed to complete sign-in';
+      Toast.error(errorMessage);
+      set({ error: errorMessage });
+    } finally {
+      set({ isLoading: false });
+    }
+  },
 
   // Wake up backend (for Render deployment)
   wakeUpBackend: async () => {
@@ -28,7 +57,15 @@ export const useFirebaseAuthStore = create((set, get) => ({
       // Wake up backend first
       await get().wakeUpBackend();
 
-      const { idToken, provider } = await signInWithGoogle();
+      const result = await signInWithGoogle();
+
+      // If result is null, it means redirect is happening
+      if (!result) {
+        console.log('🔄 Redirecting to Google sign-in...');
+        return;
+      }
+
+      const { idToken, provider } = result;
 
       // Send token to backend
       const response = await axiosInstance.post('/firebase-auth/login', {
@@ -44,7 +81,7 @@ export const useFirebaseAuthStore = create((set, get) => ({
 
     } catch (error) {
       console.error('Google sign-in error:', error);
-      const errorMessage = error.response?.data?.message || 'Failed to sign in with Google';
+      const errorMessage = error.response?.data?.message || error.message || 'Failed to sign in with Google';
       set({ error: errorMessage });
       Toast.error(errorMessage);
     } finally {
@@ -60,7 +97,15 @@ export const useFirebaseAuthStore = create((set, get) => ({
       // Wake up backend first
       await get().wakeUpBackend();
 
-      const { idToken, provider } = await signInWithGithub();
+      const result = await signInWithGithub();
+
+      // If result is null, it means redirect is happening
+      if (!result) {
+        console.log('🔄 Redirecting to GitHub sign-in...');
+        return;
+      }
+
+      const { idToken, provider } = result;
 
       // Send token to backend
       const response = await axiosInstance.post('/firebase-auth/login', {
@@ -76,7 +121,7 @@ export const useFirebaseAuthStore = create((set, get) => ({
 
     } catch (error) {
       console.error('GitHub sign-in error:', error);
-      const errorMessage = error.response?.data?.message || 'Failed to sign in with GitHub';
+      const errorMessage = error.response?.data?.message || error.message || 'Failed to sign in with GitHub';
       set({ error: errorMessage });
       Toast.error(errorMessage);
     } finally {

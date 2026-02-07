@@ -4,6 +4,8 @@ import {
   GoogleAuthProvider, 
   GithubAuthProvider,
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   signOut as firebaseSignOut,
   connectAuthEmulator
 } from 'firebase/auth';
@@ -83,7 +85,7 @@ if (auth) {
 }
 
 // Sign in with Google
-export const signInWithGoogle = async () => {
+export const signInWithGoogle = async (useRedirect = false) => {
   if (!auth || !googleProvider) {
     throw new Error('Firebase authentication is not properly configured');
   }
@@ -91,24 +93,34 @@ export const signInWithGoogle = async () => {
   try {
     console.log('🔍 Starting Google sign-in...');
     
-    const result = await signInWithPopup(auth, googleProvider);
-    const user = result.user;
-    const idToken = await user.getIdToken();
-    
-    console.log('✅ Google sign-in successful:', user.email);
-    
-    return {
-      user,
-      idToken,
-      provider: 'google.com'
-    };
+    // Try popup first, fall back to redirect if blocked
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      const idToken = await user.getIdToken();
+      
+      console.log('✅ Google sign-in successful:', user.email);
+      
+      return {
+        user,
+        idToken,
+        provider: 'google.com'
+      };
+    } catch (popupError) {
+      // If popup is blocked, use redirect instead
+      if (popupError.code === 'auth/popup-blocked') {
+        console.log('⚠️ Popup blocked, using redirect method...');
+        await signInWithRedirect(auth, googleProvider);
+        // Redirect will happen, no return needed
+        return null;
+      }
+      throw popupError;
+    }
   } catch (error) {
     console.error('❌ Google sign-in error:', error);
     
     // More specific error handling
-    if (error.code === 'auth/popup-blocked') {
-      throw new Error('Popup blocked! Please allow popups for this site and try again.');
-    } else if (error.code === 'auth/popup-closed-by-user') {
+    if (error.code === 'auth/popup-closed-by-user') {
       throw new Error('Sign-in cancelled. Please try again.');
     } else if (error.code === 'auth/unauthorized-domain') {
       throw new Error('Domain not authorized. Please contact support.');
@@ -127,7 +139,7 @@ export const signInWithGoogle = async () => {
 };
 
 // Sign in with GitHub
-export const signInWithGithub = async () => {
+export const signInWithGithub = async (useRedirect = false) => {
   if (!auth || !githubProvider) {
     throw new Error('Firebase authentication is not properly configured');
   }
@@ -135,24 +147,34 @@ export const signInWithGithub = async () => {
   try {
     console.log('🔍 Starting GitHub sign-in...');
     
-    const result = await signInWithPopup(auth, githubProvider);
-    const user = result.user;
-    const idToken = await user.getIdToken();
-    
-    console.log('✅ GitHub sign-in successful:', user.email);
-    
-    return {
-      user,
-      idToken,
-      provider: 'github.com'
-    };
+    // Try popup first, fall back to redirect if blocked
+    try {
+      const result = await signInWithPopup(auth, githubProvider);
+      const user = result.user;
+      const idToken = await user.getIdToken();
+      
+      console.log('✅ GitHub sign-in successful:', user.email);
+      
+      return {
+        user,
+        idToken,
+        provider: 'github.com'
+      };
+    } catch (popupError) {
+      // If popup is blocked, use redirect instead
+      if (popupError.code === 'auth/popup-blocked') {
+        console.log('⚠️ Popup blocked, using redirect method...');
+        await signInWithRedirect(auth, githubProvider);
+        // Redirect will happen, no return needed
+        return null;
+      }
+      throw popupError;
+    }
   } catch (error) {
     console.error('❌ GitHub sign-in error:', error);
     
     // More specific error handling
-    if (error.code === 'auth/popup-blocked') {
-      throw new Error('Popup blocked! Please allow popups for this site and try again.');
-    } else if (error.code === 'auth/popup-closed-by-user') {
+    if (error.code === 'auth/popup-closed-by-user') {
       throw new Error('Sign-in cancelled. Please try again.');
     } else if (error.code === 'auth/unauthorized-domain') {
       throw new Error('Domain not authorized. Please contact support.');
@@ -203,6 +225,37 @@ export const getCurrentUserToken = async () => {
     return null;
   } catch (error) {
     console.error('Error getting user token:', error);
+    throw error;
+  }
+};
+
+// Handle redirect result (call this on app initialization)
+export const handleRedirectResult = async () => {
+  if (!auth) {
+    console.warn('⚠️ Firebase auth not available for redirect result');
+    return null;
+  }
+
+  try {
+    const result = await getRedirectResult(auth);
+    if (result) {
+      const user = result.user;
+      const idToken = await user.getIdToken();
+      
+      console.log('✅ Redirect sign-in successful:', user.email);
+      
+      // Determine provider from result
+      const providerId = result.providerId || 'google.com';
+      
+      return {
+        user,
+        idToken,
+        provider: providerId
+      };
+    }
+    return null;
+  } catch (error) {
+    console.error('❌ Redirect result error:', error);
     throw error;
   }
 };
